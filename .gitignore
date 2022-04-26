@@ -1,0 +1,12 @@
+.idea/
+.vscode/
+static
+__pycache__
+src/conf/maintenance_mode_state.txt
+
+# Ignore configuration file
+docker/settings/develop/settings.env
+
+# Using this for pyenv in development environment.
+.python-version
+docker/compose-*

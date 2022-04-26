@@ -1,0 +1,15 @@
+{% extends "./base.html" %}
+
+{% block preheader %}
+<span class="preheader" style="color: transparent; display: none; height: 0; max-height: 0; max-width: 0; opacity: 0; overflow: hidden; mso-hide: all; visibility: hidden; width: 0;">Notificació</span>
+{% endblock %}
+
+{% block main_content %}
+<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;">
+<tr>
+  <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;">
+    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">{{ mail_content }}</p>
+  </td>
+</tr>
+</table>
+{% endblock %}

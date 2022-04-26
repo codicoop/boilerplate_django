@@ -1,0 +1,59 @@
+version: "3.5"
+
+networks:
+  develop_project_name_network:
+    name: develop_project_name_network
+
+services:
+  # http://127.0.0.1:8000 or http://localhost:8000
+  develop_project_name_app:
+    restart: on-failure
+    container_name: develop_project_name_app
+    build:
+      context: ..
+      dockerfile: ./docker/Dockerfile
+      target: development
+    env_file: ./settings/develop/settings.env
+    command: gunicorn conf.wsgi:application --bind 0.0.0.0:8000 --reload
+    volumes:
+      - ../src:/srv
+    depends_on:
+      - develop_project_name_db
+    networks:
+      - develop_project_name_network
+
+  # http://localhost:8080/
+#  develop_project_name_adminer:
+#    container_name: develop_project_name_adminer
+#    image: adminer
+#    ports:
+#      - 9876:8080
+#    depends_on:
+#      - develop_project_name_rb
+#    networks:
+#      - develop_project_name_network
+
+  develop_project_name_db:
+    container_name: develop_project_name_db
+    image: postgres:14
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    volumes:
+      - ../dumps:/dumps
+    networks:
+      - develop_project_name_network
+
+  develop_project_name_nginx:
+    container_name: develop_project_name_nginx
+    image: nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d
+      - ../:/srv
+    ports:
+      # To run multiple projects at once, change it to 8001:80 etc.
+      - 8001:80
+    depends_on:
+      - develop_project_name_app
+    networks:
+      - develop_project_name_network
+
