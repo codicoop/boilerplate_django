@@ -3,4 +3,4 @@ from django.views.generic import RedirectView, TemplateView
 
 
 class Home(RedirectView):
-    url = reverse_lazy("login")
+    url = reverse_lazy("admin:login")
