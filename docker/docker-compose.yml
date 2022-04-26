@@ -1,0 +1,46 @@
+version: "3.5"
+
+networks:
+  develop_django_boilerplate_network:
+    name: develop_django_boilerplate_network
+
+services:
+  develop_django_boilerplate_app:
+    restart: on-failure
+    container_name: develop_django_boilerplate_app
+    build:
+      context: ..
+      dockerfile: ./docker/Dockerfile
+      target: development
+    env_file: ./settings/development.env
+    command: gunicorn conf.wsgi:application --bind 0.0.0.0:8000 --reload
+    volumes:
+      - ../src:/srv
+    depends_on:
+      - develop_django_boilerplate_db
+    networks:
+      - develop_django_boilerplate_network
+
+  develop_django_boilerplate_db:
+    container_name: develop_django_boilerplate_db
+    image: postgres:14
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    volumes:
+      - ../dumps:/dumps
+    networks:
+      - develop_django_boilerplate_network
+
+  develop_django_boilerplate_nginx:
+    container_name: develop_django_boilerplate_nginx
+    image: nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d
+      - ../:/srv
+    ports:
+      # To run multiple projects at once, change it to 8001:80 etc.
+      - 8001:80
+    depends_on:
+      - develop_django_boilerplate_app
+    networks:
+      - develop_django_boilerplate_network
