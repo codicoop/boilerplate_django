@@ -66,7 +66,11 @@ RUN poetry install
 
 # will become mountpoint of our code
 WORKDIR /srv
+COPY src /srv
 CMD ["gunicorn", "conf.wsgi:application", "--bind", "0.0.0.0:8000", "--reload"]
+RUN ["python", "manage.py", "makemigrations"]
+# RUN ["python", "manage.py", "migrate"]
+# RUN ["python", "manage.py", "createsuperuser", "--no-input"]
 
 # `production` image used for runtime
 FROM python-base as production
