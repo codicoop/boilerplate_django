@@ -3,6 +3,10 @@
 from django.db import migrations, models
 from django.contrib.postgres.operations import UnaccentExtension
 
+import environ
+env = environ.Env()
+environ.Env.read_env()
+
 
 class Migration(migrations.Migration):
 
@@ -11,6 +15,17 @@ class Migration(migrations.Migration):
     dependencies = [
         ('auth', '0011_update_proxy_permissions'),
     ]
+
+    def generate_superuser(apps, schema_editor):
+        from apps.users.models import User
+
+        DJANGO_SUPERUSER_EMAIL = env('DJANGO_SUPERUSER_EMAIL')
+        DJANGO_SUPERUSER_PASSWORD = env('DJANGO_SUPERUSER_PASSWORD')
+
+        User.objects.create_superuser(
+            email=DJANGO_SUPERUSER_EMAIL,
+            password=DJANGO_SUPERUSER_PASSWORD
+        )
 
     operations = [
         UnaccentExtension(),
@@ -31,4 +46,5 @@ class Migration(migrations.Migration):
                 'abstract': False,
             },
         ),
+        migrations.RunPython(generate_superuser)
     ]
