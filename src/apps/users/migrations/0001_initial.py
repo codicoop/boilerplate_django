@@ -22,10 +22,14 @@ class Migration(migrations.Migration):
         DJANGO_SUPERUSER_EMAIL = env('DJANGO_SUPERUSER_EMAIL')
         DJANGO_SUPERUSER_PASSWORD = env('DJANGO_SUPERUSER_PASSWORD')
 
-        User.objects.create_superuser(
-            email=DJANGO_SUPERUSER_EMAIL,
-            password=DJANGO_SUPERUSER_PASSWORD
-        )
+        # Es crea només si les dues variables estan posades
+        if DJANGO_SUPERUSER_EMAIL and DJANGO_SUPERUSER_PASSWORD:
+            User.objects.create_superuser(
+                email=DJANGO_SUPERUSER_EMAIL,
+                password=DJANGO_SUPERUSER_PASSWORD
+            )
+        else:
+            print("Superuser data is not set: superuser will not be created.")
 
     operations = [
         UnaccentExtension(),
