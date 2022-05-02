@@ -1,4 +1,4 @@
-FROM python:3.10.3-slim as python-base
+FROM python:3.9.5 as python-base
 
 # ensures that the python output is sent straight to terminal
 ENV PYTHONUNBUFFERED=1 \
