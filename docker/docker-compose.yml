@@ -13,13 +13,27 @@ services:
       dockerfile: ./docker/Dockerfile
       target: development
     env_file: ./settings/development.env
-    command: >
-      sh -c "python manage.py migrate &&
-             gunicorn conf.wsgi:application --bind 0.0.0.0:8000 --reload"
+    command: gunicorn conf.wsgi:application --bind 0.0.0.0:8000 --reload
     volumes:
       - ../src:/srv
     depends_on:
       - develop_django_boilerplate_db
+    networks:
+      - develop_django_boilerplate_network
+
+  develop_django_boilerplate_startup_commands:
+    restart: on-failure
+    container_name: develop_django_boilerplate_startup_commands
+    build:
+      context: ..
+      dockerfile: ./docker/Dockerfile
+      target: development
+    env_file: ./settings/development.env
+    command: python manage.py migrate
+    volumes:
+      - ../src:/srv
+    depends_on:
+      - develop_django_boilerplate_app
     networks:
       - develop_django_boilerplate_network
 
