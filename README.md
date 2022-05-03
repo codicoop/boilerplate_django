@@ -45,6 +45,16 @@ file_field = models.FileField(
 
 It's recommended that by default you always use the private storage method.
 
+## `ModelAdminMixin` and `base.ModelAdmin`
+
+If your project doesn't use the admin panel, you can delete it.
+
+Use `ModelAdmin` or the mixin in combination with `BaseModel` to automatically
+fill the `created_by` field when saving new registries.
+It also adds this functionality to inlines: if you include any inlines in this
+admin that has the `created_by` field, it's going to be filled in the inline's
+new registries as well.
+
 # Troubleshooting
 
 ## `setuptools` error
