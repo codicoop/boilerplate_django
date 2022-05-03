@@ -55,6 +55,28 @@ It also adds this functionality to inlines: if you include any inlines in this
 admin that has the `created_by` field, it's going to be filled in the inline's
 new registries as well.
 
+## Tox and testing
+Tox is a command line driven CI frontend and development task automation tool.
+
+At its core tox provides a convenient way to run arbitrary commands in isolated environments to serve as a single entry point for build, test and release activities.
+
+### Usage
+To run its tests, you can execute
+```
+$ tox -e format
+$ tox
+```
+These two commands will try to automatically format your code according to some style guides, and if unable to do so, will present you with the location and reason of the errors.
+
+### Test automatization
+To ensure that these tests run before pushing to the remote repository, you can use git *hooks*. Simply place the next script in the **.git/hooks/pre-push** file.
+```shell
+#!/bin/sh
+eval "tox -e format"
+eval "tox"
+```
+This way, git will automatically run the tests for you everytime you try to push to the remote repository, and will abort the push in case it returns an error code, so you can correct it and push again.
+
 # Troubleshooting
 
 ## `setuptools` error
