@@ -16,6 +16,35 @@ specified somewhere.
 
 This decorator needs you to declare the `ABSOLUTE_URL` setting.
 
+## `BaseModel`
+
+When an authenticated user interacts with the database, you often want to log
+their information to keep track of when and who created which registry.
+
+Extend this abstract model when creating models that share this need.
+
+## `PublicMediaStorage` and `PrivateMediaStorage`
+
+### Removal
+If your project is not going to store media (or *dynamic*) files, or if you are
+not going to use an S3-compatible service to store them, you can remove:
+
+- `base/storage_backends.py`
+- The package `storages`
+- The package `boto3` (in case you are not going to use other AWSs)
+
+### Usage
+In models, specify the storage method like this:
+
+```python
+file_field = models.FileField(
+    verbose_name="file name",
+    storage=PrivateMediaStorage(),
+)
+```
+
+It's recommended that by default you always use the private storage method.
+
 # Troubleshooting
 
 ## `setuptools` error
