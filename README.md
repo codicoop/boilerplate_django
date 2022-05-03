@@ -10,8 +10,8 @@ password restoration or signup while already logged in.
 This boilerplate is not including the Django's Sites framework setup, assuming
 that the project is going to be for a single site.
 
-The current URL can be obtained in the request data, but i situations where
-you don't have a request or you cannot rely in it, we need this URL manually
+The current URL can be obtained in the request data, but in situations where
+you don't have a request or you cannot rely on it, we need this URL manually
 specified somewhere.
 
 This decorator needs you to declare the `ABSOLUTE_URL` setting.
