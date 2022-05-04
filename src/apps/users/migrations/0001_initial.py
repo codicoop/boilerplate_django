@@ -23,7 +23,6 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('auth', '__latest__'),
-        ('contenttypes', '__latest__'),
     ]
 
     operations = [
