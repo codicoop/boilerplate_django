@@ -5,6 +5,7 @@ https://django-environ.readthedocs.io/en/latest/
 Put the settings in /conf/.env
 """
 import os
+
 import environ
 
 env = environ.Env(
@@ -25,8 +26,8 @@ ABSOLUTE_URL = env("ABSOLUTE_URL")
 SECRET_KEY = env("SECRET_KEY")
 
 # Variables for non-interactive superuser creation
-DJANGO_SUPERUSER_EMAIL = env('DJANGO_SUPERUSER_EMAIL')
-DJANGO_SUPERUSER_PASSWORD = env('DJANGO_SUPERUSER_PASSWORD')
+# DJANGO_SUPERUSER_EMAIL = env("DJANGO_SUPERUSER_EMAIL")
+# DJANGO_SUPERUSER_PASSWORD = env("DJANGO_SUPERUSER_PASSWORD")
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -52,7 +53,6 @@ EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS = env("EMAIL_USE_TLS", bool)
 EMAIL_USE_SSL = env("EMAIL_USE_SSL", bool)
 EMAIL_BACKEND = env("EMAIL_BACKEND")
-DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")  # MailingManager setting.
 
 
 """
@@ -147,7 +147,6 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
 USE_I18N = True
-USE_L10N = True
 USE_TZ = True
 
 
