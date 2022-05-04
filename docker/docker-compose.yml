@@ -29,7 +29,10 @@ services:
       dockerfile: ./docker/Dockerfile
       target: development
     env_file: ./settings/development.env
-    command: python manage.py migrate
+    command: >
+      sh -c "python manage.py makemigrations &&
+             python manage.py migrate &&
+             python manage.py createsuperuser --no-input"
     volumes:
       - ../src:/srv
     depends_on:
