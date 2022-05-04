@@ -26,8 +26,8 @@ ABSOLUTE_URL = env("ABSOLUTE_URL")
 SECRET_KEY = env("SECRET_KEY")
 
 # Variables for non-interactive superuser creation
-# DJANGO_SUPERUSER_EMAIL = env("DJANGO_SUPERUSER_EMAIL")
-# DJANGO_SUPERUSER_PASSWORD = env("DJANGO_SUPERUSER_PASSWORD")
+DJANGO_SUPERUSER_EMAIL = env("DJANGO_SUPERUSER_EMAIL")
+DJANGO_SUPERUSER_PASSWORD = env("DJANGO_SUPERUSER_PASSWORD")
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -84,6 +84,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "post_office",
+    "django_extensions",
 ]
 
 AUTH_USER_MODEL = "users.User"
