@@ -1,7 +1,8 @@
+import environ
 from django.core.management.base import BaseCommand
+
 from apps.users.models import User
 
-import environ
 env = environ.Env()
 environ.Env.read_env()
 
@@ -14,7 +15,8 @@ class Command(BaseCommand):
         DJANGO_SUPERUSER_PASSWORD = env("DJANGO_SUPERUSER_PASSWORD")
 
         if not User.objects.filter(email=DJANGO_SUPERUSER_EMAIL).exists():
-            User.objects.create_superuser(email=DJANGO_SUPERUSER_EMAIL,
-                                          password=DJANGO_SUPERUSER_PASSWORD)
+            User.objects.create_superuser(
+                email=DJANGO_SUPERUSER_EMAIL, password=DJANGO_SUPERUSER_PASSWORD
+            )
 
         return 0
