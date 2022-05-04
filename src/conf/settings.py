@@ -171,4 +171,6 @@ POST_OFFICE = {
         "default": env("POST_OFFICE_DEFAULT_BACKEND", default="smtp.EmailBackend"),
     },
     "DEFAULT_PRIORITY": "now",
+    'MESSAGE_ID_ENABLED': True,
+    'MESSAGE_ID_FQDN': env("POST_OFFICE_MESSAGE_ID_FQDN", default="example.com"),
 }
