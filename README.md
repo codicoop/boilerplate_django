@@ -1,3 +1,31 @@
+# Included packages
+
+## Django Post Office
+https://github.com/ui/django-post_office
+
+> By 3.6.0, the package still raises the AutoField deprecation warnings.
+> We're tracking an issue and a PR that will fix it eventually.
+
+Few features from this library are already set up, but it brings a lot more of
+interesting features. If you need anything related to email handling, first check
+if it's already included.
+
+### Removal
+
+This boilerplate assumes that you'll want to send transactional emails. If not,
+uninstall `django-post-office`, remove it from `INSTALLED_APPS`, remove the
+'Django Post Office' set of settings from `settings.py` and from the `.env`
+files.
+
+### Features that we're using in the boilerplate
+
+- Having the email templates handled in the admin panel.
+- Log all the sent emails and access them in the admin panel.
+- Error log in the admin panel, that tracks the failed deliveries.
+
+Note that the `DEFAULT_PRIORITY` setting is 'now', meaning that the emails are
+going to be immediately sent instead of added to queue for further processing.
+
 # Included features
 
 ## `anonymous_required` view decorator

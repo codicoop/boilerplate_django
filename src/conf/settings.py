@@ -83,6 +83,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "post_office",
 ]
 
 AUTH_USER_MODEL = "users.User"
@@ -162,3 +163,11 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # LOGIN_URL = reverse_lazy('login')
 # LOGIN_REDIRECT_URL = reverse_lazy('profile')
 # LOGOUT_REDIRECT_URL = '/'
+
+# Django Post Office
+POST_OFFICE = {
+    "BACKENDS": {
+        "default": env("POST_OFFICE_DEFAULT_BACKEND", default="smtp.EmailBackend"),
+    },
+    "DEFAULT_PRIORITY": "now",
+}
