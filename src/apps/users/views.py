@@ -22,11 +22,12 @@ from apps.users.forms import (
     UserSignUpForm,
 )
 from apps.users.models import User
+from django.utils.translation import gettext_lazy as _
 
 
 class LoginView(AnonymousRequiredMixin, BaseLoginView):
     template_name = "registration/login.html"
-    success_url = "/profile/"
+    success_url = reverse_lazy("registation:profile_details")
     form_class = AuthenticationForm
 
 
