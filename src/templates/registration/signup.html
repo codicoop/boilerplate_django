@@ -16,21 +16,7 @@
 {% endblock %}
 
 {% block form_fields %}
-  <div class="card card-columns rows-6">
-    {% include 'components/field_input.html' with field=form.name %}
-    {% include 'components/field_input.html' with field=form.surnames %}
-    {% include 'components/field_input.html' with field=form.id_number %}
-    {% include 'components/field_input.html' with field=form.phone_number %}
-    {% include 'components/field_select.html' with field=form.city %}
-    {% include 'components/field_input.html' with field=form.address %}
-    {% include 'components/field_input.html' with field=form.postal_code %}
-    {% include 'components/field_school.html' with field=form.school %}
-    {% include 'components/field_input.html' with field=form.email %}
-    {% include 'components/field_input_password.html' with field=form.password1 %}
-    {% include 'components/field_input_password.html' with field=form.password2 %}
-  </div>
-  {% include 'components/field_checkbox.html' with field=form.accept_conditions %}
-  {% include 'components/field_checkbox.html' with field=form.accept_newsletter %}
+  {{ form.as_p }}
   <input class="form__submit btn--round btn--primary text-md is-bold" type="submit" value="Crea compte" />
 {% endblock %}
 

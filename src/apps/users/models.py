@@ -4,6 +4,7 @@ from django.contrib.auth.models import (
     PermissionsMixin,
 )
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 
 class UserManager(BaseUserManager):
@@ -13,7 +14,7 @@ class UserManager(BaseUserManager):
         and extra fields.
         """
         if not email:
-            raise ValueError("Users must have an email address")
+            raise ValueError(_("Users must have an email address"))
 
         user = self.model(email=self.normalize_email(email), **extra_fields)
 
@@ -27,7 +28,7 @@ class UserManager(BaseUserManager):
         and extra fields.
         """
         if not password:
-            raise ValueError("Superusers must have a password")
+            raise ValueError(_("Superusers must have a password"))
 
         user = self.create_user(email, password=password, **extra_fields)
         user.is_staff = True
@@ -37,8 +38,15 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    name = models.CharField(_("name"), max_length=50)
+    surnames = models.CharField(
+        _("surname"),
+        max_length=50,
+        default="",
+        blank=True,
+    )
     email = models.EmailField(
-        verbose_name="email address",
+        verbose_name=_("email address"),
         max_length=255,
         unique=True,
     )

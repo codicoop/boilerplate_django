@@ -23,7 +23,7 @@ from apps.base.views import Home
 urlpatterns = [
     path("grappelli/", include("grappelli.urls")),  # grappelli URLS
     path("admin/", admin.site.urls),
-    path("", Home.as_view()),
+    path("", Home.as_view(), name="home"),
 ]
 
 urlpatterns += i18n_patterns(

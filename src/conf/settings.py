@@ -7,6 +7,7 @@ Put the settings in /conf/.env
 import os
 
 import environ
+from django.utils.translation import gettext_lazy as _
 
 env = environ.Env(
     # set casting, default value
@@ -145,8 +146,12 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
-LANGUAGE_CODE = "en-us"
-TIME_ZONE = "UTC"
+LANGUAGE_CODE = "en"
+LANGUAGES = [
+    ("en", _("English")),
+    ("ca", _("Catalan")),
+]
+TIME_ZONE = "Europe/Andorra"
 USE_I18N = True
 USE_TZ = True
 

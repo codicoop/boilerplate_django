@@ -48,13 +48,27 @@ Delete the folders:
 `templates/profile`
 `templates/registration`
 
-### Password resetting
+### `privacy_policy_accepted` field
+
+Note that this field is `datetime` instead of boolean.
+Check the comments in the `set_boolean_datetime` method as well as the `save()`
+method of the `UserSignUpForm` class for an implementation example.
 
 ## Internationalization
 
 ### Translated urls
 
 https://docs.djangoproject.com/en/4.0/topics/i18n/translation/#translating-url-patterns
+
+### Translated email templates
+
+The password reset template is in english and includes a translation in catalan.
+In the `PasswordResetForm` class you'll see an example of how to use translated
+templates, with the `mail.send()`'s `language` param.
+
+TO DO: This could be extended in a way that by default you don't need to include
+the `language` parameter and instead it takes it from
+`django.utils.translation.get_language()`.
 
 ## `StandardSuccess` view
 

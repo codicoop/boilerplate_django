@@ -37,10 +37,10 @@
       </div>
       <div class="menu">
         <div class="menu__top">
-          <h2 class="title-1">APP ESGUARD</h2>
+          <h2 class="title-1">Projecte</h2>
           <img class="menu__close" onclick="closeMenu()" src="{% static 'images/close.svg' %}" alt="Tancar el menú">
           <p class="text-bg is-bold">{{ request.user.full_name }}</p>
-          <a class="menu__logout" href="{% url 'logout' %}">
+          <a class="menu__logout" href="{% url 'registration:logout' %}">
             <div class="text-bg">
               <p>Surt</p>
               <img src="{% static 'images/logout--white.svg' %}" alt="Sortir del meu compte">
@@ -58,7 +58,7 @@
               </a>
             </li>
             <li>
-              <a href="{% url 'profile_details' %}">
+              <a href="{% url 'registration:profile_details' %}">
                 <div class="menu__navlink {{ profile_classes }}">
                   <img class="menu__icon icon--white" src="{% static 'images/my_data.svg' %}" alt="Anar a la pàgina de les meves dades">
                   <p class="text-bg is-bold">Dades</p>

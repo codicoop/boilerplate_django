@@ -17,9 +17,6 @@ from django.views.generic import CreateView, UpdateView
 from apps.base.mixins import AnonymousRequiredMixin
 from apps.users.forms import (
     AuthenticationForm,
-    ContactDeleteForm,
-    ContactForm,
-    KidForm,
     PasswordResetForm,
     ProfileDetailsForm,
     UserSignUpForm,
