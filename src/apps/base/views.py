@@ -3,7 +3,7 @@ from django.views.generic import RedirectView, TemplateView
 
 
 class Home(RedirectView):
-    url = reverse_lazy("admin:login")
+    url = reverse_lazy("registration:login")
 
 
 class StandardSuccess(TemplateView):
