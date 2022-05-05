@@ -18,7 +18,9 @@ urlpatterns = [
     # Registration
     path(_("sign-up/"), SignupView.as_view(), name="signup"),
     path(_("sign-in/"), LoginView.as_view(), name="login"),
-    path(_("log-out/"), auth_views.LogoutView.as_view(), name="logout"),
+    path(_("log-out/"), auth_views.LogoutView.as_view(
+        next_page=reverse_lazy("home"),
+    ), name="logout"),
     path(
         _("password-reset/"),
         PasswordResetView.as_view(),
