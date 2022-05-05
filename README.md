@@ -28,7 +28,7 @@ going to be immediately sent instead of added to queue for further processing.
 
 # Included features
 
-## `anonymous_required` view decorator
+## `AnonymousRequiredMixin` view mixin
 
 It could be problematic and confusing to allow users to access views like Login,
 password restoration or signup while already logged in.
