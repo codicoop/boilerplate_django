@@ -33,7 +33,7 @@ going to be immediately sent instead of added to queue for further processing.
 ### Removal
 
 If your project is not going to have a Django front-end (i.e. is only an admin
-panel backoffice or is headless), just delete the following views and their
+panel backoffice or is 100% headless), delete the following views and their
 registration in `users/urls.py`:
 
 - PasswordResetView
@@ -43,7 +43,10 @@ registration in `users/urls.py`:
 - SignupView
 - LoginView
 - DetailsView
-- DetailViewSuccess
+
+Delete the folders:
+`templates/profile`
+`templates/registration`
 
 ### Password resetting
 

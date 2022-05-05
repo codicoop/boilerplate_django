@@ -1,0 +1,22 @@
+{% extends "../base_form.html" %}
+
+{% block page_title %}Les meves dades | Dades personals{% endblock %}
+
+{% block profile_section_title %}Dades personals{% endblock %}
+
+{% block form_fields %}
+  <div class="card card-columns rows-6">
+    {% include 'components/field_input.html' with field=form.email %}
+    {% include 'components/field_input.html' with field=form.name %}
+    {% include 'components/field_input.html' with field=form.surnames %}
+    {% include 'components/field_input.html' with field=form.phone_number %}
+    {% include 'components/field_select.html' with field=form.city %}
+    {% include 'components/field_input.html' with field=form.address %}
+    {% include 'components/field_input.html' with field=form.postal_code %}
+    {% include 'components/field_input.html' with field=form.id_number %}
+    {% include 'components/field_input.html' with field=form.iban_number %}
+    {% include 'components/field_school.html' with field=form.school %}
+    {% include 'components/field_checkbox.html' with field=form.newsletter %}
+  </div>
+  <input class="form__submit btn--round btn--primary text-md is-bold" type="submit" value="Desar" />
+{% endblock %}

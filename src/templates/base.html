@@ -1,0 +1,164 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'styles/reset.css' %}">
+  <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+  <title>Projecte App | {% block page_title %}{% endblock %}</title>
+</head>
+<body>
+  {# les wrapper_classes són per indicar quan el menú no es visible #}
+  <div class="wrapper {% block wrapper_classes %}{% endblock %}">
+    <header class="header">
+      <div class="topbar main-grid">
+        <div class="container-top main-grid__middle">
+          <a href="{% url 'home' %}">
+            <img class="topbar__logo" src="{% static 'images/logo_projecte.svg' %}" alt="Logo de Projecte">
+          </a>
+          <img class="topbar__burguer" onclick="openMenu()" src="{% static 'images/burguer.svg' %}" alt="Obrir el menú">
+          <h1 class="topbar__title">{% block page_h1 %}{% endblock %}</h1>
+        </div>
+        {% if request.user.is_authenticated %}
+        <div class="container-bottom main-grid__middle">
+          <p class="text-bg">{{ request.user.full_name }}</p>
+          <a class="topbar__logout" href="{% url 'logout' %}">
+            <div class="text-bg">
+              <p>Surt</p>
+              <img src="{% static 'images/logout--primary.svg' %}" alt="Sortir del meu compte">
+            </div>
+          </a>
+        </div>
+        {% endif %}
+      </div>
+      <div class="menu">
+        <div class="menu__top">
+          <h2 class="title-1">APP ESGUARD</h2>
+          <img class="menu__close" onclick="closeMenu()" src="{% static 'images/close.svg' %}" alt="Tancar el menú">
+          <p class="text-bg is-bold">{{ request.user.full_name }}</p>
+          <a class="menu__logout" href="{% url 'logout' %}">
+            <div class="text-bg">
+              <p>Surt</p>
+              <img src="{% static 'images/logout--white.svg' %}" alt="Sortir del meu compte">
+            </div>
+          </a>
+        </div>
+        <nav class="menu__nav main-grid">
+          <ul class="main-grid__middle">
+            <li>
+              <a href="{% url 'home' %}">
+                <div class="menu__navlink {{ home_classes }}">
+                  <img class="menu__icon icon--white" src="{% static 'images/home.svg' %}" alt="Anar a la pàgina d'inici">
+                  <p class="text-bg is-bold">Inici</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'profile_details' %}">
+                <div class="menu__navlink {{ profile_classes }}">
+                  <img class="menu__icon icon--white" src="{% static 'images/my_data.svg' %}" alt="Anar a la pàgina de les meves dades">
+                  <p class="text-bg is-bold">Dades</p>
+                </div>
+              </a>
+            </li>
+            {% if afterschool_service is not None %}
+            <li>
+              <a href="{% url 'services:afterschool:info' %}">
+                <div class="menu__navlink {{ afterschool_classes }}">
+                  <img class="menu__icon icon--white" src="{% static 'images/add_person--white.svg' %}" alt="Anar a la pàgina de extraescolars">
+                  <p class="text-bg is-bold">Extraescolars</p>
+                </div>
+              </a>
+            </li>
+            {% endif %}
+            {% if lunch_service is not None %}
+            <li>
+              <a href="{% url 'services:lunch:info' %}">
+                <div class="menu__navlink {{ lunch_classes }}">
+                  <img class="menu__icon icon--white" src="{% static 'images/lunch--white.svg' %}" alt="Anar a la pàgina de menjadors">
+                  <p class="text-bg is-bold">Menjadors</p>
+                </div>
+              </a>
+            </li>
+            {% endif %}
+            {% if childcare_service is not None %}
+            <li>
+              <a href="{% url 'services:childcare_morning:info' %}">
+                <div class="menu__navlink {{ childcare_morning_classes }}">
+                  <img class="menu__icon icon--white" src="{% static 'images/time--white.svg' %}" alt="Anar a la pàgina d'acollida">
+                  <p class="text-bg is-bold">Acollida</p>
+                </div>
+              </a>
+            </li>
+            {% endif %}
+            {% if daycamp_service is not None %}
+            <li>
+              <a href="{% url 'services:daycamp:info' %}">
+                <div class="menu__navlink {{ daycamp_classes }}">
+                  <img class="menu__icon icon--white" src="{% static 'images/summer_activity--white.svg' %}" alt="Anar a la pàgina de casals d'estiu">
+                  <p class="text-bg is-bold">Casals d'estiu</p>
+                </div>
+              </a>
+            </li>
+            {% endif %}
+            {% if summercamp_service is not None %}
+            <li>
+              <a href="0#">
+                <div class="menu__navlink {{ summer_camp_classes }}">
+                  <img class="menu__icon icon--white" src="{% static 'images/summer_camp--white.svg' %}" alt="Anar a la pàgina de colònies d'estiu">
+                  <p class="text-bg is-bold">Colònies</p>
+                </div>
+              </a>
+            </li>
+            {% endif %}
+            {% if request.user.is_superuser %}
+            <li>
+              <a href="{% url 'admin:index' %}">
+                <div class="menu__navlink">
+                  <img class="menu__icon icon--white" src="{% static 'images/summer_camp--white.svg' %}" alt="Panell d'administració">
+                  <p class="text-bg is-bold">Admin</p>
+                </div>
+              </a>
+            </li>
+            {% endif %}
+            {% comment %}
+            <li class="disabled">
+              <a href="0#">
+                <div class="menu__navlink">
+                  <img class="menu__icon icon--white" src="{% static 'images/question.svg' %}" alt="Anar a la pàgina de les meves inscripcions">
+                  <p class="text-bg is-bold">Inscripcions</p>
+                </div>
+              </a>
+            </li>
+            {% endcomment %}
+            <li>
+              <a href="https://lprojectecoop.cat">
+                <div class="menu__external">
+                  <p class="text-bg is-bold">info@lprojectecoop.cat</p>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    {# les main_classes identifiquen cada pàgina/servei #}
+    <main class="main {% block main_classes %}{% endblock %} main-grid">
+      <div class="main__container main-grid__middle">
+        {% block main %}
+        {% endblock %}
+      </div>
+    </main>
+
+  </div>
+
+  {% block extra_js %}{% endblock %}
+  <script src="{% static 'js/script.js' %}"></script>
+
+</body>
+</html>
