@@ -28,6 +28,31 @@ going to be immediately sent instead of added to queue for further processing.
 
 # Included features
 
+## Custom user account views and templates
+
+### Removal
+
+If your project is not going to have a Django front-end (i.e. is only an admin
+panel backoffice or is headless), just delete the following views and their
+registration in `users/urls.py`:
+
+- PasswordResetView
+- PasswordResetConfirmView
+- PasswordResetDoneView
+- PasswordResetCompleteView
+- SignupView
+- LoginView
+- DetailsView
+- DetailViewSuccess
+
+### Password resetting
+
+## Internationalization
+
+### Translated urls
+
+https://docs.djangoproject.com/en/4.0/topics/i18n/translation/#translating-url-patterns
+
 ## `AnonymousRequiredMixin` view mixin
 
 It could be problematic and confusing to allow users to access views like Login,
