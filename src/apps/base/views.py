@@ -1,17 +1,28 @@
 from django.urls import NoReverseMatch, reverse, reverse_lazy
+from django.utils.translation import get_language, activate
 from django.views.generic import RedirectView, TemplateView
+from django.utils.translation import gettext_lazy as _
 
 
 class Home(RedirectView):
+    """
+    If your site has an actual home page view that is not a redirect,
+    you'll also need to move the URL in conf/urls.py from the urlpatterns
+    block to the i18n_patterns one.
+    """
     url = reverse_lazy("registration:login")
+
+    def get_redirect_url(self, *args, **kwargs):
+        activate(get_language())
+        return super().get_redirect_url(*args, **kwargs)
 
 
 class StandardSuccess(TemplateView):
     template_name = "standard_success.html"
-    link_text = "Tornar"
-    title = "Dades actualitzades correctament"
-    success_title = "Fet!"
-    description = "Les dades han estat actualitzades correctament."
+    link_text = _("Back")
+    title = _("Registry successfully updated")
+    success_title = _("Done!")
+    description = _("The registry was updated correctly.")
     url = reverse_lazy("home")
 
     def get_context_data(self, **kwargs):
