@@ -1,3 +1,4 @@
+from django.contrib import admin
 from django.contrib.auth.models import (
     AbstractBaseUser,
     BaseUserManager,
@@ -5,6 +6,8 @@ from django.contrib.auth.models import (
 )
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+
+from apps.base.models import BaseModel
 
 
 class UserManager(BaseUserManager):
@@ -37,7 +40,7 @@ class UserManager(BaseUserManager):
         return user
 
 
-class User(AbstractBaseUser, PermissionsMixin):
+class User(BaseModel, AbstractBaseUser, PermissionsMixin):
     name = models.CharField(_("name"), max_length=50)
     surnames = models.CharField(
         _("surname"),
@@ -59,4 +62,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = []
 
     def __str__(self):
-        return self.email
+        return self.full_name
+
+    @property
+    @admin.display(
+        ordering="name",
+        description="Nom",
+    )
+    def full_name(self):
+        return f"{self.name} {self.surnames}".strip()
+

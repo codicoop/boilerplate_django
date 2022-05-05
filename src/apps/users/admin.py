@@ -1,8 +1,9 @@
 from django import forms
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
+from apps.base.admin import ModelAdminMixin
+from apps.users.forms import UserChangeForm
 from apps.users.models import User
 
 
@@ -36,27 +37,8 @@ class UserCreationForm(forms.ModelForm):
         return user
 
 
-class UserChangeForm(forms.ModelForm):
-    """A form for updating users. Includes all the fields on
-    the user, but replaces the password field with admin's
-    password hash display field.
-    """
-
-    password = ReadOnlyPasswordHashField()
-
-    class Meta:
-        model = User
-        fields = ("email", "password", "is_active", "is_superuser")
-
-    def clean_password(self):
-        # Regardless of what the user provides, return the initial value.
-        # This is done here, rather than on the field, because the
-        # field does not have access to the initial value
-        return self.initial["password"]
-
-
 @admin.register(User)
-class UserAdmin(BaseUserAdmin):
+class UserAdmin(ModelAdminMixin, BaseUserAdmin):
     # The forms to add and change user instances
     form = UserChangeForm
     add_form = UserCreationForm
@@ -64,7 +46,12 @@ class UserAdmin(BaseUserAdmin):
     # The fields to be used in displaying the User model.
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
-    list_display = ("email", "is_superuser")
+    list_display = (
+        "email",
+        "full_name",
+        "is_superuser",
+        "created",
+    )
     list_filter = ("is_superuser",)
     fieldsets = (
         (None, {"fields": ("email", "password")}),
@@ -74,8 +61,10 @@ class UserAdmin(BaseUserAdmin):
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.
     add_fieldsets = (
-        (None, {"classes": ("wide",), "fields": ("email", "password1", "password2")}),
+        (None, {"fields": ("email", "password1", "password2")}),
+        ("Permissions", {"fields": ("is_superuser",)}),
     )
-    search_fields = ("email",)
+    search_fields = ("email", "name", "surname", )
     ordering = ("email",)
-    filter_horizontal = ()
+    # filter_horizontal = ()
+    superuser_fields = ("is_superuser", "is_active", "is_staff")
