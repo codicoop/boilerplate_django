@@ -1,20 +1,4 @@
-from django.conf import settings
-from django.db import migrations, models, IntegrityError
-from ..models import User
-
-
-def generate_superuser(apps, schema_editor):
-    try:
-        User.objects.create_superuser(
-            email=settings.DJANGO_SUPERUSER_EMAIL,
-            password=settings.DJANGO_SUPERUSER_PASSWORD,
-        )
-        print("\nInitial superuser created\n")
-    except IntegrityError:
-        print(
-            "\nInitial migration executed but initial superuser account"
-            "already exists.\n"
-        )
+from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
@@ -42,6 +26,5 @@ class Migration(migrations.Migration):
             options={
                 'abstract': False,
             },
-        ),
-        migrations.RunPython(generate_superuser)
+        )
     ]
