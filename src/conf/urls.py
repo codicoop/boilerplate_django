@@ -27,5 +27,5 @@ urlpatterns = [
 ]
 
 urlpatterns += i18n_patterns(
-    path(_("account/"), include("apps.users.urls", namespace="users")),
+    path(_("registration/"), include("apps.users.urls", namespace="registration")),
 )

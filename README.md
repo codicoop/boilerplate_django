@@ -53,6 +53,18 @@ registration in `users/urls.py`:
 
 https://docs.djangoproject.com/en/4.0/topics/i18n/translation/#translating-url-patterns
 
+## `StandardSuccess` view
+
+Currently used by `profile_details_success` url.
+
+We find a good usability pattern to, in some situations, send the user to a
+page that only contains the confirmation message and a button to go back.
+
+If your app is full headless or only a backoffice you can remove this class along
+with the `users`'s app views.
+
+
+
 ## `AnonymousRequiredMixin` view mixin
 
 It could be problematic and confusing to allow users to access views like Login,

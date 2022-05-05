@@ -1,0 +1,81 @@
+{% extends "../base.html" %}
+{% load static %}
+
+{% block page_title %}Inici{% endblock %}
+{% block page_h1 %}Accedeix{% endblock %}
+{% block wrapper_classes %}no-menu{% endblock %}
+{% block main_classes %}login{% endblock %}
+
+{% block main %}
+    <img class="login__logo" src="{% static 'images/logo_esguard.svg' %}" alt="Logo de l'Esguard">
+    <section class="login__intro">
+      <div class="text-md is-bold">
+        <p>Extranet on podràs consultar i inscriure’t als serveis i activitats que promou i organitza l’Esguard.</p>
+      </div>
+      <div class="text-md">
+        <p> Benvinguts/des a a la plataforma d’inscripció a les activitats de l’esguard. Des d’aquí podreu gestionar les inscripcions dels vostres fills/es a les activitats.</p>
+      </div>
+      <div class="text-md">
+        <p>Gràcies de nou per confiar en nosaltres!</p>
+      </div>
+    </section>
+    <section class="login__form">
+      <p>Si ja estàs registrada</p>
+      <form class="form" method="post">
+        {% csrf_token %}
+        <legend class="form__legend title-2">Accedeix</legend>
+        <div class="input-field">
+          <label class="input-field__label text-md" for="username_id">
+            <img src="{% static 'images/user.svg' %}" alt="Nom d'usuària">
+          </label>
+          <input class="input-field__input text-md" type="text" name="username" id="username_id" placeholder="Correu electrònic">
+          {% if field.errors %}
+          <span class="input-field__error text-xsm">
+            <p>{{ field.errors.0 }}</p>
+          </span>
+          {% endif %}
+        </div>
+        <div class="input-field">
+          <label class="input-field__label text-md" for="password_id">
+            <img src="{% static 'images/password.svg' %}" alt="Contrasenya">
+          </label>
+          <input class="input-field__input text-md" type="password" name="password" id="password_id" placeholder="Contrasenya">
+          {% if field.errors %}
+          <span class="input-field__error text-xsm">
+            <p>{{ field.errors.0 }}</p>
+          </span>
+          {% endif %}
+        </div>
+        <input class="form__submit btn--round text-md is-bold" type="submit" value="Entra">
+        {% if form.non_field_errors %}
+        <div class="form__error text-sm">
+          <p>{{ form.non_field_errors.0 }}</p>
+        </div>
+        {% endif %}
+      </form>
+      <div class="text-sm login__password-reset">
+        <a href="{% url 'password_reset' %}">
+          Has oblidat la constrasenya?
+        </a>
+      </div>
+    </section>
+    <section class="login__signup">
+      <div class="text-xmd not-bold">
+        <p>Si encara no ets usuària</p>
+      </div>
+      <div class="singup__title title-2">
+        <p>Registrar-se</p>
+      </div>
+      <a href="{% url 'signup' %}">
+        <div class="singup__btn btn--round text-xmd is-bold">
+          <p>Crear compte</p>
+        </div>
+      </a>
+    </section>
+    <section class="login__help">
+      <p class="text-xmd not-bold">Si necessites ajuda truca’ns o envia un correu a </p>
+      <a href="mailto:info@lesguardcoop.cat">
+        <p class="text-bg is-bold">info@lesguardcoop.cat</p>
+      </a>
+    </section>
+{% endblock %}

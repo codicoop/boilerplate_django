@@ -1,0 +1,61 @@
+{% extends 'base_form.html' %}
+{% load static %}
+
+{% block page_title %}Registre{% endblock %}
+{% block page_h1 %}Registre{% endblock %}
+{% block wrapper_classes %}no-menu{% endblock %}
+{% block main_classes %}signup{% endblock %}
+
+{% block before_form_content %}
+  <img class="signup__logo" src="{% static 'images/logo_esguard.svg' %}" alt="Logo de l'Esguard">
+  <div class="signup__intro text-md">
+    <p><strong>Cal que creeu un USUARI.</strong></p>
+    <p>Un cop creat, el primer cop que accediu haureu d’anar a l’apartat de "Les meves dades" i acabar de completar-ho tot, donant l’alta de cada infant que vulgueu apuntar.</p>
+    <p>Quan hagueu omplert totes les dades, torneu a l’apartat d’ "inscripció a les activitats" i ja només cal que cliqueu les opcions que desitgeu.</p>
+  </div>
+{% endblock %}
+
+{% block form_fields %}
+  <div class="card card-columns rows-6">
+    {% include 'components/field_input.html' with field=form.name %}
+    {% include 'components/field_input.html' with field=form.surnames %}
+    {% include 'components/field_input.html' with field=form.id_number %}
+    {% include 'components/field_input.html' with field=form.phone_number %}
+    {% include 'components/field_select.html' with field=form.city %}
+    {% include 'components/field_input.html' with field=form.address %}
+    {% include 'components/field_input.html' with field=form.postal_code %}
+    {% include 'components/field_school.html' with field=form.school %}
+    {% include 'components/field_input.html' with field=form.email %}
+    {% include 'components/field_input_password.html' with field=form.password1 %}
+    {% include 'components/field_input_password.html' with field=form.password2 %}
+  </div>
+  {% include 'components/field_checkbox.html' with field=form.accept_conditions %}
+  {% include 'components/field_checkbox.html' with field=form.accept_newsletter %}
+  <input class="form__submit btn--round btn--primary text-md is-bold" type="submit" value="Crea compte" />
+{% endblock %}
+
+{% block after_form_content %}
+  <a class="signup__login-container" href="{% url 'login' %}">
+    <div class="signup__login-btn btn--round btn--black text-md">
+      <p>Ja tinc un compte. <span>Entra-hi</span></p>
+    </div>
+  </a>
+  <div class="signup__disclaimer text-xsm">
+    <p>En compliment del que estableixen la Llei orgànica 15/1999, de 13 de
+      desembre sobre protecció de dades de caràcter personal (LOPD) i el
+      Reial Decret que aprova el Reglament de desenvolupament de la LOPD de
+      caràcter personal, us informem que les vostres dades personals
+      recollides per mitjà d’aquest formulari electrònic seran tractades i
+      quedaran incorporades als fitxers de l’esguard únicament per dur a terme
+      una gestió correcta de les activitats del present curs. Un cop acabades
+      les activitats, aquestes seran eliminades.</p>
+    <p>Accepteu que les vostres dades siguin utilitzades per fer una bona gestió
+      de les activitats?
+      Rebre informació, creació de llistats de participants i contactes per a
+      comunicació d’incidències i d’altres coses relacionades amb l’activitat.
+      Pots revocar el teu consentiment en qualsevol moment i exercir els drets
+      d'accés, rectificació, supressió, oposició, limitació del tractament i
+      portabilitat de les dades, mitjançant sol·licitud dirigida a través del
+      correu info@lesguardcoop.cat.</p>
+  </div>
+{% endblock %}
