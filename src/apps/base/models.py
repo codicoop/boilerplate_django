@@ -24,7 +24,7 @@ class BaseModel(SetBooleanDatetimeMixin, models.Model):
     created = models.DateTimeField(auto_now_add=True, null=False, editable=False)
     created_by = models.ForeignKey(
         "users.User",
-        null=False,
+        null=True,
         blank=False,
         related_name="%(app_label)s_%(class)s_related",
         on_delete=models.CASCADE,
