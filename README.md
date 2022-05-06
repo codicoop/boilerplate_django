@@ -1,6 +1,88 @@
+# Included packages
+
+## Django Post Office
+https://github.com/ui/django-post_office
+
+> By 3.6.0, the package still raises the AutoField deprecation warnings.
+> We're tracking an issue and a PR that will fix it eventually.
+
+Few features from this library are already set up, but it brings a lot more of
+interesting features. If you need anything related to email handling, first check
+if it's already included.
+
+### Removal
+
+This boilerplate assumes that you'll want to send transactional emails. If not,
+uninstall `django-post-office`, remove it from `INSTALLED_APPS`, remove the
+'Django Post Office' set of settings from `settings.py` and from the `.env`
+files.
+
+### Features that we're using in the boilerplate
+
+- Having the email templates handled in the admin panel.
+- Log all the sent emails and access them in the admin panel.
+- Error log in the admin panel, that tracks the failed deliveries.
+
+Note that the `DEFAULT_PRIORITY` setting is 'now', meaning that the emails are
+going to be immediately sent instead of added to queue for further processing.
+
 # Included features
 
-## `anonymous_required` view decorator
+## Custom user account views and templates
+
+### Removal
+
+If your project is not going to have a Django front-end (i.e. is only an admin
+panel backoffice or is 100% headless), delete the following views and their
+registration in `users/urls.py`:
+
+- PasswordResetView
+- PasswordResetConfirmView
+- PasswordResetDoneView
+- PasswordResetCompleteView
+- SignupView
+- LoginView
+- DetailsView
+
+Delete the folders:
+`templates/profile`
+`templates/registration`
+
+### `privacy_policy_accepted` field
+
+Note that this field is `datetime` instead of boolean.
+Check the comments in the `set_boolean_datetime` method as well as the `save()`
+method of the `UserSignUpForm` class for an implementation example.
+
+## Internationalization
+
+### Translated urls
+
+https://docs.djangoproject.com/en/4.0/topics/i18n/translation/#translating-url-patterns
+
+### Translated email templates
+
+The password reset template is in english and includes a translation in catalan.
+In the `PasswordResetForm` class you'll see an example of how to use translated
+templates, with the `mail.send()`'s `language` param.
+
+TO DO: This could be extended in a way that by default you don't need to include
+the `language` parameter and instead it takes it from
+`django.utils.translation.get_language()`.
+
+## `StandardSuccess` view
+
+Currently used by `profile_details_success` url.
+
+We find a good usability pattern to, in some situations, send the user to a
+page that only contains the confirmation message and a button to go back.
+
+If your app is full headless or only a backoffice you can remove this class along
+with the `users`'s app views.
+
+
+
+## `AnonymousRequiredMixin` view mixin
 
 It could be problematic and confusing to allow users to access views like Login,
 password restoration or signup while already logged in.

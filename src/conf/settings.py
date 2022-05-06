@@ -7,6 +7,7 @@ Put the settings in /conf/.env
 import os
 
 import environ
+from django.utils.translation import gettext_lazy as _
 
 env = environ.Env(
     # set casting, default value
@@ -83,6 +84,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "post_office",
     "django_extensions",
 ]
 
@@ -144,8 +146,12 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
-LANGUAGE_CODE = "en-us"
-TIME_ZONE = "UTC"
+LANGUAGE_CODE = "en"
+LANGUAGES = [
+    ("en", _("English")),
+    ("ca", _("Catalan")),
+]
+TIME_ZONE = "Europe/Andorra"
 USE_I18N = True
 USE_TZ = True
 
@@ -163,3 +169,13 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # LOGIN_URL = reverse_lazy('login')
 # LOGIN_REDIRECT_URL = reverse_lazy('profile')
 # LOGOUT_REDIRECT_URL = '/'
+
+# Django Post Office
+POST_OFFICE = {
+    "BACKENDS": {
+        "default": env("POST_OFFICE_DEFAULT_BACKEND", default="smtp.EmailBackend"),
+    },
+    "DEFAULT_PRIORITY": "now",
+    "MESSAGE_ID_ENABLED": True,
+    "MESSAGE_ID_FQDN": env("POST_OFFICE_MESSAGE_ID_FQDN", default="example.com"),
+}

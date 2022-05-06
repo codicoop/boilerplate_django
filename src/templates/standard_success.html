@@ -1,0 +1,12 @@
+{% extends "./base_success.html" %}
+
+{% block page_h1 %}{% endblock %}
+{% block page_title %}{{ title }}{% endblock %}
+{% block success_title %}{{ success_title }}{% endblock %}
+
+{% block success_content %}
+    <div class="success__text richtext text-md">
+      <p>{{ description|safe }}</p>
+    </div>
+  <a href="{{ url }}" class="success__btn btn--round btn--primary text-md is-bold">{{ link_text }}</a>
+{% endblock %}

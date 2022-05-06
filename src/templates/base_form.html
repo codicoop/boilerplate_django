@@ -1,0 +1,29 @@
+{% extends "./base.html" %}
+{% load static %}
+
+{% block main %}
+
+  {% block before_form_content %}
+  {% endblock %}
+
+  <div class="form {% block form_classes %}{% endblock %}">
+    <div class="form__container">
+
+      {% block form_introduction %}
+      {% endblock %}
+
+      <form method="post" enctype="{% block enctype %}application/x-www-form-urlencoded{% endblock %}" {% block form_action %}{% endblock %}>
+        {% csrf_token %}
+        {% block form_fields %}
+        {% endblock %}
+      </form>
+
+      {% include 'components/form_errors.html' %}
+
+    </div>
+  </div>
+
+  {% block after_form_content %}
+  {% endblock %}
+
+{% endblock %}

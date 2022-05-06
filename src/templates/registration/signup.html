@@ -1,0 +1,15 @@
+{% extends 'base_form.html' %}
+{% load i18n %}
+
+{% block page_title %}{% translate "Sign up" %}{% endblock %}
+
+{% block before_form_content %}
+{% endblock %}
+
+{% block form_fields %}
+  {{ form.as_p }}
+  <input class="form__submit btn--round btn--primary text-md is-bold" type="submit" value="Crea compte" />
+{% endblock %}
+
+{% block after_form_content %}
+{% endblock %}

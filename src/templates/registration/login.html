@@ -1,0 +1,27 @@
+{% extends "../base_form.html" %}
+{% load i18n %}
+
+{% block before_form_content %}
+<h2>{% translate "Log-in" %}</h2>
+{% endblock %}
+
+{% block form_introduction %}
+<p>{% translate "Enter your account details to authenticate." %}</p>
+{% endblock %}
+
+{% block form_fields %}
+  {{ form.as_p }}
+  <input class="form__submit btn--round text-md is-bold" type="submit" value="Entra">
+{% endblock %}
+
+{% block after_form_content %}
+<a href="{% url 'registration:password_reset' %}">
+  {% translate "Forgotten your password?" %}
+</a>
+<p>{% translate "If you are not registered yet:" %}</p>
+<a href="{% url 'registration:signup' %}">
+  <div class="singup__btn btn--round text-xmd is-bold">
+    <p>{% translate "Sign-up" %}</p>
+  </div>
+</a>
+{% endblock %}

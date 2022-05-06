@@ -1,9 +1,13 @@
+from django.contrib import admin
 from django.contrib.auth.models import (
     AbstractBaseUser,
     BaseUserManager,
     PermissionsMixin,
 )
 from django.db import models
+from django.utils.translation import gettext_lazy as _
+
+from apps.base.models import BaseModel
 
 
 class UserManager(BaseUserManager):
@@ -13,7 +17,7 @@ class UserManager(BaseUserManager):
         and extra fields.
         """
         if not email:
-            raise ValueError("Users must have an email address")
+            raise ValueError(_("Users must have an email address"))
 
         user = self.model(email=self.normalize_email(email), **extra_fields)
 
@@ -27,7 +31,7 @@ class UserManager(BaseUserManager):
         and extra fields.
         """
         if not password:
-            raise ValueError("Superusers must have a password")
+            raise ValueError(_("Superusers must have a password"))
 
         user = self.create_user(email, password=password, **extra_fields)
         user.is_staff = True
@@ -36,9 +40,16 @@ class UserManager(BaseUserManager):
         return user
 
 
-class User(AbstractBaseUser, PermissionsMixin):
+class User(BaseModel, AbstractBaseUser, PermissionsMixin):
+    name = models.CharField(_("name"), max_length=50)
+    surnames = models.CharField(
+        _("surname"),
+        max_length=50,
+        default="",
+        blank=True,
+    )
     email = models.EmailField(
-        verbose_name="email address",
+        verbose_name=_("email address"),
         max_length=255,
         unique=True,
     )
@@ -51,4 +62,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = []
 
     def __str__(self):
-        return self.email
+        return self.full_name
+
+    @property
+    @admin.display(
+        ordering="name",
+        description="Nom",
+    )
+    def full_name(self):
+        return f"{self.name} {self.surnames}".strip()
+
