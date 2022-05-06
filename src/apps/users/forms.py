@@ -92,7 +92,7 @@ class PasswordResetForm(BasePasswordResetForm):
     ):
         password_reset_url = absolute_url(
             reverse(
-                "password_reset_confirm",
+                "registration:password_reset_confirm",
                 kwargs={
                     "uidb64": context["uid"],
                     "token": context["token"],

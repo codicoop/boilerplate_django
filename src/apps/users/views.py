@@ -15,6 +15,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView
 
 from apps.base.mixins import AnonymousRequiredMixin
+from apps.base.views import StandardSuccess
 from apps.users.forms import (
     AuthenticationForm,
     PasswordResetForm,
@@ -48,6 +49,8 @@ class SignupView(AnonymousRequiredMixin, CreateView):
 
 class PasswordResetView(AnonymousRequiredMixin, BasePasswordResetView):
     form_class = PasswordResetForm
+    template_name = "registration/password_reset_confirm.html"
+    success_url = reverse_lazy("registration:password_reset_done")
 
     def form_valid(self, form):
         user = form.get_users(form.cleaned_data["email"])
@@ -69,15 +72,23 @@ class PasswordResetView(AnonymousRequiredMixin, BasePasswordResetView):
 
 
 class PasswordResetConfirmView(AnonymousRequiredMixin, BasePasswordResetConfirmView):
-    pass
+    success_url = reverse_lazy("registration:password_reset_complete")
 
 
-class PasswordResetDoneView(AnonymousRequiredMixin, BasePasswordResetDoneView):
-    pass
+class PasswordResetDoneView(AnonymousRequiredMixin, StandardSuccess):
+    template_name = "standard_success.html"
+    title = _("Password reset sent")
+    description = _("Password reset sent")
+    url = reverse_lazy("registration:login")
+    link_text = _("Login")
 
 
-class PasswordResetCompleteView(AnonymousRequiredMixin, BasePasswordResetCompleteView):
-    pass
+class PasswordResetCompleteView(AnonymousRequiredMixin, StandardSuccess):
+    template_name = "standard_success.html"
+    title = _("Password reset complete")
+    description = _("Password reset complete")
+    url = reverse_lazy("registration:login")
+    link_text = _("Login")
 
 
 class DetailsView(UpdateView):
