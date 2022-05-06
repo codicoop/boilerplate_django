@@ -1,0 +1,16 @@
+{% extends "./base.html" %}
+{% load i18n %}
+
+{% block main %}
+
+  <h2>{% block success_title %}{% translate "Done!!" %}{% endblock %}</h2>
+
+  {% block success_content %}
+    <div>
+      <p>{% translate "Registry successfully updated." %}</p>
+    </div>
+    <a href="{% url 'home' %}">{% block success_btn %}{% translate "Back" %}{% endblock %}</a>
+  {% endblock %}
+
+{% endblock %}
+

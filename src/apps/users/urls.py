@@ -44,7 +44,9 @@ urlpatterns = [
     # Profile
     path(
         _("profile/modified/"),
-        StandardSuccess.as_view(url=reverse_lazy("profile_details")),
+        StandardSuccess.as_view(
+            url=reverse_lazy("registration:profile_details"),
+        ),
         name="profile_details_success",
     ),
     path(

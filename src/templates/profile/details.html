@@ -1,12 +1,9 @@
 {% extends "../base_form.html" %}
+{% load i18n %}
 
-{% block page_title %}Les meves dades | Dades personals{% endblock %}
-
-{% block profile_section_title %}Dades personals{% endblock %}
+{% block page_title %}{% translate "Profile details" %}{% endblock %}
 
 {% block form_fields %}
-  <div class="card card-columns rows-6">
     {{ form.as_p }}
-  </div>
-  <input class="form__submit btn--round btn--primary text-md is-bold" type="submit" value="Desar" />
+  <input type="submit" value="{% translate 'Save' %}" />
 {% endblock %}
