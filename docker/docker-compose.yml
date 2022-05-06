@@ -22,7 +22,6 @@ services:
       - develop_django_boilerplate_network
 
   develop_django_boilerplate_startup_commands:
-    restart: on-failure
     container_name: develop_django_boilerplate_startup_commands
     build:
       context: ..
