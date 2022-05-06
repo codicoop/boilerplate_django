@@ -4,17 +4,21 @@ from django.views.generic import RedirectView, TemplateView
 from django.utils.translation import gettext_lazy as _
 
 
-class Home(RedirectView):
+class RootRedirectView(RedirectView):
     """
     If your site has an actual home page view that is not a redirect,
     you'll also need to move the URL in conf/urls.py from the urlpatterns
     block to the i18n_patterns one.
     """
-    url = reverse_lazy("registration:login")
+    url = reverse_lazy("home")
 
     def get_redirect_url(self, *args, **kwargs):
         activate(get_language())
         return super().get_redirect_url(*args, **kwargs)
+
+
+class HomeView(TemplateView):
+    template_name = "home.html"
 
 
 class StandardSuccess(TemplateView):
