@@ -95,7 +95,7 @@ class DetailsView(UpdateView):
     template_name = "profile/details.html"
     form_class = ProfileDetailsForm
     model = User
-    success_url = reverse_lazy("profile_details_success")
+    success_url = reverse_lazy("registration:profile_details_success")
 
     def get_object(self, queryset=None):
         return self.request.user
