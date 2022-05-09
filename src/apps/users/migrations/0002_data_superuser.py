@@ -27,9 +27,16 @@ def generate_superuser(apps, schema_editor):
 
 
 def remove_superuser(apps, schema_editor):
-    user_model = apps.get_model("users.User")
-    user_model.objects.get(email=settings.DJANGO_SUPERUSER_EMAIL).delete()
-    print("\nInitial superuser removed.\n")
+    try:
+        user_model = apps.get_model("users.User")
+        superuser = user_model.objects.filter(email=settings.DJANGO_SUPERUSER_EMAIL)
+
+        if superuser.exists():
+            superuser.delete()
+            print("\nInitial superuser removed.\n")
+            
+    except Exception as error:
+        raise error
 
 
 class Migration(migrations.Migration):

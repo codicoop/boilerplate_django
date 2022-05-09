@@ -8,7 +8,7 @@ class UsersTestCase(TestCase):
         pass
 
     def test_email_required(self):
-        """ "Email is required for user creation."""
+        """Email is required for user creation."""
         with self.assertRaisesMessage(TypeError, "email"):
             User.objects.create_user()
 
