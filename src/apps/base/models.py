@@ -4,6 +4,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.formats import localize
 from django.utils.text import Truncator
+from django.utils.translation import gettext_lazy as _
 
 
 class SetBooleanDatetimeMixin(object):
@@ -28,7 +29,7 @@ class BaseModel(SetBooleanDatetimeMixin, models.Model):
         blank=False,
         related_name="%(app_label)s_%(class)s_related",
         on_delete=models.CASCADE,
-        verbose_name="autor",
+        verbose_name=_("author"),
     )
 
     class Meta:

@@ -67,7 +67,11 @@ class User(BaseModel, AbstractBaseUser, PermissionsMixin):
     @property
     @admin.display(
         ordering="name",
-        description="Nom",
+        description=_("name"),
     )
     def full_name(self):
         return f"{self.name} {self.surnames}".strip()
+
+    class Meta:
+        verbose_name = _("user")
+        verbose_name_plural = _("users")
