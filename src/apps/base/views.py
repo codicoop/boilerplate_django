@@ -1,7 +1,7 @@
 from django.urls import NoReverseMatch, reverse, reverse_lazy
-from django.utils.translation import get_language, activate
-from django.views.generic import RedirectView, TemplateView
+from django.utils.translation import activate, get_language
 from django.utils.translation import gettext_lazy as _
+from django.views.generic import RedirectView, TemplateView
 
 
 class RootRedirectView(RedirectView):
@@ -10,6 +10,7 @@ class RootRedirectView(RedirectView):
     you'll also need to move the URL in conf/urls.py from the urlpatterns
     block to the i18n_patterns one.
     """
+
     url = reverse_lazy("home")
 
     def get_redirect_url(self, *args, **kwargs):

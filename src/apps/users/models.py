@@ -71,4 +71,3 @@ class User(BaseModel, AbstractBaseUser, PermissionsMixin):
     )
     def full_name(self):
         return f"{self.name} {self.surnames}".strip()
-

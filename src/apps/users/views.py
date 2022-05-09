@@ -1,17 +1,19 @@
 from itertools import islice
 
 from django.contrib.auth import authenticate, login
+
+# from django.contrib.auth.views import PasswordResetDoneView as BasePasswordResetDoneView # noqa
+# from django.contrib.auth.views import (
+#     PasswordResetCompleteView as BasePasswordResetCompleteView,
+# )
 from django.contrib.auth.views import LoginView as BaseLoginView
-from django.contrib.auth.views import (
-    PasswordResetCompleteView as BasePasswordResetCompleteView,
-)
 from django.contrib.auth.views import (
     PasswordResetConfirmView as BasePasswordResetConfirmView,
 )
-from django.contrib.auth.views import PasswordResetDoneView as BasePasswordResetDoneView
 from django.contrib.auth.views import PasswordResetView as BasePasswordResetView
 from django.core.exceptions import ValidationError
 from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, UpdateView
 
 from apps.base.mixins import AnonymousRequiredMixin
@@ -23,7 +25,6 @@ from apps.users.forms import (
     UserSignUpForm,
 )
 from apps.users.models import User
-from django.utils.translation import gettext_lazy as _
 
 
 class LoginView(AnonymousRequiredMixin, BaseLoginView):

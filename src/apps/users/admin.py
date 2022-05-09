@@ -64,7 +64,11 @@ class UserAdmin(ModelAdminMixin, BaseUserAdmin):
         (None, {"fields": ("email", "password1", "password2")}),
         ("Permissions", {"fields": ("is_superuser",)}),
     )
-    search_fields = ("email", "name", "surname", )
+    search_fields = (
+        "email",
+        "name",
+        "surname",
+    )
     ordering = ("email",)
     # filter_horizontal = ()
     superuser_fields = ("is_superuser", "is_active", "is_staff")
