@@ -1,0 +1,45 @@
+// Dynamic variables
+
+.footer {
+  --padding-footer: 13px 20px;
+}
+.footer__social-icon {
+  --width: 14px;
+}
+
+@media (min-width: 1024px) {
+
+  .footer {
+  --padding-footer: 24px 36px;
+  }
+  .footer__social-icon {
+    --width: 28px;
+  }
+}
+
+// Layout
+.footer {
+  margin-top: auto;
+  padding: var(--padding-footer);
+  background-color: var(--second);
+  color: var(--white);
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+  }
+  &__social ul {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 4px;
+
+    .footer__social-icon {
+      width: var(--width);
+    }
+  }
+  &__bottom {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+}

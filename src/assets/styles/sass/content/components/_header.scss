@@ -1,0 +1,72 @@
+// Dynamic variables
+.header {
+  --height-header: auto;
+  --padding-header: 13px 20px;
+  --display-header: flex;
+
+  .nav {
+    --justify-content: center;
+  }
+}
+
+@media (min-width: 1024px) {
+  .header {
+    --height-header: auto;
+    --padding-header: 24px 36px;
+
+    .nav {
+      --justify-content: space-between;
+    }
+  }
+}
+
+// Layout
+
+.header {
+  display: var(--display-header);
+  flex-direction: column;
+  justify-content: space-between;
+
+  height: var(--height-header);
+  width: 100%;
+  background-color: var(--primary-light);
+  padding: var(--padding-header);
+
+}
+
+.nav {
+  display: flex;
+  gap: 8px;
+  justify-content: var(--justify-content);
+  
+  li {
+    width: 50%;
+  }
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+  }
+  &__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+  }
+  // &__logo { }
+  // &__nav {  }
+  &__lang ul {
+    display: flex;
+    gap: 5px;
+  }
+  &__lang-item {
+    padding: 8px;
+  }
+}

@@ -1,33 +1,138 @@
-{% load i18n %}
+{% load i18n static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="{% static 'images/styles.css' %}">
+  <link rel="stylesheet" href="{% static 'styles/styles.css' %}">
   <title>Projecte App | {% block page_title %}{% endblock %}</title>
 </head>
-<body>
-  {% if request.user.is_authenticated %}
-    <div>
-      <p>Logged in as: {{ request.user }}</p>
+<body
+  class="{% block bodyclasses %}{% endblock %}"
+>
+  <header class="header">
+    <div class="menu">
+      <div class="menu__top">
+        <div class="menu__logo">
+          <img class="logo--bg" src="{% static 'images/logo.svg' %}" alt="{% translate 'Logo of the business' %}">
+        </div>
+        {% if request.user.is_authenticated %}
+        <div class="menu__username">
+          <p>Logged in as: 
+            <a href="{% url 'registration:profile_details' %}">
+              <p>{{ request.user }}</p>
+            </a>
+          </p>
+        </div>
+        {% endif %}
+        {# if language options #}
+        <div class="menu__lang text-sm">
+          <ul>
+            <li>
+              <a href="">
+                <p class="menu__lang-item">CA</p>
+              </a>
+            </li>
+            <li>
+              <a href="">
+                <p class="menu__lang-item">ES</p>
+              </a>
+            </li>
+          </ul>
+        </div>
+        {# endif #}
+      </div>
+      <div class="menu__bottom">
+        <nav class="menu__nav">
+          <ul class="nav">
+            {% if not request.user.is_authenticated %}
+              <li>
+                <a href="{% url 'home' %}">
+                  <p class="nav__link title-3">{% translate "Home" %}</p>
+                </a>
+              </li>
+              <li>
+                <a href="{% url 'registration:login' %}">
+                  <p class="nav__link title-3">{% translate "Log in" %}</p>
+                </a>
+              </li>
+              <li>
+                <a href="{% url 'registration:signup' %}">
+                  <p class="nav__link title-3">{% translate "Sign up" %}</p>
+                </a>
+              </li>
+              <li>
+                <a href="{% url 'registration:password_reset' %}">
+                  <p class="nav__link title-3">{% translate "Password recovery" %}</p>
+                </a>
+              </li>
+            {% endif %}
+            {% if request.user.is_authenticated %}
+              <li>
+                <a href="{% url 'registration:profile_details' %}">
+                  <p class="nav__link">{% translate "Profile details" %}</p>
+                </a>
+              </li>
+              <li>
+                <a href="{% url 'registration:logout' %}">
+                  <p class="nav__link">{% translate "Log out" %}</p>
+                </a>
+              </li>
+          {% endif %}
+          </ul>
+        </nav>
+      </div>
     </div>
-  {% endif %}
-  {% if not request.user.is_authenticated %}
-    <a href="{% url 'home' %}">{% translate "Home" %}</a>
-    <a href="{% url 'registration:login' %}">{% translate "Log in" %}</a>
-    <a href="{% url 'registration:signup' %}">{% translate "Sign up" %}</a>
-    <a href="{% url 'registration:password_reset' %}">{% translate "Password recovery" %}</a>
-  {% endif %}
-  {% if request.user.is_authenticated %}
-    <a href="{% url 'registration:profile_details' %}">{% translate "Profile details" %}</a>
-    <a href="{% url 'registration:logout' %}">{% translate "Log out" %}</a>
-  {% endif %}
+  </header>
 
-  {% block main %}
-  {% endblock %}
+  <main class="main">
+    {% block main %}
+    {% endblock %}
+  </main>
 
+  <footer class="footer">
+    <div class="footer__top">
+      <div class="footer__logo">
+        <img class="logo--sm" src="{% static 'images/logo.svg' %}" alt="{% translate 'Logo of the business' %}">
+      </div>
+      <div class="footer__social">
+        <ul>
+          {# Un per cada link a xxss que afegeixin (fins a 4?) #}
+          <li>
+            <a href="">
+              <div class="footer__social-icon">
+                {# Icona i alt canviant per cada xxss #}
+                <img src="{% static 'images/icon_menu.svg' %}" alt="">
+              </div>
+            </a>
+          </li>
+          {# fi #}
+          <li>
+            <a href="">
+              <div class="footer__social-icon">
+                {# Icona i alt canviant per cada xxss #}
+                <img src="{% static 'images/icon_menu.svg' %}" alt="">
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom text-sm">
+      <span class="footer__legal">
+        <p>©2022 Mobles Ciurans.</p>
+      </span>
+      <span class="footer__legal">
+        <a href="">
+          <p>Avís legal</p>
+        </a>
+      </span>
+    </div>
+  </footer>
+
+  <script src="{% static 'js/scripts.js' %}"></script>
   {% block extra_js %}{% endblock %}
-
 </body>
 </html>
