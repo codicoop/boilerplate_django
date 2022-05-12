@@ -7,9 +7,9 @@ from django.urls import reverse
 from django.utils import formats, timezone
 from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
-from post_office import mail
 
 from apps.base.helpers import absolute_url
+from apps.base.post_office import send
 from apps.users.models import User
 
 
@@ -113,7 +113,7 @@ class PasswordResetForm(BasePasswordResetForm):
             "absolute_url": settings.ABSOLUTE_URL,
             "password_reset_url": password_reset_url,
         }
-        mail.send(
+        send(
             recipients=[
                 to_email,
             ],
