@@ -63,6 +63,8 @@ EMAIL_USE_TLS = env("EMAIL_USE_TLS", bool)
 EMAIL_USE_SSL = env("EMAIL_USE_SSL", bool)
 EMAIL_BACKEND = env("EMAIL_BACKEND")
 
+# Celery
+CELERY_BROKER_URL = env("CELERY_BROKER_URL", default=None)
 
 """
 Django settings for conf project.
@@ -84,6 +86,7 @@ INSTALLED_APPS = [
     "maintenance_mode",
     "apps.base",
     "apps.users",
+    "apps.celery",
     "django.contrib.postgres",
     "grappelli",  # Place before contrib.admin
     "django.contrib.admin",

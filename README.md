@@ -193,3 +193,9 @@ documentation.
 In previous versions the boilerplate included this package.
 Now the `mailing_manager` cannot be used anymore because of its dependency
 of the `mailqueue` package, which is discontinued.
+
+## Celery
+
+TODO: Documentation about the setup process, although it may go to the wiki instead?
+
+    poetry add celery redis
