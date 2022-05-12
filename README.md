@@ -10,6 +10,10 @@ Few features from this library are already set up, but it brings a lot more of
 interesting features. If you need anything related to email handling, first check
 if it's already included.
 
+The email templates are created using data migrations that contain the subject
+and body internationalized in the enabled languages. More about that at the
+Internationalization section.
+
 ### Removal
 
 This boilerplate assumes that you'll want to send transactional emails. If not,
@@ -66,9 +70,12 @@ The password reset template is in english and includes a translation in catalan.
 In the `PasswordResetForm` class you'll see an example of how to use translated
 templates, with the `mail.send()`'s `language` param.
 
-TO DO: This could be extended in a way that by default you don't need to include
-the `language` parameter and instead it takes it from
-`django.utils.translation.get_language()`.
+#### Creating or modifying email templates
+
+Check the example at `base/migrations/0002_data_emails.py`.
+
+If you add a new language, you'll have to create new data migrations for all
+existing email templates that create the new translated templates.
 
 ## `StandardSuccess` view
 
