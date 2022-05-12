@@ -1,17 +1,17 @@
-from django.conf import settings
 from django.db import migrations
 
 
 def populate_mail_templates(apps, schema_editor):
-    mail_model = apps.get_model('mailing_manager', 'Mail')
+    mail_model = apps.get_model('post_office', 'EmailTemplate')
 
     templates = [
         dict(
-            id="EMAIL_PASSWORD_RESET",
-            subject="Reinicialització de contrasenya del teu compte a "
-            "{{project_name}}",
-            default_template_path="emails/notification_template.html",
-            body="""
+            id="password_reset",
+            translated_templates={
+                "en": {
+                    "subject": "Password reset for your account at "
+                               "{{project_name}}",
+                    "body": """
 <p>Hello {{user_name}}!</p>
 <p>We're sending you this e-mail because today {{date}} at {{time}}
 someone requested the reset of the {{user_email}}'s account password
@@ -28,30 +28,59 @@ We will appreciate it if you could also warn us about the situation.
 <p>To set a new password open this link:
 <a href="{{password_reset_url}}">{{password_reset_url}}</a>
 </p>
-            """,
+                    """,
+                },
+                "ca": {
+                    "subject": "Reinicialització de contrasenya del teu compte a "
+                            "{{project_name}}",
+                    "body": """
+<p>Hola {{user_name}}!</p>
+<p>T'enviem aquest correu perquè avui {{date}} a les {{time}}
+algú ha sol·licitat el reinici de la contrasenya del compte {{user_email}}
+de l'aplicació {{absolute_url}}.</p>
+
+<p>Si no has estat tu qui ho ha demanat, ignora aquest missatge.
+Si segueixes revent correus com aquest múltiples vegades, podria ser que algú
+estigui intentant accedir al teu compte. Assegura't de posar una contrasenya
+ben llarga i t'agrairem que ens informis de la situació.
+</p>
+
+<h3>Instruccions pel reinici de la contrasenya<h3>
+<p>Per establir una nova contrasenya obre aquest enllaç:
+<a href="{{password_reset_url}}">{{password_reset_url}}</a>
+</p>
+                    """,
+                },
+            },
         ),
     ]
 
     print('')
     for template in templates:
         obj, created = mail_model.objects.update_or_create(
-            text_identifier=template["id"],
+            name=template.get("id"),
             defaults={
-                'text_identifier': template["id"],
-                'subject': template["subject"],
-                'body': template["body"],
-                'default_template_path': template["default_template_path"],
-            },
+                'name': template.get("id"),
+            }
         )
-        print(f'{template["id"]} email template created.')
+        for lang, translated_template in template.get("translated_templates").items():
+            print(translated_template)
+            print("lang", lang)
+            obj.translated_templates.get_or_create(
+                language=lang,
+                subject=translated_template.get("subject"),
+                content=translated_template.get("body"),
+            )
+        print(f'{template.get("id")} email template created.')
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
         ('base', '0001_initial'),
+        ('post_office', '__latest__'),
     ]
 
     operations = [
-        # migrations.RunPython(populate_mail_templates),
+        migrations.RunPython(populate_mail_templates),
     ]
