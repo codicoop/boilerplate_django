@@ -7,6 +7,7 @@ Put the settings in /conf/.env
 import os
 
 import environ
+from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
 env = environ.Env(
@@ -98,7 +99,6 @@ INSTALLED_APPS = [
 
 AUTH_USER_MODEL = "users.User"
 
-
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
@@ -107,6 +107,7 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "login_required.middleware.LoginRequiredMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "maintenance_mode.middleware.MaintenanceModeMiddleware",
@@ -167,6 +168,7 @@ LOCALE_PATHS = [
     os.path.join(BASE_DIR, "locale"),
 ]
 
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, "src/static")
@@ -176,10 +178,16 @@ STATICFILES_DIRS = [
 ]
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
+# For LoginRequiredMiddleware
+# Using paths instead of view names so we can whitelist entire sections.
+LOGIN_REQUIRED_IGNORE_PATHS = [
+    r"^/admin/",
+]
+
 # Important settings, adjust according to your URLs:
-# LOGIN_URL = reverse_lazy('login')
-# LOGIN_REDIRECT_URL = reverse_lazy('profile')
-# LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = reverse_lazy("registration:login")
+LOGIN_REDIRECT_URL = reverse_lazy("registration:profile_details")
+LOGOUT_REDIRECT_URL = "/"
 
 # Django Post Office
 POST_OFFICE = {
