@@ -4,8 +4,8 @@
 
 // Layout
 .login {
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding-top: var(--padding-md);
+  padding-bottom: var(--padding-md);
   justify-items: center;
 
   &__preform {
@@ -14,6 +14,6 @@
   .form {
   }
   &__afterform {
-    
+
   }
 }

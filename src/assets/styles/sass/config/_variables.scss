@@ -15,8 +15,12 @@
   --second: #5bbab5;
   --second-dark: #00524f;
 
+  // Paddings
+  --padding-base: 16px;
 
-  // paddings
-  --padding-md: 24px 36px;
+  --padding-xsm: calc(var(--padding-base) / 2);
+  --padding-sm: var(--padding-base);
+  --padding-md: calc(var(--padding-base) * 1.5);
+  --padding-lg: calc(var(--padding-base) * 2);
+  --padding-xlg: calc(var(--padding-base) * 3);
 }
-

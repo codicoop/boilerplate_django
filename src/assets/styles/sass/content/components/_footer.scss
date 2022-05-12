@@ -1,12 +1,12 @@
 // Dynamic variables
 
 .footer__social-icon {
-  --width: 14px;
+  --width: var(--padding-sm);
 }
 
 @media (min-width: 1024px) {
   .footer__social-icon {
-    --width: 28px;
+    --width:  var(--padding-md);
   }
 }
 
@@ -24,7 +24,7 @@
   &__social ul {
     display: flex;
     flex-wrap: nowrap;
-    gap: 4px;
+    gap:  var(--padding-xsm);
 
     .footer__social-icon {
       width: var(--width);
@@ -33,6 +33,6 @@
   &__bottom {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap:  var(--padding-xsm);
   }
 }

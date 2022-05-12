@@ -2,7 +2,7 @@
 
 // Layout
 .btn {
-  padding: 12px 40px;
+  padding: var(--padding-sm) var(--padding-md);
   text-align: center;
 }
 .btn--primary {

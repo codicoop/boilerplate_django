@@ -197,7 +197,12 @@ img {
   --primary-light: #fa76ff;
   --second: #5bbab5;
   --second-dark: #00524f;
-  --padding-md: 24px 36px;
+  --padding-base: 16px;
+  --padding-xsm: calc(var(--padding-base) / 2);
+  --padding-sm: var(--padding-base);
+  --padding-md: calc(var(--padding-base) * 1.5);
+  --padding-lg: calc(var(--padding-base) * 2);
+  --padding-xlg: calc(var(--padding-base) * 3);
 }
 
 body {
@@ -297,14 +302,14 @@ body {
 .grid-1 {
   display: flex;
   flex-direction: column;
-  padding: 0 32px;
+  padding: 0 var(--padding-md);
 }
 
 .grid-2 {
   display: flex;
   flex-direction: column;
-  padding: 0 16px;
-  gap: 16px;
+  padding: 0 var(--padding-sm);
+  gap: var(--padding-sm);
 }
 
 .grid-item-full {
@@ -386,7 +391,7 @@ body {
   }
 }
 .btn {
-  padding: 12px 40px;
+  padding: var(--padding-sm) var(--padding-md);
   text-align: center;
 }
 
@@ -452,7 +457,7 @@ body {
 }
 
 .header, .footer {
-  --padding-header: 13px 20px;
+  --padding-header: var(--padding-sm) var(--padding-md);
 }
 
 @media (min-width: 1024px) {
@@ -464,7 +469,7 @@ body {
   }
 
   .header, .footer {
-    --padding-header: 24px 36px;
+    --padding-header: var(--padding-md) var(--padding-lg);
   }
 }
 .header {
@@ -479,7 +484,7 @@ body {
 
 .nav {
   display: flex;
-  gap: 8px;
+  gap: var(--padding-xsm);
   justify-content: var(--justify-content);
 }
 .nav li {
@@ -500,23 +505,23 @@ body {
   flex-wrap: wrap;
   justify-content: flex-end;
   align-items: center;
-  gap: 10px;
+  gap: var(--padding-xsm);
 }
 .menu__lang ul {
   display: flex;
-  gap: 5px;
+  gap: var(--padding-xsm);
 }
 .menu__lang-item {
-  padding: 8px;
+  padding: var(--padding-xsm);
 }
 
 .footer__social-icon {
-  --width: 14px;
+  --width: var(--padding-sm);
 }
 
 @media (min-width: 1024px) {
   .footer__social-icon {
-    --width: 28px;
+    --width: var(--padding-md);
   }
 }
 .footer {
@@ -532,7 +537,7 @@ body {
 .footer__social ul {
   display: flex;
   flex-wrap: nowrap;
-  gap: 4px;
+  gap: var(--padding-xsm);
 }
 .footer__social ul .footer__social-icon {
   width: var(--width);
@@ -540,12 +545,12 @@ body {
 .footer__bottom {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: var(--padding-xsm);
 }
 
 .login {
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding-top: var(--padding-md);
+  padding-bottom: var(--padding-md);
   justify-items: center;
 }
 
