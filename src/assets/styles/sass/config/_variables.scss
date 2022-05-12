@@ -18,6 +18,7 @@
   // Paddings
   --padding-base: 16px;
 
+  --padding-xxsm: calc(var(--padding-base) / 3);
   --padding-xsm: calc(var(--padding-base) / 2);
   --padding-sm: var(--padding-base);
   --padding-md: calc(var(--padding-base) * 1.5);
