@@ -1,8 +1,19 @@
 {% extends "../base_form.html" %}
 {% load i18n %}
 
+{# Blocks de base.html #}
+{% block page_title %}{% translate "Log in" %}{% endblock %}
+{% block bodyclasses %}{% endblock %}
+{% block mainclasses %} login grid-1 {% endblock %}
+{% block extra_js %}{% endblock %}
+
+{# Blocks de base_form.html #}
+{% block form_classes %} grid-item-4-9 {% endblock %}
+
 {% block before_form_content %}
-<h2>{% translate "Log-in" %}</h2>
+<div class="login__preform grid-item-4-9">
+  <h2>{% translate "Log-in" %}</h2>
+</div>
 {% endblock %}
 
 {% block form_introduction %}
@@ -11,17 +22,19 @@
 
 {% block form_fields %}
   {{ form.as_p }}
-  <input class="form__submit btn--round text-md is-bold" type="submit" value="Entra">
+  <input class="form__submit" type="submit" value="Entra">
 {% endblock %}
 
 {% block after_form_content %}
-<a href="{% url 'registration:password_reset' %}">
-  {% translate "Forgotten your password?" %}
-</a>
-<p>{% translate "If you are not registered yet:" %}</p>
-<a href="{% url 'registration:signup' %}">
-  <div class="singup__btn btn--round text-xmd is-bold">
-    <p>{% translate "Sign-up" %}</p>
-  </div>
-</a>
+<div class="login__afterform grid-item-4-9">
+  <a href="{% url 'registration:password_reset' %}">
+    {% translate "Forgotten your password?" %}
+  </a>
+  <p>{% translate "If you are not registered yet:" %}</p>
+  <a href="{% url 'registration:signup' %}">
+    <div class="">
+      <p>{% translate "Sign-up" %}</p>
+    </div>
+  </a>
+</div>
 {% endblock %}
