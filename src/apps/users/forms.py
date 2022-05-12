@@ -5,7 +5,6 @@ from django.contrib.auth.forms import PasswordResetForm as BasePasswordResetForm
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse
 from django.utils import formats, timezone
-from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
 
 from apps.base.helpers import absolute_url
