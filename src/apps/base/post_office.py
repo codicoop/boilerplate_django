@@ -23,6 +23,8 @@ def send(
     language="",
     backend="",
 ):
+    if not language:
+        language = get_language()
     return base_mail.send(
         recipients=recipients,
         sender=sender,
@@ -41,6 +43,6 @@ def send(
         commit=commit,
         cc=cc,
         bcc=bcc,
-        language=get_language(),
+        language=language,
         backend=backend,
     )
