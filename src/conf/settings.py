@@ -182,6 +182,7 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # Using paths instead of view names so we can whitelist entire sections.
 LOGIN_REQUIRED_IGNORE_PATHS = [
     r"^/admin/",
+    r"^/i18n/setlang/",
 ]
 
 # Important settings, adjust according to your URLs:
