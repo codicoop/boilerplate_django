@@ -1,6 +1,13 @@
 {% extends "./base.html" %}
 {% load static %}
 
+{# Blocks de base.html #}
+
+{% block page_title %}{% endblock %}
+{% block bodyclasses %}{% endblock %}
+{% block mainclasses %}{% endblock %}
+{% block extra_js %}{% endblock %}
+
 {% block main %}
 
   {% block before_form_content %}
@@ -14,8 +21,13 @@
 
       <form method="post" enctype="{% block enctype %}application/x-www-form-urlencoded{% endblock %}" {% block form_action %}{% endblock %}>
         {% csrf_token %}
-        
-        {% block form_fields %}
+
+        <ul class="form__fields-container">
+          {% block form_fields %}
+          {% endblock %}
+        </ul>
+        {% block form_submit %}
+          <input class="form__submit" type="submit" value="{% block submit_value %}{% endblock %}" />
         {% endblock %}
       </form>
 

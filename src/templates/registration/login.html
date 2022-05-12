@@ -21,8 +21,8 @@
 {% endblock %}
 
 {% block form_fields %}
-  {{ form.as_p }}
-  <input class="form__submit" type="submit" value="Entra">
+  {{ form.as_ul }}
+  {% block submit_value %}{% translate "Go in" %}{% endblock %}
 {% endblock %}
 
 {% block after_form_content %}

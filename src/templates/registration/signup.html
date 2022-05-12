@@ -14,8 +14,8 @@
 {% endblock %}
 
 {% block form_fields %}
-  {{ form.as_p }}
-  <input class="form__submit" type="submit" value="Crea compte" />
+  {{ form.as_ul }}
+  {% block submit_value %}{% translate "Create an account" %}{% endblobk %}
 {% endblock %}
 
 {% block after_form_content %}
