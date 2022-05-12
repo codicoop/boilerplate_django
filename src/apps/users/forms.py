@@ -100,6 +100,7 @@ class PasswordResetForm(BasePasswordResetForm):
             )
         )
         context = {
+            "project_name": settings.PROJECT_NAME,
             "user_name": context["user"].full_name,
             "date": str(
                 formats.date_format(
@@ -119,5 +120,4 @@ class PasswordResetForm(BasePasswordResetForm):
             ],
             template="password_reset",
             context=context,
-            language=get_language(),
         )
