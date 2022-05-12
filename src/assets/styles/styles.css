@@ -186,6 +186,7 @@ img {
 
 :root {
   --white: #fff;
+  --whitish: hsl(300, 41%, 97%);
   --black: #000;
   --blackish: #303030;
   --grey: #808080;
@@ -196,6 +197,7 @@ img {
   --primary-light: #fa76ff;
   --second: #5bbab5;
   --second-dark: #00524f;
+  --padding-md: 24px 36px;
 }
 
 body {
@@ -443,20 +445,26 @@ body {
 
 .header {
   --height-header: auto;
-  --padding-header: 13px 20px;
   --display-header: flex;
 }
 .header .nav {
   --justify-content: center;
 }
 
+.header, .footer {
+  --padding-header: 13px 20px;
+}
+
 @media (min-width: 1024px) {
   .header {
     --height-header: auto;
-    --padding-header: 24px 36px;
   }
   .header .nav {
     --justify-content: space-between;
+  }
+
+  .header, .footer {
+    --padding-header: 24px 36px;
   }
 }
 .header {
@@ -502,26 +510,18 @@ body {
   padding: 8px;
 }
 
-.footer {
-  --padding-footer: 13px 20px;
-}
-
 .footer__social-icon {
   --width: 14px;
 }
 
 @media (min-width: 1024px) {
-  .footer {
-    --padding-footer: 24px 36px;
-  }
-
   .footer__social-icon {
     --width: 28px;
   }
 }
 .footer {
   margin-top: auto;
-  padding: var(--padding-footer);
+  padding: var(--padding-header);
   background-color: var(--second);
   color: var(--white);
 }
@@ -541,6 +541,12 @@ body {
   display: flex;
   justify-content: center;
   gap: 10px;
+}
+
+.login {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  justify-items: center;
 }
 
 /*# sourceMappingURL=styles.css.map */

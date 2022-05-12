@@ -1,6 +1,7 @@
 :root {
   // Basic Colors
   --white: #fff;
+  --whitish: hsl(300, 41%, 97%);
   --black: #000;
   --blackish: #303030;
   --grey: #808080;
@@ -13,5 +14,9 @@
   --primary-light: #fa76ff;
   --second: #5bbab5;
   --second-dark: #00524f;
+
+
+  // paddings
+  --padding-md: 24px 36px;
 }
 

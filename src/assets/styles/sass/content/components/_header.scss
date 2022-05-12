@@ -1,22 +1,26 @@
 // Dynamic variables
 .header {
   --height-header: auto;
-  --padding-header: 13px 20px;
   --display-header: flex;
-
+  
   .nav {
     --justify-content: center;
   }
+}
+.header, .footer {
+  --padding-header: 13px 20px;
 }
 
 @media (min-width: 1024px) {
   .header {
     --height-header: auto;
-    --padding-header: 24px 36px;
-
+    
     .nav {
       --justify-content: space-between;
     }
+  }
+  .header, .footer {
+    --padding-header: 24px 36px;
   }
 }
 

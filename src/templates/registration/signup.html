@@ -1,14 +1,21 @@
 {% extends 'base_form.html' %}
 {% load i18n %}
 
+{# Blocks de base.html #}
 {% block page_title %}{% translate "Sign up" %}{% endblock %}
+{% block bodyclasses %}{% endblock %}
+{% block mainclasses %} signup grid-1 {% endblock %}
+{% block extra_js %}{% endblock %}
+
+{# Blocks de base_form.html #}
+{% block form_classes %} grid-item-4-9 {% endblock %}
 
 {% block before_form_content %}
 {% endblock %}
 
 {% block form_fields %}
   {{ form.as_p }}
-  <input class="form__submit btn--round btn--primary text-md is-bold" type="submit" value="Crea compte" />
+  <input class="form__submit" type="submit" value="Crea compte" />
 {% endblock %}
 
 {% block after_form_content %}
