@@ -1,5 +1,7 @@
 from django.db import migrations
 
+from apps.base.post_office import textify
+
 
 def populate_mail_templates(apps, schema_editor):
     mail_model = apps.get_model('post_office', 'EmailTemplate')
@@ -24,7 +26,7 @@ set a long password.
 We will appreciate it if you could also warn us about the situation.
 </p>
 
-<h3>Password resetting instructions<h3>
+<h3>Password resetting instructions</h3>
 <p>To set a new password open this link:
 <a href="{{password_reset_url}}">{{password_reset_url}}</a>
 </p>
@@ -45,7 +47,7 @@ estigui intentant accedir al teu compte. Assegura't de posar una contrasenya
 ben llarga i t'agrairem que ens informis de la situació.
 </p>
 
-<h3>Instruccions pel reinici de la contrasenya<h3>
+<h3>Instruccions pel reinici de la contrasenya</h3>
 <p>Per establir una nova contrasenya obre aquest enllaç:
 <a href="{{password_reset_url}}">{{password_reset_url}}</a>
 </p>
@@ -64,14 +66,15 @@ ben llarga i t'agrairem que ens informis de la situació.
             }
         )
         for lang, translated_template in template.get("translated_templates").items():
-            print(translated_template)
-            print("lang", lang)
-            obj.translated_templates.get_or_create(
+            obj.translated_templates.create(
                 language=lang,
                 subject=translated_template.get("subject"),
-                content=translated_template.get("body"),
+                html_content=translated_template.get("body"),
+                content=textify(translated_template.get("body")),
+                # name field included due this bug:
+                # https://github.com/ui/django-post_office/issues/214
+                name=template.get("id"),
             )
-        print(f'{template.get("id")} email template created.')
 
 
 class Migration(migrations.Migration):

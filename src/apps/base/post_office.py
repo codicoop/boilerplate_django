@@ -1,3 +1,6 @@
+import re
+
+from django.utils.html import strip_tags
 from django.utils.translation import get_language
 from post_office import mail as base_mail
 
@@ -46,3 +49,10 @@ def send(
         language=language,
         backend=backend,
     )
+
+
+def textify(html):
+    # Remove html tags and continuous whitespaces
+    text_only = re.sub("[ \t]+", " ", strip_tags(html))
+    # Strip single spaces in the beginning of each line
+    return text_only.replace("\n ", "\n").strip()
