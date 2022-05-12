@@ -52,6 +52,12 @@ Delete the folders:
 `templates/profile`
 `templates/registration`
 
+If you do this, you might be interested in accessing the default Django views
+for account management.
+Add this to your URLs to enable them:
+
+    path('accounts/', include('django.contrib.auth.urls')),
+
 ### `privacy_policy_accepted` field
 
 Note that this field is `datetime` instead of boolean.
