@@ -5,11 +5,10 @@ from django.contrib.auth.forms import PasswordResetForm as BasePasswordResetForm
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse
 from django.utils import formats, timezone
-from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
-from post_office import mail
 
 from apps.base.helpers import absolute_url
+from apps.base.post_office import send
 from apps.users.models import User
 
 
@@ -100,6 +99,7 @@ class PasswordResetForm(BasePasswordResetForm):
             )
         )
         context = {
+            "project_name": settings.PROJECT_NAME,
             "user_name": context["user"].full_name,
             "date": str(
                 formats.date_format(
@@ -113,11 +113,10 @@ class PasswordResetForm(BasePasswordResetForm):
             "absolute_url": settings.ABSOLUTE_URL,
             "password_reset_url": password_reset_url,
         }
-        mail.send(
+        send(
             recipients=[
                 to_email,
             ],
             template="password_reset",
             context=context,
-            language=get_language(),
         )

@@ -1,0 +1,14 @@
+// Dynamic variables
+
+// Layout
+.btn {
+  padding: var(--padding-sm) var(--padding-md);
+  text-align: center;
+}
+.btn--primary {
+  background-color: var(--primary);
+}
+.btn--second {
+  background-color: var(--white);
+  border: 2px solid var(--primary);
+}

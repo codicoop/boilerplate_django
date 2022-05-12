@@ -19,13 +19,12 @@ environ.Env.read_env()
 
 # False if not in os.environ
 DEBUG = env("DEBUG")
-
+# Raises django's ImproperlyConfigured exception if SECRET_KEY not in os.environ
+SECRET_KEY = env("SECRET_KEY")
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 # Instance's absolute URL (given we're not using Sites framework)
 ABSOLUTE_URL = env("ABSOLUTE_URL")
-
-# Raises django's ImproperlyConfigured exception if SECRET_KEY not in os.environ
-SECRET_KEY = env("SECRET_KEY")
+PROJECT_NAME = env("PROJECT_NAME", default="Project name")
 
 # Variables for non-interactive superuser creation
 DJANGO_SUPERUSER_EMAIL = env("DJANGO_SUPERUSER_EMAIL")
@@ -46,6 +45,15 @@ DATABASES = {
 # If you enable this try a makemigrations to make sure the third party
 # packages are not generating migrations.
 # DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Sendgrid
+SENDGRID_API_KEY = env("SENDGRID_API_KEY", default="")
+SENDGRID_SANDBOX_MODE_IN_DEBUG = env(
+    "SENDGRID_SANDBOX_MODE_IN_DEBUG", bool, default=False
+)
+SENDGRID_TRACK_EMAIL_OPENS = env("SENDGRID_TRACK_EMAIL_OPENS", bool, default=False)
+SENDGRID_TRACK_CLICKS_HTML = env("SENDGRID_TRACK_CLICKS_HTML", bool, default=False)
+SENDGRID_TRACK_CLICKS_PLAIN = env("SENDGRID_TRACK_CLICKS_PLAIN", bool, default=False)
 
 # SMTP
 EMAIL_HOST = env("EMAIL_HOST")
@@ -190,3 +198,4 @@ POST_OFFICE = {
     "MESSAGE_ID_ENABLED": True,
     "MESSAGE_ID_FQDN": env("POST_OFFICE_MESSAGE_ID_FQDN", default="example.com"),
 }
+DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default=None)
