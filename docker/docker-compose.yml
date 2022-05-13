@@ -49,6 +49,8 @@ services:
     depends_on:
       - develop_django_boilerplate_redis
 #    entrypoint: ["sh", "-c", "sleep 2073600"]
+    networks:
+      - develop_django_boilerplate_network
 
   develop_django_boilerplate_db:
     container_name: develop_django_boilerplate_db
@@ -77,3 +79,5 @@ services:
   develop_django_boilerplate_redis:
     container_name: develop_django_boilerplate_redis
     image: redis
+    networks:
+      - develop_django_boilerplate_network

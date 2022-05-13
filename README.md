@@ -196,6 +196,46 @@ of the `mailqueue` package, which is discontinued.
 
 ## Celery
 
-TODO: Documentation about the setup process, although it may go to the wiki instead?
+### Removal
 
-    poetry add celery redis
+In your env. variables,
+- `POST_OFFICE_CELERY_ENABLED` must be disabled.
+- `POST_OFFICE_DEFAULT_PRIORITY` must be set to "now".
+
+In `docker/docker-compose.yml`:
+- Remove the `develop_django_boilerplate_celery` and `develop_django_boilerplate_redis`
+services.
+
+Remove the packages redis and django-sendgrid-v5 from the dependencies.
+
+Finally, delete the `apps/celery` app and remove it from `INSTALLED_APPS`.
+
+### Included tasks
+
+The Django Post Office package defines two tasks when the POST_OFFICE_CELERY_ENABLED
+setting is enabled:
+- post_office.tasks.cleanup_mail
+- post_office.tasks.send_queued_mail
+
+Check [its documentation](https://github.com/ui/django-post_office#integration-with-celery)
+for more information.
+
+### Debug task
+
+In `apps/celery/celery.py` add this function:
+
+```python
+@app.task(bind=True)
+def debug_task(self):
+    print(f"Request: {self.request!r}")
+
+```
+
+Then restart the Celery service and the task will be autodetected. If you can
+see it at the block `[tasks]` during Celery startup, it worked.
+
+To "queue" the task in Celery, call it with the `delay()` method:
+`debug_task.delay()`
+
+The [Celery documentation](https://docs.celeryq.dev/en/stable/django/first-steps-with-django.html)
+has examples about it.
