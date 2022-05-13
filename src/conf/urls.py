@@ -24,7 +24,6 @@ urlpatterns = [
     path("grappelli/", include("grappelli.urls")),  # grappelli URLS
     path("admin/", admin.site.urls),
     path("", RootRedirectView.as_view()),
-    path("i18n/", include("django.conf.urls.i18n")),
 ]
 
 urlpatterns += i18n_patterns(

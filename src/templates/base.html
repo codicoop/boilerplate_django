@@ -27,20 +27,24 @@
           </p>
         </div>
         {% endif %}
-        <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
-          <input name="next" type="hidden" value="{{ redirect_to }}">
-          <select name="language">
-              {% get_current_language as LANGUAGE_CODE %}
-              {% get_available_languages as LANGUAGES %}
-              {% get_language_info_list for LANGUAGES as languages %}
-              {% for language in languages %}
-                  <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
-                      {{ language.name_local }} ({{ language.code }})
-                  </option>
-              {% endfor %}
-          </select>
-          <input type="submit" value="Go">
-      </form>
+        {# if language options #}
+        {% load language %}
+        {% get_current_language as LANGUAGE_CODE %}
+        {% get_available_languages as LANGUAGES %}
+        {% get_language_info_list for LANGUAGES as languages %}
+        <div class="menu__lang text-sm">
+          <ul>
+            {% for language in languages %}
+            {% comment %} TODO: style hardcoded --> passar a css {% endcomment %}
+            <li {% if language.code == LANGUAGE_CODE %}style="font-weight:bold;"{% endif %}>
+              <a href="{% change_lang language.code %}">
+                <p class="menu__lang-item">{{ language.name_local }} ({{ language.code }})</p>
+              </a>
+            </li>
+            {% endfor %}  
+          </ul> 
+        </div>
+        {# endif #}
       </div>
       <div class="menu__bottom">
         <nav class="menu__nav">
