@@ -64,6 +64,8 @@ EMAIL_USE_TLS = env("EMAIL_USE_TLS", bool)
 EMAIL_USE_SSL = env("EMAIL_USE_SSL", bool)
 EMAIL_BACKEND = env("EMAIL_BACKEND")
 
+# Celery
+CELERY_BROKER_URL = env("CELERY_BROKER_URL", default=None)
 
 """
 Django settings for conf project.
@@ -85,6 +87,7 @@ INSTALLED_APPS = [
     "maintenance_mode",
     "apps.base",
     "apps.users",
+    "apps.celery",
     "django.contrib.postgres",
     "grappelli",  # Place before contrib.admin
     "django.contrib.admin",
@@ -168,7 +171,6 @@ LOCALE_PATHS = [
     os.path.join(BASE_DIR, "locale"),
 ]
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, "src/static")
@@ -192,10 +194,14 @@ LOGOUT_REDIRECT_URL = "/"
 # Django Post Office
 POST_OFFICE = {
     "BACKENDS": {
-        "default": env("POST_OFFICE_DEFAULT_BACKEND", default="smtp.EmailBackend"),
+        "default": env(
+            "POST_OFFICE_DEFAULT_BACKEND",
+            default="django.core.mail.backends.console.EmailBackend",
+        ),
     },
-    "DEFAULT_PRIORITY": "now",
+    "DEFAULT_PRIORITY": env("POST_OFFICE_DEFAULT_PRIORITY", default="now"),
     "MESSAGE_ID_ENABLED": True,
     "MESSAGE_ID_FQDN": env("POST_OFFICE_MESSAGE_ID_FQDN", default="example.com"),
+    "CELERY_ENABLED": env("POST_OFFICE_CELERY_ENABLED", bool, default=False),
 }
 DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default=None)
