@@ -11,18 +11,43 @@
 {% block form_classes %} grid-item-4-9 {% endblock %}
 
 {% block before_form_content %}
-<div class="login__preform grid-item-4-9">
+<div class="form__title grid-item-4-9">
   <h2>{% translate "Log-in" %}</h2>
 </div>
 {% endblock %}
 
 {% block form_introduction %}
-<p>{% translate "Enter your account details to authenticate." %}</p>
+<div class="form__intro text-md">
+  <p>{% translate "Enter your account details to authenticate." %}</p>
+</div>
 {% endblock %}
 
 {% block form_fields %}
-  {{ form.as_p }}
-  <input class="form__submit" type="submit" value="Entra">
+  <div class="field {% if form.username.errors %}error{% endif %}">
+    <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+    {% if form.userename.errors %}
+      <span class="field__error text-sm">{{ form.username.errors.0 }}</span>
+    {% endif %}
+    {{ form.username }}
+  </div>
+
+  <div class="field {% if form.password.errors %}error{% endif %}">
+    <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+    {% if form.password.errors %}
+      <span class="field__error text-sm">{{ form.password.errors.0 }}</span>
+    {% endif %}
+    {{ form.password }}
+  </div>
+
+  <div class="field {% if form.remember_me.errors %}error{% endif %}">
+    <label for="{{ form.remember_me.id_for_label }}">{{ form.remember_me.label }}</label>
+    {% if form.remember_me.errors %}
+      <span class="field__error text-sm">{{ form.remember_me.errors.0 }}</span>
+    {% endif %}
+    {{ form.remember_me }}
+  </div>
+
+{% block submit_text %}{% translate 'Go in' %}{% endblock %}
 {% endblock %}
 
 {% block after_form_content %}

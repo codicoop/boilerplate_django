@@ -24,4 +24,14 @@
   --padding-md: calc(var(--padding-base) * 1.5);
   --padding-lg: calc(var(--padding-base) * 2);
   --padding-xlg: calc(var(--padding-base) * 3);
+
+  // Border radius
+  --br: 8px;
+
+  // Borders
+  --b-thin-sec: 1px solid var(--second);
+  --b-thick-sec: 2px solid var(--second);
+  --b-thin-prim: 1px solid var(--primary);
+  --b-thick-prim: 2px solid var(--primary);
+  --b-error: 2px solid var(--red);
 }

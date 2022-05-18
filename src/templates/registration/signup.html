@@ -11,11 +11,37 @@
 {% block form_classes %} grid-item-4-9 {% endblock %}
 
 {% block before_form_content %}
+<div class="form__title grid-item-4-9">
+  <h2>{% translate "Sign-up" %}</h2>
+</div>
 {% endblock %}
 
 {% block form_fields %}
-  {{ form.as_p }}
-  <input class="form__submit" type="submit" value="Crea compte" />
+  <div class="field {% if form.name.errors %}error{% endif %}">
+    <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+    {% if form.name.errors %}
+      <span class="field__error text-sm">{{ form.name.errors.0 }}</span>
+    {% endif %}
+    {{ form.name }}
+  </div>
+
+  <div class="field {% if form.surnames.errors %}error{% endif %}">
+    <label for="{{ form.surnames.id_for_label }}">{{ form.surnames.label }}</label>
+    {% if form.surnames.errors %}
+      <span class="field__error text-sm">{{ form.surnames.errors.0 }}</span>
+    {% endif %}
+    {{ form.surnames }}
+  </div>
+
+  <div class="field {% if form.password.errors %}error{% endif %}">
+    <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+    {% if form.password.errors %}
+      <span class="field__error text-sm">{{ form.password.errors.0 }}</span>
+    {% endif %}
+    {{ form.password }}
+  </div>
+
+  {% block submit_text %}{% translate "Create Account" %}{% endblock %}
 {% endblock %}
 
 {% block after_form_content %}
