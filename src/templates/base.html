@@ -28,19 +28,21 @@
         </div>
         {% endif %}
         {# if language options #}
+        {% load language %}
+        {% get_current_language as LANGUAGE_CODE %}
+        {% get_available_languages as LANGUAGES %}
+        {% get_language_info_list for LANGUAGES as languages %}
         <div class="menu__lang text-sm">
           <ul>
-            <li>
-              <a href="">
-                <p class="menu__lang-item">CA</p>
+            {% for language in languages %}
+            {% comment %} TODO: style hardcoded --> passar a css {% endcomment %}
+            <li {% if language.code == LANGUAGE_CODE %}style="font-weight:bold;"{% endif %}>
+              <a href="{% change_lang language.code %}">
+                <p class="menu__lang-item">{{ language.name_local }} ({{ language.code }})</p>
               </a>
             </li>
-            <li>
-              <a href="">
-                <p class="menu__lang-item">ES</p>
-              </a>
-            </li>
-          </ul>
+            {% endfor %}  
+          </ul> 
         </div>
         {# endif #}
       </div>
