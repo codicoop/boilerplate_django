@@ -297,12 +297,6 @@ body {
   font-weight: 700;
 }
 
-a {
-  color: var(--primary);
-  font-weight: bold;
-  cursor: pointer;
-}
-
 html {
   height: 100%;
 }
