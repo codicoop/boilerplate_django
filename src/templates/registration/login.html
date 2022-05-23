@@ -27,11 +27,11 @@
     <label for="{{ form.username.id_for_label }}">
       {{ form.username.label }}
     </label>
-    {% if form.userename.errors %}
+    {% if form.username.errors %}
       <span class="field__error text-sm">{{ form.username.errors.0 }}</span>
     {% endif %}
     {{ form.username }}
-    {% if form.userename.help_text %}
+    {% if form.username.help_text %}
       <span class="field__helptext text-sm">{{ form.username.help_text }}</span>
     {% endif %}
   </div>

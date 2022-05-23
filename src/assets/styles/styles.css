@@ -727,4 +727,15 @@ body {
   gap: var(--padding-sm);
 }
 
+.password {
+  padding-top: var(--padding-md);
+  padding-bottom: var(--padding-md);
+  justify-items: center;
+}
+.password__afterform {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--padding-sm);
+}
+
 /*# sourceMappingURL=styles.css.map */
