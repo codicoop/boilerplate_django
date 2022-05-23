@@ -25,9 +25,13 @@
     border-bottom: 2px solid var(--primary);
     color: var(--black);
   }
-  // Of the form has some intro text
+  // If the form has some intro text
   &__intro {
     padding-bottom: var(--padding-xsm);
+  }
+  // If the form has some outro text
+  &__outro {
+    padding: var(--padding-xsm) 0;
   }
   // If the form has section, each section title
   // &__legend {}

@@ -18,7 +18,14 @@
 
 {% block form_fields %}
   <div class="field {% if form.name.errors %}error{% endif %}">
-    <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+    <label for="{{ form.name.id_for_label }}">
+      {{ form.name.label }}
+      {# La idea és que aparegui dinàmicament segons si és obligatori #}
+      {# però ara mateix no funciona #}
+      {% if form.name.required %}
+      <span>*</span>
+      {% endif %}
+    </label>
     {% if form.name.errors %}
       <span class="field__error text-sm">{{ form.name.errors.0 }}</span>
     {% endif %}
@@ -33,15 +40,54 @@
     {{ form.surnames }}
   </div>
 
-  <div class="field {% if form.password.errors %}error{% endif %}">
-    <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
-    {% if form.password.errors %}
-      <span class="field__error text-sm">{{ form.password.errors.0 }}</span>
+  <div class="field {% if form.email.errors %}error{% endif %}">
+    <label for="{{ form.email.id_for_label }}">
+      {{ form.email.label }}
+    </label>
+    {% if form.email.errors %}
+      <span class="field__error text-sm">{{ form.email.errors.0 }}</span>
     {% endif %}
-    {{ form.password }}
+    {{ form.email }}
   </div>
 
-  {% block submit_text %}{% translate "Create Account" %}{% endblock %}
+  <div class="field {% if form.password1.errors %}error{% endif %}">
+    <label for="{{ form.password1.id_for_label }}">
+      {{ form.password1.label }}
+    </label>
+    {% if form.password1.errors %}
+      <span class="field__error text-sm">{{ form.password1.errors.0 }}</span>
+    {% endif %}
+    {{ form.password1 }}
+  </div>
+
+  <div class="field {% if form.password2.errors %}error{% endif %}">
+    <label for="{{ form.password2.id_for_label }}">
+      {{ form.password2.label }}
+    </label>
+    {% if form.password2.errors %}
+      <span class="field__error text-sm">{{ form.password2.errors.0 }}</span>
+    {% endif %}
+    {{ form.password2 }}
+    {% if form.password2.help_text %}
+      <p class="field__helptext text-sm">{{ form.password2.help_text }}</p>
+    {% endif %}
+  </div>
+
+  <div class="field-checkbox{% if form.accept_conditions.errors %}error{% endif %}">
+    <label for="{{ form.accept_conditions.id_for_label }}">
+      {{ form.accept_conditions.label }}
+    </label>
+    {{ form.accept_conditions }}
+    <span class="field-checkbox__custom"></span>
+    {% if form.accept_conditions.errors %}
+      <span class="field-checkbox__error text-sm">{{ form.accept_conditions.errors.0 }}</span>
+    {% endif %}
+    {% if form.accept_conditions.help_text %}
+      <span class="field-checkbox__helptext text-sm">{{ form.accept_conditions.help_text }}</span>
+    {% endif %}
+  </div>
+
+  <!-- {% block submit_text %}{% translate "Create Account" %}{% endblock %} -->
 {% endblock %}
 
 {% block after_form_content %}

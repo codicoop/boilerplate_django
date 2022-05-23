@@ -16,15 +16,14 @@
   &.error {
     border: var(--b-error);
   }
-
-  &__label {
+  label {
     padding-left: var(--padding-sm);
     color: var(--black);
     
     // The sub-notes as *, optional
     span {
       color: var(--primary);
-      font-size: 15px;
+      font-size: 13px;
       font-weight: bold;
     }
   }
@@ -59,5 +58,56 @@
     display: block;
     padding-left: var(--padding-sm);
     color: var(--red);
+  }
+  &__helptext {
+    padding-left: var(--padding-sm);
+    margin-top: -7px;
+    margin-bottom: 14px;
+  }
+}
+
+
+.field-checkbox {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  max-width: 400px;
+  margin: 4px 0 12px 0;
+  cursor: pointer;
+
+  label {
+    width: 100%;
+    padding-left: 24px;
+    cursor: pointer;
+
+    a {
+      font-style: italic;
+    }
+  }
+  input {
+    &:checked ~ .field-checkbox__custom::before {
+      content: "✔";
+      font-size: 16px;
+    }
+  }
+  &__custom::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #bbb;
+    background-color: var(--white);
+    pointer-events: none;
+  }
+  &__error {
+    position: absolute;
+    top: -10px;
+    left: 23px;
+    color: var(--red);
+    pointer-events: none;
   }
 }

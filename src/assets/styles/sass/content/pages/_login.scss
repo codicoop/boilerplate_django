@@ -10,5 +10,9 @@
   justify-items: center;
 
   // &__preform { }
-  // &__afterform { }
+  &__afterform {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--padding-sm);
+  }
 }

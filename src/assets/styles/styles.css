@@ -297,6 +297,12 @@ body {
   font-weight: 700;
 }
 
+a {
+  color: var(--primary);
+  font-weight: bold;
+  cursor: pointer;
+}
+
 html {
   height: 100%;
 }
@@ -495,13 +501,13 @@ body {
 .field.error {
   border: var(--b-error);
 }
-.field__label {
+.field label {
   padding-left: var(--padding-sm);
   color: var(--black);
 }
-.field__label span {
+.field label span {
   color: var(--primary);
-  font-size: 15px;
+  font-size: 13px;
   font-weight: bold;
 }
 .field input {
@@ -530,6 +536,51 @@ body {
   display: block;
   padding-left: var(--padding-sm);
   color: var(--red);
+}
+.field__helptext {
+  padding-left: var(--padding-sm);
+  margin-top: -7px;
+  margin-bottom: 14px;
+}
+
+.field-checkbox {
+  position: relative;
+  display: flex;
+  align-items: center;
+  max-width: 400px;
+  margin: 4px 0 12px 0;
+  cursor: pointer;
+}
+.field-checkbox label {
+  width: 100%;
+  padding-left: 24px;
+  cursor: pointer;
+}
+.field-checkbox label a {
+  font-style: italic;
+}
+.field-checkbox input:checked ~ .field-checkbox__custom::before {
+  content: "✔";
+  font-size: 16px;
+}
+.field-checkbox__custom::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #bbb;
+  background-color: var(--white);
+  pointer-events: none;
+}
+.field-checkbox__error {
+  position: absolute;
+  top: -10px;
+  left: 23px;
+  color: var(--red);
+  pointer-events: none;
 }
 
 .header {
@@ -650,6 +701,9 @@ body {
 .form__intro {
   padding-bottom: var(--padding-xsm);
 }
+.form__outro {
+  padding: var(--padding-xsm) 0;
+}
 .form__error {
   grid-column: 1/-1;
   padding-bottom: var(--padding-xsm);
@@ -665,6 +719,12 @@ body {
   padding-top: var(--padding-md);
   padding-bottom: var(--padding-md);
   justify-items: center;
+}
+.login__afterform,
+.signup__afterform {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--padding-sm);
 }
 
 /*# sourceMappingURL=styles.css.map */
