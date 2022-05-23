@@ -1,5 +1,5 @@
 {% extends "./base.html" %}
-{% load static %}
+{% load static i18n %}
 
 {# Blocks de base.html #}
 
@@ -13,7 +13,7 @@
   {% block before_form_content %}
   {% endblock %}
 
-  <div class="form {% block form_classes %}{% endblock %}">
+  <div class="form {% block form_classes %}{% endblock %} {% if form.username.errors or form.non_field_errors %}error{% endif %}">
     <div class="form__container">
 
       {% block form_introduction %}
@@ -22,12 +22,12 @@
       <form method="post" enctype="{% block enctype %}application/x-www-form-urlencoded{% endblock %}" {% block form_action %}{% endblock %}>
         {% csrf_token %}
 
-        <ul class="form__fields-container">
-          {% block form_fields %}
-          {% endblock %}
-        </ul>
+        {% block form_fields %}
+        {% endblock %}
+
         {% block form_submit %}
-          <input class="form__submit" type="submit" value="{% block submit_value %}{% endblock %}" />
+        <input class="form__submit btn btn--sec-solid" type="submit" 
+          value="{% block submit_text %}{% translate 'Go' %}{% endblock %}">
         {% endblock %}
       </form>
 
