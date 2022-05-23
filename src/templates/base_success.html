@@ -1,6 +1,13 @@
 {% extends "./base.html" %}
 {% load i18n %}
 
+{# Blocks de base.html #}
+
+{% block page_title %}{% translate "Sign up" %}{% endblock %}
+{% block bodyclasses %}{% endblock %}
+{% block mainclasses %} signup grid-1 {% endblock %}
+{% block extra_js %}{% endblock %}
+
 {% block main %}
 
   <h2>{% block success_title %}{% translate "Done!!" %}{% endblock %}</h2>
