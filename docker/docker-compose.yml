@@ -36,6 +36,22 @@ services:
     networks:
       - develop_django_boilerplate_network
 
+  develop_django_boilerplate_celery:
+    build:
+      context: ..
+      dockerfile: ./docker/Dockerfile
+      target: development
+    command: "celery -A apps.celery worker --loglevel=INFO"
+    container_name: develop_django_boilerplate_celery
+    env_file: ./settings/development.env
+    volumes:
+      - ../src:/srv
+    depends_on:
+      - develop_django_boilerplate_redis
+#    entrypoint: ["sh", "-c", "sleep 2073600"]
+    networks:
+      - develop_django_boilerplate_network
+
   develop_django_boilerplate_db:
     container_name: develop_django_boilerplate_db
     image: postgres:14
@@ -57,5 +73,11 @@ services:
       - 8001:80
     depends_on:
       - develop_django_boilerplate_app
+    networks:
+      - develop_django_boilerplate_network
+
+  develop_django_boilerplate_redis:
+    container_name: develop_django_boilerplate_redis
+    image: redis
     networks:
       - develop_django_boilerplate_network
