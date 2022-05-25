@@ -67,6 +67,7 @@ class User(BaseModel, AbstractBaseUser, PermissionsMixin):
     )
     validated = models.DateTimeField(
         _("validated"),
+        blank=True,
         null=True,
     )
 

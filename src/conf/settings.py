@@ -186,6 +186,7 @@ LOGIN_REQUIRED_IGNORE_PATHS = [
     r"^/admin/",
 ]
 
+
 # Important settings, adjust according to your URLs:
 LOGIN_URL = reverse_lazy("registration:login")
 LOGIN_REDIRECT_URL = reverse_lazy("registration:profile_details")

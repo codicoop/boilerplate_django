@@ -14,7 +14,7 @@ from django.contrib.auth.views import PasswordResetView as BasePasswordResetView
 from django.core.exceptions import ValidationError
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import FormView, UpdateView
 
 from apps.base.mixins import AnonymousRequiredMixin
 from apps.base.views import StandardSuccess
@@ -25,6 +25,7 @@ from apps.users.forms import (
     UserSignUpForm,
 )
 from apps.users.models import User
+from apps.users.services import user_create
 
 
 class LoginView(AnonymousRequiredMixin, BaseLoginView):
@@ -33,19 +34,19 @@ class LoginView(AnonymousRequiredMixin, BaseLoginView):
     form_class = AuthenticationForm
 
 
-class SignupView(AnonymousRequiredMixin, CreateView):
+class SignupView(FormView):
     template_name = "registration/signup.html"
     form_class = UserSignUpForm
-    model = User
     success_url = reverse_lazy("home")
 
     def form_valid(self, form):
-        ret = super().form_valid(form)
-        username = form.cleaned_data["email"]
+        email = form.cleaned_data["email"]
         password = form.cleaned_data["password1"]
-        user = authenticate(username=username, password=password)
+        name = form.cleaned_data["name"]
+        user = user_create(email=email, name=name, password=password)
+        authenticate(username=email, password=password)
         login(self.request, user)
-        return ret
+        return super().form_valid(form)
 
 
 class PasswordResetView(AnonymousRequiredMixin, BasePasswordResetView):
