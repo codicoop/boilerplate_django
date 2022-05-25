@@ -54,6 +54,38 @@ ben llarga i t'agrairem que ens informis de la situació.
                 },
             },
         ),
+        dict(
+            id="validation_code",
+            translated_templates={
+                "en": {
+                    "subject": "Validation code for your new user at "
+                    "{{project_name}}",
+                    "body": """
+<p>Hello {{user_name}}!</p>
+<p>We're sending you this e-mail because today {{date}} at {{time}}
+someone requested the creation of {{user_email}}'s account at {{absolute_url}}.</p>
+
+<h3>Validation code</h3>
+<p><b>{{validation_code}}</b></p>
+<p>This code will expire on {{ expiration_date }}</p>
+                    """,
+                },
+                "ca": {
+                    "subject": "Codi de validació pel teu nou usuari a "
+                    "{{project_name}}",
+                    "body": """
+<p>Hola {{user_name}}!</p>
+<p>T'enviem aquest correu perquè avui {{date}} a les {{time}}
+algú ha sol·licitat la creació del compte {{user_email}}
+de l'aplicació {{absolute_url}}.</p>
+
+<h3>Codi de validació</h3>
+<p><b>{{validation_code}}</b></p>
+<p>Aquest codi caducarà el {{ expiration_date }}</p>
+                    """,
+                },
+            },
+        ),
     ]
 
     print("")
