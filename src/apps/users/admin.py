@@ -1,3 +1,5 @@
+import datetime
+
 from django import forms
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
@@ -32,6 +34,7 @@ class UserCreationForm(forms.ModelForm):
         # Save the provided password in hashed format
         user = super().save(commit=False)
         user.set_password(self.cleaned_data["password1"])
+        user.validated = datetime.datetime.now()
         if commit:
             user.save()
         return user
@@ -51,12 +54,14 @@ class UserAdmin(ModelAdminMixin, BaseUserAdmin):
         "full_name",
         "is_superuser",
         "created",
+        "validated",
     )
     list_filter = ("is_superuser",)
     fieldsets = (
         (None, {"fields": ("email", "password")}),
         # ('Personal info', {'fields': ('date_of_birth',)}),
         ("Permissions", {"fields": ("is_superuser",)}),
+        (None, {"fields": ("created", "validated")}),
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.

@@ -11,9 +11,11 @@ def generate_superuser(apps, schema_editor):
     password = settings.DJANGO_SUPERUSER_PASSWORD
 
     if not email or not password:
-        print("\nSkipping initial superuser creation. Set "
-              "DJANGO_SUPERUSER_EMAIL and DJANGO_SUPERUSER_PASSWORD "
-              "environment variables to enable it.\n")
+        print(
+            "\nSkipping initial superuser creation. Set "
+            "DJANGO_SUPERUSER_EMAIL and DJANGO_SUPERUSER_PASSWORD "
+            "environment variables to enable it.\n"
+        )
         return
 
     user = user_model()
@@ -23,7 +25,7 @@ def generate_superuser(apps, schema_editor):
     user.is_superuser = True
     user.save()
 
-    print("\nInitial superuser created.\n")
+    print("\n\tInitial superuser created.")
 
 
 def remove_superuser(apps, schema_editor):
@@ -34,7 +36,7 @@ def remove_superuser(apps, schema_editor):
         if superuser.exists():
             superuser.delete()
             print("\nInitial superuser removed.\n")
-            
+
     except Exception as error:
         raise error
 
@@ -42,9 +44,7 @@ def remove_superuser(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('users', '0001_initial'),
+        ("users", "0001_initial"),
     ]
 
-    operations = [
-        migrations.RunPython(generate_superuser, remove_superuser)
-    ]
+    operations = [migrations.RunPython(generate_superuser, remove_superuser)]

@@ -55,6 +55,20 @@ class User(BaseModel, AbstractBaseUser, PermissionsMixin):
     )
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    validation_code = models.PositiveIntegerField(
+        _("validation code"),
+        editable=False,
+        null=True,
+    )
+    code_expires_at = models.DateTimeField(
+        _("validation code expiration date"),
+        editable=False,
+        null=True,
+    )
+    validated = models.DateTimeField(
+        _("validated"),
+        null=True,
+    )
 
     objects = UserManager()
 
