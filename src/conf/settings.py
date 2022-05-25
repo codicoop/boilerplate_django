@@ -99,6 +99,7 @@ INSTALLED_APPS = [
     "post_office",
     "django_extensions",
 ]
+import login_required.apps
 
 AUTH_USER_MODEL = "users.User"
 
@@ -184,6 +185,7 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # Using paths instead of view names so we can whitelist entire sections.
 LOGIN_REQUIRED_IGNORE_PATHS = [
     r"^/admin/",
+    r"/",
 ]
 
 # Important settings, adjust according to your URLs:
