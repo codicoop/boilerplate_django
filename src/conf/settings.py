@@ -99,7 +99,6 @@ INSTALLED_APPS = [
     "post_office",
     "django_extensions",
 ]
-import login_required.apps
 
 AUTH_USER_MODEL = "users.User"
 
