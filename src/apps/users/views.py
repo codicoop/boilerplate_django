@@ -43,7 +43,13 @@ class SignupView(FormView):
         email = form.cleaned_data["email"]
         password = form.cleaned_data["password1"]
         name = form.cleaned_data["name"]
-        user = user_create(email=email, name=name, password=password)
+        # TODO: Hardcoded the default superuser, should be removed later on
+        user = user_create(
+            email=email,
+            name=name,
+            password=password,
+            created_by=User.objects.get(email="admin@admin.com"),
+        )
         authenticate(username=email, password=password)
         login(self.request, user)
         return super().form_valid(form)

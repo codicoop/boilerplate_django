@@ -1,10 +1,12 @@
-from django.conf import settings
-from .models import User
 import random
 from datetime import datetime, timedelta
-from apps.base.post_office import send
 from typing import Any
+
 from django.conf import settings
+
+from apps.base.post_office import send
+
+from .models import User
 
 
 def user_create(*, email: str, name: str, password: str, **kwargs: Any) -> User:
@@ -29,16 +31,20 @@ def validation_email_send(*, user: User) -> None:
     user.save()
 
     # 2. Send to the user's email address
+    # TODO: The project_name variable is hardcoded, needs to be changed.
     context = {
         "project_name": "Codi Coop",
         "user_name": user.name,
-        "date": datetime.today(),
+        "date": datetime.now().date(),
         "time": datetime.now().time(),
         "user_email": user.email,
         "absolute_url": settings.ABSOLUTE_URL,
         "validation_code": user.validation_code,
         "expiration_date": user.code_expires_at,
     }
+    # TODO:
+    # 1. The priority is set to now for debugging purposes. Needs to be changed.
+    # 2. The sender is hardcoded for debugging purposes. Needs to be changed.
     send(
         recipients=[user.email],
         sender="no-reply@codi.coop",
