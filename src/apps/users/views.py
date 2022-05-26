@@ -12,9 +12,10 @@ from django.contrib.auth.views import (
 )
 from django.contrib.auth.views import PasswordResetView as BasePasswordResetView
 from django.core.exceptions import ValidationError
+from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import FormView, UpdateView
+from django.views.generic import FormView, UpdateView, View
 
 from apps.base.mixins import AnonymousRequiredMixin
 from apps.base.views import StandardSuccess
@@ -37,7 +38,7 @@ class LoginView(AnonymousRequiredMixin, BaseLoginView):
 class SignupView(FormView):
     template_name = "registration/signup.html"
     form_class = UserSignUpForm
-    success_url = reverse_lazy("home")
+    success_url = reverse_lazy("registration:code_validation")
 
     def form_valid(self, form):
         email = form.cleaned_data["email"]
@@ -107,3 +108,9 @@ class DetailsView(UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user
+
+
+class MailValidationView(View):
+    # TODO: Stub view. Implement with actual view.
+    def get(self, request):
+        return HttpResponse("MailValidation Stub")

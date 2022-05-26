@@ -11,6 +11,7 @@ from apps.users.views import (
     PasswordResetDoneView,
     PasswordResetView,
     SignupView,
+    MailValidationView,
 )
 
 app_name = "registration"
@@ -25,6 +26,7 @@ urlpatterns = [
         ),
         name="logout",
     ),
+    path(_("code_validation/"), MailValidationView.as_view(), name="code_validation"),
     path(
         _("password-reset/"),
         PasswordResetView.as_view(),
