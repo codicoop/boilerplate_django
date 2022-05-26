@@ -6,12 +6,12 @@ from apps.base.views import StandardSuccess
 from apps.users.views import (
     DetailsView,
     LoginView,
+    MailValidationView,
     PasswordResetCompleteView,
     PasswordResetConfirmView,
     PasswordResetDoneView,
     PasswordResetView,
     SignupView,
-    MailValidationView,
 )
 
 app_name = "registration"
