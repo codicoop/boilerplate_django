@@ -3,7 +3,7 @@ from django.db import migrations
 from django.contrib.auth.models import BaseUserManager
 from django.contrib.auth.hashers import make_password
 
-from datetime import datetime
+from django.utils import timezone
 
 
 def generate_superuser(apps, schema_editor):
@@ -25,7 +25,7 @@ def generate_superuser(apps, schema_editor):
     user.password = make_password(password)
     user.is_staff = True
     user.is_superuser = True
-    user.is_validated = datetime.now()
+    user.is_validated = timezone.now()
     user.save()
 
     print("\n\tInitial superuser created.")

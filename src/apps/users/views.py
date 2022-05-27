@@ -12,10 +12,9 @@ from django.contrib.auth.views import (
 )
 from django.contrib.auth.views import PasswordResetView as BasePasswordResetView
 from django.core.exceptions import ValidationError
-from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import FormView, UpdateView, View
+from django.views.generic import FormView, UpdateView
 
 from apps.base.mixins import AnonymousRequiredMixin
 from apps.base.views import StandardSuccess
@@ -24,6 +23,7 @@ from apps.users.forms import (
     PasswordResetForm,
     ProfileDetailsForm,
     UserSignUpForm,
+    UserValidationForm,
 )
 from apps.users.models import User
 from apps.users.services import user_create
@@ -110,7 +110,19 @@ class DetailsView(UpdateView):
         return self.request.user
 
 
-class MailValidationView(View):
-    # TODO: Stub view. Implement with actual view.
-    def get(self, request):
-        return HttpResponse("MailValidation Stub")
+class MailValidationView(FormView):
+    template_name = "registration/user_validation.html"
+    form_class = UserValidationForm
+    success_url = reverse_lazy("home")
+
+    def form_valid(self, form):
+        """Security check complete. Validate user."""
+        validation_code = form.cleaned_data.get("validation_code")
+        self.request.user.validate_user(validation_code)
+        return super().form_valid(form)
+
+    def get_form_kwargs(self):
+        """Adds the request to the kwargs passed to the form."""
+        kwargs = super().get_form_kwargs()
+        kwargs["request"] = self.request
+        return kwargs

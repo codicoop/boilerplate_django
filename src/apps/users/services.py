@@ -23,7 +23,7 @@ def user_create(*, email: str, name: str, password: str, **kwargs: Any) -> User:
 
 def validation_email_send(*, user: User) -> None:
     """Generates a code and sends a validation email."""
-    # 1. Generate X-digit, calculate expiration date and save on the user
+    # 1. Generate a 6-digit code, calculate expiration date and save on the user
     code: int = generate_code()
 
     user.validation_code = code
@@ -31,9 +31,8 @@ def validation_email_send(*, user: User) -> None:
     user.save()
 
     # 2. Send to the user's email address
-    # TODO: The project_name variable is hardcoded, needs to be changed.
     context = {
-        "project_name": "Codi Coop",
+        "project_name": settings.PROJECT_NAME,
         "user_name": user.name,
         "date": datetime.now().date(),
         "time": datetime.now().time(),
@@ -42,14 +41,10 @@ def validation_email_send(*, user: User) -> None:
         "validation_code": user.validation_code,
         "expiration_date": user.code_expires_at,
     }
-    # TODO:
-    # 1. The priority is set to now for debugging purposes. Needs to be changed.
-    # 2. The sender is hardcoded for debugging purposes. Needs to be changed.
     send(
         recipients=[user.email],
-        sender="no-reply@codi.coop",
+        sender=settings.DEFAULT_FROM_EMAIL,
         template="validation_code",
-        priority="now",
         context=context,
     )
 

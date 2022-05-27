@@ -3,6 +3,7 @@ from django.conf import settings
 from django.contrib.auth.forms import AuthenticationForm as BaseAuthenticationForm
 from django.contrib.auth.forms import PasswordResetForm as BasePasswordResetForm
 from django.contrib.auth.forms import UserCreationForm
+from django.core.exceptions import ValidationError
 from django.urls import reverse
 from django.utils import formats, timezone
 from django.utils.translation import gettext_lazy as _
@@ -120,3 +121,34 @@ class PasswordResetForm(BasePasswordResetForm):
             template="password_reset",
             context=context,
         )
+
+
+class UserValidationForm(forms.Form):
+    def __init__(self, request, **kwargs):
+        self.user: User = request.user
+        super().__init__(**kwargs)
+
+    error_messages = {
+        "invalid_code": _("Please enter the correct validation code."),
+    }
+
+    validation_code = forms.IntegerField(
+        label="Validation code",
+        help_text=_(
+            "The validation code that was sent to the email you specified. "
+            "If you can't access the code, or the email somehow didn't arrive, "
+            "click on the resend button."
+        ),
+    )
+
+    def clean_validation_code(self):
+        code = int(self.cleaned_data.get("validation_code"))
+
+        if code is not None:
+            if not self.user.validate_code(code):
+                raise ValidationError(
+                    self.error_messages["invalid_code"],
+                    code="invalid_code",
+                )
+
+        return code

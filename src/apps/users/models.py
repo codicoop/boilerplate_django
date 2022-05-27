@@ -5,6 +5,7 @@ from django.contrib.auth.models import (
     PermissionsMixin,
 )
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from apps.base.models import BaseModel
@@ -86,6 +87,17 @@ class User(BaseModel, AbstractBaseUser, PermissionsMixin):
     )
     def full_name(self):
         return f"{self.name} {self.surnames}".strip()
+
+    def validate_user(self, validation_code: int) -> None:
+        """Sets the `is_validate` field to timezone.now() if the
+        code is correct."""
+        if self.validate_code(validation_code):
+            self.is_validated = timezone.now()
+            self.save()
+
+    def validate_code(self, validation_code: int) -> bool:
+        """Checks whether the given validation code is correct."""
+        return self.validation_code == validation_code
 
     class Meta:
         verbose_name = _("user")

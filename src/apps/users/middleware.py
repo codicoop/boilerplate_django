@@ -16,6 +16,7 @@ class UserValidatedMiddleware:
             request.user.is_authenticated
             and not request.user.is_validated
             and request.path != reverse_lazy("registration:code_validation")
+            and request.path != reverse_lazy("registration:logout")
         ):
             return HttpResponseRedirect(reverse_lazy("registration:code_validation"))
 
