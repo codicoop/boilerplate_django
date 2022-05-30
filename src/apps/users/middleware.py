@@ -1,6 +1,7 @@
-from django.http import HttpResponseRedirect
-from django.urls import reverse_lazy
 import logging
+
+from django.http import HttpRequest, HttpResponseRedirect
+from django.urls import reverse_lazy
 
 
 class UserValidatedMiddleware:
@@ -8,20 +9,17 @@ class UserValidatedMiddleware:
     accordingly."""
 
     logger = logging.getLogger("django.users")
+    NON_VALIDATED_ALLOWED_PATHS = [
+        reverse_lazy("registration:code_validation"),
+        reverse_lazy("registration:logout"),
+        reverse_lazy("registration:code_resend"),
+    ]
 
     def __init__(self, get_response):
         self.get_response = get_response
 
-    def __call__(self, request):
-        # Redirect if the user is authenticated but not validated
-        # only if it's not being redirected already.
-        if (
-            request.user.is_authenticated
-            and not request.user.is_validated
-            and request.path != reverse_lazy("registration:code_validation")
-            and request.path != reverse_lazy("registration:logout")
-            and request.path != reverse_lazy("registration:code_resend")
-        ):
+    def __call__(self, request: HttpRequest):
+        if self.non_validated_user(request):
             self.logger.info(
                 "User hasn't been validated, redirecting to validation URL..."
             )
@@ -30,3 +28,12 @@ class UserValidatedMiddleware:
         response = self.get_response(request)
 
         return response
+
+    def non_validated_user(self, request: HttpRequest) -> bool:
+        """Redirect if the user is not validated and trying to access a
+        forbidden path."""
+        return (
+            request.user.is_authenticated
+            and not request.user.is_validated
+            and request.path not in self.NON_VALIDATED_ALLOWED_PATHS
+        )

@@ -7,11 +7,11 @@ from apps.users.views import (
     DetailsView,
     LoginView,
     MailValidationView,
-    ResendValidationMailView,
     PasswordResetCompleteView,
     PasswordResetConfirmView,
     PasswordResetDoneView,
     PasswordResetView,
+    ResendValidationMailView,
     SignupView,
 )
 
