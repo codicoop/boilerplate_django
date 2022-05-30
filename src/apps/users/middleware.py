@@ -34,6 +34,7 @@ class UserValidatedMiddleware:
         forbidden path."""
         return (
             request.user.is_authenticated
+            and not request.user.is_staff
             and not request.user.is_validated
             and request.path not in self.NON_VALIDATED_ALLOWED_PATHS
         )

@@ -1,8 +1,7 @@
-import datetime
-
 from django import forms
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.utils import timezone
 
 from apps.base.admin import ModelAdminMixin
 from apps.users.forms import UserChangeForm
@@ -34,7 +33,7 @@ class UserCreationForm(forms.ModelForm):
         # Save the provided password in hashed format
         user = super().save(commit=False)
         user.set_password(self.cleaned_data["password1"])
-        user.validated = datetime.datetime.now()
+        user.validated = timezone.now()
         if commit:
             user.save()
         return user
