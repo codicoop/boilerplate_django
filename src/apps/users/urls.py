@@ -7,6 +7,7 @@ from apps.users.views import (
     DetailsView,
     LoginView,
     MailValidationView,
+    ResendValidationMailView,
     PasswordResetCompleteView,
     PasswordResetConfirmView,
     PasswordResetDoneView,
@@ -27,6 +28,11 @@ urlpatterns = [
         name="logout",
     ),
     path(_("code_validation/"), MailValidationView.as_view(), name="code_validation"),
+    path(
+        _("code_validation_resend/"),
+        ResendValidationMailView.as_view(),
+        name="code_resend",
+    ),
     path(
         _("password-reset/"),
         PasswordResetView.as_view(),

@@ -1,8 +1,9 @@
 import random
-from datetime import datetime, timedelta
+from datetime import timedelta
 from typing import Any
 
 from django.conf import settings
+from django.utils import timezone
 
 from apps.base.post_office import send
 
@@ -27,15 +28,15 @@ def validation_email_send(*, user: User) -> None:
     code: int = generate_code()
 
     user.validation_code = code
-    user.code_expires_at = datetime.now() + timedelta(days=1)
+    user.code_expires_at = timezone.now() + timedelta(days=1)
     user.save()
 
     # 2. Send to the user's email address
     context = {
         "project_name": settings.PROJECT_NAME,
         "user_name": user.name,
-        "date": datetime.now().date(),
-        "time": datetime.now().time(),
+        "date": timezone.now().date(),
+        "time": timezone.now().time(),
         "user_email": user.email,
         "absolute_url": settings.ABSOLUTE_URL,
         "validation_code": user.validation_code,
