@@ -43,21 +43,16 @@ class CustomIndexDashboard(Dashboard):
             )
         )
 
-        # TODO: Check if this old code is still necessary and clean up
-        # self.children.append(
-        #     modules.ModelList(
-        #         _("Paràmetres de l'aplicació"),
-        #         column=1,
-        #         collapsible=False,
-        #         models=(
-        #             "apps.base.models.Customization",
-        #             "constance.*",
-        #             "mailing_manager.*",
-        #             "apps.provinces_towns.*",
-        #         ),
-        #     )
-        # )
+        self.children.append(
+            modules.ModelList(
+                _("Application parameters"),
+                column=1,
+                collapsible=False,
+                models=("constance.*",),
+            )
+        )
 
+        # TODO: Check if this old code is still necessary and clean up
         # self.children.append(
         #     modules.ModelList(
         #         _("Correus enviats"),
@@ -89,6 +84,15 @@ class CustomIndexDashboard(Dashboard):
         #         },
         #     ]
         # ))
+
+        # self.children.append(
+        #     modules.ModelList(
+        #         _("Logs"),
+        #         column=1,
+        #         collapsible=False,
+        #         models=("django.contrib.admin.models.LogEntry",),
+        #     )
+        # )
 
         # append a recent actions module
         self.children.append(

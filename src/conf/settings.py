@@ -24,7 +24,6 @@ SECRET_KEY = env("SECRET_KEY")
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 # Instance's absolute URL (given we're not using Sites framework)
 ABSOLUTE_URL = env("ABSOLUTE_URL")
-PROJECT_NAME = env("PROJECT_NAME", default="Project name")
 
 # Variables for non-interactive superuser creation
 DJANGO_SUPERUSER_EMAIL = env("DJANGO_SUPERUSER_EMAIL")
@@ -85,6 +84,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Application definition
 INSTALLED_APPS = [
     "maintenance_mode",
+    "constance.backends.database",
+    "constance",
     "apps.base",
     "apps.users",
     "apps.celery",
@@ -210,3 +211,7 @@ DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default=None)
 
 # Grappelli
 GRAPPELLI_INDEX_DASHBOARD = "apps.base.dashboard.CustomIndexDashboard"
+
+# Constance
+CONSTANCE_BACKEND = "constance.backends.database.DatabaseBackend"
+CONSTANCE_CONFIG = {"PROJECT_NAME": ("", _("Name of the website."))}
