@@ -89,6 +89,7 @@ INSTALLED_APPS = [
     "apps.users",
     "apps.celery",
     "django.contrib.postgres",
+    "grappelli.dashboard",
     "grappelli",  # Place before contrib.admin
     "django.contrib.admin",
     "django.contrib.auth",
@@ -205,3 +206,7 @@ POST_OFFICE = {
     "CELERY_ENABLED": env("POST_OFFICE_CELERY_ENABLED", bool, default=False),
 }
 DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default=None)
+
+
+# Grappelli
+GRAPPELLI_INDEX_DASHBOARD = "apps.base.dashboard.CustomIndexDashboard"
