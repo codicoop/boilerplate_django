@@ -100,6 +100,29 @@ with the `users`'s app views.
 It could be problematic and confusing to allow users to access views like Login,
 password restoration or signup while already logged in.
 
+## `LoginRequiredMiddleware` middleware
+
+Usually, to create a protected view (one that requires a logged user), it is
+necessary to decorate the view, either through the URLconf or through a Python
+decorator on the view itself.
+
+If most of the views in a website need to be protected, this becomes a tedious
+and error prone process (it's easy to forget to protect a view). To make things
+easier, we included the `LoginRequiredMiddleware` from the
+[`django-login-required-middleware`](https://github.com/CleitonDeLima/django-login-required-middleware) package, which protects every view unless specified otherwise.
+
+Our preferred way to specify login non-required views is by setting the
+`LOGIN_REQUIRED_IGNORE_PATHS` in the `settings.py` file, although the package
+documentation specifies other ways.
+
+**IMPORTANT:** the package defines a set of default views to ignore from the 
+`auth` views that come with Django. These are:
+- `LoginView`
+- `PasswordResetView`
+- `PasswordResetDoneView`
+- `PasswordResetConfirmView`
+- `PasswordResetCompleteView`
+
 ## `absolute_url` helper
 
 This boilerplate is not including the Django's Sites framework setup, assuming
