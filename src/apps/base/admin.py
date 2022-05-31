@@ -1,8 +1,9 @@
 from django.contrib.admin import ModelAdmin as BaseModelAdmin
+from django.utils import timezone
 
 
 class ModelAdminMixin(object):
-    base_readonly_fields = ("created", "created_by")
+    base_readonly_fields = ("created_at", "created_by", "updated_by")
     # superuser_fields will be read-only unless you are superuser
     superuser_fields = ()
 
@@ -45,6 +46,8 @@ class ModelAdminMixin(object):
                 # is read_only, but we can anyway set it directly at the yet-
                 # to-be-saved instance.
                 form.instance.created_by = request.user
+            if not form["id"].initial and hasattr(model, "created_at"):
+                form.instance.create_at = timezone.now()
         super().save_formset(request, form, formset, change)
 
 
