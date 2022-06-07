@@ -7,8 +7,10 @@ Put the settings in /conf/.env
 import os
 
 import environ
+import sentry_sdk
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
+from sentry_sdk.integrations.django import DjangoIntegration
 
 env = environ.Env(
     # set casting, default value
@@ -16,6 +18,21 @@ env = environ.Env(
 )
 # reading .env file
 environ.Env.read_env()
+
+##########################
+#         Sentry         #
+##########################
+sentry_sdk.init(
+    dsn=env("SENTRY_DSN", default=""),
+    integrations=[DjangoIntegration()],
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    # We recommend adjusting this value in production.
+    traces_sample_rate=1.0,
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True,
+)
 
 # False if not in os.environ
 DEBUG = env("DEBUG")
