@@ -113,7 +113,7 @@ class DetailsView(UpdateView):
 class MailValidationView(FormView):
     template_name = "registration/user_validation.html"
     form_class = UserValidationForm
-    success_url = reverse_lazy("home")
+    success_url = reverse_lazy("registration:code_validation_success")
 
     def form_valid(self, form):
         """Security check complete. Validate user."""

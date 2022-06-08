@@ -29,9 +29,19 @@ urlpatterns = [
     ),
     path(_("code_validation/"), MailValidationView.as_view(), name="code_validation"),
     path(
-        _("code_validation_resend/"),
+        _("code_validation/resend/"),
         ResendValidationMailView.as_view(),
         name="code_resend",
+    ),
+    path(
+        _("code_validation/success/"),
+        StandardSuccess.as_view(
+            title=_("Account validated"),
+            success_title=_("Account successfully validated!"),
+            description=_("Your account has been properly validated."),
+            url=reverse_lazy("home"),
+        ),
+        name="code_validation_success",
     ),
     path(
         _("password-reset/"),
