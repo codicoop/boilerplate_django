@@ -66,9 +66,34 @@ method of the `UserSignUpForm` class for an implementation example.
 
 ## Internationalization
 
+### Restricting available languages
+
+If you want to use a specific subset of Django's available languages, you can
+set the `LANGUAGES` setting variable in `settings.py`, for example:
+
+```python
+LANGUAGES = [
+    ("en", _("English")),
+    ("ca", _("Catalan")),
+]
+```
+
+If you only want to set one language for the website, simply put that one in the
+list. Make sure it's the same as the one in the variable `LANGUAGE_CODE`.
+
 ### Translated urls
 
 https://docs.djangoproject.com/en/4.0/topics/i18n/translation/#translating-url-patterns
+
+In case you want to remove translated URLs, simply remove the `gettext()`
+wrapper they have in the URLConf files. For example:
+
+```python
+from django.utils.translation import gettext_lazy as _
+
+path(_("registration/"), ...), # Translated URL
+path("registration/", ...) # Non-translated URL
+```
 
 ### Translated email templates
 
@@ -82,6 +107,29 @@ Check the example at `base/migrations/0002_data_emails.py`.
 
 If you add a new language, you'll have to create new data migrations for all
 existing email templates that create the new translated templates.
+
+### Completely remove internationalization
+
+To completely remove internationalization of a Django project, set the
+`USE_I18N` to `False`. This way, the `LANGUAGE_CODE` setting won't be used. You
+should then also set the `LANGUAGES` variable to just the one language you plan
+on using.
+
+You should also remove all URLs that are inside a `i18n_patterns()` function.
+More specifically, remove the redirect from the root page to the translated
+root page so as not to have an infinite loop. That is, remove
+
+```python
+path("", RootRedirectView.as_view()),
+```
+
+and just leave
+
+```python
+path("", HomeView.as_view(), name="home"),
+```
+
+Finally, remove the language selection widget from the base template.
 
 ## `StandardSuccess` view
 
