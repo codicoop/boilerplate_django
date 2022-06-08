@@ -1,5 +1,4 @@
 from django.contrib.admin import ModelAdmin as BaseModelAdmin
-from django.utils import timezone
 
 
 class ModelAdminMixin(object):
@@ -46,8 +45,6 @@ class ModelAdminMixin(object):
                 # is read_only, but we can anyway set it directly at the yet-
                 # to-be-saved instance.
                 form.instance.created_by = request.user
-            if not form["id"].initial and hasattr(model, "created_at"):
-                form.instance.create_at = timezone.now()
         super().save_formset(request, form, formset, change)
 
 
