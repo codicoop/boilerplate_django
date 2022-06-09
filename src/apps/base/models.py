@@ -26,7 +26,7 @@ class BaseModel(SetBooleanDatetimeMixin, models.Model):
     created_by = models.ForeignKey(
         "users.User",
         null=True,
-        blank=False,
+        blank=True,
         related_name="%(app_label)s_%(class)s_related",
         on_delete=models.CASCADE,
         verbose_name=_("author"),
