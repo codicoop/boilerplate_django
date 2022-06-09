@@ -1,3 +1,4 @@
+from constance import config
 from django import forms
 from django.conf import settings
 from django.contrib.auth.forms import AuthenticationForm as BaseAuthenticationForm
@@ -11,8 +12,6 @@ from django.utils.translation import gettext_lazy as _
 from apps.base.helpers import absolute_url
 from apps.base.post_office import send
 from apps.users.models import User
-
-from constance import config
 
 
 class AuthenticationForm(BaseAuthenticationForm):
