@@ -330,6 +330,17 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "django-logentry-admin"
+version = "1.1.0"
+description = "Show all LogEntry objects in the Django admin site."
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+Django = ">=2.2"
+
+[[package]]
 name = "django-login-required-middleware"
 version = "0.8.0"
 description = "Requires login to all requests through middleware."
@@ -986,7 +997,7 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "d00c51cceda1379c6598694e9a1c0f5f9c53ee6b5c56958f501f6a0a9d49695c"
+content-hash = "35261fb9da82ca118aa5a27444d31b056d81013fa5026c9253d8f9268d9a13a0"
 
 [metadata.files]
 amqp = [
@@ -1105,6 +1116,10 @@ django-extensions = [
 django-grappelli = [
     {file = "django-grappelli-3.0.3.tar.gz", hash = "sha256:7d60304200f4ea202862fda3b0efaa91c70280841ca22b1b22f49f1017ed2afc"},
     {file = "django_grappelli-3.0.3-py2.py3-none-any.whl", hash = "sha256:a98883407f995896f4c4d108ef3ef6cfc00e581211738c5a13c536950a95bcc8"},
+]
+django-logentry-admin = [
+    {file = "django-logentry-admin-1.1.0.tar.gz", hash = "sha256:d0354f36da6f48204ae8327533128060513c8ef40259cbde1049d07db4e5d95a"},
+    {file = "django_logentry_admin-1.1.0-py3-none-any.whl", hash = "sha256:26269ca78cd421c3cc63cb58eae55339c031b0d8a880e5b4404489d4128dd290"},
 ]
 django-login-required-middleware = [
     {file = "django-login-required-middleware-0.8.0.tar.gz", hash = "sha256:696558388cd4dd718fb1d81f5ee95318c148743fc1e90e5d6d6c6363c4e9c818"},

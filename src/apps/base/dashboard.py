@@ -52,6 +52,30 @@ class CustomIndexDashboard(Dashboard):
             )
         )
 
+        # append a recent actions module
+        self.children.append(
+            modules.RecentActions(
+                _("Recent actions"),
+                limit=5,
+                collapsible=False,
+                column=3,
+            )
+        )
+
+        links_children = []
+
+        if context["request"].user.is_superuser:
+            links_children.append(
+                [
+                    _("Admin activity registry"),
+                    "admin/logentry/",
+                ]
+            )
+
+        self.children.append(
+            modules.LinkList(title=_("Links"), column=3, children=links_children)
+        )
+
         # TODO: Check if this old code is still necessary and clean up
         # self.children.append(
         #     modules.ModelList(
@@ -93,13 +117,3 @@ class CustomIndexDashboard(Dashboard):
         #         models=("django.contrib.admin.models.LogEntry",),
         #     )
         # )
-
-        # append a recent actions module
-        self.children.append(
-            modules.RecentActions(
-                _("Recent actions"),
-                limit=5,
-                collapsible=False,
-                column=3,
-            )
-        )
