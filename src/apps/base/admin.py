@@ -2,7 +2,7 @@ from django.contrib.admin import ModelAdmin as BaseModelAdmin
 
 
 class ModelAdminMixin(object):
-    base_readonly_fields = ("created", "created_by")
+    base_readonly_fields = ("created_at", "created_by", "updated_by")
     # superuser_fields will be read-only unless you are superuser
     superuser_fields = ()
 

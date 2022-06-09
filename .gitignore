@@ -12,3 +12,9 @@ docker/settings/
 # Using this for pyenv in development environment.
 .python-version
 docker/compose-*
+
+# Ignore the node modules
+node_modules
+
+# Ignore the sass compiler file
+*.map

@@ -52,8 +52,10 @@ class UserAdmin(ModelAdminMixin, BaseUserAdmin):
         "email",
         "full_name",
         "is_superuser",
-        "created",
         "is_validated",
+        "created_at",
+        "created_by",
+        "updated_at",
     )
     list_filter = ("is_superuser",)
     fieldsets = (

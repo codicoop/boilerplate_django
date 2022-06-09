@@ -28,7 +28,11 @@ class Migration(migrations.Migration):
                         serialize=False,
                     ),
                 ),
-                ("created", models.DateTimeField(auto_now_add=True)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                (
+                    "updated_at",
+                    models.DateTimeField(auto_now_add=True, null=False, editable=False),
+                ),
                 ("password", models.CharField(max_length=128, verbose_name="password")),
                 (
                     "last_login",
@@ -116,6 +120,7 @@ class Migration(migrations.Migration):
             options={
                 "verbose_name": "user",
                 "verbose_name_plural": "users",
+                "abstract": False,
             },
             bases=(apps.base.models.SetBooleanDatetimeMixin, models.Model),
         ),

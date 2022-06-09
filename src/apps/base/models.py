@@ -2,8 +2,6 @@ import uuid
 
 from django.db import models
 from django.utils import timezone
-from django.utils.formats import localize
-from django.utils.text import Truncator
 from django.utils.translation import gettext_lazy as _
 
 
@@ -22,7 +20,7 @@ class SetBooleanDatetimeMixin(object):
 
 class BaseModel(SetBooleanDatetimeMixin, models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    created = models.DateTimeField(auto_now_add=True, null=False, editable=False)
+    created_at = models.DateTimeField(auto_now_add=True, null=False, editable=False)
     created_by = models.ForeignKey(
         "users.User",
         null=True,
@@ -31,13 +29,7 @@ class BaseModel(SetBooleanDatetimeMixin, models.Model):
         on_delete=models.CASCADE,
         verbose_name=_("author"),
     )
+    updated_at = models.DateTimeField(auto_now=True, null=False, editable=False)
 
     class Meta:
         abstract = True
-
-    def __str__(self, field: str = None, str_len: int = 30):
-        if field and hasattr(self, field):
-            field = getattr(self, field)
-            summary = Truncator(field).chars(str_len)
-            return f"{summary} ({localize(self.created)})"
-        return f"{self.id} ({localize(self.created)})"
