@@ -4,15 +4,14 @@ from apps.base.post_office import textify
 
 
 def populate_mail_templates(apps, schema_editor):
-    mail_model = apps.get_model('post_office', 'EmailTemplate')
+    mail_model = apps.get_model("post_office", "EmailTemplate")
 
     templates = [
         dict(
             id="password_reset",
             translated_templates={
                 "en": {
-                    "subject": "Password reset for your account at "
-                               "{{project_name}}",
+                    "subject": "Password reset for your account at " "{{project_name}}",
                     "body": """
 <p>Hello {{user_name}}!</p>
 <p>We're sending you this e-mail because today {{date}} at {{time}}
@@ -34,7 +33,7 @@ We will appreciate it if you could also warn us about the situation.
                 },
                 "ca": {
                     "subject": "Reinicialització de contrasenya del teu compte a "
-                            "{{project_name}}",
+                    "{{project_name}}",
                     "body": """
 <p>Hola {{user_name}}!</p>
 <p>T'enviem aquest correu perquè avui {{date}} a les {{time}}
@@ -55,15 +54,47 @@ ben llarga i t'agrairem que ens informis de la situació.
                 },
             },
         ),
+        dict(
+            id="validation_code",
+            translated_templates={
+                "en": {
+                    "subject": "Validation code for your new user at "
+                    "{{project_name}}",
+                    "body": """
+<p>Hello {{user_name}}!</p>
+<p>We're sending you this e-mail because today {{date}} at {{time}}
+someone requested the creation of {{user_email}}'s account at {{absolute_url}}.</p>
+
+<h3>Validation code</h3>
+<p><b>{{validation_code}}</b></p>
+<p>This code will expire on {{ expiration_date }}</p>
+                    """,
+                },
+                "ca": {
+                    "subject": "Codi de validació pel teu nou usuari a "
+                    "{{project_name}}",
+                    "body": """
+<p>Hola {{user_name}}!</p>
+<p>T'enviem aquest correu perquè avui {{date}} a les {{time}}
+algú ha sol·licitat la creació del compte {{user_email}}
+de l'aplicació {{absolute_url}}.</p>
+
+<h3>Codi de validació</h3>
+<p><b>{{validation_code}}</b></p>
+<p>Aquest codi caducarà el {{ expiration_date }}</p>
+                    """,
+                },
+            },
+        ),
     ]
 
-    print('')
+    print("")
     for template in templates:
         obj, created = mail_model.objects.update_or_create(
             name=template.get("id"),
             defaults={
-                'name': template.get("id"),
-            }
+                "name": template.get("id"),
+            },
         )
         for lang, translated_template in template.get("translated_templates").items():
             obj.translated_templates.create(
@@ -80,8 +111,8 @@ ben llarga i t'agrairem que ens informis de la situació.
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('base', '0001_initial'),
-        ('post_office', '__latest__'),
+        ("users", "0002_data_superuser"),
+        ("post_office", "__latest__"),
     ]
 
     operations = [

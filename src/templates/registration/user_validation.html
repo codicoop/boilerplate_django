@@ -1,0 +1,24 @@
+{% extends "../base_form.html" %}
+{% load i18n %}
+
+{# Blocks de base.html #}
+{% block page_title %}{% translate "Mail validation" %}{% endblock %}
+{% block bodyclasses %}{% endblock %}
+{% block mainclasses %} grid-1 {% endblock %}
+{% block extra_js %}{% endblock %}
+
+{# Blocks de base_form.html #}
+{% block form_classes %} grid-item-4-9 {% endblock %}
+
+{% block form_fields %}
+  {{ form.as_p }}
+  {% block submit_value %}{% translate "Send" %}{% endblock %}
+{% endblock %}
+
+{% block after_form_content %}
+<div class="form__outro text-md">
+  <a href="{% url 'registration:code_resend' %}">
+    {% translate "Click here to resend validation code" %}
+  </a>
+</div>
+{% endblock after_form_content %}

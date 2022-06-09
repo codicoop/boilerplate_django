@@ -14,7 +14,7 @@ from django.contrib.auth.views import PasswordResetView as BasePasswordResetView
 from django.core.exceptions import ValidationError
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import FormView, RedirectView, UpdateView
 
 from apps.base.mixins import AnonymousRequiredMixin
 from apps.base.views import StandardSuccess
@@ -23,8 +23,10 @@ from apps.users.forms import (
     PasswordResetForm,
     ProfileDetailsForm,
     UserSignUpForm,
+    UserValidationForm,
 )
 from apps.users.models import User
+from apps.users.services import user_create, validation_email_send
 
 
 class LoginView(AnonymousRequiredMixin, BaseLoginView):
@@ -33,19 +35,19 @@ class LoginView(AnonymousRequiredMixin, BaseLoginView):
     form_class = AuthenticationForm
 
 
-class SignupView(AnonymousRequiredMixin, CreateView):
+class SignupView(FormView):
     template_name = "registration/signup.html"
     form_class = UserSignUpForm
-    model = User
-    success_url = reverse_lazy("home")
+    success_url = reverse_lazy("registration:code_validation")
 
     def form_valid(self, form):
-        ret = super().form_valid(form)
-        username = form.cleaned_data["email"]
+        email = form.cleaned_data["email"]
         password = form.cleaned_data["password1"]
-        user = authenticate(username=username, password=password)
+        name = form.cleaned_data["name"]
+        user = user_create(email=email, name=name, password=password)
+        authenticate(username=email, password=password)
         login(self.request, user)
-        return ret
+        return super().form_valid(form)
 
 
 class PasswordResetView(AnonymousRequiredMixin, BasePasswordResetView):
@@ -100,3 +102,36 @@ class DetailsView(UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user
+
+
+class MailValidationView(FormView):
+    template_name = "registration/user_validation.html"
+    form_class = UserValidationForm
+    success_url = reverse_lazy("registration:code_validation_success")
+
+    def form_valid(self, form):
+        """Security check complete. Validate user."""
+        validation_code = form.cleaned_data.get("validation_code")
+        self.request.user.validate_user(validation_code)
+        return super().form_valid(form)
+
+    def get_form_kwargs(self):
+        """Adds the request to the kwargs passed to the form."""
+        kwargs = super().get_form_kwargs()
+        kwargs["request"] = self.request
+        return kwargs
+
+
+class ResendValidationMailView(RedirectView):
+    permanent = False
+    pattern_name = "registration:code_validation"
+
+    def get_redirect_url(self, *args, **kwargs):
+        """Resend validation mail and redirect to MailValidationView."""
+        # Check if the user is not valid and resend mail
+        if isinstance(self.request.user, User) and not self.request.user.is_validated:
+            validation_email_send(user=self.request.user)
+        else:
+            self.pattern_name = "home"
+
+        return super().get_redirect_url(*args, **kwargs)
