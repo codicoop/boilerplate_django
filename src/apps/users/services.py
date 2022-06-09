@@ -5,6 +5,8 @@ from typing import Any
 from django.conf import settings
 from django.utils import timezone
 
+from constance import config
+
 from apps.base.post_office import send
 
 from .models import User
@@ -33,7 +35,7 @@ def validation_email_send(*, user: User) -> None:
 
     # 2. Send to the user's email address
     context = {
-        "project_name": settings.PROJECT_NAME,
+        "project_name": config.PROJECT_NAME,
         "user_name": user.name,
         "date": timezone.now().date(),
         "time": timezone.now().time(),

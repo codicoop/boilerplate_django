@@ -12,6 +12,8 @@ from apps.base.helpers import absolute_url
 from apps.base.post_office import send
 from apps.users.models import User
 
+from constance import config
+
 
 class AuthenticationForm(BaseAuthenticationForm):
     remember_me = forms.BooleanField(
@@ -100,7 +102,7 @@ class PasswordResetForm(BasePasswordResetForm):
             )
         )
         context = {
-            "project_name": settings.PROJECT_NAME,
+            "project_name": config.PROJECT_NAME,
             "user_name": context["user"].full_name,
             "date": str(
                 formats.date_format(
