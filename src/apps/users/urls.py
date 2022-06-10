@@ -6,10 +6,12 @@ from apps.base.views import StandardSuccess
 from apps.users.views import (
     DetailsView,
     LoginView,
+    MailValidationView,
     PasswordResetCompleteView,
     PasswordResetConfirmView,
     PasswordResetDoneView,
     PasswordResetView,
+    ResendValidationMailView,
     SignupView,
 )
 
@@ -24,6 +26,22 @@ urlpatterns = [
             next_page=reverse_lazy("home"),
         ),
         name="logout",
+    ),
+    path(_("code_validation/"), MailValidationView.as_view(), name="code_validation"),
+    path(
+        _("code_validation/resend/"),
+        ResendValidationMailView.as_view(),
+        name="code_resend",
+    ),
+    path(
+        _("code_validation/success/"),
+        StandardSuccess.as_view(
+            title=_("Account validated"),
+            success_title=_("Account successfully validated!"),
+            description=_("Your account has been properly validated."),
+            url=reverse_lazy("home"),
+        ),
+        name="code_validation_success",
     ),
     path(
         _("password-reset/"),

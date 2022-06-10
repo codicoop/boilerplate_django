@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.utils import timezone
 
 from apps.base.admin import ModelAdminMixin
 from apps.users.forms import UserChangeForm
@@ -32,6 +33,7 @@ class UserCreationForm(forms.ModelForm):
         # Save the provided password in hashed format
         user = super().save(commit=False)
         user.set_password(self.cleaned_data["password1"])
+        user.validated = timezone.now()
         if commit:
             user.save()
         return user
@@ -50,14 +52,19 @@ class UserAdmin(ModelAdminMixin, BaseUserAdmin):
         "email",
         "full_name",
         "is_superuser",
-        "created",
+        "is_validated",
+        "created_at",
+        "created_by",
+        "updated_at",
     )
     list_filter = ("is_superuser",)
     fieldsets = (
         (None, {"fields": ("email", "name", "password")}),
         # ('Personal info', {'fields': ('date_of_birth',)}),
         ("Permissions", {"fields": ("is_superuser",)}),
-        # ("Metadata", {"fields": ("created_by", "created_at", "updated_at")}),
+        # ("Metadata", {"fields": ("created_by", "created_at",
+        # "updated_at", "is_validated")}),
+        (None, {"fields": ("created", "is_validated")}),
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.
