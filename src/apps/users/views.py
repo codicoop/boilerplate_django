@@ -75,6 +75,7 @@ class PasswordResetView(AnonymousRequiredMixin, BasePasswordResetView):
 
 
 class PasswordResetConfirmView(AnonymousRequiredMixin, BasePasswordResetConfirmView):
+    template_name = "registration/password_reset_form.html"
     success_url = reverse_lazy("registration:password_reset_complete")
 
 
