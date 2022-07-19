@@ -8,16 +8,12 @@ import os
 
 import environ
 import sentry_sdk
+from django.core.management.utils import get_random_secret_key
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from sentry_sdk.integrations.django import DjangoIntegration
 
-env = environ.Env(
-    # set casting, default value
-    DEBUG=(bool, False)
-)
-# reading .env file
-environ.Env.read_env()
+env = environ.Env()
 
 ##########################
 #         Sentry         #
@@ -35,12 +31,12 @@ sentry_sdk.init(
 )
 
 # False if not in os.environ
-DEBUG = env("DEBUG")
+DEBUG = env("DEBUG", default=False)
 # Raises django's ImproperlyConfigured exception if SECRET_KEY not in os.environ
-SECRET_KEY = env("SECRET_KEY")
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
+SECRET_KEY = env.str("SECRET_KEY", default=get_random_secret_key())
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[])
 # Instance's absolute URL (given we're not using Sites framework)
-ABSOLUTE_URL = env("ABSOLUTE_URL")
+ABSOLUTE_URL = env.str("ABSOLUTE_URL", default="")
 
 # Variables for non-interactive superuser creation
 DJANGO_SUPERUSER_EMAIL = env("DJANGO_SUPERUSER_EMAIL")
