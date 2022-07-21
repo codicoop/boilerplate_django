@@ -3,7 +3,6 @@
 .vscode/
 static
 __pycache__
-src/conf/maintenance_mode_state.txt
 
 # Ignore configuration file
 docker/settings/

@@ -234,3 +234,7 @@ GRAPPELLI_INDEX_DASHBOARD = "apps.base.dashboard.CustomIndexDashboard"
 # Constance
 CONSTANCE_BACKEND = "constance.backends.database.DatabaseBackend"
 CONSTANCE_CONFIG = {"PROJECT_NAME": ("", _("Name of the website."))}
+
+# Maintenance mode
+MAINTENANCE_MODE = env.bool("MAINTENANCE_MODE", default=False)
+MAINTENANCE_MODE_STATE_BACKEND = "maintenance_mode.backends.DefaultStorageBackend"
