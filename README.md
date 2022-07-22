@@ -163,7 +163,7 @@ Our preferred way to specify login non-required views is by setting the
 `LOGIN_REQUIRED_IGNORE_PATHS` in the `settings.py` file, although the package
 documentation specifies other ways.
 
-**IMPORTANT:** the package defines a set of default views to ignore from the 
+**IMPORTANT:** the package defines a set of default views to ignore from the
 `auth` views that come with Django. These are:
 - `LoginView`
 - `PasswordResetView`
@@ -256,6 +256,18 @@ In my case, I had `setuptools` v. 60 and got updated to 62.
 
 If it doesn't work for you and you find another solution please add it to this
 documentation.
+
+## Gunicorn "slow" and returning `[CRITICAL] WORKER TIMEOUT error`
+
+As long as you keep the nginx layer in the dockerization, you should not face this issue.
+But if you removed nginx and access directly to gunicorn, you are probably going to see this
+error specially if you use Google Chrome and you open multiple browsers at the same time.
+
+It's explained [here](https://github.com/benoitc/gunicorn/issues/2797#issuecomment-1166303824) along
+with the solution.
+
+To avoid that to happen, this boilerplate includes the parameter `--threads=10` in the gunicorn
+command.
 
 # Deprecations
 

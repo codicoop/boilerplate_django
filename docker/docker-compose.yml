@@ -13,7 +13,7 @@ services:
       dockerfile: ./docker/Dockerfile
       target: development
     env_file: ./settings/development.env
-    command: gunicorn conf.wsgi:application --bind 0.0.0.0:8000 --reload
+    command: gunicorn conf.wsgi:application --bind 0.0.0.0:8000 --reload --threads=10
     volumes:
       - ../src:/srv
     depends_on:
