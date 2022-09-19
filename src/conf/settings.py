@@ -108,6 +108,7 @@ INSTALLED_APPS = [
     "django.contrib.postgres",
     "grappelli.dashboard",
     "grappelli",  # Place before contrib.admin
+    "logentry_admin",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
