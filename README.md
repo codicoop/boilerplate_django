@@ -18,7 +18,12 @@ Internationalization section.
 
 This boilerplate assumes that you'll want to send transactional emails. If not:
 - Uninstall `django-post-office`
-- Remove it from `INSTALLED_APPS`
+- In settings:
+  - Remove it from `INSTALLED_APPS`
+  - Remove the `POST_OFFICE`
+  - The `EMAIL_BACKEND` var is probably pointing to the `post-office` backend,
+change it to what you need, or remove it.
+  block.
 - Remove the 'Django Post Office' set of settings from `settings.py` and from the `.env`
 files.
 - Delete `/base/post_office.py`
