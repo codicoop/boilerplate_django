@@ -16,10 +16,14 @@ Internationalization section.
 
 ### Removal
 
-This boilerplate assumes that you'll want to send transactional emails. If not,
-uninstall `django-post-office`, remove it from `INSTALLED_APPS`, remove the
-'Django Post Office' set of settings from `settings.py` and from the `.env`
+This boilerplate assumes that you'll want to send transactional emails. If not:
+- Uninstall `django-post-office`
+- Remove it from `INSTALLED_APPS`
+- Remove the 'Django Post Office' set of settings from `settings.py` and from the `.env`
 files.
+- Delete `/base/post_office.py`
+- Delete `/users/migrations/0003_data_emails.py` (if you haven't add more migrations
+after that one ofc)
 
 ### Features that we're using in the boilerplate
 
