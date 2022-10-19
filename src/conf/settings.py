@@ -100,14 +100,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Application definition
 INSTALLED_APPS = [
     "maintenance_mode",
-    "constance.backends.database",
-    "constance",
     "apps.base",
     "apps.users",
     "apps.celery",
     "django.contrib.postgres",
     "grappelli.dashboard",
     "grappelli",  # Place before contrib.admin
+    "constance.backends.database",
+    "constance",
     "logentry_admin",
     "django.contrib.admin",
     "django.contrib.auth",
