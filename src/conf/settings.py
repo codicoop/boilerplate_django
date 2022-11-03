@@ -39,8 +39,8 @@ ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[])
 ABSOLUTE_URL = env.str("ABSOLUTE_URL", default="")
 
 # Variables for non-interactive superuser creation
-DJANGO_SUPERUSER_EMAIL = env("DJANGO_SUPERUSER_EMAIL")
-DJANGO_SUPERUSER_PASSWORD = env("DJANGO_SUPERUSER_PASSWORD")
+DJANGO_SUPERUSER_EMAIL = env("DJANGO_SUPERUSER_EMAIL", default="")
+DJANGO_SUPERUSER_PASSWORD = env("DJANGO_SUPERUSER_PASSWORD", default="")
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
