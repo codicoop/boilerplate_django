@@ -1,0 +1,199 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o pipefail
+
+DC_FILE="docker/docker-compose.yml"
+
+# If we're running in CI we need to disable TTY allocation for docker compose
+# commands that enable it by default, such as exec and run.
+TTY=""
+if [[ ! -t 1 ]]; then
+  TTY="-T"
+fi
+
+# -----------------------------------------------------------------------------
+# Helper functions start with _ and aren't listed in this script's help menu.
+# -----------------------------------------------------------------------------
+
+# Set docker compose's configuration file
+function _dc {
+    docker compose -f "${DC_FILE}" "${@}"
+}
+
+# Run docker compose exec.
+function _dce {
+  _dc exec ${TTY} "${@}"
+}
+
+# Compose build, run and down. Used for installing things inside the containers.
+# We run it inside the container for full isolation from our local machine.
+function _build_run_down {
+  _dc build
+  _dc run ${TTY} "${@}"
+  _dc down
+}
+
+# -----------------------------------------------------------------------------
+
+# Basically a quick way of doing "docker compose exec web"
+function cmd {
+  # Run any command you want in the web container
+  _dce develop_django_boilerplate_app "${@}"
+}
+
+# Run manage commands inside the container. Allows to run code before certain
+# commands if needed.
+function manage {
+  # Run any manage.py commands
+
+  # We need to collectstatic before we run our tests.
+  if [ "${1-''}" == "test" ]; then
+    cmd python3 manage.py collectstatic --no-input
+  fi
+
+  cmd python3 manage.py "${@}"
+}
+
+# Pulls the hadolint image simply to run the hadolint linter on our Dockerfile.
+function lint:dockerfile {
+  # Lint Dockerfile
+  docker container run --rm -i \
+    hadolint/hadolint hadolint --ignore DL3008 -t style "${@}" - < docker/Dockerfile
+}
+
+# Lints our code with flake inside the web container.
+function lint {
+  # Lint Python code
+  cmd flake8 "${@}"
+}
+
+# Sorts imports inside the web container.
+function format:imports {
+  # Sort Python imports
+  cmd isort . "${@}"
+}
+
+# Formats the code inside the web container.
+function format {
+  # Format Python code
+  cmd black . "${@}"
+}
+
+function quality {
+  # Perform all code quality commands together
+  format:imports
+  format
+  lint
+}
+
+# Generates a random secret for the secret key
+# Idea: might be interesting to make it also set it automatically in the .env
+# file.
+function secret {
+  # Generate a random secret that can be used for your SECRET_KEY and more
+  cmd python3 -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
+}
+
+function shell {
+  # Start a shell session in the web container
+  cmd bash "${@}"
+}
+
+# Uses the .env file, which is defined with exports, just so POSTGRES_USER and
+# others are set.
+function psql {
+  # Connect to PostgreSQL
+  # shellcheck disable=SC1091
+  . docker/settings/development.env
+  _dce develop_django_boilerplate_db psql -U "${DB_USER}" "${@}"
+}
+
+function redis-cli {
+  # Connect to Redis
+  _dce develop_django_boilerplate_redis redis-cli "${@}"
+}
+
+# The "cd .." is here given that last WORKDIR instruction in the Dockerfile
+# is at "/app/src" and our script is at /app/bin
+function pip3:install {
+  # Install pip3 dependencies and write lock file
+  _build_run_down web bash -c "cd .. && bin/pip3-install"
+}
+
+function pip3:outdated {
+  # List any installed packages that are outdated
+  cmd pip3 list --outdated
+}
+
+function ci:install-deps {
+  # Install Continuous Integration (CI) dependencies
+  sudo apt-get install -y curl shellcheck
+  # Download his script, put it in local binaries and make it executable
+  sudo curl \
+    -L https://raw.githubusercontent.com/nickjj/wait-until/v0.2.0/wait-until \
+    -o /usr/local/bin/wait-until && sudo chmod +x /usr/local/bin/wait-until
+}
+
+# 1. Check with 'shellcheck' that our scripts are correct.
+# 2. lint the dockerfile
+# 3. Create the .env file in case it wasn't. The --no-clober option ensures
+#    we do not overwrite the .env if it already existed.
+# 4. We build and start the services.
+# 5. We execute SELECT 1 inside Postgress. SELECT without a table simply
+#    computes the value given. I'm guessng this is to check that the connection
+#    is there and the database functions properly.
+# 6. log the containers, I guess to check if they outputtes any non-zero
+# 7. Checks that formatting is correct
+# 8. Migrates, I'm guessing to see that it works. If migrations don't work,
+#    the command would yield a non-zero value, making this script exit with
+#    a non-zero value in return.
+# 9. Finally, run tests
+function ci:test {
+  # Execute Continuous Integration (CI) pipeline
+  #
+  # It's expected that your CI environment has these tools available:
+  #   - https://github.com/koalaman/shellcheck
+  #   - https://github.com/nickjj/wait-until
+  shellcheck run bin/*
+  lint:dockerfile "${@}"
+
+  cp --no-clobber docker/settings/settings.env.example development.env
+
+  docker compose build
+  docker compose up -d
+
+  # shellcheck disable=SC1091
+  . docker/settings/development.env
+  wait-until "docker compose exec -T \
+    -e PGPASSWORD=${POSTGRES_PASSWORD} postgres \
+    psql -U ${POSTGRES_USER} ${POSTGRES_USER} -c 'SELECT 1'"
+
+  docker compose logs
+
+  lint "${@}"
+  format:imports --check
+  format --check
+  manage migrate
+  manage test
+}
+
+# The magic resided in the second line:
+#   1. copmgen -A function basically prints all the functions for the current
+#       shell.
+#   2. We pipe them into grep with -v option to not show those that start with
+#     an underscore.
+#   3. We finally pipe that into cat -n so that it numbers the rows
+function help {
+  printf "%s <task> [args]\n\nTasks:\n" "${0}"
+
+  compgen -A function | grep -v "^_" | cat -n
+
+  printf "\nExtended help:\n  Each task has comments for general usage\n"
+}
+
+# This idea is heavily inspired by: https://github.com/adriancooney/Taskfile
+# Basically, run the script with help as the default argument, time it and
+# print it.
+TIMEFORMAT=$'\nTask completed in %3lR'
+time "${@:-help}"
