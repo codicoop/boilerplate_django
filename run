@@ -166,9 +166,8 @@ function ci:test {
   # shellcheck disable=SC1091
   . docker/settings/development.env
   wait-until "docker compose exec -T \
-    -e PGPASSWORD=${POSTGRES_PASSWORD} postgres \
-    psql -U ${POSTGRES_USER} ${POSTGRES_USER} -c 'SELECT 1'"
-
+    -e PGPASSWORD=${DB_PASSWORD} postgres \POSTGRES_PASSWOR
+    psql -U ${DB_USER} ${DB_USER} -c 'SELECT 1'"
   docker compose logs
 
   lint "${@}"
