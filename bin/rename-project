@@ -1,0 +1,96 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+APP_NAME="${1}" # App name that we want to change to.
+FIND_APP_NAME="django_boilerplate" # Current app name
+
+# Check that the necessary args have been passed.
+if [ -z "${APP_NAME}" ]; then
+    echo "You must supply an app, example: ${0} myapp"
+    exit 1
+fi
+
+# Check that a new name has been chosen.
+if [ "${APP_NAME}" = "${FIND_APP_NAME}" ]; then
+    echo "Your new app name must be different than the current app name"
+    exit 1
+fi
+
+cat << EOF
+
+When renaming your project you'll need to re-create a new database.
+
+This can easily be done with Docker, but before this script does it
+please agree that it's ok for this script to delete your current
+project's database(s) by removing any associated Docker volumes.
+
+EOF
+
+# Ask whether to run compose down with -v option to remove volumes. There
+# are named volumes defined in the compose file.
+while true; do
+    read -p "Run docker compose down -v (y/n)? " -r yn
+    case "${yn}" in
+        [Yy]* )
+          printf "\n--------------------------------------------------------\n"
+          docker compose down -v
+          printf -- "--------------------------------------------------------\n"
+
+          break;;
+        [Nn]* ) exit;;
+        * ) echo "";;
+    esac
+done
+
+# -----------------------------------------------------------------------------
+# The core of the script which renames a few things.
+# -----------------------------------------------------------------------------
+#
+# With find, finds every file in the current directory. For each file, it
+# executes the perl interpreter. The options given are:
+#   -i: edit <> files in place
+#   -p: assume "while (<>) { ... }" loop around program, but print line also
+#   -e commandline: one line program
+#
+# The it executes a one line program which uses the substitue command and
+# finds and replaces both the app and module names in each file. 
+find . -type f -exec \
+  perl -i -pe "s/${FIND_APP_NAME}/${APP_NAME}/g;" {} +
+# -----------------------------------------------------------------------------
+
+cat << EOF
+
+--------------------------------------------------------
+Your project has been renamed successfully!
+--------------------------------------------------------
+
+EOF
+
+function init_git_repo {
+  [ -d .git/ ] && rm -rf .git/
+
+cat << EOF
+
+--------------------------------------------------------
+$(git init)
+--------------------------------------------------------
+EOF
+
+  git symbolic-ref HEAD refs/heads/main
+}
+
+while true; do
+    read -p "Do you want to init a new local git repo (y/n)? " -r yn
+    case "${yn}" in
+        [Yy]* ) init_git_repo; break;;
+        [Nn]* ) break;;
+        * ) echo "";;
+    esac
+done
+
+cat << EOF
+
+Project rename completed succesfully!
+
+EOF
