@@ -28,6 +28,8 @@ services:
       retries: 5
     stop_grace_period: "3s"
     restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
+    volumes:
+      - "db:/var/lib/postgresql/data"
 
   app:
     container_name: "develop_django_boilerplate_app"
@@ -57,3 +59,9 @@ services:
     image: redis
     stop_grace_period: "3s"
     restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
+    volumes:
+      - "redis:/data"
+
+volumes:
+  db: {}
+  redis: {}
