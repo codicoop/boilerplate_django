@@ -105,9 +105,11 @@ node_modules
 
 ### Sass ######################################################################
 .sass-cache/
-*.css.map
-*.sass.map
-*.scss.map
+# TODO: Commented out for some CI problem. With it, whitenoise complains that
+# styles/styles.css points to styles/styles.css.map, which doesn't exist on git
+# *.css.map
+# *.sass.map
+# *.scss.map
 
 
 ### OSX #######################################################################

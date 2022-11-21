@@ -1,5 +1,7 @@
 # Included packages
 
+![CI](https://github.com/nickjj/docker-django-example/workflows/CI/badge.svg?branch=main)
+
 ## Django Post Office
 https://github.com/ui/django-post_office
 

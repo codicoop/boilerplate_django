@@ -27,8 +27,6 @@ project's database(s) by removing any associated Docker volumes.
 
 EOF
 
-# Ask whether to run compose down with -v option to remove volumes. There
-# are named volumes defined in the compose file.
 while true; do
     read -p "Run docker compose down -v (y/n)? " -r yn
     case "${yn}" in
@@ -47,11 +45,12 @@ done
 # The core of the script which renames a few things.
 # -----------------------------------------------------------------------------
 #
-# With find, finds every file in the current directory. For each file, it
-# executes the perl interpreter. The options given are:
-#   -i: edit <> files in place
-#   -p: assume "while (<>) { ... }" loop around program, but print line also
-#   -e commandline: one line program
+# The `find . -type -f` command finds every file in the current and any children
+# directory. With the `-exec`, for each file we execute the perl interpreter.
+# The options of the interpreter are:
+#   -i: edit the files in place
+#   -p: execute the given code for every line in the file, and print the line
+#   -e commandline: a simle substitute command
 #
 # The it executes a one line program which uses the substitue command and
 # finds and replaces both the app and module names in each file. 
@@ -76,6 +75,7 @@ cat << EOF
 $(git init)
 --------------------------------------------------------
 EOF
+
 
   git symbolic-ref HEAD refs/heads/main
 }
