@@ -165,13 +165,13 @@ function ci:test {
   docker compose build
   docker compose up
 
-  # docker compose logs
+  docker compose logs
 
-  # lint "${@}"
-  # format:imports --check
-  # format --check
-  # manage migrate
-  # manage test
+  lint "${@}"
+  format:imports --check
+  format --check
+  manage migrate
+  manage test
 }
 
 # The magic resides in the second line:
