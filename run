@@ -157,7 +157,7 @@ function ci:test {
   # It's expected that your CI environment has these tools available:
   #   - https://github.com/koalaman/shellcheck
   #   - https://github.com/nickjj/wait-until
-  shellcheck run bin/*
+  # shellcheck run bin/*
   lint:dockerfile "${@}"
 
   cp --no-clobber .env.example .env
@@ -165,9 +165,9 @@ function ci:test {
   docker compose build
   docker compose up
 
-  docker compose logs
+  # docker compose logs
 
-  lint "${@}"
+  # lint "${@}"
   # format:imports --check
   # format --check
   # manage migrate
