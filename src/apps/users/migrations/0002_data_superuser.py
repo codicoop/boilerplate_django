@@ -1,8 +1,7 @@
 from django.conf import settings
-from django.db import migrations
-from django.contrib.auth.models import BaseUserManager
 from django.contrib.auth.hashers import make_password
-
+from django.contrib.auth.models import BaseUserManager
+from django.db import migrations
 from django.utils import timezone
 
 

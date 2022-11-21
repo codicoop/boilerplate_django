@@ -137,8 +137,8 @@ class UserValidationForm(forms.Form):
         label="Validation code",
         help_text=_(
             "The validation code that was sent to the email you specified. "
-            "If you can't access the code, or the email somehow didn't arrive, "
-            "click on the resend button."
+            "If you can't access the code, or the email somehow didn't "
+            "arrive, click on the resend button."
         ),
     )
 

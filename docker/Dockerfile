@@ -1,10 +1,8 @@
-FROM python:3.10.3 as python-base
+FROM python:3.10-slim AS python-base
 
-# ensures that the python output is sent straight to terminal
-ENV PYTHONUNBUFFERED=1 \
-  # install a handler for SIGSEGV, SIGFPE, SIGABRT, SIGBUS and SIGILL signals
-  # to dump the Python traceback
-  PYTHONFAULTHANDLER=1 \
+# install a handler for SIGSEGV, SIGFPE, SIGABRT, SIGBUS and SIGILL signals
+# to dump the Python traceback
+ENV PYTHONFAULTHANDLER=1 \
   # a random value is used to seed the hashes of str and bytes objects
   PYTHONHASHSEED=random \
   # pip
@@ -29,12 +27,10 @@ ENV PYTHONUNBUFFERED=1 \
 ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
 
 # `builder-base` stage is used to build deps + create our virtual environment
-FROM python-base as builder-base
+FROM python-base AS builder-base
 RUN set -x \
   # deps for installing poetry
-  && buildDeps=" \
-  curl \
-  " \
+  && buildDeps="curl" \
   && apt-get update && apt-get install -y --no-install-recommends $buildDeps \
   && rm -rf /var/lib/apt/lists/* \
   # install poetry - respects $POETRY_VERSION & $POETRY_HOME
@@ -54,18 +50,23 @@ RUN set -x \
   && rm -rf /var/lib/apt/lists/*
 
 # `development` image is used during development / testing
-FROM python-base as development
+FROM python-base AS development
 WORKDIR $PYSETUP_PATH
 
-# copy in our built poetry + venv
+# Copy in our built poetry + venv
 COPY --from=builder-base $POETRY_HOME $POETRY_HOME
 COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
 
-# quicker install as runtime deps are already installed
+# Quicker install as runtime deps are already installed
 RUN poetry install
 
-# will become mountpoint of our code
-WORKDIR /srv
+WORKDIR /app
+COPY bin/ ./bin
+
+ENTRYPOINT ["/app/bin/entrypoint-app"]
+
+# Will become mountpoint of our code
+WORKDIR /app/src
 CMD ["gunicorn", "conf.wsgi:application", "--bind", "0.0.0.0:8000", "--reload"]
 
 # `production` image used for runtime

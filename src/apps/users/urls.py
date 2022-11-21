@@ -27,7 +27,11 @@ urlpatterns = [
         ),
         name="logout",
     ),
-    path(_("code_validation/"), MailValidationView.as_view(), name="code_validation"),
+    path(
+        _("code_validation/"),
+        MailValidationView.as_view(),
+        name="code_validation",
+    ),
     path(
         _("code_validation/resend/"),
         ResendValidationMailView.as_view(),

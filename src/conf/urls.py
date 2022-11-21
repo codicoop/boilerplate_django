@@ -26,7 +26,11 @@ urlpatterns = [
     path("", RootRedirectView.as_view()),
 ]
 
+
 urlpatterns += i18n_patterns(
     path("", HomeView.as_view(), name="home"),
-    path(_("registration/"), include("apps.users.urls", namespace="registration")),
+    path(
+        _("registration/"),
+        include("apps.users.urls", namespace="registration"),
+    ),
 )

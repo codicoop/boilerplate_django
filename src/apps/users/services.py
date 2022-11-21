@@ -25,7 +25,7 @@ def user_create(*, email: str, name: str, password: str, **kwargs: Any) -> User:
 
 def validation_email_send(*, user: User) -> None:
     """Generates a code and sends a validation email."""
-    # 1. Generate a 6-digit code, calculate expiration date and save on the user
+    # 1. Generate a 6-digit code, calculate expiration date and save
     code: int = generate_code()
 
     user.validation_code = code

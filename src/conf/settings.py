@@ -32,7 +32,8 @@ sentry_sdk.init(
 
 # False if not in os.environ
 DEBUG = env("DEBUG", default=False)
-# Raises django's ImproperlyConfigured exception if SECRET_KEY not in os.environ
+# Raises django's ImproperlyConfigured exception if SECRET_KEY not in
+# os.environ
 SECRET_KEY = env.str("SECRET_KEY", default=get_random_secret_key())
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[])
 # Instance's absolute URL (given we're not using Sites framework)
@@ -166,13 +167,13 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",  # noqa
     },
     {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",  # noqa
     },
     {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",  # noqa
     },
     {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",  # noqa
     },
 ]
 
@@ -239,3 +240,6 @@ CONSTANCE_CONFIG = {"PROJECT_NAME": ("", _("Name of the website."))}
 # Maintenance mode
 MAINTENANCE_MODE = env.bool("MAINTENANCE_MODE", default=False)
 MAINTENANCE_MODE_STATE_BACKEND = "maintenance_mode.backends.DefaultStorageBackend"
+
+# Silenced system checks
+SILENCED_SYSTEM_CHECKS = ["models.W042"]

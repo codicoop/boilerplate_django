@@ -3,7 +3,7 @@
 set -o errexit
 set -o pipefail
 
-DC_FILE="docker/docker-compose.yml"
+export COMPOSE_FILE="docker/docker-compose.yml"
 
 # If we're running in CI we need to disable TTY allocation for docker compose
 # commands that enable it by default, such as exec and run.
@@ -16,25 +16,28 @@ fi
 # Helper functions start with _ and aren't listed in this script's help menu.
 # -----------------------------------------------------------------------------
 
-# Set docker compose's configuration file
-function _dc {
-    docker compose -f "${DC_FILE}" "${@}"
-}
-
 # Run docker compose exec.
 function _dce {
-  _dc exec ${TTY} "${@}"
+  docker compose exec ${TTY} "${@}"
 }
 
 # Compose build, run and down. Used for installing things inside the containers.
 # We run it inside the container for full isolation from our local machine.
 function _build_run_down {
-  _dc build
-  _dc run ${TTY} "${@}"
-  _dc down
+  docker compose build
+  docker compose run ${TTY} "${@}"
+  docker compose down
 }
 
 # -----------------------------------------------------------------------------
+
+function down {
+  docker compose down
+}
+
+function up {
+  docker compose up "${@}"
+}
 
 # Basically a quick way of doing "docker compose exec web"
 function cmd {
@@ -59,7 +62,8 @@ function manage {
 function lint:dockerfile {
   # Lint Dockerfile
   docker container run --rm -i \
-    hadolint/hadolint hadolint --ignore DL3008 -t style "${@}" - < docker/Dockerfile
+    hadolint/hadolint hadolint --ignore DL3008 --ignore DL4006 \
+    -t style "${@}" - < docker/Dockerfile
 }
 
 # Lints our code with flake inside the web container.
@@ -156,9 +160,9 @@ function ci:test {
   #   - https://github.com/koalaman/shellcheck
   #   - https://github.com/nickjj/wait-until
   shellcheck run bin/*
-  lint:dockerfile "${@}"
+  #lint:dockerfile "${@}"
 
-  cp --no-clobber docker/settings/settings.env.example development.env
+  cp --no-clobber docker/settings/settings.env.example docker/settings/development.env
 
   docker compose build
   docker compose up -d
@@ -166,8 +170,9 @@ function ci:test {
   # shellcheck disable=SC1091
   . docker/settings/development.env
   wait-until "docker compose exec -T \
-    -e PGPASSWORD=${DB_PASSWORD} postgres \POSTGRES_PASSWOR
+    -e PGPASSWORD=${DB_PASSWORD} develop_django_boilerplate_db \
     psql -U ${DB_USER} ${DB_USER} -c 'SELECT 1'"
+
   docker compose logs
 
   lint "${@}"
@@ -177,7 +182,7 @@ function ci:test {
   manage test
 }
 
-# The magic resided in the second line:
+# The magic resides in the second line:
 #   1. copmgen -A function basically prints all the functions for the current
 #       shell.
 #   2. We pipe them into grep with -v option to not show those that start with

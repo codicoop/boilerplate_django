@@ -1,83 +1,51 @@
-version: "3.5"
-
-networks:
-  develop_django_boilerplate_network:
-    name: develop_django_boilerplate_network
+x-app: &default-app
+  build:
+    context: ".."
+    dockerfile: ./docker/Dockerfile
+    target: "development"
+  env_file: "./settings/development.env"
+  volumes:
+    - "..:/app"
+  tty: true
+  stop_grace_period: "3s"
+  depends_on:
+    develop_django_boilerplate_redis:
+      condition: service_started
+    develop_django_boilerplate_db:
+       condition: service_healthy
 
 services:
-  develop_django_boilerplate_app:
-    restart: on-failure
-    container_name: develop_django_boilerplate_app
-    build:
-      context: ..
-      dockerfile: ./docker/Dockerfile
-      target: development
-    env_file: ./settings/development.env
-    command: gunicorn conf.wsgi:application --bind 0.0.0.0:8000 --reload --threads=10
-    volumes:
-      - ../src:/srv
-    depends_on:
-      - develop_django_boilerplate_db
-    networks:
-      - develop_django_boilerplate_network
+  develop_django_boilerplate_db:
+    image: "postgres:14-bullseye"
+    environment:
+      POSTGRES_USER: "${DB_USER-postgres}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD-postgres}"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER}"]
+      interval: 3s
+      timeout: 5s
+      retries: 5
+    stop_grace_period: "3s"
 
-  develop_django_boilerplate_startup_commands:
-    container_name: develop_django_boilerplate_startup_commands
-    build:
-      context: ..
-      dockerfile: ./docker/Dockerfile
-      target: development
-    env_file: ./settings/development.env
-    command: python manage.py migrate
-    volumes:
-      - ../src:/srv
-    depends_on:
-      - develop_django_boilerplate_app
-    networks:
-      - develop_django_boilerplate_network
+  develop_django_boilerplate_app:
+    <<: *default-app
+    restart: on-failure
 
   develop_django_boilerplate_celery:
-    build:
-      context: ..
-      dockerfile: ./docker/Dockerfile
-      target: development
-    command: "celery -A apps.celery worker --loglevel=INFO"
-    container_name: develop_django_boilerplate_celery
-    env_file: ./settings/development.env
-    volumes:
-      - ../src:/srv
-    depends_on:
-      - develop_django_boilerplate_redis
-#    entrypoint: ["sh", "-c", "sleep 2073600"]
-    networks:
-      - develop_django_boilerplate_network
-
-  develop_django_boilerplate_db:
-    container_name: develop_django_boilerplate_db
-    image: postgres:14
-    environment:
-      - POSTGRES_HOST_AUTH_METHOD=trust
-    volumes:
-      - ../dumps:/dumps
-    networks:
-      - develop_django_boilerplate_network
+    <<: *default-app
+    command: celery -A apps.celery worker --loglevel=INFO
+    entrypoint: []
 
   develop_django_boilerplate_nginx:
-    container_name: develop_django_boilerplate_nginx
     image: nginx
     volumes:
-      - ./nginx.conf:/etc/nginx/conf.d
-      - ../:/srv
+      - ./nginx.conf:/etc/nginx/conf.d:ro
     ports:
-      # To run multiple projects at once, change it to 8001:80 etc.
       - 8001:80
     depends_on:
       - develop_django_boilerplate_app
-    networks:
-      - develop_django_boilerplate_network
+    stop_grace_period: "3s"
 
   develop_django_boilerplate_redis:
-    container_name: develop_django_boilerplate_redis
     image: redis
-    networks:
-      - develop_django_boilerplate_network
+    stop_grace_period: "3s"
