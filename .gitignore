@@ -6,7 +6,6 @@ static
 src/conf/maintenance_mode_state.txt
 
 .env*
-compose.yml
 !.env.example
 docker-compose.override.yml
 
