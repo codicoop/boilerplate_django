@@ -40,7 +40,7 @@ function up {
 # Basically a quick way of doing "docker compose exec web"
 function cmd {
   # Run any command you want in the web container
-  _dce develop_django_boilerplate_app "${@}"
+  _dce app "${@}"
 }
 
 # Run manage commands inside the container. Allows to run code before certain
@@ -61,7 +61,7 @@ function lint:dockerfile {
   # Lint Dockerfile
   docker container run --rm -i \
     hadolint/hadolint hadolint --ignore DL3008 --ignore DL4006 \
-    -t style "${@}" - < docker/Dockerfile
+    -t style "${@}" - < Dockerfile
 }
 
 # Lints our code with flake inside the web container.
@@ -158,7 +158,7 @@ function ci:test {
   #   - https://github.com/koalaman/shellcheck
   #   - https://github.com/nickjj/wait-until
   shellcheck run bin/*
-  #lint:dockerfile "${@}"
+  lint:dockerfile "${@}"
 
   cp --no-clobber .env.example .env
 
