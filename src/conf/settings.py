@@ -44,7 +44,7 @@ DJANGO_SUPERUSER_EMAIL = env("DJANGO_SUPERUSER_EMAIL", default="")
 DJANGO_SUPERUSER_PASSWORD = env("DJANGO_SUPERUSER_PASSWORD", default="")
 
 # Database
-# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
+# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
@@ -80,8 +80,11 @@ EMAIL_BACKEND = env.str(
     default="django.core.mail.backends.console.EmailBackend",
 )
 
+# Redis
+REDIS_URL = env.str("REDIS_URL", "redis://redis:6379/0")
+
 # Celery
-CELERY_BROKER_URL = env("CELERY_BROKER_URL", default=None)
+CELERY_BROKER_URL = REDIS_URL
 
 """
 Django settings for conf project.

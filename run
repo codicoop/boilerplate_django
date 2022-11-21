@@ -3,8 +3,6 @@
 set -o errexit
 set -o pipefail
 
-export COMPOSE_FILE="docker/docker-compose.yml"
-
 # If we're running in CI we need to disable TTY allocation for docker compose
 # commands that enable it by default, such as exec and run.
 TTY=""
@@ -109,7 +107,7 @@ function shell {
 function psql {
   # Connect to PostgreSQL
   # shellcheck disable=SC1091
-  . docker/settings/development.env
+  . .env
   _dce develop_django_boilerplate_db psql -U "${DB_USER}" "${@}"
 }
 
@@ -162,16 +160,10 @@ function ci:test {
   shellcheck run bin/*
   #lint:dockerfile "${@}"
 
-  cp --no-clobber docker/settings/settings.env.example docker/settings/development.env
+  cp --no-clobber .env.example .env
 
   docker compose build
   docker compose up -d
-
-  # shellcheck disable=SC1091
-  . docker/settings/development.env
-  wait-until "docker compose exec -T \
-    -e PGPASSWORD=${DB_PASSWORD} develop_django_boilerplate_db \
-    psql -U ${DB_USER} ${DB_USER} -c 'SELECT 1'"
 
   docker compose logs
 

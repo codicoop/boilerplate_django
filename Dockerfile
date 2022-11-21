@@ -67,7 +67,8 @@ ENTRYPOINT ["/app/bin/entrypoint-app"]
 
 # Will become mountpoint of our code
 WORKDIR /app/src
-CMD ["gunicorn", "conf.wsgi:application", "--bind", "0.0.0.0:8000", "--reload"]
+CMD ["gunicorn", "conf.wsgi:application", "--bind", "0.0.0.0:8000", \
+     "--reload", "--threads=10"]
 
 # `production` image used for runtime
 FROM python-base as production

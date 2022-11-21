@@ -1,0 +1,59 @@
+x-app: &default-app
+  build:
+    context: "."
+    target: "development"
+  env_file: ".env"
+  volumes:
+    - "${DOCKER_APP_VOLUME:-.:/app}"
+  tty: true
+  stop_grace_period: "3s"
+  restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
+  depends_on:
+    redis:
+      condition: service_started
+    db:
+       condition: service_healthy
+
+services:
+  db:
+    container_name: "develop_django_boilerplate_db"
+    image: "postgres:14-bullseye"
+    environment:
+      POSTGRES_USER: "${DB_USER}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD}"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER}"]
+      interval: 3s
+      timeout: 5s
+      retries: 5
+    stop_grace_period: "3s"
+    restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
+
+  app:
+    container_name: "develop_django_boilerplate_app"
+    <<: *default-app
+    restart: on-failure
+
+  celery:
+    container_name: "develop_django_boilerplate_celery"
+    <<: *default-app
+    command: celery -A apps.celery worker --loglevel="${CELERY_LOG_LEVEL-info}"
+    entrypoint: []
+
+  nginx:
+    container_name: "develop_django_boilerplate_nginx"
+    image: nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d:ro
+    ports:
+      - "${PROJECT_PORT:-8000}:80"
+    depends_on:
+      - app
+    stop_grace_period: "3s"
+    restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
+
+  redis:
+    container_name: "develop_django_boilerplate_redis"
+    image: redis
+    stop_grace_period: "3s"
+    restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
