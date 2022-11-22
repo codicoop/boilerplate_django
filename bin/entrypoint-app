@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-set -e
-
-# Migrate the database before running gunicorn
-python manage.py migrate
-
-exec "$@"

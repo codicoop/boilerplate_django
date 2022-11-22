@@ -103,18 +103,6 @@ function redis-cli {
   _dce redis redis-cli "${@}"
 }
 
-# # The "cd .." is here given that last WORKDIR instruction in the Dockerfile
-# # is at "/app/src" and our script is at /app/bin
-# function pip3:install {
-#   # Install pip3 dependencies and write lock file
-#   _build_run_down  bash -c "cd .. && bin/pip3-install"
-# }
-
-# function pip3:outdated {
-#   # List any installed packages that are outdated
-#   cmd pip3 list --outdated
-# }
-
 function ci:install-deps {
   # Install Continuous Integration (CI) dependencies
   sudo apt-get install -y curl shellcheck

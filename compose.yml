@@ -1,7 +1,8 @@
 x-app: &default-app
   build:
     context: "."
-    target: "development"
+    args:
+      DJANGO_ENV: "${DEBUG}"
   env_file: ".env"
   volumes:
     - "${DOCKER_APP_VOLUME:-.:/app}"

@@ -1,77 +1,69 @@
-FROM python:3.10-slim AS base
+FROM python:3.10-slim AS development
+LABEL mantainer="Codi Coop <hola@codi.coop>"
 
-# install a handler for SIGSEGV, SIGFPE, SIGABRT, SIGBUS and SIGILL signals
-# to dump the Python traceback
-ENV PYTHONFAULTHANDLER=1 \
-  # a random value is used to seed the hashes of str and bytes objects
-  PYTHONHASHSEED=random \
-  # pip
-  PIP_NO_CACHE_DIR=off \
-  PIP_DISABLE_PIP_VERSION_CHECK=on \
-  PIP_DEFAULT_TIMEOUT=100 \
-  # poetry:
-  POETRY_VERSION=1.2.0 \
-  # make poetry install to this location
-  POETRY_HOME="/opt/poetry" \
-  # make poetry create the virtual environment in the project's root
-  # it gets named `.venv`
-  POETRY_VIRTUALENVS_IN_PROJECT=true \
-  # do not ask any interactive question
-  POETRY_NO_INTERACTION=1 \
-  # paths
-  # this is where our requirements + virtual environment will live
-  PYSETUP_PATH="/opt/pysetup" \
-  VENV_PATH="/opt/pysetup/.venv"
+ARG DEBUG \
+    # Needed for fixing permissions of files created by Docker
+    UID=1000 \
+    GID=1000
 
-# prepend poetry and venv to path
-ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
+ENV DEBUG="${DEBUG}" \
+    # python
+    PYTHONFAULTHANDLER=1 \
+    PYTHONUNBUFFERED=1 \
+    PYTHONHASHSEED=random \
+    PYTHONDONTWRITEBYTECODE=1 \
+    # pip
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PIP_DEFAULT_TIMEOUT=100 \
+    # poetry
+    POETRY_VERSION=1.2.1 \
+    POETRY_NO_INTERACTION=1 \
+    POETRY_VIRTUALENVS_CREATE=false \
+    POETRY_CACHE_DIR='/var/cache/pypoetry' \
+    POETRY_HOME='/usr/local'
 
-# `builder-base` stage is used to build deps + create our virtual environment
-ARG buildDeps="curl"
-RUN set -x \
-  && apt-get update && apt-get install -y --no-install-recommends "${buildDeps}" \
-  && rm -rf /var/lib/apt/lists/* \
-  # install poetry - respects $POETRY_VERSION & $POETRY_HOME
-  && curl -sSL https://install.python-poetry.org | python \
-  && apt-get purge -y --auto-remove $buildDeps
+SHELL [ "/bin/bash", "-eo", "pipefail", "-c" ]
 
-# copy project requirement files here to ensure they will be cached.
-WORKDIR $PYSETUP_PATH
-COPY poetry.lock pyproject.toml ./
-ARG buildDeps="git"
-RUN set -x \
-  && apt-get update \
-  && apt-get install -y --no-install-recommends "${buildDeps}" \
-  && poetry install --only main --no-ansi \
-  && apt-get purge -y --auto-remove "${buildDeps}" \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/*
-
-# `development` image is used during development / testing
-FROM base AS development
-WORKDIR $PYSETUP_PATH
-
-# Copy in our built poetry + venv
-COPY --from=base $POETRY_HOME $POETRY_HOME
-COPY --from=base $PYSETUP_PATH $PYSETUP_PATH
-
-# Quicker install as runtime deps are already installed
-RUN poetry install
+# System deps
+RUN apt-get update && apt-get upgrade -y \
+  && apt-get install -y --no-install-recommends curl git gettext \
+  # Install poetry
+  && curl -sSL 'https://install.python-poetry.org' | python - \
+  && poetry --version \
+  # Clean cache
+  && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
+  && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
-COPY bin/ ./bin
 
-ENTRYPOINT ["/app/bin/entrypoint-app"]
+RUN groupadd -g "${GID}" -r app \
+  && useradd -d "/app" -g app -l -r -u "${UID}" app \
+  && chown app:app -R "/app"
 
-# Will become mountpoint of our code
+COPY --chown=app:app ./poetry.lock ./pyproject.toml /app/
+COPY --chown=app:app ./bin/ /app/bin/
+
+# Project initialization
+RUN --mount=type=cache,target="$POETRY_CACHE_DIR" \
+  echo "$DJANGO_ENV" \
+  && poetry version \
+  # Install deps
+  && poetry run pip install -U pip \
+  && poetry install \
+    $(if [ "$DJANGO_ENV" = "production"]; then echo "--only main"; fi) \
+    --no-interaction --no-ansi
+
+# Run as a non-root user
+USER app
+
 WORKDIR /app/src
 CMD ["gunicorn", "conf.wsgi:application", "--bind", "0.0.0.0:8000", \
      "--reload", "--threads=10"]
 
-# `production` image used for runtime
-FROM base as production
 
-COPY --from=base $PYSETUP_PATH $PYSETUP_PATH
-COPY src /srv
-WORKDIR /srv
-RUN ["python", "manage.py", "collectstatic", "--clear", "--no-input"]
+FROM development AS production
+COPY --chown=app:app . /app
+CMD ["gunicorn", "conf.wsgi:application", "--bind", "0.0.0.0:8000", \
+     "--reload", "--threads=10"]
+
