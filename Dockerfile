@@ -45,13 +45,14 @@ COPY --chown=app:app ./poetry.lock ./pyproject.toml /app/
 COPY --chown=app:app ./bin/ /app/bin/
 
 # Project initialization
+# hadolint ignore=SC2046
 RUN --mount=type=cache,target="$POETRY_CACHE_DIR" \
   echo "$DJANGO_ENV" \
   && poetry version \
   # Install deps
   && poetry run pip install -U pip \
   && poetry install \
-    $(if [ "$DJANGO_ENV" = "production"]; then echo "--only main"; fi) \
+    $(if [ "$DJANGO_ENV" = "production" ]; then echo "--only main"; fi) \
     --no-interaction --no-ansi
 
 # Run as a non-root user
