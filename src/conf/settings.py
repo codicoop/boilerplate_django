@@ -297,7 +297,8 @@ GRAPPELLI_INDEX_DASHBOARD = "apps.base.dashboard.CustomIndexDashboard"
 # Constance
 # https://django-constance.readthedocs.io/en/latest/#configuration
 CONSTANCE_BACKEND = "constance.backends.database.DatabaseBackend"
-CONSTANCE_CONFIG = {"PROJECT_NAME": ("", _("Name of the website."))}
+DEFAULT_PROJECT_NAME = env.str("DEFAULT_PROJECT_NAME", str, default="")
+CONSTANCE_CONFIG = {"PROJECT_NAME": (DEFAULT_PROJECT_NAME, _("Name of the website."))}
 
 
 ################################################################################
@@ -305,6 +306,9 @@ CONSTANCE_CONFIG = {"PROJECT_NAME": ("", _("Name of the website."))}
 ################################################################################
 
 # https://docs.djangoproject.com/en/4.1/ref/logging/
+# Apply only in production. Use default settings in development.
+# TODO: A better practice would be to use own LOGGING variable to configure
+# things.
 if DEBUG == "off":
     LOGGING_CONFIG = None
     # Get loglevel from env
