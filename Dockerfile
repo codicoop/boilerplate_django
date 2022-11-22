@@ -26,6 +26,7 @@ ENV DEBUG="${DEBUG}" \
 SHELL [ "/bin/bash", "-eo", "pipefail", "-c" ]
 
 # System deps:
+# hadolint ignore=DL3008
 RUN apt-get update && apt-get upgrade -y \
   && apt-get install -y --no-install-recommends curl git gettext \
   # Install poetry
