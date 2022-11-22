@@ -4,8 +4,8 @@ Settings for the Django project.
 For more information on Django's settings, visit:
     https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-from pathlib import Path
 import logging
+from pathlib import Path
 
 import environ
 import sentry_sdk
