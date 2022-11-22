@@ -25,7 +25,7 @@ ENV DEBUG="${DEBUG}" \
 
 SHELL [ "/bin/bash", "-eo", "pipefail", "-c" ]
 
-# System deps
+# System deps:
 RUN apt-get update && apt-get upgrade -y \
   && apt-get install -y --no-install-recommends curl git gettext \
   # Install poetry
