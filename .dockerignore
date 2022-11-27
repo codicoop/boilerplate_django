@@ -1,0 +1,9 @@
+.git/
+__pycache__/
+src/static/
+node_modules/
+
+.coverage
+.dockerignore
+.env*
+!.env.example
