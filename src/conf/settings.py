@@ -35,6 +35,7 @@ DEBUG = env("DEBUG", default=False)
 # Raises django's ImproperlyConfigured exception if SECRET_KEY not in os.environ
 SECRET_KEY = env.str("SECRET_KEY", default=get_random_secret_key())
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[])
+CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", default=[])
 # Instance's absolute URL (given we're not using Sites framework)
 ABSOLUTE_URL = env.str("ABSOLUTE_URL", default="")
 
