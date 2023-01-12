@@ -149,6 +149,7 @@ TEMPLATES = [
         "OPTIONS": {
             "context_processors": [
                 "maintenance_mode.context_processors.maintenance_mode",
+                "constance.context_processors.config",
                 "django.template.context_processors.debug",
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
