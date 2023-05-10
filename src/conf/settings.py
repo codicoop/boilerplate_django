@@ -31,6 +31,7 @@ SECRET_KEY = env.str("SECRET_KEY", default=get_random_secret_key())
 # https://docs.djangoproject.com/en/4.1/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[])
 
+CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", default=[])
 # Instance's absolute URL (given we're not using Sites framework)
 ABSOLUTE_URL = env.str("ABSOLUTE_URL", default="")
 
@@ -79,7 +80,7 @@ LOCALE_PATHS = [str(BASE_DIR / "locale")]
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": env("DB_NAME", default=""),
+        "NAME": env("DB_NAME", default="postgres"),
         "USER": env("DB_USER", default=""),
         "PASSWORD": env("DB_PASSWORD", default=""),
         "HOST": env("DB_HOST", default=""),
@@ -224,6 +225,7 @@ TEMPLATES = [
         "OPTIONS": {
             "context_processors": [
                 "maintenance_mode.context_processors.maintenance_mode",
+                "constance.context_processors.config",
                 "django.template.context_processors.debug",
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
@@ -264,9 +266,12 @@ SENDGRID_SANDBOX_MODE_IN_DEBUG = env(
     "SENDGRID_SANDBOX_MODE_IN_DEBUG", bool, default=True
 )
 SENDGRID_ECHO_TO_STDOUT = env("SENDGRID_ECHO_TO_STDOUT", bool, default=False)
-SENDGRID_TRACK_EMAIL_OPENS = env("SENDGRID_TRACK_EMAIL_OPENS", bool, default=False)
-SENDGRID_TRACK_CLICKS_HTML = env("SENDGRID_TRACK_CLICKS_HTML", bool, default=False)
-SENDGRID_TRACK_CLICKS_PLAIN = env("SENDGRID_TRACK_CLICKS_PLAIN", bool, default=False)
+SENDGRID_TRACK_EMAIL_OPENS = env(
+    "SENDGRID_TRACK_EMAIL_OPENS", bool, default=False)
+SENDGRID_TRACK_CLICKS_HTML = env(
+    "SENDGRID_TRACK_CLICKS_HTML", bool, default=False)
+SENDGRID_TRACK_CLICKS_PLAIN = env(
+    "SENDGRID_TRACK_CLICKS_PLAIN", bool, default=False)
 
 # SMTP
 # These are set to false as default given that Sendgrid's Web API is the default
@@ -299,7 +304,8 @@ GRAPPELLI_INDEX_DASHBOARD = "apps.base.dashboard.CustomIndexDashboard"
 # https://django-constance.readthedocs.io/en/latest/#configuration
 CONSTANCE_BACKEND = "constance.backends.database.DatabaseBackend"
 DEFAULT_PROJECT_NAME = env.str("DEFAULT_PROJECT_NAME", str, default="")
-CONSTANCE_CONFIG = {"PROJECT_NAME": (DEFAULT_PROJECT_NAME, _("Name of the website."))}
+CONSTANCE_CONFIG = {"PROJECT_NAME": (
+    DEFAULT_PROJECT_NAME, _("Name of the website."))}
 
 
 ################################################################################
