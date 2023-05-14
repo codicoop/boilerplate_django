@@ -1,3 +1,7 @@
+# Codi Cooperatiu's Django boilerplate
+
+![img](esquema_boilerplate.png)
+
 # Included packages
 
 ## Django Post Office
