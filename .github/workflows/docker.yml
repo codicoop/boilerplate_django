@@ -26,11 +26,14 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@v3
 
-      # Eventually the tests will become more complex and then it
+      # Eventually these tests will become more complex and then it
       # should be advisable to move this into a shell script.
       - name: "Build Docker image"
         run: |
           cp docker/settings/settings.env.example docker/settings/development.env
           docker compose -f docker/docker-compose.yml config --quiet
           docker compose -f docker/docker-compose.yml build
-          docker compose -f docker/docker-compose.yml up
+
+      - name: "Test Django project"
+        run: |
+          docker compose -f docker/docker-compose.yml run develop_django_boilerplate_app python manage.py makemigrations --dry-run --check
