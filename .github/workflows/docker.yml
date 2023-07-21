@@ -25,6 +25,9 @@ jobs:
     steps:
       - name: "Checkout"
         uses: actions/checkout@v3
+
+      # Eventually the tests will become more complex and then it
+      # should be advisable to move this into a shell script.
       - name: "Build Docker image"
         run: |
           cp docker/settings/settings.env.example docker/settings/development.env
