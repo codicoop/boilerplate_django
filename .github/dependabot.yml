@@ -7,7 +7,25 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    target-branch: "develop"
+    groups:
+      dependencies:
+        patterns:
+          - "*" # Groups ALL dependencies in a single PR
+    assignees:
+      - Arlaxia
+    reviewers:
+      - perepicornell
   - package-ecosystem: "docker"
     directory: "/docker"
     schedule:
       interval: "weekly"
+    target-branch: "develop"
+    groups:
+      dependencies:
+        patterns:
+          - "*"
+    assignees:
+      - Arlaxia
+    reviewers:
+      - perepicornell
