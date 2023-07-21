@@ -29,32 +29,43 @@ ENV PYTHONUNBUFFERED=1 \
 # prepend poetry and venv to path
 ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
 
+
+###############################################################################
 # `builder-base` stage is used to build deps + create our virtual environment
+###############################################################################
 FROM python-base as builder-base
-RUN set -x \
-  # deps for installing poetry
-  && buildDeps=" \
+
+# 1. -e causes a script to exit if any of the processes it calls generate a
+#    non-zero return code
+# 2. -o pipefail  makes a pipe chain of scripts return a non-zero code
+#    if *any* of the inbetween scripts returned a non-zero code.
+SHELL ["/bin/bash", "-exo", "pipefail", "-c"]
+
+# System deps
+# hadolint ignore=DL3008
+RUN apt-get update && apt-get upgrade -y \
+  && apt-get install -y --no-install-recommends -y \
   curl \
-  " \
-  && apt-get update && apt-get install -y --no-install-recommends $buildDeps \
-  && rm -rf /var/lib/apt/lists/* \
-  # install poetry - respects $POETRY_VERSION & $POETRY_HOME
-  && curl -sSL https://install.python-poetry.org | python \
-  && apt-get purge -y --auto-remove $buildDeps
+  gettext\
+  git \
+  # Install `poetry` package manager - respects $POETRY_VERSION & $POETRY_HOME:
+  # https://github.com/python-poetry/poetry
+  && curl -sSL https://install.python-poetry.org | python - \
+  && poetry --version \
+  # Cleaning cache:
+  && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
+  && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
 # copy project requirement files here to ensure they will be cached.
 WORKDIR $PYSETUP_PATH
 COPY poetry.lock pyproject.toml ./
-RUN set -x \
-  && buildDeps="git" \
-  && apt-get update \
-  && apt-get install -y --no-install-recommends $buildDeps \
-  && poetry install --only main --no-ansi \
-  && apt-get purge -y --auto-remove $buildDeps \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/*
+# hadolint ignore=DL3008
+RUN poetry version \
+  && poetry install --only main --no-ansi
 
+###############################################################################
 # `development` image is used during development / testing
+###############################################################################
 FROM python-base as development
 WORKDIR $PYSETUP_PATH
 
@@ -69,7 +80,9 @@ RUN poetry install
 WORKDIR /srv
 CMD ["gunicorn", "conf.wsgi:application", "--bind", "0.0.0.0:8000", "--reload"]
 
+###############################################################################
 # `production` image used for runtime
+###############################################################################
 FROM python-base as production
 
 COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
