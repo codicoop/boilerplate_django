@@ -33,5 +33,5 @@ jobs:
       - name: "Run linters and formatters"
         run: |
           poetry run flake8 src/
-          isort --check-only --df src/apps src/conf tests
-          black --check --diff src/apps src/conf tests
+          poetry run isort --check-only --df src/apps src/conf tests
+          poetry run black --check --diff src/apps src/conf tests
