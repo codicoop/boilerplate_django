@@ -31,4 +31,6 @@ jobs:
       - name: "Build Docker image"
         run: |
           cp docker/settings/settings.env.example docker/settings/development.env
+          docker compose -f docker/docker-compose.yml check --quiet
           docker compose -f docker/docker-compose.yml build
+          docker compose -f docker/docker/compose.yml up
