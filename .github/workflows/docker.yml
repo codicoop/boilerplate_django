@@ -33,4 +33,4 @@ jobs:
           cp docker/settings/settings.env.example docker/settings/development.env
           docker compose -f docker/docker-compose.yml config --quiet
           docker compose -f docker/docker-compose.yml build
-          docker compose -f docker/docker/compose.yml up
+          docker compose -f docker/docker-compose.yml up
