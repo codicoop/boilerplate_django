@@ -1,0 +1,39 @@
+exclude: "/migrations/"
+default_stages: [commit]
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-json
+      - id: check-toml
+      - id: check-yaml
+      - id: debug-statements
+      - id: detect-private-key
+
+  - repo: https://github.com/psf/black
+    rev: 23.3.0
+    hooks:
+      - id: black
+        args: ["src/apps/", "src/conf/"]
+
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+        args: ["src/apps/", "src/conf/"]
+
+  - repo: https://github.com/PyCQA/flake8
+    rev: 6.0.0
+    hooks:
+      - id: flake8
+        args: ["src/"]
+
+# Sets up .pre-commit-ci.yaml to ensure pre-commit dependencies stay up to date
+# Taken from https://github.com/cookiecutter/cookiecutter-django
+ci:
+  autoupdate_schedule: weekly
+  skip: []
+  submodules: false
