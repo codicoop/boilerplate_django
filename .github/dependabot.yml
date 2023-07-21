@@ -3,10 +3,17 @@
 
 version: 2
 updates:
+  # Python dependencies
   - package-ecosystem: "pip"
     directory: "/"
     schedule:
       interval: "weekly"
+    ignore:
+      - dependency-name: "django"
+        # Ignore non-LTS Django releases
+        # https://www.djangoproject.com/download/#supported-versions
+        versions:
+          - ">=4.3,<5.2"
     target-branch: "develop"
     groups:
       dependencies:
@@ -14,8 +21,8 @@ updates:
           - "*" # Groups ALL dependencies in a single PR
     assignees:
       - Arlaxia
-    reviewers:
-      - perepicornell
+
+  # Docker dependencies
   - package-ecosystem: "docker"
     directory: "/docker"
     schedule:
@@ -27,5 +34,3 @@ updates:
           - "*"
     assignees:
       - Arlaxia
-    reviewers:
-      - perepicornell
