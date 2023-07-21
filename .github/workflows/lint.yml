@@ -13,25 +13,31 @@ jobs:
     steps:
       - name: "Checkout project" 
         uses: actions/checkout@v2
-          
+
       - name: "Set up Python 3.10"
         uses: actions/setup-python@v4
         with:
           python-version: "3.10"
-            
+
       - name: "Install Poetry"
         run: |
           curl -sSL "https://install.python-poetry.org" | python -
 
           # Add `poetry to `$PATH`
           echo "$HOME/.local/bin" >> $GITHUB_PATH
-           
+
       - name: "Install dependencies"
         run: |
           poetry install
 
-      - name: "Run linters and formatters"
+      # TODO: Eventually move all of this into a CI script
+      - name: "Lint"
         run: |
           poetry run flake8 src/
           poetry run isort --check-only --df src/apps src/conf tests
           poetry run black --check --diff src/apps src/conf tests
+
+      - name: "Format"
+        run: |
+          poetry run isort src/apps src/conf tests
+          poetry run black src/apps src/conf tests
