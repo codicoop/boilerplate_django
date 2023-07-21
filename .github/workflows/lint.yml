@@ -33,9 +33,11 @@ jobs:
       # TODO: Eventually move all of this into a CI script
       - name: "Lint"
         run: |
+          poetry run poetry check
           poetry run flake8 src/
           poetry run isort --check-only --df src/apps src/conf tests
           poetry run black --check --diff src/apps src/conf tests
+          poetry run dennis-cmd lint --errorsonly src/locale/ 
 
       - name: "Format"
         run: |

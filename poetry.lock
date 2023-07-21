@@ -319,6 +319,22 @@ files = [
 ]
 
 [[package]]
+name = "dennis"
+version = "1.1.0"
+description = "Utilities for working with gettext PO and POT files to ease development and improve localization quality"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "dennis-1.1.0-py3-none-any.whl", hash = "sha256:305ec6531b49edaf0434cb19b5498b7d66870e229234672cfad6a95811b9d66c"},
+    {file = "dennis-1.1.0.tar.gz", hash = "sha256:8cfa89acbee5acd3e70714fbc45d9dc23446a2418624c17b1dcfdf0bdd33bbe0"},
+]
+
+[package.dependencies]
+click = ">=6"
+polib = ">=1.0.8"
+
+[[package]]
 name = "django"
 version = "4.2.3"
 description = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
@@ -783,6 +799,18 @@ files = [
 [package.extras]
 dev = ["pre-commit", "tox"]
 testing = ["pytest", "pytest-benchmark"]
+
+[[package]]
+name = "polib"
+version = "1.2.0"
+description = "A library to manipulate gettext files (po and mo files)."
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "polib-1.2.0-py2.py3-none-any.whl", hash = "sha256:1c77ee1b81feb31df9bca258cbc58db1bbb32d10214b173882452c73af06d62d"},
+    {file = "polib-1.2.0.tar.gz", hash = "sha256:f3ef94aefed6e183e342a8a269ae1fc4742ba193186ad76f175938621dbfc26b"},
+]
 
 [[package]]
 name = "prompt-toolkit"
@@ -1302,4 +1330,4 @@ brotli = ["Brotli"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "b3fd15702db1b34e7b67fc5877dd630284ffe180c1214d58e86d679aa2b51c5a"
+content-hash = "ae62762ad862c3d9af8e79f19646a45ba73430d08d977f906c54ccd5342eef49"

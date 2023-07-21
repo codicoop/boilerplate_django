@@ -35,6 +35,7 @@ factory-boy = "^3.2.1"
 pytest = "^7.1.1"
 pytest-django = "^4.5.2"
 pytest-sugar = "^0.9.4"
+dennis = "^1.1.0"
 
 [tool.black]
 exclude = '''
