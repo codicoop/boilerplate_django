@@ -37,3 +37,4 @@ jobs:
       - name: "Test Django project"
         run: |
           docker compose -f docker/docker-compose.yml run develop_django_boilerplate_app python manage.py makemigrations --dry-run --check
+          docker compose -f docker/docker-compose.yml run develop_django_boilerplate_app python manage.py collectstatic --no-input --dry-run
