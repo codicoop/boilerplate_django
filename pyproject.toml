@@ -18,7 +18,7 @@ django-extensions = "^3.2.3"
 django-grappelli = "^3.0.6"
 django-constance = {extras = ["database"], version = "^2.9.1"}
 django-storages = "^1.13.2"
-boto3 = "^1.28.9"
+boto3 = "^1.28.10"
 django-post-office = "^3.7.0"
 django-login-required-middleware = "^0.9.0"
 django-sendgrid-v5 = "^1.2.2"
