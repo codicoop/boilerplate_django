@@ -1,6 +1,6 @@
 # Codi Cooperatiu's Django boilerplate
 
-![img](esquema_boilerplate.png)
+![img](/docs/esquema_boilerplate.png)
 
 # Included packages
 
