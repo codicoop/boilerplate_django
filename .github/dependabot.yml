@@ -3,6 +3,12 @@
 
 version: 2
 updates:
+  # Update GitHub actions in workflows
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+
   # Python dependencies
   - package-ecosystem: "pip"
     directory: "/"
@@ -15,8 +21,10 @@ updates:
         versions:
           - ">=4.3,<5.2"
     target-branch: "develop"
+    # We define a group so as to group all dependabot PRs into one
+    # https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file#groups
     groups:
-      dependencies:
+      python-dependencies:
         patterns:
           - "*" # Groups ALL dependencies in a single PR
     assignees:
@@ -28,8 +36,10 @@ updates:
     schedule:
       interval: "weekly"
     target-branch: "develop"
+    # We define a group so as to group all dependabot PRs into one
+    # https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file#groups
     groups:
-      dependencies:
+      docker-dependencies:
         patterns:
           - "*"
     assignees:
