@@ -8,6 +8,7 @@ import os
 
 import environ
 import sentry_sdk
+import structlog
 from django.core.management.utils import get_random_secret_key
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -64,9 +65,12 @@ SENDGRID_API_KEY = env("SENDGRID_API_KEY", default="")
 SENDGRID_SANDBOX_MODE_IN_DEBUG = env(
     "SENDGRID_SANDBOX_MODE_IN_DEBUG", bool, default=False
 )
-SENDGRID_TRACK_EMAIL_OPENS = env("SENDGRID_TRACK_EMAIL_OPENS", bool, default=False)
-SENDGRID_TRACK_CLICKS_HTML = env("SENDGRID_TRACK_CLICKS_HTML", bool, default=False)
-SENDGRID_TRACK_CLICKS_PLAIN = env("SENDGRID_TRACK_CLICKS_PLAIN", bool, default=False)
+SENDGRID_TRACK_EMAIL_OPENS = env(
+    "SENDGRID_TRACK_EMAIL_OPENS", bool, default=False)
+SENDGRID_TRACK_CLICKS_HTML = env(
+    "SENDGRID_TRACK_CLICKS_HTML", bool, default=False)
+SENDGRID_TRACK_CLICKS_PLAIN = env(
+    "SENDGRID_TRACK_CLICKS_PLAIN", bool, default=False)
 
 # SMTP
 EMAIL_HOST = env.str("EMAIL_HOST", default="")
@@ -241,3 +245,57 @@ CONSTANCE_CONFIG = {"PROJECT_NAME": ("", _("Name of the website."))}
 # Maintenance mode
 MAINTENANCE_MODE = env.bool("MAINTENANCE_MODE", default=False)
 MAINTENANCE_MODE_STATE_BACKEND = "maintenance_mode.backends.DefaultStorageBackend"
+
+
+################################################################################
+#                                  Logging                                     #
+################################################################################
+
+# https://docs.djangoproject.com/en/4.1/ref/logging/
+DJANGO_LOG_LEVEL = env.str("DJANGO_LOG_LEVEL", default="WARNING").upper()
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "plain_console": {
+            "()": structlog.stdlib.ProcessorFormatter,
+            "processor": structlog.dev.ConsoleRenderer(),
+            "format": "{name} {levelname} {asctime} {module} {message}",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "plain_console",
+        },
+    },
+    "loggers": {
+        # "django_structlog": {
+        #     "handlers": ["console"],
+        #     "level": "INFO",
+        # },
+        # Make sure to replace the following logger's name for yours
+        "django": {
+            "handlers": ["console"],
+            "level": "INFO",
+        },
+    },
+}
+
+structlog.configure(
+    processors=[
+        structlog.contextvars.merge_contextvars,
+        structlog.stdlib.filter_by_level,
+        structlog.processors.TimeStamper(fmt="iso"),
+        structlog.stdlib.add_logger_name,
+        structlog.stdlib.add_log_level,
+        structlog.stdlib.PositionalArgumentsFormatter(),
+        structlog.processors.StackInfoRenderer(),
+        structlog.processors.UnicodeDecoder(),
+        structlog.dev.ConsoleRenderer(),
+        # structlog.stdlib.ProcessorFormatter.wrap_for_formatter,
+    ],
+    logger_factory=structlog.stdlib.LoggerFactory(),
+    cache_logger_on_first_use=True,
+)
