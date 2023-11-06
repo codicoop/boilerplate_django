@@ -39,7 +39,7 @@ repos:
   # Poetry checks
   # https://python-poetry.org/docs/pre-commit-hooks/
   - repo: https://github.com/python-poetry/poetry
-    rev: "1.2.2"
+    rev: "1.7.0"
     hooks:
       - id: poetry-check
       - id: poetry-lock

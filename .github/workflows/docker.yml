@@ -1,0 +1,40 @@
+name: "docker"
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  hadolint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: hadolint/hadolint-action@v3.0.0
+        with:
+          dockerfile: 'docker/Dockerfile'
+          failure-threshold: style
+  docker-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+
+      # Eventually these tests will become more complex and then it
+      # should be advisable to move this into a shell script.
+      - name: "Build Docker image"
+        run: |
+          cp docker/settings/settings.env.example docker/settings/development.env
+          docker compose -f docker/docker-compose.yml config --quiet
+          docker compose -f docker/docker-compose.yml build
+
+      - name: "Test Django project"
+        run: |
+          docker compose -f docker/docker-compose.yml run boilerplate_app python manage.py makemigrations --dry-run --check
+          docker compose -f docker/docker-compose.yml run boilerplate_app python manage.py collectstatic --no-input --dry-run
