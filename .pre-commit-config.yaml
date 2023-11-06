@@ -15,26 +15,14 @@ repos:
       - id: debug-statements
       - id: detect-private-key
 
-  # Python formatting with black
-  - repo: https://github.com/psf/black
-    rev: 23.3.0
+  # Run the Ruff linter.
+  # https://docs.astral.sh/ruff/integrations/#pre-commit
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    # Ruff version.
+    rev: v0.1.4
     hooks:
-      - id: black
-        args: ["src/apps/", "src/conf/"]
-
-  # Python import formatting with isort
-  - repo: https://github.com/PyCQA/isort
-    rev: 5.12.0
-    hooks:
-      - id: isort
-        args: ["src/apps/", "src/conf/"]
-
-  # Python linting with flake8
-  - repo: https://github.com/PyCQA/flake8
-    rev: 6.0.0
-    hooks:
-      - id: flake8
-        args: ["src/"]
+      - id: ruff
+        args: [ --fix, --exit-non-zero-on-fix ]
 
   # Poetry checks
   # https://python-poetry.org/docs/pre-commit-hooks/
