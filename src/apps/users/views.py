@@ -1,5 +1,16 @@
 from itertools import islice
 
+from apps.base.mixins import AnonymousRequiredMixin
+from apps.base.views import StandardSuccess
+from apps.users.forms import (
+    AuthenticationForm,
+    PasswordResetForm,
+    ProfileDetailsForm,
+    UserSignUpForm,
+    UserValidationForm,
+)
+from apps.users.models import User
+from apps.users.services import user_create, validation_email_send
 from django.contrib.auth import authenticate, login
 
 # from django.contrib.auth.views import PasswordResetDoneView as BasePasswordResetDoneView # noqa
@@ -15,18 +26,6 @@ from django.core.exceptions import ValidationError
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import FormView, RedirectView, UpdateView
-
-from apps.base.mixins import AnonymousRequiredMixin
-from apps.base.views import StandardSuccess
-from apps.users.forms import (
-    AuthenticationForm,
-    PasswordResetForm,
-    ProfileDetailsForm,
-    UserSignUpForm,
-    UserValidationForm,
-)
-from apps.users.models import User
-from apps.users.services import user_create, validation_email_send
 
 
 class LoginView(AnonymousRequiredMixin, BaseLoginView):

@@ -1,11 +1,10 @@
+from apps.base.admin import ModelAdminMixin
+from apps.users.forms import UserChangeForm
+from apps.users.models import User
 from django import forms
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils import timezone
-
-from apps.base.admin import ModelAdminMixin
-from apps.users.forms import UserChangeForm
-from apps.users.models import User
 
 
 class UserCreationForm(forms.ModelForm):

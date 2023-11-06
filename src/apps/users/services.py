@@ -2,11 +2,10 @@ import random
 from datetime import timedelta
 from typing import Any
 
+from apps.base.post_office import send
 from constance import config
 from django.conf import settings
 from django.utils import timezone
-
-from apps.base.post_office import send
 
 from .models import User
 
