@@ -1,5 +1,7 @@
 # Codi Cooperatiu's Django boilerplate
 
+![lint workflow](https://github.com/codicoop/boilerplate_django/actions/workflows/lint.yml/badge.svg)
+
 ![img](/docs/esquema_boilerplate.png)
 
 # Included packages
