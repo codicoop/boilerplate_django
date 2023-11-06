@@ -33,32 +33,19 @@ django-structlog = "^6.0.0"
 rich = "^13.4.2"
 
 [tool.poetry.dev-dependencies]
-black = "^23.7.0"
-isort = "^5.12.0"
-flake8 = "^6.0.0"
-flake8-bugbear = "^23.7.10"
-factory-boy = "^3.3.0"
+ruff = "^0.1.4"
+dennis = "^1.1.0"
+
 pytest = "^7.4.0"
 pytest-django = "^4.5.2"
 pytest-sugar = "^0.9.7"
-dennis = "^1.1.0"
+factory-boy = "^3.3.0"
 
-[tool.black]
-exclude = '''
-/(
-  | migrations
-)/
-
-'''
-
-[tool.isort]
-skip = "migrations"
-multi_line_output = 3
-include_trailing_comma = "True"
-force_grid_wrap = 0
-use_parentheses = "True"
-ensure_newline_before_comments = "True"
-line_length = 88
+[tool.ruff]
+# See https://docs.astral.sh/ruff/settings/ for Ruff's settings
+# See https://docs.astral.sh/ruff/rules/ for a list of all Ruff's rules
+extend-select = ["I", "F", "E", "W", "N", "B", "DJ", "ISC"]
+extend-exclude = ["migrations"]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
