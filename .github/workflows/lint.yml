@@ -40,5 +40,4 @@ jobs:
 
       - name: "Format"
         run: |
-          poetry run isort src/apps src/conf tests
-          poetry run black src/apps src/conf tests
+          poetry run ruff format .
