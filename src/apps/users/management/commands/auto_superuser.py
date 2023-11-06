@@ -1,6 +1,7 @@
 import environ
-from apps.users.models import User
 from django.core.management.base import BaseCommand
+
+from apps.users.models import User
 
 env = environ.Env()
 environ.Env.read_env()

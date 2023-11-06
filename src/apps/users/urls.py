@@ -1,3 +1,7 @@
+from django.contrib.auth import views as auth_views
+from django.urls import path, reverse_lazy
+from django.utils.translation import gettext_lazy as _
+
 from apps.base.views import StandardSuccess
 from apps.users.views import (
     DetailsView,
@@ -10,9 +14,6 @@ from apps.users.views import (
     ResendValidationMailView,
     SignupView,
 )
-from django.contrib.auth import views as auth_views
-from django.urls import path, reverse_lazy
-from django.utils.translation import gettext_lazy as _
 
 app_name = "registration"
 urlpatterns = [

@@ -46,6 +46,7 @@ factory-boy = "^3.3.0"
 # See https://docs.astral.sh/ruff/rules/ for a list of all Ruff's rules
 extend-select = ["I", "F", "E", "W", "N", "B", "DJ"]
 extend-exclude = ["migrations"]
+src = ["src"]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
