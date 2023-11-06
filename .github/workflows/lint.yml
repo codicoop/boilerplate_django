@@ -35,9 +35,7 @@ jobs:
         run: |
           poetry run poetry check
           poetry run poetry lock
-          poetry run flake8 src/
-          poetry run isort --check-only --df src/apps src/conf tests
-          poetry run black --check --diff src/apps src/conf tests
+          poetry run ruff check --output-format=github .
           poetry run dennis-cmd lint --errorsonly src/locale/
 
       - name: "Format"
