@@ -1,13 +1,13 @@
 version: "3.5"
 
 networks:
-  boilerplate_network:
-    name: boilerplate_network
+  boilerplate-network:
+    name: boilerplate-network
 
 services:
-  boilerplate_app:
+  boilerplate-app:
     restart: on-failure
-    container_name: boilerplate_app
+    container_name: boilerplate-app
     build:
       context: ..
       dockerfile: ./docker/Dockerfile
@@ -17,12 +17,12 @@ services:
     volumes:
       - ../src:/srv
     depends_on:
-      - boilerplate_db
+      - boilerplate-db
     networks:
-      - boilerplate_network
+      - boilerplate-network
 
-  boilerplate_startup:
-    container_name: boilerplate_startup
+  boilerplate-startup:
+    container_name: boilerplate-startup
     build:
       context: ..
       dockerfile: ./docker/Dockerfile
@@ -32,38 +32,38 @@ services:
     volumes:
       - ../src:/srv
     depends_on:
-      - boilerplate_app
+      - boilerplate-app
     networks:
-      - boilerplate_network
+      - boilerplate-network
 
-  boilerplate_celery:
+  boilerplate-celery:
     build:
       context: ..
       dockerfile: ./docker/Dockerfile
       target: development
     command: "celery -A apps.celery worker --loglevel=INFO"
-    container_name: boilerplate_celery
+    container_name: boilerplate-celery
     env_file: ./settings/dev.env
     volumes:
       - ../src:/srv
     depends_on:
-      - boilerplate_redis
+      - boilerplate-redis
 #    entrypoint: ["sh", "-c", "sleep 2073600"]
     networks:
-      - boilerplate_network
+      - boilerplate-network
 
-  boilerplate_db:
-    container_name: boilerplate_db
+  boilerplate-db:
+    container_name: boilerplate-db
     image: postgres:14
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
     volumes:
       - ../dumps:/dumps
     networks:
-      - boilerplate_network
+      - boilerplate-network
 
-  boilerplate_nginx:
-    container_name: boilerplate_nginx
+  boilerplate-nginx:
+    container_name: boilerplate-nginx
     image: nginx
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d
@@ -72,12 +72,12 @@ services:
       # To run multiple projects at once, change it to 8001:80 etc.
       - 8001:80
     depends_on:
-      - boilerplate_app
+      - boilerplate-app
     networks:
-      - boilerplate_network
+      - boilerplate-network
 
-  boilerplate_redis:
-    container_name: boilerplate_redis
+  boilerplate-redis:
+    container_name: boilerplate-redis
     image: redis
     networks:
-      - boilerplate_network
+      - boilerplate-network

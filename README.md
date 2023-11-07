@@ -282,7 +282,7 @@ In your env. variables,
 - `POST_OFFICE_DEFAULT_PRIORITY` must be set to "now".
 
 In `docker/docker-compose.yml`:
-- Remove the `develop_django_boilerplate_celery` and `develop_django_boilerplate_redis`
+- Remove the `boilerplate-celery` and `develop_django_boilerplate_redis`
 services.
 
 Remove the packages redis and django-sendgrid-v5 from the dependencies.
