@@ -8,6 +8,9 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    target-branch: "develop"
+    assignees:
+      - Arlaxia
 
   # Python dependencies
   - package-ecosystem: "pip"
@@ -36,6 +39,12 @@ updates:
     schedule:
       interval: "weekly"
     target-branch: "develop"
+    ignore:
+      # Stops dependabot from updating major versions of Python
+      # on the Dockerfile
+      # https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file#example-4
+      - dependency-name: "python"
+        update-types: ["version-update:semver-major"]
     # We define a group so as to group all dependabot PRs into one
     # https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file#groups
     groups:
