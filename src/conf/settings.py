@@ -37,9 +37,6 @@ CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", default=[])
 # Instance's absolute URL (given we're not using Sites framework)
 ABSOLUTE_URL = env.str("ABSOLUTE_URL", default="")
 
-# https://docs.djangoproject.com/en/4.2/ref/settings/#silenced-system-checks
-SILENCED_SYSTEM_CHECKS = ["models.W042"]
-
 # https://github.com/fabiocaccamo/django-maintenance-mode#settings
 MAINTENANCE_MODE = env.bool("MAINTENANCE_MODE", default=False)
 MAINTENANCE_MODE_STATE_BACKEND = "maintenance_mode.backends.DefaultStorageBackend"
