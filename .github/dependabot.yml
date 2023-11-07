@@ -40,11 +40,10 @@ updates:
       interval: "weekly"
     target-branch: "develop"
     ignore:
-      # Stops dependabot from updating major versions of Python
-      # on the Dockerfile
-      # https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file#example-4
+      # Allows dependabot to only update patch versions of Python on the Dockerfile.
+      # https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file#ignore
       - dependency-name: "python"
-        update-types: ["version-update:semver-major"]
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
     # We define a group so as to group all dependabot PRs into one
     # https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file#groups
     groups:
