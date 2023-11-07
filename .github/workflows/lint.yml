@@ -21,21 +21,23 @@ jobs:
 
       - name: "Install Poetry"
         run: |
+          # This POETRY_VERSION must be kept in sync with the Dockerfile's
           POETRY_VERSION=1.7.0 curl -sSL "https://install.python-poetry.org" | python -
-
-          # Add `poetry to `$PATH`
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
 
       - name: "Install dependencies"
         run: |
-          poetry install
+          poetry install --no-interaction -vvv
 
-      # TODO: Eventually move all of this into a CI script
-      - name: "Lint"
+      - name: "CI"
         run: |
+          # Checks pyproject.toml doesn't contain any errors
           poetry run poetry check
+          # Checks pyproject.toml and poetry.lock are in sync
           poetry run poetry lock
+          # Lints whole project
           poetry run ruff check --output-format=github .
+          # Checks for any errors in translation files
           poetry run dennis-cmd lint --errorsonly src/locale/
 
       - name: "Format"
