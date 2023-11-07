@@ -21,7 +21,7 @@ jobs:
 
       - name: "Install Poetry"
         run: |
-          curl -sSL "https://install.python-poetry.org" | python -
+          POETRY_VERSION=1.7.0 curl -sSL "https://install.python-poetry.org" | python -
 
           # Add `poetry to `$PATH`
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
