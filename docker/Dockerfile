@@ -1,4 +1,4 @@
-FROM python:3.12-slim as python-base
+FROM python:3.11-slim as python-base
 
 # ensures that the python output is sent straight to terminal
 ENV PYTHONUNBUFFERED=1 \
@@ -60,7 +60,7 @@ COPY poetry.lock pyproject.toml ./
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends git \
-  && poetry install --only main --no-ansi \
+  && poetry install --only main --no-root --no-ansi \
   && apt-get purge -y --auto-remove git \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
@@ -76,7 +76,7 @@ COPY --from=builder-base $POETRY_HOME $POETRY_HOME
 COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
 
 # quicker install as runtime deps are already installed
-RUN poetry install
+RUN poetry install --no-root
 
 # will become mountpoint of our code
 WORKDIR /srv
