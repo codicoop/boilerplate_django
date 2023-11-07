@@ -7,7 +7,7 @@ src/conf/maintenance_mode_state.txt
 
 # Ignore configuration file
 docker/settings/
-!docker/settings/settings.env.example
+!docker/settings/dev.example.env
 
 # Using this for pyenv in development environment.
 .python-version
