@@ -4,11 +4,12 @@ on:
   push:
     branches:
       - main
+      - develop
     paths:
-      - './Dockerfile'
+      - '/docker/Dockerfile'
   pull_request:
     paths:
-      - './Dockerfile'
+      - '/docker/Dockerfile'
   workflow_dispatch:
 
 concurrency:
@@ -22,5 +23,5 @@ jobs:
       - uses: actions/checkout@v4
       - uses: hadolint/hadolint-action@v3.1.0
         with:
-          dockerfile: './Dockerfile'
+          dockerfile: '/docker/Dockerfile'
           failure-threshold: style
