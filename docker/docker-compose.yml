@@ -12,7 +12,7 @@ services:
       context: ..
       dockerfile: ./docker/Dockerfile
       target: development
-    env_file: ./settings/development.env
+    env_file: ./settings/dev.env
     command: gunicorn conf.wsgi:application --bind 0.0.0.0:8000 --reload --threads=10
     volumes:
       - ../src:/srv
@@ -27,7 +27,7 @@ services:
       context: ..
       dockerfile: ./docker/Dockerfile
       target: development
-    env_file: ./settings/development.env
+    env_file: ./settings/dev.env
     command: python manage.py migrate
     volumes:
       - ../src:/srv
@@ -43,7 +43,7 @@ services:
       target: development
     command: "celery -A apps.celery worker --loglevel=INFO"
     container_name: boilerplate_celery
-    env_file: ./settings/development.env
+    env_file: ./settings/dev.env
     volumes:
       - ../src:/srv
     depends_on:

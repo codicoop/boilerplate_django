@@ -30,7 +30,7 @@ jobs:
       # should be advisable to move this into a shell script.
       - name: "Build Docker image"
         run: |
-          cp docker/settings/settings.env.example docker/settings/development.env
+          cp docker/settings/dev.example.env docker/settings/dev.env
           docker compose -f docker/docker-compose.yml config --quiet
           docker compose -f docker/docker-compose.yml build
 
