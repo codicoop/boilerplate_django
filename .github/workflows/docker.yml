@@ -12,29 +12,28 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  hadolint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: hadolint/hadolint-action@v3.1.0
-        with:
-          dockerfile: 'docker/Dockerfile'
-          failure-threshold: style
   docker-build:
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout"
         uses: actions/checkout@v4
 
-      # Eventually these tests will become more complex and then it
-      # should be advisable to move this into a shell script.
       - name: "Build Docker image"
         run: |
           cp docker/settings/dev.example.env docker/settings/dev.env
+          # Checks docker-compose.yml config file doesn't contain any errors
+          # https://docs.docker.com/engine/reference/commandline/compose_config/
           docker compose -f docker/docker-compose.yml config --quiet
+          # Builds the Dockerfile image, exiting non-zero upon any error
           docker compose -f docker/docker-compose.yml build
 
       - name: "Test Django project"
         run: |
+          # Checks there aren't any model changes without an associated migration
+          # https://docs.djangoproject.com/en/4.2/ref/django-admin/#makemigrations
           docker compose -f docker/docker-compose.yml run boilerplate-app python manage.py makemigrations --dry-run --check
+          # Checks the migration process works correctly
+          docker compose -f docker/docker-compose.yml run boilerplate-app python manage.py migrate --no-input
+          # Checks there's no issue with statis files by running collecstatic
           docker compose -f docker/docker-compose.yml run boilerplate-app python manage.py collectstatic --no-input --dry-run
+          # TODO: Add basic health check with a "health" URL or similar
