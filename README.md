@@ -3,8 +3,6 @@
 ![lint workflow](https://github.com/codicoop/boilerplate_django/actions/workflows/lint.yml/badge.svg)
 ![docker workflow](https://github.com/codicoop/boilerplate_django/actions/workflows/docker.yml/badge.svg)
 
-![img](/docs/esquema_boilerplate.png)
-
 # Included packages
 
 ## Django Post Office
