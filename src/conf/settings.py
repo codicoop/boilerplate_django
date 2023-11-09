@@ -200,7 +200,6 @@ STATIC_URL = "/static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#staticfiles-dirs
 STATICFILES_DIRS = [
     str(BASE_DIR / "assets"),
-    str(BASE_DIR / "frontend" / "build" / "static"),
 ]
 
 # https://docs.djangoproject.com/en/4.2/ref/settings/#staticfiles-storage
