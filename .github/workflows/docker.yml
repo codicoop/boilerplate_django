@@ -27,7 +27,7 @@ jobs:
           # Builds the Dockerfile image, exiting non-zero upon any error
           docker compose -f docker/docker-compose.yml build
 
-      - name: "Test Django project"
+      - name: "Test Django migrations"
         run: |
           # Checks there aren't any model changes without an associated migration
           # https://docs.djangoproject.com/en/4.2/ref/django-admin/#makemigrations
@@ -35,5 +35,8 @@ jobs:
           # Checks the migration process works correctly
           docker compose -f docker/docker-compose.yml run boilerplate-app python manage.py migrate --no-input
           # Checks there's no issue with statis files by running collecstatic
+
+      - name: "Test Django static files"
+        run: |
           docker compose -f docker/docker-compose.yml run boilerplate-app python manage.py collectstatic --no-input --dry-run
           # TODO: Add basic health check with a "health" URL or similar

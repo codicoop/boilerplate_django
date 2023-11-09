@@ -64,26 +64,6 @@ class Migration(migrations.Migration):
                 ("is_active", models.BooleanField(default=True)),
                 ("is_staff", models.BooleanField(default=False)),
                 (
-                    "validation_code",
-                    models.PositiveIntegerField(
-                        editable=False, null=True, verbose_name="validation code"
-                    ),
-                ),
-                (
-                    "code_expires_at",
-                    models.DateTimeField(
-                        editable=False,
-                        null=True,
-                        verbose_name="validation code expiration date",
-                    ),
-                ),
-                (
-                    "is_validated",
-                    models.DateTimeField(
-                        blank=True, null=True, verbose_name="validated"
-                    ),
-                ),
-                (
                     "created_by",
                     models.ForeignKey(
                         null=True,
