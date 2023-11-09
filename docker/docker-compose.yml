@@ -62,20 +62,6 @@ services:
     networks:
       - boilerplate-network
 
-  boilerplate-nginx:
-    container_name: boilerplate-nginx
-    image: nginx
-    volumes:
-      - ./nginx.conf:/etc/nginx/conf.d
-      - ../:/srv
-    ports:
-      # To run multiple projects at once, change it to 8001:80 etc.
-      - 8001:80
-    depends_on:
-      - boilerplate-app
-    networks:
-      - boilerplate-network
-
   boilerplate-redis:
     container_name: boilerplate-redis
     image: redis

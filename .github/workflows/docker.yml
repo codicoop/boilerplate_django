@@ -20,7 +20,7 @@ jobs:
 
       - name: "Build Docker image"
         run: |
-          cp docker/settings/dev.example.env docker/settings/dev.env
+          cp docker/settings/.env.example docker/settings/.env
           # Checks docker-compose.yml config file doesn't contain any errors
           # https://docs.docker.com/engine/reference/commandline/compose_config/
           docker compose -f docker/docker-compose.yml config --quiet

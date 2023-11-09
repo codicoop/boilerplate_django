@@ -6,8 +6,7 @@ __pycache__
 src/conf/maintenance_mode_state.txt
 
 # Ignore configuration file
-docker/settings/
-!docker/settings/dev.example.env
+.env
 
 # Using this for pyenv in development environment.
 .python-version
