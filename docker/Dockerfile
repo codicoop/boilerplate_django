@@ -8,10 +8,11 @@ ENV PYTHONUNBUFFERED=1 \
   # a random value is used to seed the hashes of str and bytes objects
   PYTHONHASHSEED=random \
   # pip
+  # change for CI test
   PIP_NO_CACHE_DIR=off \
   PIP_DISABLE_PIP_VERSION_CHECK=on \
   PIP_DEFAULT_TIMEOUT=100 \
-  # poetry.
+  # poetry. NOTE: remember to update it also on the CI
   POETRY_VERSION=1.7.0 \
   # make poetry install to this location
   POETRY_HOME="/opt/poetry" \

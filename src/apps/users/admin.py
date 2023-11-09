@@ -52,7 +52,6 @@ class UserAdmin(ModelAdminMixin, BaseUserAdmin):
         "email",
         "full_name",
         "is_superuser",
-        "is_validated",
         "created_at",
         "created_by",
         "updated_at",

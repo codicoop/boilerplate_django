@@ -5,7 +5,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 
-class SetBooleanDatetimeMixin(object):
+class SetBooleanDatetimeMixin:
     def set_boolean_datetime(self, field, auth):
         """
         For fields that we store as Datetime but are presented as checkboxes
