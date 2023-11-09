@@ -20,6 +20,7 @@ repos:
 
       # Protects the main branch from being committed to directly
       - id: no-commit-to-branch
+        # args: [--branch, main, --branch, staging]
 
        # Verifies that test files are named correctly
       # - id: name-tests-test
@@ -33,6 +34,7 @@ repos:
     hooks:
       - id: ruff
         args: [ --fix, --exit-non-zero-on-fix ]
+      - id: ruff-format
 
   # Poetry checks
   # https://python-poetry.org/docs/pre-commit-hooks/
