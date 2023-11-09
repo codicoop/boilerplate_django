@@ -1,7 +1,5 @@
 from itertools import islice
 
-from django.contrib.auth import authenticate, login
-
 # from django.contrib.auth.views import PasswordResetDoneView as BasePasswordResetDoneView # noqa
 # from django.contrib.auth.views import (
 #     PasswordResetCompleteView as BasePasswordResetCompleteView,
@@ -25,7 +23,6 @@ from apps.users.forms import (
     UserSignUpForm,
 )
 from apps.users.models import User
-from apps.users.services import user_create
 
 
 class LoginView(AnonymousRequiredMixin, BaseLoginView):
@@ -38,15 +35,6 @@ class SignupView(FormView):
     template_name = "registration/signup.html"
     form_class = UserSignUpForm
     success_url = reverse_lazy("registration:code_validation")
-
-    def form_valid(self, form):
-        email = form.cleaned_data["email"]
-        password = form.cleaned_data["password1"]
-        name = form.cleaned_data["name"]
-        user = user_create(email=email, name=name, password=password)
-        authenticate(username=email, password=password)
-        login(self.request, user)
-        return super().form_valid(form)
 
 
 class PasswordResetView(AnonymousRequiredMixin, BasePasswordResetView):
