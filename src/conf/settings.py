@@ -211,22 +211,35 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 ################################################################################
 
 # https://docs.djangoproject.com/en/4.2/ref/settings/#templates
+develop_loaders = [
+    "django.template.loaders.filesystem.Loader",
+    "django.template.loaders.app_directories.Loader",
+]
+production_loaders = [
+    (
+        "django.template.loaders.cached.Loader",
+        [
+            "django.template.loaders.filesystem.Loader",
+            "django.template.loaders.app_directories.Loader",
+        ],
+    )
+]
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
             "templates",
         ],
-        "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
                 "maintenance_mode.context_processors.maintenance_mode",
-                "constance.context_processors.config",
                 "django.template.context_processors.debug",
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
             ],
+            "loaders": develop_loaders if DEBUG else production_loaders,
         },
     },
 ]
