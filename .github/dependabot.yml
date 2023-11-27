@@ -9,8 +9,6 @@ updates:
     schedule:
       interval: "weekly"
     target-branch: "develop"
-    assignees:
-      - Arlaxia
 
   # Python dependencies
   - package-ecosystem: "pip"
@@ -30,8 +28,6 @@ updates:
       python-dependencies:
         patterns:
           - "*" # Groups ALL dependencies in a single PR
-    assignees:
-      - Arlaxia
 
   # Docker dependencies
   - package-ecosystem: "docker"
@@ -43,12 +39,11 @@ updates:
       # Allows dependabot to only update patch versions of Python on the Dockerfile.
       # https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file#ignore
       - dependency-name: "python"
-        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+        update-types:
+          ["version-update:semver-major", "version-update:semver-minor"]
     # We define a group so as to group all dependabot PRs into one
     # https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file#groups
     groups:
       docker-dependencies:
         patterns:
           - "*"
-    assignees:
-      - Arlaxia
