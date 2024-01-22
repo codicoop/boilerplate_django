@@ -123,6 +123,27 @@ Check the example at `base/migrations/0002_data_emails.py`.
 If you add a new language, you'll have to create new data migrations for all
 existing email templates that create the new translated templates.
 
+### Translated strings in python code and templates
+
+The docker container includes the necessary dependency for the .po files
+generation (which is a program called *gettext*).
+
+Therefore, you can generate the .po files regardless of having *gettext* installed
+in your system or not.
+
+In the container's terminal, generate the .po files with:
+
+    python manage.py makemessages --all
+
+If you need a more specific command, check `makemessages` documentation.
+
+As stated in Django's documentation, to compile the .po files, the command is:
+
+    python manage.py compilemessages
+
+After that, you should restart the app (i.e., restarting the docker container)
+for the translations to load.
+
 ### Completely remove internationalization
 
 To completely remove internationalization of a Django project, set the

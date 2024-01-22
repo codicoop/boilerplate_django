@@ -79,6 +79,11 @@ COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
 # quicker install as runtime deps are already installed
 RUN poetry install --no-root
 
+RUN apt-get update && apt-get upgrade -y \
+  && apt-get install -y --no-install-recommends -y \
+  gettext \
+  && apt-get clean -y && rm -rf /var/lib/apt/lists/*
+
 # will become mountpoint of our code
 WORKDIR /srv
 CMD ["gunicorn", "conf.wsgi:application", "--bind", "0.0.0.0:8000", "--reload"]
