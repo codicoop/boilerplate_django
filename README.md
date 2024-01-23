@@ -257,41 +257,6 @@ It also adds this functionality to inlines: if you include any inlines in this
 admin that has the `created_by` field, it's going to be filled in the inline's
 new registries as well.
 
-
-# Troubleshooting
-
-## `setuptools` error
-
-When running `poetry install`, if you get this error:
-
-`Can not execute setup.py since setuptools is not available in the build environment.`
-
-Try: `pip install -U setuptools`
-In my case, I had `setuptools` v. 60 and got updated to 62.
-
-If it doesn't work for you and you find another solution please add it to this
-documentation.
-
-## Gunicorn "slow" and returning `[CRITICAL] WORKER TIMEOUT error`
-
-As long as you keep the nginx layer in the dockerization, you should not face this issue.
-But if you removed nginx and access directly to gunicorn, you are probably going to see this
-error specially if you use Google Chrome and you open multiple browsers at the same time.
-
-It's explained [here](https://github.com/benoitc/gunicorn/issues/2797#issuecomment-1166303824) along
-with the solution.
-
-To avoid that to happen, this boilerplate includes the parameter `--threads=10` in the gunicorn
-command.
-
-# Deprecations
-
-## MailQueueHandler
-
-In previous versions the boilerplate included this package.
-Now the `mailing_manager` cannot be used anymore because of its dependency
-of the `mailqueue` package, which is discontinued.
-
 ## Celery
 
 ### Removal
@@ -337,3 +302,37 @@ To "queue" the task in Celery, call it with the `delay()` method:
 
 The [Celery documentation](https://docs.celeryq.dev/en/stable/django/first-steps-with-django.html)
 has examples about it.
+
+# Troubleshooting
+
+## `setuptools` error
+
+When running `poetry install`, if you get this error:
+
+`Can not execute setup.py since setuptools is not available in the build environment.`
+
+Try: `pip install -U setuptools`
+In my case, I had `setuptools` v. 60 and got updated to 62.
+
+If it doesn't work for you and you find another solution please add it to this
+documentation.
+
+## Gunicorn "slow" and returning `[CRITICAL] WORKER TIMEOUT error`
+
+As long as you keep the nginx layer in the dockerization, you should not face this issue.
+But if you removed nginx and access directly to gunicorn, you are probably going to see this
+error specially if you use Google Chrome and you open multiple browsers at the same time.
+
+It's explained [here](https://github.com/benoitc/gunicorn/issues/2797#issuecomment-1166303824) along
+with the solution.
+
+To avoid that to happen, this boilerplate includes the parameter `--threads=10` in the gunicorn
+command.
+
+# Deprecations
+
+## MailQueueHandler
+
+In previous versions the boilerplate included this package.
+Now the `mailing_manager` cannot be used anymore because of its dependency
+of the `mailqueue` package, which is discontinued.
