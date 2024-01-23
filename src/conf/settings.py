@@ -148,6 +148,25 @@ MIDDLEWARE = [
 
 
 ################################################################################
+#                                Static                                        #
+################################################################################
+
+# https://docs.djangoproject.com/en/4.2/ref/settings/#static-root
+STATIC_ROOT = str(BASE_DIR / "static")
+
+# https://docs.djangoproject.com/en/4.2/ref/settings/#static-url
+STATIC_URL = "/static/"
+
+# https://docs.djangoproject.com/en/4.2/ref/settings/#staticfiles-dirs
+STATICFILES_DIRS = [
+    str(BASE_DIR / "assets"),
+]
+
+# https://docs.djangoproject.com/en/4.2/ref/settings/#staticfiles-storage
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+
+################################################################################
 #                             Authentication                                   #
 ################################################################################
 
@@ -167,8 +186,20 @@ LOGOUT_REDIRECT_URL = "/"
 # Using paths instead of view names so we can whitelist entire sections.
 # https://github.com/CleitonDeLima/django-login-required-middleware#quick-start
 LOGIN_REQUIRED_IGNORE_PATHS = [
-    r"^/admin/",
-    r"/",
+    r"^/admin/", # If your project is not using the PUBLIC admin views for login
+                 # and password recovery, you probably don't need this.
+    "/favicon.ico",
+    STATIC_URL,
+]
+# Whitelisting by URL name:
+LOGIN_REQUIRED_IGNORE_VIEW_NAMES = [
+    "home",
+    "registration:signup",
+    "registration:login",
+    "registration:password_reset",
+    "registration:password_reset_confirm",
+    "registration:password_reset_done",
+    "registration:password_reset_complete",
 ]
 
 
@@ -185,25 +216,6 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
-
-
-################################################################################
-#                                Static                                        #
-################################################################################
-
-# https://docs.djangoproject.com/en/4.2/ref/settings/#static-root
-STATIC_ROOT = str(BASE_DIR / "static")
-
-# https://docs.djangoproject.com/en/4.2/ref/settings/#static-url
-STATIC_URL = "/static/"
-
-# https://docs.djangoproject.com/en/4.2/ref/settings/#staticfiles-dirs
-STATICFILES_DIRS = [
-    str(BASE_DIR / "assets"),
-]
-
-# https://docs.djangoproject.com/en/4.2/ref/settings/#staticfiles-storage
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
 ################################################################################
