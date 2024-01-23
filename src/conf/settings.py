@@ -261,17 +261,21 @@ AWS_ACCESS_KEY_ID = env.str("AWS_ACCESS_KEY_ID", default="")
 AWS_SECRET_ACCESS_KEY = env.str("AWS_SECRET_ACCESS_KEY", default="")
 AWS_STORAGE_BUCKET_NAME = env.str("AWS_STORAGE_BUCKET_NAME", default="")
 AWS_S3_ENDPOINT_URL = env.str("AWS_S3_ENDPOINT_URL", default="")
-AWS_DEFAULT_ACL = env.str("AWS_DEFAULT_ACL", default="")
-AWS_PUBLIC_MEDIA_LOCATION = env.str("AWS_PUBLIC_MEDIA_LOCATION", default="")
+AWS_DEFAULT_ACL = env.str("AWS_DEFAULT_ACL", default="public-read")
+AWS_PUBLIC_MEDIA_LOCATION = env.str(
+    "AWS_PUBLIC_MEDIA_LOCATION",
+    default="media/public",
+)
+AWS_PRIVATE_MEDIA_LOCATION = env.str(
+    "AWS_PRIVATE_MEDIA_LOCATION",
+    default="media/private",
+)
 AWS_S3_BASE_DOMAIN = env.str("AWS_S3_BASE_DOMAIN", default="")
 AWS_S3_CUSTOM_DOMAIN = f"{AWS_S3_BASE_DOMAIN}/{AWS_STORAGE_BUCKET_NAME}"
 AWS_S3_OBJECT_PARAMETERS = {
     "CacheControl": "max-age=86400",
 }
 AWS_LOCATION = "static"
-EXTERNAL_STATIC = AWS_S3_ENDPOINT_URL + "/" + AWS_STORAGE_BUCKET_NAME + "/local"
-# In templates use {% external_static "/logo.png" %}
-AWS_PRIVATE_MEDIA_LOCATION = env.str("AWS_PRIVATE_MEDIA_LOCATION", default="")
 
 
 ################################################################################
