@@ -27,7 +27,7 @@ from apps.users.models import User
 
 class LoginView(AnonymousRequiredMixin, BaseLoginView):
     template_name = "registration/login.html"
-    success_url = reverse_lazy("registation:profile_details")
+    success_url = reverse_lazy("registration:profile_details")
     form_class = AuthenticationForm
 
 
