@@ -2,6 +2,7 @@ from django import forms
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils import timezone
+from django.utils.html import format_html
 
 from apps.base.admin import ModelAdminMixin
 from apps.users.forms import UserChangeForm
@@ -41,43 +42,83 @@ class UserCreationForm(forms.ModelForm):
 
 @admin.register(User)
 class UserAdmin(ModelAdminMixin, BaseUserAdmin):
-    # The forms to add and change user instances
-    form = UserChangeForm
-    add_form = UserCreationForm
-
-    # The fields to be used in displaying the User model.
-    # These override the definitions on the base UserAdmin
-    # that reference specific fields on auth.User.
     list_display = (
         "email",
         "full_name",
+        "is_staff",
         "is_superuser",
-        "created_at",
-        "created_by",
-        "updated_at",
     )
     list_filter = ("is_superuser",)
-    fieldsets = (
-        (None, {"fields": ("email", "name", "password")}),
-        # ('Personal info', {'fields': ('date_of_birth',)}),
-        ("Permissions", {"fields": ("is_superuser", "is_staff", "is_active")}),
-        ("Metadata", {"fields": (
-            "created_by",
-            "created_at",
-            "updated_at",
-        )}),
-    )
-    # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
-    # overrides get_fieldsets to use this attribute when creating a user.
-    add_fieldsets = (
-        (None, {"fields": ("email", "password1", "password2")}),
-        ("Permissions", {"fields": ("is_superuser",)}),
-    )
     search_fields = (
         "email",
         "name",
-        "surname",
+        "surnames",
     )
     ordering = ("email",)
-    # filter_horizontal = ()
-    superuser_fields = ("is_superuser", "is_active", "is_staff")
+    fieldsets = (("Autenticació", {"fields": ("email", "password")}),)
+    # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
+    # overrides get_fieldsets to use this attribute when creating a user.
+    add_fieldsets = (
+        (
+            "Autenticació",
+            {"classes": ("wide",), "fields": ("email", "password1", "password2")},
+        ),
+    )
+    # common_fieldsets is not a standard ModelAdmin attribute. We extend
+    # get_fieldsets to avoid having to repeat info in fieldsets and add_fieldsets.
+    common_fieldsets = (
+        (
+            "Dades",
+            {
+                "fields": (
+                    "name",
+                    "surnames",
+                )
+            },
+        ),
+        (
+            "Permisos i autoritzacions",
+            {
+                "fields": (
+                    "is_staff",
+                    "is_active",
+                    "is_superuser",
+                    "roles_explanation_field",
+                    "groups",
+                ),
+            },
+        ),
+        (
+            "Registre",
+            {
+                "fields": (
+                    "created_by",
+                    "created_at",
+                    "updated_at",
+                )
+            },
+        ),
+    )
+    superuser_fields = (
+        "is_superuser",
+    )
+    readonly_fields = (
+        "roles_explanation_field",
+    )
+
+    def get_fieldsets(self, request, obj=None):
+        return super().get_fieldsets(request, obj) + self.common_fieldsets
+
+    @admin.display(description="Informació rols d'usuari")
+    def roles_explanation_field(self, obj):
+        return format_html(
+            """
+            <ul>
+              <li>Admins: accés a la configuració i personalització del
+                backoffice, al llistat d'emails enviats pel sistema i a les
+                plantilles de les notificacions. També pot editar els camps
+                "Is staff" i "Is active" de la fitxa d'usuaris.
+              </li>
+            </ul>
+            """
+        )
