@@ -8,8 +8,10 @@ from django.urls import reverse
 from django.utils import formats, timezone
 from django.utils.translation import gettext_lazy as _
 
+from apps.base.fields.choicefield import ChoiceField
 from apps.base.helpers import absolute_url
 from apps.base.post_office import send
+from apps.base.widgets.checkbox import CheckboxInput
 from apps.users.models import User
 
 
@@ -61,6 +63,8 @@ class UserSignUpForm(UserCreationForm):
     accept_conditions = forms.BooleanField(
         label=_("I accept the data privacy policy"), required=True
     )
+    test = forms.BooleanField(label="prova", widget=CheckboxInput())
+    test_select = ChoiceField(label="Prova select")
 
     def save(self, commit=True):
         obj = super().save(commit)
