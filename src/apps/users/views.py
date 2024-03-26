@@ -28,27 +28,30 @@ from project.mixins import AnonymousRequiredMixin
 from project.views import StandardSuccess
 
 
-class LoginView(AnonymousRequiredMixin, BaseLoginView):
-    template_name = "registration/login.html"
-    success_url = reverse_lazy("registration:profile_details")
-    form_class = AuthenticationForm
-
-
-class SignupView(FormView):
-    template_name = "registration/signup.html"
-    form_class = UserSignUpForm
-    success_url = reverse_lazy("registration:code_validation")
+def login_view(request):
+    if request.method == "POST":
+        form = AuthenticationForm(request.POST)
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect("registration:profile_details")
+    else:
+        form = AuthenticationForm()
+    return render(request, "registration/login.html", {"form": form})
 
 
 def signup_view(request):
-    form = UserSignUpForm(request.POST)
-    if form.is_valid():
-        form.save()
-        email = form.cleaned_data.get("email")
-        password = form.cleaned_data.get("password1")
-        user = authenticate(username=email, password=password)
-        login(request, user)
-        return redirect("registration:profile_details")
+    if request.method == "POST":
+        form = UserSignUpForm(request.POST, None)
+        if form.is_valid():
+            form.save()
+            email = form.cleaned_data.get("email")
+            password = form.cleaned_data.get("password1")
+            user = authenticate(username=email, password=password)
+            login(request, user)
+            return redirect("registration:profile_details")
     else:
         form = UserSignUpForm()
     return render(request, "registration/signup.html", {"form": form})
