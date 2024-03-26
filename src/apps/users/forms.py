@@ -11,6 +11,8 @@ from django.utils.translation import gettext_lazy as _
 from project.helpers import absolute_url
 from project.post_office import send
 from apps.users.models import User
+from project.widgets.checkbox import CheckboxInput
+from project.fields.choicefield import ChoiceField
 
 
 class AuthenticationForm(BaseAuthenticationForm):
@@ -61,6 +63,8 @@ class UserSignUpForm(UserCreationForm):
     accept_conditions = forms.BooleanField(
         label=_("I accept the data privacy policy"), required=True
     )
+    test = forms.BooleanField(label="prova", widget=CheckboxInput())
+    test_select = ChoiceField(label="Prova select")
 
     def save(self, commit=True):
         obj = super().save(commit)
