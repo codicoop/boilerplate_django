@@ -23,21 +23,6 @@ services:
     networks:
       - boilerplate-network
 
-  boilerplate-startup:
-    container_name: boilerplate-startup
-    build:
-      context: ..
-      dockerfile: ./docker/Dockerfile
-      target: development
-    env_file: ./.env
-    command: python manage.py migrate
-    volumes:
-      - ../src:/srv
-    depends_on:
-      - boilerplate-app
-    networks:
-      - boilerplate-network
-
   boilerplate-celery:
     build:
       context: ..
