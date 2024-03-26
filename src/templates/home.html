@@ -113,9 +113,9 @@
                 focus:ring-red-500 focus:border-red-500 
                 dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
               {% else %}
-                text-blue-600 bg-gray-100 border-gray-300
-                focus:ring-blue-500 focus:ring-2
-                dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600
+                text-primary-600 bg-gray-100 border-gray-300
+                focus:ring-primary-500 focus:ring-2
+                dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600
               {% endif %}">
             <label for="default-radio-1" class="block ms-2 text-sm font-medium
               {% if 1 == 2 %} text-red-700 dark:text-red-500
@@ -128,9 +128,9 @@
             {% if 1 == 2 %} text-red-700 bg-red-50 border-red-500
               focus:ring-red-500 focus:border-red-500 
               dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
-            {% else %} text-blue-600 bg-gray-100 border-gray-300
-              focus:ring-blue-500 focus:ring-2
-              dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600
+            {% else %} text-primary-600 bg-gray-100 border-gray-300
+              focus:ring-primary-500 focus:ring-2
+              dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600
             {% endif %}">
             <label for="default-radio-2" class="block ms-2 text-sm font-medium
             {% if 1 == 2 %} text-red-700 dark:text-red-500
@@ -191,9 +191,9 @@
                   dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
                 {% else %}
                   border-gray-300 bg-gray-50 
-                  focus:ring-3 focus:ring-blue-300 
+                  focus:ring-3 focus:ring-primary-300 
                   dark:bg-gray-700 dark:border-gray-600
-                  dark:focus:ring-blue-600 dark:ring-offset-gray-800
+                  dark:focus:ring-primary-600 dark:ring-offset-gray-800
                 {% endif %}" required />
             </div>
             <label for="checkbox_unique" class="ms-2 text-sm font-medium 
@@ -202,7 +202,7 @@
               I agree with the
               <a href="#" class="hover:underline
                 {% if 1 == 2 %} text-red-900 dark:text-red-300
-                {% else %} text-blue-600 dark:text-blue-500 {% endif %}">
+                {% else %} text-primary-600 dark:text-primary-500 {% endif %}">
                 terms and conditions.
               </a>
             </label>
@@ -281,9 +281,9 @@
                   dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
                 {% else %}
                   border-gray-300 bg-gray-50 
-                  focus:ring-3 focus:ring-blue-300 
+                  focus:ring-3 focus:ring-primary-300 
                   dark:bg-gray-700 dark:border-gray-600
-                  dark:focus:ring-blue-600 dark:ring-offset-gray-800
+                  dark:focus:ring-primary-600 dark:ring-offset-gray-800
                 {% endif %}">
               <label for="inline-checkbox" class="ml-2 text-sm font-medium
                   {% if 1 == 2 %}
@@ -302,9 +302,9 @@
                   dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
                 {% else %}
                   border-gray-300 bg-gray-50 
-                  focus:ring-3 focus:ring-blue-300 
+                  focus:ring-3 focus:ring-primary-300 
                   dark:bg-gray-700 dark:border-gray-600
-                  dark:focus:ring-blue-600 dark:ring-offset-gray-800
+                  dark:focus:ring-primary-600 dark:ring-offset-gray-800
                 {% endif %}">
               <label for="inline-checkbox-2" class="ml-2 text-sm font-medium
                   {% if 1 == 2 %}
@@ -452,33 +452,197 @@
           <!-- Endfor -->
           {% endif %}
         </div>
-        <!-- Input file -->
+        <!-- Input file amb arxiu -->
         <div>
           <label for="file_input2" class="block mb-2 text-sm font-medium
             {% if 1 == 2 %} text-red-700 dark:text-red-500
             {% else %} text-gray-900 dark:text-white {% endif %}">
             Label del camp de input file
           </label>
-          <!-- Per casos on vulguem més d'un arxiu, afegir al input "multiple" -->
-          <input id="file_input2" aria-describedby="file_input_help" type="file" 
-            class="block w-full text-sm border rounded-lg cursor-pointer
-              {% if 1 == 2 %}
-                bg-red-50 border-red-500 text-red-900 placeholder-red-700
-                focus:ring-red-500 focus:border-red-500 
-                dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
-              {% else %}
-                text-gray-900 border border-gray-300 bg-gray-50
-                focus:outline-none
-                dark:text-gray-400 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
-              {% endif %}"
-          >
-          <!-- Missatges d'error -->
-          {% if 1 == 2 %}
-          <!-- Per cada missatge d'error -->
-            <p class="mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
-          <!-- Endfor -->
-          {% endif %}
+          <div class="block p-2 rounded-lg shadow border
+            {% if 1 == 2 %}
+              bg-red-50  border-red-500 text-red-900 placeholder-red-700
+              dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
+            {% else %}
+              bg-white border-gray-200
+              dark:bg-gray-800 dark:border-gray-700
+            {% endif %}">
+            <div class="border-b">
+              <ul id="default-tab" data-tabs-toggle="#default-tab-content" role="tablist" 
+                class="flex flex-wrap text-sm -mb-px font-medium text-center border-b
+                {% if 1 == 2 %}
+                  text-red-700 border-red-200
+                  dark:border-red-500 dark:text-red-500
+                {% else %}
+                  text-gray-500 border-gray-200
+                  dark:border-gray-700 dark:text-gray-400
+                {% endif %}">
+                <li class="me-2" role="presentation">
+                  <button id="file-tab-2" data-tabs-target="#file-2" type="button" role="tab" aria-controls="file" aria-selected="false"
+                    class="flex gap-1 items-center px-3 py-2 rounded-t-lg active 
+                      {% if 1 == 2 %}
+                      bg-red-200 text-red-700 
+                      dark:text-red-500
+                    {% else %}
+                      bg-primary-200 text-primary-800
+                      dark:bg-primary-800 dark:text-primary-500
+                    {% endif %}">
+                    <svg  aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewbox="0 0 24 24"
+                      class="w-4 h-4 
+                      {% if 1 == 2 %} text-red-700 dark:text-red-500
+                      {% else %} text-gray-800 dark:text-white
+                      {% endif %}">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+                    </svg>                    
+                    <p>{% translate 'New file' %}</p>                    
+                  </button>
+                </li>
+                <!-- IF si hi ha arxiu -->
+                <li class="me-2" role="presentation">
+                  <button id="file-tab-1" data-tabs-target="#file-1" type="button" role="tab" aria-controls="file" aria-selected="false"
+                    class="flex gap-1 items-center px-3 py-2 rounded-t-lg active
+                      {% if 1 == 2 %}
+                        bg-red-200 text-red-700 
+                        dark:text-red-500
+                      {% else %}
+                        bg-primary-200 text-primary-800
+                        dark:bg-primary-800 dark:text-primary-500
+                      {% endif %}">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewbox="0 0 24 24"
+                      class="w-4 h-4 
+                      {% if 1 == 2 %} text-red-700 dark:text-red-500
+                      {% else %} text-gray-800 dark:text-white
+                      {% endif %}">
+                      <path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M10 3v4a1 1 0 0 1-1 1H5m14-4v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1Z"/>
+                    </svg>
+                    <p>{% translate 'Current file' %}</p>                    
+                  </button>
+                </li>
+                <li class="me-2" role="presentation">
+                  <button id="file-tab-3" data-tabs-target="#file-3" type="button" role="tab" aria-controls="file" aria-selected="false"
+                    class="flex gap-1 items-center px-3 py-2 rounded-t-lg active
+                    {% if 1 == 2 %}
+                      bg-red-200 text-red-700 
+                      dark:text-red-500
+                    {% else %}
+                      bg-primary-200 text-primary-800
+                      dark:bg-primary-800 dark:text-primary-500
+                    {% endif %}">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewbox="0 0 24 24"
+                      class="w-4 h-4 
+                      {% if 1 == 2 %} text-red-700 dark:text-red-500
+                      {% else %} text-gray-800 dark:text-white
+                      {% endif %}">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+                    </svg>
+                    <p>{% translate 'Delete file' %}</p>                    
+                  </button>
+                </li>
+                <!-- Endif -->
+              </ul>
+            </div>
+            <div id="default-tab-content">
+              <div id="file-1" role="tabpanel" aria-labelledby="file-tab-1" 
+                class="hidden p-4 rounded-lg
+                {% if 1 == 2 %}
+                  bg-red-50 dark:bg-red-gray-700
+                {% else %}
+                  bg-gray-50 dark:bg-gray-800
+                {% endif %}">
+                <p class="text-sm
+                  {% if 1 == 2 %}
+                    text-red-700 dark:text-red-500
+                  {% else %}
+                    text-gray-500 dark:text-gray-400
+                  {% endif %}">
+                  {% translate 'This is the current uploaded file:' %}
+                  <a href="" target="_blank" rel="noopener noreferrer" 
+                    class="font-semibold underline
+                    {% if 1 == 2 %}
+                      text-red-800 dark:text-red-500
+                    {% else %}
+                      text-primary-600 dark:text-primary-400
+                    {% endif %}">
+                    Nom del arxiu.jpg
+                  </a>
+                </p>
+              </div>
+              <div id="file-2" role="tabpanel" aria-labelledby="file-tab-2"
+                class="hidden p-4 rounded-lg
+                  {% if 1 == 2 %}
+                    bg-red-50 dark:bg-red-gray-700
+                  {% else %}
+                    bg-gray-50 dark:bg-gray-800
+                  {% endif %}">
+                <p class="text-sm pb-2 
+                  {% if 1 == 2 %}
+                    text-red-700 dark:text-red-500
+                  {% else %}
+                    text-gray-500 dark:text-gray-400
+                  {% endif %}">
+                  {% translate 'Select a new file. Beware that if there was a file already uploaded, it will be erased.' %}
+                </p>
+                <!-- Per casos on vulguem més d'un arxiu, afegir al input "multiple" -->
+                <input id="file_input2" aria-describedby="file_input_help" type="file" 
+                  class="block w-full border rounded-lg text-sm cursor-pointer
+                    {% if 1 == 2 %}
+                      bg-red-50 border-red-500 text-red-900 placeholder-red-700
+                      focus:ring-red-500 focus:border-red-500 
+                      dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
+                    {% else %}
+                      text-gray-900 border border-gray-300 bg-gray-50
+                      focus:outline-none
+                      dark:text-gray-400 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                    {% endif %}"
+                >
+                <!-- Missatges d'error -->
+                {% if 1 == 2 %}
+                <!-- Per cada missatge d'error -->
+                  <p class="mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
+                <!-- Endfor -->
+                {% endif %}
+              </div>
+              <div id="file-3" role="tabpanel" aria-labelledby="file-tab-3"
+                class="hidden p-4 rounded-lg
+                {% if 1 == 2 %}
+                  bg-red-50 dark:bg-red-gray-700
+                {% else %}
+                  bg-gray-50 dark:bg-gray-800
+                {% endif %}">
+                <div class="flex items-start">
+                  <div class="flex items-center h-5">
+                    <input id="checkbox_delete_file" type="checkbox" value=""
+                      class="w-4 h-4 border rounded
+                      {% if 1 == 2 %}
+                        bg-red-50 border-red-500 text-red-700 placeholder-red-700
+                        focus:ring-red-500 focus:border-red-500 
+                        dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
+                      {% else %}
+                        border-gray-300 bg-gray-50 
+                        focus:ring-3 focus:ring-primary-300 
+                        dark:bg-gray-700 dark:border-gray-600
+                        dark:focus:ring-primary-600 dark:ring-offset-gray-800
+                      {% endif %}" 
+                    />
+                  </div>
+                  <label for="checkbox_delete_file"
+                    class="ms-2 text-sm font-medium 
+                      {% if 1 == 2 %} text-red-700 dark:text-red-500
+                      {% else %} text-gray-900 dark:text-gray-300 {% endif %}">
+                    {% translate 'Delete the current file.' %}
+                  </label>
+                </div>
+                <!-- Missatges d'error -->
+                {% if 1 == 2 %}
+                <!-- Per cada missatge d'error -->
+                <p class="ml-6 mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
+                <!-- Endfor -->
+                {% endif %}
+              </div>
+            </div>
+          </div>
         </div>
+
         <!-- FALTA Limitar quines funcionalitats volem afegir i les altres eliminar-les -->
         <div class="sm:col-span-2">
           <label for="input-richtext" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Label input
