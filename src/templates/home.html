@@ -2,6 +2,7 @@
 {% load i18n %}
 
 {% block main %}
+
 <section class="bg-white dark:bg-gray-900">
   <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
     <form action="#">
@@ -9,15 +10,12 @@
       <div class="grid gap-4 mb-4 md:gap-6 md:grid-cols-2 sm:mb-8">
         <!-- Input de text -->
         <div>
-          <label for="input-text"
-            class="block mb-2 text-sm font-medium
+          <label for="input-text" class="block mb-2 text-sm font-medium
               {% if 1 == 2 %} text-red-700 dark:text-red-500
               {% else %} text-gray-900 dark:text-white {% endif %}">
             Label del camp de text
           </label>
-          <input type="text" name="input-text" 
-            id="input-text"
-            class="text-sm border rounded-lg block w-full p-2.5
+          <input type="text" name="input-text" id="input-text" class="text-sm border rounded-lg block w-full p-2.5
             {% if 1 == 2 %}
               bg-red-50 border-red-500 text-red-900 placeholder-red-700
               focus:ring-red-500 focus:border-red-500 
@@ -27,21 +25,18 @@
               focus:ring-primary-600 focus:border-primary-600 
               dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
               dark:focus:ring-primary-500 dark:focus:border-primary-500
-            {% endif %}"
-            placeholder="Placeholder del input de text" 
-            required="">
-            <!-- Missatges d'error -->
-            {% if 1 == 2 %}
-              <!-- Per cada missatge d'error -->
-                <p class="mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
-              <!-- Endfor -->
-                <p class="mt-2 text-sm text-red-600 dark:text-red-500">Missatge 2 d'error del camp</p>
-            {% endif %}
+            {% endif %}" placeholder="Placeholder del input de text" required="">
+          <!-- Missatges d'error -->
+          {% if 1 == 2 %}
+          <!-- Per cada missatge d'error -->
+          <p class="mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
+          <!-- Endfor -->
+          <p class="mt-2 text-sm text-red-600 dark:text-red-500">Missatge 2 d'error del camp</p>
+          {% endif %}
         </div>
         <!-- Input de text amb helptext -->
         <div>
-          <label for="input-text-tooltip"
-          class="inline-flex items-center mb-2 text-sm font-medium
+          <label for="input-text-tooltip" class="inline-flex items-center mb-2 text-sm font-medium
             {% if 1 == 2 %} text-red-700 dark:text-red-500
             {% else %} text-gray-900 dark:text-white {% endif %}">
             Label de input text amb helptext
@@ -56,14 +51,12 @@
               <span class="sr-only">{% translate 'Show information' %}</span>
             </button>
             <div id="id-tooltip-1" role="tooltip"
-                class="inline-block absolute invisible z-10 py-2 px-3 max-w-sm text-xs font-normal text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                Text del helptext
+              class="inline-block absolute invisible z-10 py-2 px-3 max-w-sm text-xs font-normal text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+              Text del helptext
               <div class="tooltip-arrow" data-popper-arrow></div>
             </div>
           </label>
-          <input type="text" name="input-text-tooltip" 
-            id="input-text-tooltip"
-            class="text-sm border rounded-lg block w-full p-2.5
+          <input type="text" name="input-text-tooltip" id="input-text-tooltip" class="text-sm border rounded-lg block w-full p-2.5
             {% if 1 == 2 %}
               bg-red-50 border-red-500 text-red-900 placeholder-red-700
               focus:ring-red-500 focus:border-red-500 
@@ -73,26 +66,22 @@
               focus:ring-primary-600 focus:border-primary-600 
               dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
               dark:focus:ring-primary-500 dark:focus:border-primary-500
-            {% endif %}"
-            placeholder="Placeholder del input de text" 
-            required="">
-              <!-- Missatges d'error -->
-              {% if 1 == 2 %}
-              <!-- Per cada missatge d'error -->
-                <p class="mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
-              <!-- Endfor -->
-              {% endif %}
+            {% endif %}" placeholder="Placeholder del input de text" required="">
+          <!-- Missatges d'error -->
+          {% if 1 == 2 %}
+          <!-- Per cada missatge d'error -->
+          <p class="mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
+          <!-- Endfor -->
+          {% endif %}
         </div>
         <!-- Input email -->
         <div>
-          <label for="input-email"
-            class="block mb-2 text-sm font-medium
+          <label for="input-email" class="block mb-2 text-sm font-medium
               {% if 1 == 2 %} text-red-700 dark:text-red-500
               {% else %} text-gray-900 dark:text-white {% endif %}">
             Label del camp d'email
           </label>
-          <input type="email" name="input-email" id="input-email"
-            class="text-sm border rounded-lg block w-full p-2.5
+          <input type="email" name="input-email" id="input-email" class="text-sm border rounded-lg block w-full p-2.5
             {% if 1 == 2 %}
               bg-red-50 border-red-500 text-red-900 placeholder-red-700
               focus:ring-red-500 focus:border-red-500 
@@ -102,14 +91,13 @@
               focus:ring-primary-600 focus:border-primary-600 
               dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
               dark:focus:ring-primary-500 dark:focus:border-primary-500
-            {% endif %}"
-            placeholder="placeholder@email.com" required="">
-            <!-- Missatges d'error -->
-            {% if 1 == 2 %}
-              <!-- Per cada missatge d'error -->
-                <p class="mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
-              <!-- Endfor -->
-            {% endif %}
+            {% endif %}" placeholder="placeholder@email.com" required="">
+          <!-- Missatges d'error -->
+          {% if 1 == 2 %}
+          <!-- Per cada missatge d'error -->
+          <p class="mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
+          <!-- Endfor -->
+          {% endif %}
         </div>
         <!-- Input radio -->
         <div>
@@ -119,8 +107,7 @@
             Títol del grup de radios
           </p>
           <div class="flex items-center mb-4">
-            <input id="default-radio-1" type="radio" value="" name="default-radio"
-              class="w-4 h-4 border
+            <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 border
               {% if 1 == 2 %} 
                 text-red-700 bg-red-50 border-red-500
                 focus:ring-red-500 focus:border-red-500 
@@ -130,16 +117,14 @@
                 focus:ring-blue-500 focus:ring-2
                 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600
               {% endif %}">
-            <label for="default-radio-1"
-              class="block ms-2 text-sm font-medium
+            <label for="default-radio-1" class="block ms-2 text-sm font-medium
               {% if 1 == 2 %} text-red-700 dark:text-red-500
               {% else %} text-gray-900 dark:text-gray-300 {% endif %}">
               Default radio
             </label>
           </div>
           <div class="flex items-center">
-            <input id="default-radio-2" type="radio" value="" name="default-radio"
-            class="w-4 h-4 border
+            <input id="default-radio-2" type="radio" value="" name="default-radio" class="w-4 h-4 border
             {% if 1 == 2 %} text-red-700 bg-red-50 border-red-500
               focus:ring-red-500 focus:border-red-500 
               dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
@@ -147,31 +132,28 @@
               focus:ring-blue-500 focus:ring-2
               dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600
             {% endif %}">
-          <label for="default-radio-2"
-            class="block ms-2 text-sm font-medium
+            <label for="default-radio-2" class="block ms-2 text-sm font-medium
             {% if 1 == 2 %} text-red-700 dark:text-red-500
             {% else %} text-gray-900 dark:text-gray-300 {% endif %}">
-            Checked state
-          </label>
+              Checked state
+            </label>
           </div>
           <!-- Missatges d'error -->
           {% if 1 == 2 %}
           <!-- Per cada missatge d'error -->
-            <p class="ml-6 mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
+          <p class="ml-6 mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
           <!-- Endfor -->
           {% endif %}
         </div>
         <!-- Input select -->
         <div>
-          <label for="input-select"
-            class="mb-2 text-sm font-medium 
+          <label for="input-select" class="mb-2 text-sm font-medium 
             {% if 1 == 2 %} text-red-700 dark:text-red-500
             {% else %} text-gray-900 dark:text-white {% endif %}">
             Label de input select
           </label>
           <span class="block h-2"></span>
-          <select id="input-select"
-            class="text-sm border rounded-lg block w-full p-2.5
+          <select id="input-select" class="text-sm border rounded-lg block w-full p-2.5
             {% if 1 == 2 %}
             bg-red-50 border-red-500 text-red-900 placeholder-red-700
             focus:ring-red-500 focus:border-red-500
@@ -181,8 +163,7 @@
             focus:ring-primary-500 focus:border-primary-500
             dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
             dark:focus:ring-primary-500 dark:focus:border-primary-500
-            {% endif %}"
-          >
+            {% endif %}">
             <option selected="">United States</option>
             <option value="NO">Australia</option>
             <option value="NO">United Kingdom</option>
@@ -195,7 +176,7 @@
           <!-- Missatges d'error -->
           {% if 1 == 2 %}
           <!-- Per cada missatge d'error -->
-            <p class="mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
+          <p class="mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
           <!-- Endfor -->
           {% endif %}
         </div>
@@ -203,8 +184,7 @@
         <div class="mb-6">
           <div class="flex items-start">
             <div class="flex items-center h-5">
-              <input id="checkbox_unique" type="checkbox" value=""
-                class="w-4 h-4 border rounded
+              <input id="checkbox_unique" type="checkbox" value="" class="w-4 h-4 border rounded
                 {% if 1 == 2 %}
                   bg-red-50 border-red-500 text-red-700 placeholder-red-700
                   focus:ring-red-500 focus:border-red-500 
@@ -214,16 +194,13 @@
                   focus:ring-3 focus:ring-blue-300 
                   dark:bg-gray-700 dark:border-gray-600
                   dark:focus:ring-blue-600 dark:ring-offset-gray-800
-                {% endif %}"
-                required />
+                {% endif %}" required />
             </div>
-            <label for="checkbox_unique"
-              class="ms-2 text-sm font-medium 
+            <label for="checkbox_unique" class="ms-2 text-sm font-medium 
               {% if 1 == 2 %} text-red-700 dark:text-red-500
               {% else %} text-gray-900 dark:text-gray-300 {% endif %}">
-              I agree with the 
-              <a href="#"
-                class="hover:underline
+              I agree with the
+              <a href="#" class="hover:underline
                 {% if 1 == 2 %} text-red-900 dark:text-red-300
                 {% else %} text-blue-600 dark:text-blue-500 {% endif %}">
                 terms and conditions.
@@ -233,20 +210,18 @@
           <!-- Missatges d'error -->
           {% if 1 == 2 %}
           <!-- Per cada missatge d'error -->
-            <p class="ml-6 mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
+          <p class="ml-6 mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
           <!-- Endfor -->
           {% endif %}
         </div>
         <!-- Input password -->
         <div>
-          <label for="input-password"
-            class="block mb-2 text-sm font-medium
+          <label for="input-password" class="block mb-2 text-sm font-medium
             {% if 1 == 2 %} text-red-700 dark:text-red-500
             {% else %} text-gray-900 dark:text-white {% endif %}">
             Label del input password
           </label>
-          <input type="password" name="input-password" id="input-password"
-            class="block w-full p-2.5 border text-sm rounded-lg
+          <input type="password" name="input-password" id="input-password" class="block w-full p-2.5 border text-sm rounded-lg
             {% if 1 == 2 %}
               bg-red-50 border-red-500 text-red-900 placeholder-red-700
               focus:ring-red-500 focus:border-red-500 
@@ -256,19 +231,22 @@
               focus:ring-primary-600 focus:border-primary-600
               dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
               dark:focus:ring-primary-500 dark:focus:border-primary-500
-            {% endif %}"
-            placeholder="•••••••••" required="">
+            {% endif %}" placeholder="•••••••••" required="">
+          <!-- Missatges d'error -->
+          {% if 1 == 2 %}
+          <!-- Per cada missatge d'error -->
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
+          <!-- Endfor -->
+          {% endif %}
         </div>
         <!-- Input number -->
         <div>
-          <label for="input-number" 
-            class="block mb-2 text-sm font-medium
+          <label for="input-number" class="block mb-2 text-sm font-medium
               {% if 1 == 2 %} text-red-700 dark:text-red-500
               {% else %} text-gray-900 dark:text-white {% endif %}">
             Label de input number
           </label>
-          <input type="number" name="input-number" id="input-number"
-            class="text-sm border rounded-lg block w-full p-2.5
+          <input type="number" name="input-number" id="input-number" class="text-sm border rounded-lg block w-full p-2.5
             {% if 1 == 2 %}
               bg-red-50 border-red-500 text-red-900 placeholder-red-700
               focus:ring-red-500 focus:border-red-500 
@@ -278,58 +256,25 @@
               focus:ring-primary-600 focus:border-primary-600 
               dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
               dark:focus:ring-primary-500 dark:focus:border-primary-500
-            {% endif %}"
-            placeholder="Placeholder input number" required="">
+            {% endif %}" placeholder="Placeholder input number" required=""
+          >
+          <!-- Missatges d'error -->
+          {% if 1 == 2 %}
+          <!-- Per cada missatge d'error -->
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
+          <!-- Endfor -->
+          {% endif %}
         </div>
-        <!-- Dropzone -->
-        <div class="flex items-center justify-center w-full">
-          <label for="dropzone-file" 
-            class="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-lg cursor-pointer 
-            {% if 1 == 2 %}
-              bg-red-50 border-red-500
-              hover:bg-red-100
-              dark:bg-red-700
-              dark:hover:bg-red-600
-            {% else %}
-              bg-gray-50 border-gray-300
-              hover:bg-gray-100
-              dark:bg-gray-700 dark:border-gray-600 
-              dark:hover:border-gray-500 dark:hover:bg-gray-600
-            {% endif %}">
-              <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 20 16"
-                  class="w-8 h-8 mb-4 
-                    {% if 1 == 2 %} text-red-700 dark:text-red-400
-                    {% else %} text-gray-500 dark:text-gray-400 {% endif %}">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
-                </svg>
-                <p class="mb-2 text-sm
-                  {% if 1 == 2 %} text-red-700 dark:text-red-400
-                  {% else %} text-gray-500 dark:text-gray-400 {% endif %}">
-                  Puja arxiu
-                </p>
-                <p class="text-xs
-                  {% if 1 == 2 %} text-red-700 dark:text-red-400
-                  {% else %} text-gray-500 dark:text-gray-400 {% endif %}">
-                  SVG, PNG, JPG or GIF (MAX. 800x400px)
-                </p>
-              </div>
-              <input id="dropzone-file" type="file" class="hidden" />
-          </label>
-        </div> 
         <!-- Grup de checkboxes en horitzontal -->
         <div>
-          <label 
-          for="group_checkbox_1"
-          class="block mb-2 text-sm font-medium
+          <label for="group_checkbox_1" class="block mb-2 text-sm font-medium
             {% if 1 == 2 %} text-red-700 dark:text-red-500
             {% else %} text-gray-900 dark:text-white {% endif %}">
-          Label de grup de checkboxes en horitzontal
-        </label>
+            Label de grup de checkboxes en horitzontal
+          </label>
           <div class="flex items-center space-x-4">
             <div class="flex items-center">
-              <input id="inline-checkbox" type="checkbox" value="" name="group_checkbox_1"
-                class="w-4 h-4 rounded
+              <input id="inline-checkbox" type="checkbox" value="" name="group_checkbox_1" class="w-4 h-4 rounded
                 {% if 1 == 2 %}
                   bg-red-50 border-red-500 text-red-700 placeholder-red-700
                   focus:ring-red-500 focus:border-red-500 
@@ -340,8 +285,7 @@
                   dark:bg-gray-700 dark:border-gray-600
                   dark:focus:ring-blue-600 dark:ring-offset-gray-800
                 {% endif %}">
-              <label for="inline-checkbox"
-                class="ml-2 text-sm font-medium
+              <label for="inline-checkbox" class="ml-2 text-sm font-medium
                   {% if 1 == 2 %}
                     text-red-700 dark:text-red-500
                   {% else %} 
@@ -351,8 +295,7 @@
               </label>
             </div>
             <div class="flex items-center">
-              <input id="inline-checkbox-2" type="checkbox" value="" name="group_checkbox_1"
-                class="w-4 h-4 rounded
+              <input id="inline-checkbox-2" type="checkbox" value="" name="group_checkbox_1" class="w-4 h-4 rounded
                 {% if 1 == 2 %}
                   bg-red-50 border-red-500 text-red-700 placeholder-red-700
                   focus:ring-red-500 focus:border-red-500 
@@ -363,8 +306,7 @@
                   dark:bg-gray-700 dark:border-gray-600
                   dark:focus:ring-blue-600 dark:ring-offset-gray-800
                 {% endif %}">
-              <label for="inline-checkbox-2"
-                class="ml-2 text-sm font-medium
+              <label for="inline-checkbox-2" class="ml-2 text-sm font-medium
                   {% if 1 == 2 %}
                     text-red-700 dark:text-red-500
                   {% else %} 
@@ -374,11 +316,65 @@
               </label>
             </div>
           </div>
+          <!-- Missatges d'error -->
+          {% if 1 == 2 %}
+          <!-- Per cada missatge d'error -->
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
+          <!-- Endfor -->
+          {% endif %}
         </div>
         <button type="submit"
-          class="inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+          class="inline-flex items-center self-end justify-center px-5 py-2.5 text-sm font-semibold text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
           <p>Desa</p>
         </button>
+      </div>
+      <!-- Banner error per mostrar cada vegada que hi hagi un error a un camp -->
+      {% if 1 == 2 %}
+      <div id="error-banner" tabindex="-1"
+        class="fixed bottom-0 start-0 z-50 flex justify-between w-full p-4
+          bg-red-500
+          dark:bg-red-600
+          ">
+        <div class="flex items-center mx-auto">
+          <div class="flex items-center">
+            <span class="inline-flex p-1 me-3 rounded-full items-center justify-center">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewbox="0 0 24 24"
+                class="w-6 h-auto text-red-950 dark:text-red-900">
+                <path  clip-rule="evenodd" fill-rule="evenodd" d="M18.458 3.11A1 1 0 0 1 19 4v16a1 1 0 0 1-1.581.814L12 16.944V7.056l5.419-3.87a1 1 0 0 1 1.039-.076ZM22 12c0 1.48-.804 2.773-2 3.465v-6.93c1.196.692 2 1.984 2 3.465ZM10 8H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6V8Zm0 9H5v3a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-3Z" />
+              </svg>
+              <span class="sr-only">{% translate 'Error alert' %}</span>
+            </span>
+            <p class="text-lg font-bold text-white dark:text-red-900">{% translate 'There is an error in the form!' %}</p>
+          </div>
+          <p class="text-sm font-normal ml-4 text-white dark:text-red-900">{% translate 'Please check the fields marked in red' %}</p>
+        </div>
+        <div class="flex items-center">
+          <button data-dismiss-target="#error-banner" type="button"
+            class="flex-shrink-0 inline-flex justify-center w-7 h-7 items-center 0 rounded-lg text-sm p-1.5
+              text-white 
+              hover:bg-red-900 hover:text-red-500 
+              dark:hover:bg-gray-600 dark:hover:text-white">
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+            </svg>
+            <span class="sr-only">{% translate 'Close error alert' %}</span>
+          </button>
+        </div>
+      </div>
+      {% endif %}
+      <!-- Error genèric per qualsevol error que no estigui relacionat amb un camp -->
+      <div role="alert" class="flex items-center p-4 mb-4 text-sm rounded-lg border
+        text-red-800 border-red-400 bg-red-200
+        dark:bg-gray-800 dark:text-red-400 dark:border-red-800">
+        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewbox="0 0 20 20">
+          <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+        </svg>
+        <span class="sr-only">{% translate 'Form error' %}</span>
+        <div>
+          <span class="font-semibold">{% translate 'There was an error!' %}</span>
+          Missatge d'error general
+        </div>
       </div>
     </form>
   </div>
@@ -386,21 +382,107 @@
     <form action="#">
       <h2 class="mb-4 text-xl font-semibold leading-none text-gray-900 dark:text-white">Camps que encara no estan llestos</h2>
       <div class="grid gap-4 mb-4 md:gap-6 md:grid-cols-2 sm:mb-8">
+        <!-- Dropzone -->
+        <div class="w-full">
+          <label for="input-text" class="block mb-2 text-sm font-medium
+            {% if 1 == 2 %} text-red-700 dark:text-red-500
+            {% else %} text-gray-900 dark:text-white {% endif %}">
+            Label del camp de dropzone
+          </label>
+          <div class="flex items-center justify-center w-full">
+            <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-lg cursor-pointer 
+              {% if 1 == 2 %}
+                bg-red-50 border-red-500
+                hover:bg-red-100
+                dark:bg-red-700
+                dark:hover:bg-red-600
+              {% else %}
+                bg-gray-50 border-gray-300
+                hover:bg-gray-100
+                dark:bg-gray-700 dark:border-gray-600 
+                dark:hover:border-gray-500 dark:hover:bg-gray-600
+              {% endif %}">
+              <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 20 16" class="w-8 h-8 mb-4 
+                      {% if 1 == 2 %} text-red-700 dark:text-red-400
+                      {% else %} text-gray-500 dark:text-gray-400 {% endif %}">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                </svg>
+                <p class="mb-2 text-sm
+                    {% if 1 == 2 %} text-red-700 dark:text-red-400
+                    {% else %} text-gray-500 dark:text-gray-400 {% endif %}">
+                  {% translate 'Upload a file' %}
+                </p>
+              </div>
+              <input id="dropzone-file" type="file" class="hidden" />
+            </label>
+          </div>
+          <!-- Missatges d'error -->
+          {% if 1 == 2 %}
+          <!-- Per cada missatge d'error -->
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
+          <!-- Endfor -->
+          {% endif %}
+        </div>
         <!-- Input file -->
         <div>
-          <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Label de input file</label>
+          <label for="file_input" class="block mb-2 text-sm font-medium
+            {% if 1 == 2 %} text-red-700 dark:text-red-500
+            {% else %} text-gray-900 dark:text-white {% endif %}">
+            Label del camp de input file
+          </label>
           <!-- Per casos on vulguem més d'un arxiu, afegir al input "multiple" -->
-          <input id="file_input" aria-describedby="file_input_help" type="file"
-            class="block w-full text-sm 
-              text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 
-              dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-            >
-          <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="input_file_helptext">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
+          <input id="file_input" aria-describedby="file_input_help" type="file" 
+            class="block w-full text-sm border rounded-lg cursor-pointer
+              {% if 1 == 2 %}
+                bg-red-50 border-red-500 text-red-900 placeholder-red-700
+                focus:ring-red-500 focus:border-red-500 
+                dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
+              {% else %}
+                text-gray-900 border border-gray-300 bg-gray-50
+                focus:outline-none
+                dark:text-gray-400 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+              {% endif %}"
+          >
+          <!-- Missatges d'error -->
+          {% if 1 == 2 %}
+          <!-- Per cada missatge d'error -->
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
+          <!-- Endfor -->
+          {% endif %}
         </div>
-        <!-- Input richtext -->
+        <!-- Input file -->
+        <div>
+          <label for="file_input2" class="block mb-2 text-sm font-medium
+            {% if 1 == 2 %} text-red-700 dark:text-red-500
+            {% else %} text-gray-900 dark:text-white {% endif %}">
+            Label del camp de input file
+          </label>
+          <!-- Per casos on vulguem més d'un arxiu, afegir al input "multiple" -->
+          <input id="file_input2" aria-describedby="file_input_help" type="file" 
+            class="block w-full text-sm border rounded-lg cursor-pointer
+              {% if 1 == 2 %}
+                bg-red-50 border-red-500 text-red-900 placeholder-red-700
+                focus:ring-red-500 focus:border-red-500 
+                dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
+              {% else %}
+                text-gray-900 border border-gray-300 bg-gray-50
+                focus:outline-none
+                dark:text-gray-400 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+              {% endif %}"
+          >
+          <!-- Missatges d'error -->
+          {% if 1 == 2 %}
+          <!-- Per cada missatge d'error -->
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
+          <!-- Endfor -->
+          {% endif %}
+        </div>
         <!-- FALTA Limitar quines funcionalitats volem afegir i les altres eliminar-les -->
         <div class="sm:col-span-2">
-          <label for="input-richtext" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Label input richtext</label>
+          <label for="input-richtext" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Label input
+            richtext</label>
           <div class="w-full bg-gray-50 rounded-lg border border-gray-200 dark:bg-gray-700 dark:border-gray-600">
             <div class="flex justify-between items-center py-2 px-3 border-b dark:border-gray-600">
               <div class="flex flex-wrap items-center divide-gray-200 sm:divide-x dark:divide-gray-600">
