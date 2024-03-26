@@ -5,24 +5,25 @@
 <section class="bg-white dark:bg-gray-900">
   <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
     <form action="#">
-      <h2 class="mb-4 text-xl font-semibold leading-none text-gray-900 dark:text-white">Subtítol del formulari</h2>
+      <h2 class="mb-4 text-xl font-semibold leading-none text-gray-900 dark:text-white">Subtítol: exemples de camps</h2>
       <div class="grid gap-4 mb-4 md:gap-6 md:grid-cols-2 sm:mb-8">
         <!-- Input de text -->
         <div>
-          <label for="input-text" class="block mb-2 text-sm font-medium
-          {% if 1 == 1 %} text-red-700 dark:text-red-500
-          {% else %} text-gray-900 dark:text-white {% endif %}">
+          <label for="input-text"
+            class="block mb-2 text-sm font-medium
+              {% if 1 == 2 %} text-red-700 dark:text-red-500
+              {% else %} text-gray-900 dark:text-white {% endif %}">
             Label del camp de text
           </label>
           <input type="text" name="input-text" 
             id="input-text"
-            class="text-sm rounded-lg block w-full p-2.5
-            {% if 1 == 1 %}
-              bg-red-50 border border-red-500 text-red-900 placeholder-red-700
+            class="text-sm border rounded-lg block w-full p-2.5
+            {% if 1 == 2 %}
+              bg-red-50 border-red-500 text-red-900 placeholder-red-700
               focus:ring-red-500 focus:border-red-500 
               dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
-            {% else %} 
-              bg-gray-50 border border-gray-300 text-gray-900 
+            {% else %}
+              bg-gray-50 border-gray-300 text-gray-900 
               focus:ring-primary-600 focus:border-primary-600 
               dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
               dark:focus:ring-primary-500 dark:focus:border-primary-500
@@ -30,11 +31,11 @@
             placeholder="Placeholder del input de text" 
             required="">
             <!-- Missatges d'error -->
-            {% if 1 == 1 %}
+            {% if 1 == 2 %}
               <!-- Per cada missatge d'error -->
-              <p class="mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
+                <p class="mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
               <!-- Endfor -->
-              <p class="mt-2 text-sm text-red-600 dark:text-red-500">Missatge 2 d'error del camp</p>
+                <p class="mt-2 text-sm text-red-600 dark:text-red-500">Missatge 2 d'error del camp</p>
             {% endif %}
         </div>
         <!-- Input de text amb tooltip -->
@@ -62,13 +63,13 @@
           </label>
           <input type="text" name="input-text-tooltip" 
             id="input-text-tooltip"
-            class="text-sm rounded-lg block w-full p-2.5
+            class="text-sm border rounded-lg block w-full p-2.5
             {% if 1 == 1 %}
-              bg-red-50 border border-red-500 text-red-900 placeholder-red-700
+              bg-red-50 border-red-500 text-red-900 placeholder-red-700
               focus:ring-red-500 focus:border-red-500 
               dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
             {% else %} 
-              bg-gray-50 border border-gray-300 text-gray-900 
+              bg-gray-50 border-gray-300 text-gray-900 
               focus:ring-primary-600 focus:border-primary-600 
               dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
               dark:focus:ring-primary-500 dark:focus:border-primary-500
@@ -78,10 +79,313 @@
               <!-- Missatges d'error -->
               {% if 1 == 1 %}
               <!-- Per cada missatge d'error -->
-              <p class="mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
+                <p class="mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
               <!-- Endfor -->
               {% endif %}
         </div>
+        <!-- Input email -->
+        <div>
+          <label for="input-email"
+            class="block mb-2 text-sm font-medium
+              {% if 1 == 1 %} text-red-700 dark:text-red-500
+              {% else %} text-gray-900 dark:text-white {% endif %}">
+            Label del camp d'email
+          </label>
+          <input type="email" name="input-email" id="input-email"
+            class="text-sm border rounded-lg block w-full p-2.5
+            {% if 1 == 1 %}
+              bg-red-50 border-red-500 text-red-900 placeholder-red-700
+              focus:ring-red-500 focus:border-red-500 
+              dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
+            {% else %} 
+              bg-gray-50 border-gray-300 text-gray-900 
+              focus:ring-primary-600 focus:border-primary-600 
+              dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
+              dark:focus:ring-primary-500 dark:focus:border-primary-500
+            {% endif %}"
+            placeholder="placeholder@email.com" required="">
+            <!-- Missatges d'error -->
+            {% if 1 == 1 %}
+              <!-- Per cada missatge d'error -->
+                <p class="mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
+              <!-- Endfor -->
+            {% endif %}
+        </div>
+        <!-- Input radio -->
+        <div>
+          <p class="block mb-2 text-sm font-medium
+            {% if 1 == 1 %} text-red-700 dark:text-red-500
+            {% else %} text-gray-900 dark:text-white {% endif %}">
+            Títol del grup de radios
+          </p>
+          <div class="flex items-center mb-4">
+            <input id="default-radio-1" type="radio" value="" name="default-radio"
+              class="w-4 h-4 border
+              {% if 1 == 1 %} 
+                text-red-700 bg-red-50 border-red-500
+                focus:ring-red-500 focus:border-red-500 
+                dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
+              {% else %}
+                text-blue-600 bg-gray-100 border-gray-300
+                focus:ring-blue-500 focus:ring-2
+                dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600
+              {% endif %}">
+            <label for="default-radio-1"
+              class="block ms-2 text-sm font-medium
+              {% if 1 == 1 %} text-red-700 dark:text-red-500
+              {% else %} text-gray-900 dark:text-gray-300 {% endif %}">
+              Default radio
+            </label>
+          </div>
+          <div class="flex items-center">
+            <input id="default-radio-2" type="radio" value="" name="default-radio"
+            class="w-4 h-4 border
+            {% if 1 == 1 %} text-red-700 bg-red-50 border-red-500
+              focus:ring-red-500 focus:border-red-500 
+              dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
+            {% else %} text-blue-600 bg-gray-100 border-gray-300
+              focus:ring-blue-500 focus:ring-2
+              dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600
+            {% endif %}">
+          <label for="default-radio-2"
+            class="block ms-2 text-sm font-medium
+            {% if 1 == 1 %} text-red-700 dark:text-red-500
+            {% else %} text-gray-900 dark:text-gray-300 {% endif %}">
+            Checked state
+          </label>
+          </div>
+          <!-- Missatges d'error -->
+          {% if 1 == 1 %}
+          <!-- Per cada missatge d'error -->
+            <p class="ml-6 mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
+          <!-- Endfor -->
+          {% endif %}
+        </div>
+        <!-- Input select -->
+        <div>
+          <label for="input-select"
+            class="mb-2 text-sm font-medium 
+            {% if 1 == 1 %} text-red-700 dark:text-red-500
+            {% else %} text-gray-900 dark:text-white {% endif %}">
+            Label de input select
+          </label>
+          <span class="block h-2"></span>
+          <select id="input-select"
+            class="text-sm border rounded-lg block w-full p-2.5
+            {% if 1 == 1 %}
+            bg-red-50 border-red-500 text-red-900 placeholder-red-700
+            focus:ring-red-500 focus:border-red-500
+            dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
+            {% else %}
+            bg-gray-50 border-gray-300 text-gray-900  
+            focus:ring-primary-500 focus:border-primary-500
+            dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
+            dark:focus:ring-primary-500 dark:focus:border-primary-500
+            {% endif %}"
+          >
+            <option selected="">United States</option>
+            <option value="NO">Australia</option>
+            <option value="NO">United Kingdom</option>
+            <option value="NO">Italy</option>
+            <option value="NO">Germany</option>
+            <option value="NO">Spain</option>
+            <option value="NO">France</option>
+            <option value="NO">Canada</option>
+          </select>
+          <!-- Missatges d'error -->
+          {% if 1 == 1 %}
+          <!-- Per cada missatge d'error -->
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
+          <!-- Endfor -->
+          {% endif %}
+        </div>
+        <!-- Checkbox únic -->
+        <div class="mb-6">
+          <div class="flex items-start">
+            <div class="flex items-center h-5">
+              <input id="checkbox_unique" type="checkbox" value=""
+                class="w-4 h-4 border rounded
+                {% if 1 == 1 %}
+                  bg-red-50 border-red-500 text-red-700 placeholder-red-700
+                  focus:ring-red-500 focus:border-red-500 
+                  dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
+                {% else %}
+                  border-gray-300 bg-gray-50 
+                  focus:ring-3 focus:ring-blue-300 
+                  dark:bg-gray-700 dark:border-gray-600
+                  dark:focus:ring-blue-600 dark:ring-offset-gray-800
+                {% endif %}"
+                required />
+            </div>
+            <label for="checkbox_unique"
+              class="ms-2 text-sm font-medium 
+              {% if 1 == 1 %} text-red-700 dark:text-red-500
+              {% else %} text-gray-900 dark:text-gray-300 {% endif %}">
+              I agree with the 
+              <a href="#"
+                class="hover:underline
+                {% if 1 == 1 %} text-red-900 dark:text-red-300
+                {% else %} text-blue-600 dark:text-blue-500 {% endif %}">
+                terms and conditions.
+              </a>
+            </label>
+          </div>
+          <!-- Missatges d'error -->
+          {% if 1 == 1 %}
+          <!-- Per cada missatge d'error -->
+            <p class="ml-6 mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
+          <!-- Endfor -->
+          {% endif %}
+        </div>
+        <!-- Input password -->
+        <div>
+          <label for="input-password"
+            class="block mb-2 text-sm font-medium
+            {% if 1 == 1 %} text-red-700 dark:text-red-500
+            {% else %} text-gray-900 dark:text-white {% endif %}">
+            Label del input password
+          </label>
+          <input type="password" name="input-password" id="input-password"
+            class="block w-full p-2.5 border text-sm rounded-lg
+            {% if 1 == 1 %}
+              bg-red-50 border-red-500 text-red-900 placeholder-red-700
+              focus:ring-red-500 focus:border-red-500 
+              dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
+            {% else %}
+              bg-gray-50 border-gray-300 text-gray-900
+              focus:ring-primary-600 focus:border-primary-600
+              dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+              dark:focus:ring-primary-500 dark:focus:border-primary-500
+            {% endif %}"
+            placeholder="•••••••••" required="">
+        </div>
+        <!-- Input number -->
+        <div>
+          <label for="input-number" 
+            class="block mb-2 text-sm font-medium
+              {% if 1 == 1 %} text-red-700 dark:text-red-500
+              {% else %} text-gray-900 dark:text-white {% endif %}">
+            Label de input number
+          </label>
+          <input type="number" name="input-number" id="input-number"
+            class="text-sm border rounded-lg block w-full p-2.5
+            {% if 1 == 1 %}
+              bg-red-50 border-red-500 text-red-900 placeholder-red-700
+              focus:ring-red-500 focus:border-red-500 
+              dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
+            {% else %}
+              bg-gray-50 border-gray-300 text-gray-900 
+              focus:ring-primary-600 focus:border-primary-600 
+              dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
+              dark:focus:ring-primary-500 dark:focus:border-primary-500
+            {% endif %}"
+            placeholder="Placeholder input number" required="">
+        </div>
+        <!-- Dropzone -->
+        <div class="flex items-center justify-center w-full">
+          <label for="dropzone-file" 
+            class="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-lg cursor-pointer 
+            {% if 1 == 1 %}
+              bg-red-50 border-red-500
+              hover:bg-red-100
+              dark:bg-red-700
+              dark:hover:bg-red-600
+            {% else %}
+              bg-gray-50 border-gray-300
+              hover:bg-gray-100
+              dark:bg-gray-700 dark:border-gray-600 
+              dark:hover:border-gray-500 dark:hover:bg-gray-600
+            {% endif %}">
+              <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 20 16"
+                  class="w-8 h-8 mb-4 
+                    {% if 1 == 1 %} text-red-700 dark:text-red-400
+                    {% else %} text-gray-500 dark:text-gray-400 {% endif %}">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                </svg>
+                <p class="mb-2 text-sm
+                  {% if 1 == 1 %} text-red-700 dark:text-red-400
+                  {% else %} text-gray-500 dark:text-gray-400 {% endif %}">
+                  Puja arxiu
+                </p>
+                <p class="text-xs
+                  {% if 1 == 1 %} text-red-700 dark:text-red-400
+                  {% else %} text-gray-500 dark:text-gray-400 {% endif %}">
+                  SVG, PNG, JPG or GIF (MAX. 800x400px)
+                </p>
+              </div>
+              <input id="dropzone-file" type="file" class="hidden" />
+          </label>
+        </div> 
+        <!-- Grup de checkboxes en horitzontal -->
+        <div>
+          <label 
+          for="group_checkbox_1"
+          class="block mb-2 text-sm font-medium
+            {% if 1 == 1 %} text-red-700 dark:text-red-500
+            {% else %} text-gray-900 dark:text-white {% endif %}">
+          Label de grup de checkboxes en horitzontal
+        </label>
+          <div class="flex items-center space-x-4">
+            <div class="flex items-center">
+              <input id="inline-checkbox" type="checkbox" value="" name="group_checkbox_1"
+                class="w-4 h-4 rounded
+                {% if 1 == 1 %}
+                  bg-red-50 border-red-500 text-red-700 placeholder-red-700
+                  focus:ring-red-500 focus:border-red-500 
+                  dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
+                {% else %}
+                  border-gray-300 bg-gray-50 
+                  focus:ring-3 focus:ring-blue-300 
+                  dark:bg-gray-700 dark:border-gray-600
+                  dark:focus:ring-blue-600 dark:ring-offset-gray-800
+                {% endif %}">
+              <label for="inline-checkbox"
+                class="ml-2 text-sm font-medium
+                  {% if 1 == 1 %}
+                    text-red-700 dark:text-red-500
+                  {% else %} 
+                    text-gray-900 dark:text-gray-300
+                  {% endif %}">
+                Administrator
+              </label>
+            </div>
+            <div class="flex items-center">
+              <input id="inline-checkbox-2" type="checkbox" value="" name="group_checkbox_1"
+                class="w-4 h-4 rounded
+                {% if 1 == 1 %}
+                  bg-red-50 border-red-500 text-red-700 placeholder-red-700
+                  focus:ring-red-500 focus:border-red-500 
+                  dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
+                {% else %}
+                  border-gray-300 bg-gray-50 
+                  focus:ring-3 focus:ring-blue-300 
+                  dark:bg-gray-700 dark:border-gray-600
+                  dark:focus:ring-blue-600 dark:ring-offset-gray-800
+                {% endif %}">
+              <label for="inline-checkbox-2"
+                class="ml-2 text-sm font-medium
+                  {% if 1 == 1 %}
+                    text-red-700 dark:text-red-500
+                  {% else %} 
+                    text-gray-900 dark:text-gray-300
+                  {% endif %}">
+                Client
+              </label>
+            </div>
+          </div>
+        </div>
+        <button type="submit"
+          class="inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+          <p>Desa</p>
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
+    <form action="#">
+      <h2 class="mb-4 text-xl font-semibold leading-none text-gray-900 dark:text-white">Camps que encara no estan llestos</h2>
+      <div class="grid gap-4 mb-4 md:gap-6 md:grid-cols-2 sm:mb-8">
         <!-- Input file -->
         <div>
           <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Label de input file</label>
@@ -92,115 +396,6 @@
               dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
             >
           <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="input_file_helptext">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
-        </div>
-        <!-- Input email -->
-        <div>
-          <label for="input-email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Label del camp d'email</label>
-          <input type="email" name="input-email" id="input-email"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-            placeholder="placeholder@email.com" required="">
-        </div>
-        <!-- Input radio -->
-        <div>
-          <p class="mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Títol del grup de radios</p>
-          <div class="flex items-center mb-4">
-            <input id="default-radio-1" type="radio" value="" name="default-radio"
-              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-            <label for="default-radio-1" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Default radio</label>
-          </div>
-          <div class="flex items-center">
-            <input checked id="default-radio-2" type="radio" value="" name="default-radio"
-            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 
-            focus:ring-blue-500 focus:ring-2
-            dark:focus:ring-blue-600 dark:ring-offset-gray-800  dark:bg-gray-700 dark:border-gray-600">
-            <label for="default-radio-2" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Checked state</label>
-          </div>
-        </div>
-        <!-- Input select -->
-        <div>
-          <label for="input-select" class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Label de input select</label>
-          <select id="input-select"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-            <option selected="">United States</option>
-            <option value="NO">Australia</option>
-            <option value="NO">United Kingdom</option>
-            <option value="NO">Italy</option>
-            <option value="NO">Germany</option>
-            <option value="NO">Spain</option>
-            <option value="NO">France</option>
-            <option value="NO">Canada</option>
-          </select>
-        </div>
-        <!-- Checkbox únic -->
-        <div class="flex items-start mb-6">
-          <div class="flex items-center h-5">
-            <input id="checkbox_unique" type="checkbox" value="" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" required />
-          </div>
-          <label for="checkbox_unique" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-            I agree with the 
-            <a href="#" class="text-blue-600 hover:underline dark:text-blue-500">terms and conditions</a>.
-          </label>
-        </div>
-        <!-- Input password -->
-        <div>
-          <label for="input-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Label del input password</label>
-          <input type="password" name="input-password" id="input-password"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-            placeholder="•••••••••" required="">
-        </div>
-        <!-- Input confirm password -->
-        <div>
-          <label for="confirm-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm
-            password</label>
-          <input type="password" name="confirm-password" id="confirm-password"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-            placeholder="•••••••••" required="">
-        </div>
-        <!-- Input number -->
-        <div>
-          <label for="input-number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Label de input number</label>
-          <input type="number" name="input-number" id="input-number"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-            placeholder="Placeholder input number" required="">
-        </div>
-        <!-- Dropzone -->
-        <div class="flex items-center justify-center w-full">
-          <label for="dropzone-file" 
-            class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 
-            dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-              <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 20 16">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
-                </svg>
-                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">Puja arxiu</p>
-                <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
-              </div>
-              <input id="dropzone-file" type="file" class="hidden" />
-          </label>
-        </div> 
-        <!-- Grup de checkboxes en horitzontal -->
-        <div>
-          <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="group_checkbox_1">Label de grup de checkboxes en horitzontal</label>
-          <div class="flex items-center space-x-4">
-            <div class="flex items-center">
-              <input id="inline-checkbox" type="checkbox" value="" name="group_checkbox_1"
-              class="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-            <label for="inline-checkbox"
-              class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Administrator</label>
-          </div>
-          <div class="flex items-center">
-            <input id="inline-2-checkbox" type="checkbox" value="" name="group_checkbox_1"
-              class="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-            <label for="inline-2-checkbox"
-              class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Member</label>
-          </div>
-          <div class="flex items-center">
-            <input checked="" id="inline-checked-checkbox" type="checkbox" value="" name="group_checkbox_1"
-              class="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-            <label for="inline-checked-checkbox"
-              class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Viewer</label>
-          </div>
-        </div>
         </div>
         <!-- Input richtext -->
         <!-- FALTA Limitar quines funcionalitats volem afegir i les altres eliminar-les -->
