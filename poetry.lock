@@ -373,18 +373,6 @@ files = [
 Django = ">=3.2"
 
 [[package]]
-name = "django-grappelli"
-version = "3.0.8"
-description = "A jazzy skin for the Django Admin-Interface."
-category = "main"
-optional = false
-python-versions = "*"
-files = [
-    {file = "django-grappelli-3.0.8.tar.gz", hash = "sha256:0c24a0128a8e94b0f251a99d71b96738e4cf546d20fd993d03b26c05c8642fdd"},
-    {file = "django_grappelli-3.0.8-py2.py3-none-any.whl", hash = "sha256:4664f14cd8f296e01130d167cb869a106644818bf84953dfeabff498be937319"},
-]
-
-[[package]]
 name = "django-ipware"
 version = "5.0.2"
 description = "A Django application to retrieve user's IP address"
@@ -1487,4 +1475,4 @@ brotli = ["Brotli"]
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.11"
-content-hash = "0df3b4149f28dfded1ff6d9f50d8c0d8af180fee2c5da42f6a1fa4eb09a5a132"
+content-hash = "de43d5aec8d8928cdf5c8aaeeac4301c05fd071896b6f42f93113007f0e87477"

@@ -109,8 +109,6 @@ DATABASES = {
 INSTALLED_APPS = [
     "maintenance_mode",
     "django.contrib.postgres",
-    "grappelli.dashboard",
-    "grappelli",  # Place before contrib.admin
     "constance.backends.database",
     "constance",
     "logentry_admin",
@@ -348,10 +346,6 @@ EMAIL_BACKEND = env.str(
 DJANGO_SUPERUSER_EMAIL = env("DJANGO_SUPERUSER_EMAIL", default=None)
 DJANGO_SUPERUSER_PASSWORD = env("DJANGO_SUPERUSER_PASSWORD", default=None)
 
-
-# Grappelli
-# https://django-grappelli.readthedocs.io/en/latest/customization.html#available-settings
-GRAPPELLI_INDEX_DASHBOARD = "project.dashboard.CustomIndexDashboard"
 
 # Constance
 # https://django-constance.readthedocs.io/en/latest/#configuration

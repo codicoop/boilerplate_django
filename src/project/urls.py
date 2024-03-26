@@ -20,7 +20,6 @@ from django.utils.translation import gettext_lazy as _
 from project.views import HomeView, RootRedirectView
 
 urlpatterns = [
-    path("grappelli/", include("grappelli.urls")),  # grappelli URLS
     path("admin/", admin.site.urls),
     path("", RootRedirectView.as_view()),
 ]
