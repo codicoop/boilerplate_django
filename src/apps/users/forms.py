@@ -8,11 +8,11 @@ from django.urls import reverse
 from django.utils import formats, timezone
 from django.utils.translation import gettext_lazy as _
 
+from project.fields.charfield import CharField
 from project.helpers import absolute_url
 from project.post_office import send
 from apps.users.models import User
 from project.widgets.checkbox import CheckboxInput
-from project.fields.choicefield import ChoiceField
 
 
 class AuthenticationForm(BaseAuthenticationForm):
@@ -64,9 +64,14 @@ class UserSignUpForm(UserCreationForm):
         label=_("I accept the data privacy policy"), required=True
     )
     test = forms.BooleanField(label="prova", widget=CheckboxInput())
-    test_select = ChoiceField(
+    test_select = forms.ChoiceField(
         label="Prova select",
         help_text="Prova!!"
+    )
+    test_input = CharField(
+        label="Prova input",
+        widget=forms.TextInput(attrs={'class': 'test'}),
+        help_text="tooltip i tal",
     )
 
     def save(self, commit=True):
