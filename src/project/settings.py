@@ -257,7 +257,7 @@ TEMPLATES = [
         },
     },
 ]
-FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
+FORM_RENDERER = "project.form_renderer.CustomFormRenderer"
 
 
 ################################################################################
