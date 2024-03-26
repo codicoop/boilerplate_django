@@ -380,11 +380,15 @@
   </div>
   <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
     <form action="#">
-      <h2 class="mb-4 text-xl font-semibold leading-none text-gray-900 dark:text-white">Camps que encara no estan
-        llestos</h2>
+      <h2 class="mb-4 text-xl font-semibold leading-none text-gray-900 dark:text-white">Camps que encara no estan llestos</h2>
       <div class="grid gap-4 mb-4 md:gap-6 md:grid-cols-2 sm:mb-8">
         <!-- Dropzone -->
         <div class="w-full">
+          <label for="input-text" class="block mb-2 text-sm font-medium
+            {% if 1 == 2 %} text-red-700 dark:text-red-500
+            {% else %} text-gray-900 dark:text-white {% endif %}">
+            Label del camp de dropzone
+          </label>
           <div class="flex items-center justify-center w-full">
             <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-lg cursor-pointer 
               {% if 1 == 2 %}
@@ -408,12 +412,7 @@
                 <p class="mb-2 text-sm
                     {% if 1 == 2 %} text-red-700 dark:text-red-400
                     {% else %} text-gray-500 dark:text-gray-400 {% endif %}">
-                  Puja arxiu
-                </p>
-                <p class="text-xs
-                    {% if 1 == 2 %} text-red-700 dark:text-red-400
-                    {% else %} text-gray-500 dark:text-gray-400 {% endif %}">
-                  SVG, PNG, JPG or GIF (MAX. 800x400px)
+                  {% translate 'Upload a file' %}
                 </p>
               </div>
               <input id="dropzone-file" type="file" class="hidden" />
@@ -428,16 +427,58 @@
         </div>
         <!-- Input file -->
         <div>
-          <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Label de input
-            file</label>
+          <label for="file_input" class="block mb-2 text-sm font-medium
+            {% if 1 == 2 %} text-red-700 dark:text-red-500
+            {% else %} text-gray-900 dark:text-white {% endif %}">
+            Label del camp de input file
+          </label>
           <!-- Per casos on vulguem més d'un arxiu, afegir al input "multiple" -->
-          <input id="file_input" aria-describedby="file_input_help" type="file" class="block w-full text-sm 
-              text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 
-              dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
-          <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="input_file_helptext">SVG, PNG, JPG or GIF (MAX.
-            800x400px).</p>
+          <input id="file_input" aria-describedby="file_input_help" type="file" 
+            class="block w-full text-sm border rounded-lg cursor-pointer
+              {% if 1 == 2 %}
+                bg-red-50 border-red-500 text-red-900 placeholder-red-700
+                focus:ring-red-500 focus:border-red-500 
+                dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
+              {% else %}
+                text-gray-900 border border-gray-300 bg-gray-50
+                focus:outline-none
+                dark:text-gray-400 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+              {% endif %}"
+          >
+          <!-- Missatges d'error -->
+          {% if 1 == 2 %}
+          <!-- Per cada missatge d'error -->
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
+          <!-- Endfor -->
+          {% endif %}
         </div>
-        <!-- Input richtext -->
+        <!-- Input file -->
+        <div>
+          <label for="file_input2" class="block mb-2 text-sm font-medium
+            {% if 1 == 2 %} text-red-700 dark:text-red-500
+            {% else %} text-gray-900 dark:text-white {% endif %}">
+            Label del camp de input file
+          </label>
+          <!-- Per casos on vulguem més d'un arxiu, afegir al input "multiple" -->
+          <input id="file_input2" aria-describedby="file_input_help" type="file" 
+            class="block w-full text-sm border rounded-lg cursor-pointer
+              {% if 1 == 2 %}
+                bg-red-50 border-red-500 text-red-900 placeholder-red-700
+                focus:ring-red-500 focus:border-red-500 
+                dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
+              {% else %}
+                text-gray-900 border border-gray-300 bg-gray-50
+                focus:outline-none
+                dark:text-gray-400 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+              {% endif %}"
+          >
+          <!-- Missatges d'error -->
+          {% if 1 == 2 %}
+          <!-- Per cada missatge d'error -->
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
+          <!-- Endfor -->
+          {% endif %}
+        </div>
         <!-- FALTA Limitar quines funcionalitats volem afegir i les altres eliminar-les -->
         <div class="sm:col-span-2">
           <label for="input-richtext" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Label input
