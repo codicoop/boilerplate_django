@@ -1,13 +1,12 @@
 from django.urls import NoReverseMatch, reverse, reverse_lazy
-from django.utils.translation import activate, get_language
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import activate, get_language, gettext_lazy as _
 from django.views.generic import RedirectView, TemplateView
 
 
 class RootRedirectView(RedirectView):
     """
     If your site has an actual home page view that is not a redirect,
-    you'll also need to move the URL in conf/urls.py from the urlpatterns
+    you'll also need to move the URL in project/urls.py from the urlpatterns
     block to the i18n_patterns one.
     """
 

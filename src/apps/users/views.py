@@ -14,8 +14,8 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import FormView, UpdateView
 
-from apps.base.mixins import AnonymousRequiredMixin
-from apps.base.views import StandardSuccess
+from project.mixins import AnonymousRequiredMixin
+from project.views import StandardSuccess
 from apps.users.forms import (
     AuthenticationForm,
     PasswordResetForm,

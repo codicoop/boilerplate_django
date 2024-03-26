@@ -13,7 +13,7 @@ services:
       dockerfile: ./docker/Dockerfile
       target: development
     env_file: ./.env
-    command: gunicorn conf.wsgi:application --bind 0.0.0.0:8000 --reload --threads=10
+    command: gunicorn project.wsgi:application --bind 0.0.0.0:8000 --reload --threads=10
     ports:
       - "1234:8000"
     volumes:

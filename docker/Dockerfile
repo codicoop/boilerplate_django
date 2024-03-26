@@ -86,7 +86,7 @@ RUN apt-get update && apt-get upgrade -y \
 
 # will become mountpoint of our code
 WORKDIR /srv
-CMD ["gunicorn", "conf.wsgi:application", "--bind", "0.0.0.0:8000", "--reload"]
+CMD ["gunicorn", "project.wsgi:application", "--bind", "0.0.0.0:8000", "--reload"]
 
 ###############################################################################
 # `production` image used for runtime

@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import include, path
 from django.utils.translation import gettext_lazy as _
 
-from apps.base.views import HomeView, RootRedirectView
+from project.views import HomeView, RootRedirectView
 
 urlpatterns = [
     path("grappelli/", include("grappelli.urls")),  # grappelli URLS
