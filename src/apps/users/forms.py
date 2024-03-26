@@ -64,7 +64,10 @@ class UserSignUpForm(UserCreationForm):
         label=_("I accept the data privacy policy"), required=True
     )
     test = forms.BooleanField(label="prova", widget=CheckboxInput())
-    test_select = ChoiceField(label="Prova select")
+    test_select = ChoiceField(
+        label="Prova select",
+        help_text="Prova!!"
+    )
 
     def save(self, commit=True):
         obj = super().save(commit)
