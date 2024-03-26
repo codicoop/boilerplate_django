@@ -55,6 +55,21 @@ going to be immediately sent instead of added to queue for further processing.
 
 # Included features
 
+## Custom widgets
+
+We're using Tailwind with a components library called FlowBite.
+
+Eeach widget's template is replaced to use our custom design, you'll find them
+in /templates/widgets.
+
+If you need to override a template for another widget, you should copy the
+original Django template and modify it.
+The path to find the original templates should be something similar to:
+
+    /.venv/lib/python3.11/site-packages/django/forms/templates/django/forms/widgets
+
+
+
 ## Custom user account views and templates
 
 ### Removal
