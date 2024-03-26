@@ -1,6 +1,6 @@
 from django.views.generic import FormView
 
-from src.apps.demo.forms import DataForm
+from apps.demo.forms import DataForm
 
 
 class DataView(FormView):
