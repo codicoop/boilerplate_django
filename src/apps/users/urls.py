@@ -3,7 +3,7 @@ from django.urls import path, reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
 from apps.users.views import (
-    DetailsView,
+    details_view,
     PasswordResetCompleteView,
     PasswordResetConfirmView,
     PasswordResetDoneView,
@@ -55,7 +55,7 @@ urlpatterns = [
     ),
     path(
         _("profile/details/"),
-        DetailsView.as_view(),
+        details_view,
         name="profile_details",
     ),
 ]

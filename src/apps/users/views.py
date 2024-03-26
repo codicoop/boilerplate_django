@@ -1,6 +1,7 @@
 from itertools import islice
 
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 
 # from django.contrib.auth.views import PasswordResetDoneView as BasePasswordResetDoneView # noqa
 # from django.contrib.auth.views import (
@@ -102,11 +103,9 @@ class PasswordResetCompleteView(AnonymousRequiredMixin, StandardSuccess):
     link_text = _("Login")
 
 
-class DetailsView(UpdateView):
-    template_name = "profile/details.html"
-    form_class = ProfileDetailsForm
-    model = User
-    success_url = reverse_lazy("registration:profile_details_success")
-
-    def get_object(self, queryset=None):
-        return self.request.user
+@login_required
+def details_view(request):
+    form = ProfileDetailsForm(request.POST or None, instance=request.user)
+    if form.is_valid():
+        form.save()
+    return render(request, "profile/details.html", {"form": form})

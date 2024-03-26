@@ -68,8 +68,8 @@ registration in `users/urls.py`:
 - PasswordResetDoneView
 - PasswordResetCompleteView
 - signup_view
-- LoginView
-- DetailsView
+- login_view
+- details_view
 
 Delete the folders:
 `templates/profile`
