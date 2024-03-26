@@ -1,6 +1,6 @@
 from django.db import migrations
 
-from apps.base.post_office import textify
+from project.post_office import textify
 
 
 def populate_mail_templates(apps, schema_editor):
