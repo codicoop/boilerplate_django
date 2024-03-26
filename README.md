@@ -55,20 +55,59 @@ going to be immediately sent instead of added to queue for further processing.
 
 # Included features
 
-## Custom widgets
+## Custom templates for fields and widgets
 
 We're using Tailwind with a components library called FlowBite.
 
-Eeach widget's template is replaced to use our custom design, you'll find them
-in /templates/widgets.
+We needed to be able to use either the format...
+
+```
+{{ form.as_div }}
+```
+
+... for simple cases, and the format...
+
+```
+{{ form.non_field_errors }}
+<div class="fieldWrapper">
+  {{ form.subject.as_field_group }}
+</div>
+<div class="fieldWrapper">
+  {{ form.message.as_field_group }}
+</div>
+<div class="fieldWrapper">
+  {{ form.sender.as_field_group }}
+</div>
+<div class="fieldWrapper">
+  {{ form.cc_myself.as_field_group }}
+</div>
+```
+
+... for more complex layouts.
+
+We studied the possibility of switching to `django-crispy-forms` as it provides
+layout control, and looks promising, but we decided to leave it for the future.
+
+We're customizing the form controls' templates using this new django 5 feature:
+https://docs.djangoproject.com/en/5.0/topics/forms/#reusable-field-group-templates
+
+There is a template that renders the "field group" at `templates/fields/field_default.html`
+
+If you need a different template for a field, you should create a new one based
+on `field_default.html` and set up the field according to the linked documentation.
+
+That template covers the elements "around" que actual control. The control
+itself, meaning, the `<select>` tag for instance, is what Django calls Widget.
+
+To change the control, you'll need to override its template, but in many cases
+it might not be necessary, given that our design is basically a bunch of classes
+and those classes can be provided as parameters to the widget.
 
 If you need to override a template for another widget, you should copy the
-original Django template and modify it.
+original Django template into `templates/widgets` and modify it.
 The path to find the original templates should be something similar to:
 
     /.venv/lib/python3.11/site-packages/django/forms/templates/django/forms/widgets
-
-
 
 ## Custom user account views and templates
 
