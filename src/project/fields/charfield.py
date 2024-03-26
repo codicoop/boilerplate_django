@@ -18,6 +18,7 @@ class CharField(forms.CharField):
     def get_bound_field(self, form, field_name):
         bound_field = super().get_bound_field(form, field_name)
         classes = self.widget.attrs.pop("class", "")
+        classes = " ".join((classes, self.base_classes))
         if bound_field.errors:
             classes = " ".join((classes, self.error_classes))
         else:
