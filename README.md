@@ -8,7 +8,7 @@ In order to install this project, you have to:
 
 1. Import the project
 2. In the root, you have to install the packages necessaries with `npm install`
-3. After, if you are going to make changes in the html styles, you have to compile them in order for them to show. You do it with: 
+3. After, if you are going to make changes in the html styles, you have to compile them in order for them to show. You do it with:
 `npx tailwindcss -i ./src/assets/styles/input.css -o ./src/assets/styles/output.css --watch`
 
 # Included packages
@@ -274,7 +274,7 @@ In your env. variables,
 - `POST_OFFICE_DEFAULT_PRIORITY` must be set to "now".
 
 In `docker/docker-compose.yml`:
-- Remove the `boilerplate-celery` and `develop_django_boilerplate_redis`
+- Remove the `boilerplate-celery` and `boilerplate-redis`
 services.
 
 Remove the packages redis and django-sendgrid-v5 from the dependencies.
