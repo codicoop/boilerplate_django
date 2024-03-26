@@ -63,6 +63,7 @@ LANGUAGE_CODE = "ca"
 
 # https://docs.djangoproject.com/en/4.2/ref/settings/#languages
 LANGUAGES = [
+    ("en", _("English")),
     ("ca", _("Catalan")),
 ]
 
