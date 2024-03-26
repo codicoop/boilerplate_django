@@ -1,21 +1,22 @@
 from itertools import islice
 
+from django.contrib.auth import authenticate, login
+
 # from django.contrib.auth.views import PasswordResetDoneView as BasePasswordResetDoneView # noqa
 # from django.contrib.auth.views import (
 #     PasswordResetCompleteView as BasePasswordResetCompleteView,
 # )
-from django.contrib.auth.views import LoginView as BaseLoginView
 from django.contrib.auth.views import (
+    LoginView as BaseLoginView,
     PasswordResetConfirmView as BasePasswordResetConfirmView,
+    PasswordResetView as BasePasswordResetView,
 )
-from django.contrib.auth.views import PasswordResetView as BasePasswordResetView
 from django.core.exceptions import ValidationError
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import FormView, UpdateView
 
-from project.mixins import AnonymousRequiredMixin
-from project.views import StandardSuccess
 from apps.users.forms import (
     AuthenticationForm,
     PasswordResetForm,
@@ -23,6 +24,8 @@ from apps.users.forms import (
     UserSignUpForm,
 )
 from apps.users.models import User
+from project.mixins import AnonymousRequiredMixin
+from project.views import StandardSuccess
 
 
 class LoginView(AnonymousRequiredMixin, BaseLoginView):
@@ -35,6 +38,20 @@ class SignupView(FormView):
     template_name = "registration/signup.html"
     form_class = UserSignUpForm
     success_url = reverse_lazy("registration:code_validation")
+
+
+def signup_view(request):
+    form = UserSignUpForm(request.POST)
+    if form.is_valid():
+        form.save()
+        email = form.cleaned_data.get("email")
+        password = form.cleaned_data.get("password1")
+        user = authenticate(username=email, password=password)
+        login(request, user)
+        return redirect("registration:profile_details")
+    else:
+        form = UserSignUpForm()
+    return render(request, "registration/signup.html", {"form": form})
 
 
 class PasswordResetView(AnonymousRequiredMixin, BasePasswordResetView):

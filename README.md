@@ -67,7 +67,7 @@ registration in `users/urls.py`:
 - PasswordResetConfirmView
 - PasswordResetDoneView
 - PasswordResetCompleteView
-- SignupView
+- signup_view
 - LoginView
 - DetailsView
 

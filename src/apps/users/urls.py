@@ -10,13 +10,13 @@ from apps.users.views import (
     PasswordResetConfirmView,
     PasswordResetDoneView,
     PasswordResetView,
-    SignupView,
+    signup_view,
 )
 
 app_name = "registration"
 urlpatterns = [
     # Registration
-    path(_("sign-up/"), SignupView.as_view(), name="signup"),
+    path(_("sign-up/"), signup_view, name="signup"),
     path(_("sign-in/"), LoginView.as_view(), name="login"),
     path(
         _("log-out/"),
