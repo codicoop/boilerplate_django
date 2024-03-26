@@ -22,6 +22,9 @@
               <p>{{ request.user }}</p>
             </a>
           </p>
+          <a href="{% url 'registration:logout' %}">
+            <p>Logout</p>
+          </a>
         </div>
         {% endif %}
         {# if language options #}
