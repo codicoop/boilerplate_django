@@ -42,10 +42,10 @@ MAINTENANCE_MODE = env.bool("MAINTENANCE_MODE", default=False)
 MAINTENANCE_MODE_STATE_BACKEND = "maintenance_mode.backends.DefaultStorageBackend"
 
 # https://docs.djangoproject.com/en/4.2/ref/settings/#root-urlconf
-ROOT_URLCONF = "conf.urls"
+ROOT_URLCONF = "project.urls"
 
 # https://docs.djangoproject.com/en/4.2/ref/settings/#wsgi-application
-WSGI_APPLICATION = "conf.wsgi.application"
+WSGI_APPLICATION = "ptoject.wsgi.application"
 
 
 ################################################################################
