@@ -4,6 +4,7 @@ Settings for the Django project.
 For more information on Django's settings, visit:
     https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+
 from pathlib import Path
 
 import environ
@@ -122,9 +123,9 @@ INSTALLED_APPS = [
     "post_office",
     "django_extensions",
     "phonenumber_field",
-    "apps.base",
     "apps.users",
     "apps.celery",
+    "project",
 ]
 
 
@@ -187,8 +188,8 @@ LOGOUT_REDIRECT_URL = "/"
 # Using paths instead of view names so we can whitelist entire sections.
 # https://github.com/CleitonDeLima/django-login-required-middleware#quick-start
 LOGIN_REQUIRED_IGNORE_PATHS = [
-    r"^/admin/", # If your project is not using the PUBLIC admin views for login
-                 # and password recovery, you probably don't need this.
+    r"^/admin/",  # If your project is not using the PUBLIC admin views for login
+    # and password recovery, you probably don't need this.
     "/favicon.ico",
     STATIC_URL,
 ]
@@ -347,7 +348,7 @@ DJANGO_SUPERUSER_PASSWORD = env("DJANGO_SUPERUSER_PASSWORD", default=None)
 
 # Grappelli
 # https://django-grappelli.readthedocs.io/en/latest/customization.html#available-settings
-GRAPPELLI_INDEX_DASHBOARD = "apps.base.dashboard.CustomIndexDashboard"
+GRAPPELLI_INDEX_DASHBOARD = "project.dashboard.CustomIndexDashboard"
 
 # Constance
 # https://django-constance.readthedocs.io/en/latest/#configuration

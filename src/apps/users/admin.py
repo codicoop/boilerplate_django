@@ -4,7 +4,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils import timezone
 from django.utils.html import format_html
 
-from apps.base.admin import ModelAdminMixin
+from project.admin import ModelAdminMixin
 from apps.users.forms import UserChangeForm
 from apps.users.models import User
 

@@ -8,8 +8,8 @@ from django.urls import reverse
 from django.utils import formats, timezone
 from django.utils.translation import gettext_lazy as _
 
-from apps.base.helpers import absolute_url
-from apps.base.post_office import send
+from project.helpers import absolute_url
+from project.post_office import send
 from apps.users.models import User
 
 
