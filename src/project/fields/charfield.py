@@ -22,7 +22,7 @@ class BaseFlowBiteBoundField(forms.BoundField):
         return ctxt
 
 
-class FlowBiteCharField(BaseFlowBiteBoundField):
+class FlowBiteBoundCharField(BaseFlowBiteBoundField):
     base_classes = "text-sm border rounded-lg block w-full p-2.5"
     no_error_classes = """
         bg-gray-50 border-gray-300 text-gray-900
@@ -39,4 +39,4 @@ class FlowBiteCharField(BaseFlowBiteBoundField):
 
 class CharField(forms.CharField):
     def get_bound_field(self, form, field_name):
-        return FlowBiteCharField(form, self, field_name)
+        return FlowBiteBoundCharField(form, self, field_name)
