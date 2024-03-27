@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from django.urls import NoReverseMatch, reverse, reverse_lazy
 from django.utils.translation import activate, get_language, gettext_lazy as _
 from django.views.generic import RedirectView, TemplateView
@@ -17,8 +18,8 @@ class RootRedirectView(RedirectView):
         return super().get_redirect_url(*args, **kwargs)
 
 
-class HomeView(TemplateView):
-    template_name = "home.html"
+def home_view(request):
+    return render(request, "home.html")
 
 
 class StandardSuccess(TemplateView):

@@ -2,22 +2,22 @@ from django.contrib.auth import views as auth_views
 from django.urls import path, reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
-from project.views import StandardSuccess
 from apps.users.views import (
-    DetailsView,
-    LoginView,
+    details_view,
     PasswordResetCompleteView,
     PasswordResetConfirmView,
     PasswordResetDoneView,
     PasswordResetView,
-    SignupView,
+    login_view,
+    signup_view,
 )
+from project.views import StandardSuccess
 
 app_name = "registration"
 urlpatterns = [
     # Registration
-    path(_("sign-up/"), SignupView.as_view(), name="signup"),
-    path(_("sign-in/"), LoginView.as_view(), name="login"),
+    path(_("sign-up/"), signup_view, name="signup"),
+    path(_("sign-in/"), login_view, name="login"),
     path(
         _("log-out/"),
         auth_views.LogoutView.as_view(
@@ -55,7 +55,7 @@ urlpatterns = [
     ),
     path(
         _("profile/details/"),
-        DetailsView.as_view(),
+        details_view,
         name="profile_details",
     ),
 ]

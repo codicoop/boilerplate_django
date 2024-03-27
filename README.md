@@ -67,9 +67,9 @@ registration in `users/urls.py`:
 - PasswordResetConfirmView
 - PasswordResetDoneView
 - PasswordResetCompleteView
-- SignupView
-- LoginView
-- DetailsView
+- signup_view
+- login_view
+- details_view
 
 Delete the folders:
 `templates/profile`
@@ -170,7 +170,7 @@ path("", RootRedirectView.as_view()),
 and just leave
 
 ```python
-path("", HomeView.as_view(), name="home"),
+path("", home_view, name="home"),
 ```
 
 Finally, remove the language selection widget from the base template.
