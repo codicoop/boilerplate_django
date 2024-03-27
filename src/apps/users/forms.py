@@ -8,7 +8,7 @@ from django.urls import reverse
 from django.utils import formats, timezone
 from django.utils.translation import gettext_lazy as _
 
-from project.fields.charfield import CharField
+from project.fields.flowbite import FlowBiteCharField
 from project.helpers import absolute_url
 from project.post_office import send
 from apps.users.models import User
@@ -68,7 +68,7 @@ class UserSignUpForm(UserCreationForm):
         label="Prova select",
         help_text="Prova!!"
     )
-    test_input = CharField(
+    test_input = FlowBiteCharField(
         label="Prova input",
         widget=forms.TextInput(attrs={'class': 'test'}),
         help_text="tooltip i tal",
