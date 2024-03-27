@@ -2,11 +2,6 @@ from itertools import islice
 
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-
-# from django.contrib.auth.views import PasswordResetDoneView as BasePasswordResetDoneView # noqa
-# from django.contrib.auth.views import (
-#     PasswordResetCompleteView as BasePasswordResetCompleteView,
-# )
 from django.contrib.auth.views import (
     LoginView as BaseLoginView,
     PasswordResetConfirmView as BasePasswordResetConfirmView,
@@ -16,7 +11,6 @@ from django.core.exceptions import ValidationError
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import FormView, UpdateView
 
 from apps.users.forms import (
     AuthenticationForm,
@@ -25,10 +19,12 @@ from apps.users.forms import (
     UserSignUpForm,
 )
 from apps.users.models import User
+from project.decorators import anonymous_required
 from project.mixins import AnonymousRequiredMixin
 from project.views import StandardSuccess
 
 
+@anonymous_required
 def login_view(request):
     if request.method == "POST":
         form = AuthenticationForm(request.POST)
@@ -43,6 +39,7 @@ def login_view(request):
     return render(request, "registration/login.html", {"form": form})
 
 
+@anonymous_required
 def signup_view(request):
     if request.method == "POST":
         form = UserSignUpForm(request.POST, None)
