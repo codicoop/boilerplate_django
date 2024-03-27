@@ -1,4 +1,6 @@
 from django import forms
+from django.db import models
+from icecream import ic
 
 from project.fields.base import BaseFlowBiteBoundField
 
@@ -21,3 +23,10 @@ class FlowBiteBoundCharField(BaseFlowBiteBoundField):
 class FlowBiteCharField(forms.CharField):
     def get_bound_field(self, form, field_name):
         return FlowBiteBoundCharField(form, self, field_name)
+
+
+class FlowBiteModelCharField(models.CharField):
+    def formfield(self, **kwargs):
+        field = super().formfield(**kwargs)
+        ic(field)
+        return field
