@@ -58,6 +58,14 @@ def signup_view(request):
     return render(request, "registration/signup.html", {"form": form})
 
 
+@login_required
+def details_view(request):
+    form = ProfileDetailsForm(request.POST or None, instance=request.user)
+    if form.is_valid():
+        form.save()
+    return render(request, "profile/details.html", {"form": form})
+
+
 class PasswordResetView(AnonymousRequiredMixin, BasePasswordResetView):
     form_class = PasswordResetForm
     template_name = "registration/password_reset_confirm.html"
@@ -101,11 +109,3 @@ class PasswordResetCompleteView(AnonymousRequiredMixin, StandardSuccess):
     description = _("Password reset complete")
     url = reverse_lazy("registration:login")
     link_text = _("Login")
-
-
-@login_required
-def details_view(request):
-    form = ProfileDetailsForm(request.POST or None, instance=request.user)
-    if form.is_valid():
-        form.save()
-    return render(request, "profile/details.html", {"form": form})
