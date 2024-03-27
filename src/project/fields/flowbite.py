@@ -20,13 +20,13 @@ class FlowBiteBoundCharField(BaseFlowBiteBoundField):
         """
 
 
-class FlowBiteCharField(forms.CharField):
+class FlowBiteFormCharField(forms.CharField):
     def get_bound_field(self, form, field_name):
         return FlowBiteBoundCharField(form, self, field_name)
 
 
 class FlowBiteModelCharField(models.CharField):
     def formfield(self, **kwargs):
-        field = super().formfield(**kwargs)
-        ic(field)
-        return field
+        defaults = {"form_class": FlowBiteFormCharField}
+        defaults.update(kwargs)
+        return super().formfield(**defaults)

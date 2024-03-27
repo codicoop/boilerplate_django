@@ -19,7 +19,7 @@ class BaseFlowBiteBoundField(forms.BoundField):
     def get_context(self):
         ctxt = super().get_context()
         widget = ctxt["field"].field.widget
-        classes = widget.attrs.get("class").split()
+        classes = widget.attrs.get("class", "").split()
         classes.append(self.base_classes)
         if self.errors:
             classes.append(self.error_classes)
