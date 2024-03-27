@@ -1,6 +1,5 @@
 from django import forms
 from django.db import models
-from icecream import ic
 
 from project.fields.base import BaseFlowBiteBoundField
 
@@ -20,13 +19,13 @@ class FlowBiteBoundCharField(BaseFlowBiteBoundField):
         """
 
 
-class FlowBiteFormCharField(forms.CharField):
+class FormCharField(forms.CharField):
     def get_bound_field(self, form, field_name):
         return FlowBiteBoundCharField(form, self, field_name)
 
 
-class FlowBiteModelCharField(models.CharField):
+class ModelCharField(models.CharField):
     def formfield(self, **kwargs):
-        defaults = {"form_class": FlowBiteFormCharField}
+        defaults = {"form_class": FormCharField}
         defaults.update(kwargs)
         return super().formfield(**defaults)
