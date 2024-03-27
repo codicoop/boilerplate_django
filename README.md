@@ -170,7 +170,7 @@ path("", RootRedirectView.as_view()),
 and just leave
 
 ```python
-path("", HomeView.as_view(), name="home"),
+path("", home_view, name="home"),
 ```
 
 Finally, remove the language selection widget from the base template.
