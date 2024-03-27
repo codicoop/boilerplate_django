@@ -29,3 +29,15 @@ class ModelCharField(models.CharField):
         defaults = {"form_class": FormCharField}
         defaults.update(kwargs)
         return super().formfield(**defaults)
+
+
+class FormEmailField(forms.EmailField):
+    def get_bound_field(self, form, field_name):
+        return FlowBiteBoundCharField(form, self, field_name)
+
+
+class ModelEmailField(models.EmailField):
+    def formfield(self, **kwargs):
+        defaults = {"form_class": FormEmailField}
+        defaults.update(kwargs)
+        return super().formfield(**defaults)
