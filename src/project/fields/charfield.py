@@ -1,7 +1,28 @@
 from django import forms
 
 
-class CharField(forms.CharField):
+class BaseFlowBiteBoundField(forms.BoundField):
+    base_classes = ""
+    no_error_classes = ""
+    error_classes = ""
+
+    def css_classes(self, extra_classes=None):
+        classes = super().css_classes(extra_classes).split()
+        classes.append(self.base_classes)
+        if self.errors:
+            classes.append(self.error_classes)
+        else:
+            classes.append(self.no_error_classes)
+        return " ".join(classes)
+
+    def get_context(self):
+        ctxt = super().get_context()
+        widget = ctxt["field"].field.widget
+        widget.attrs["class"] = self.css_classes()
+        return ctxt
+
+
+class FlowBiteCharField(BaseFlowBiteBoundField):
     base_classes = "text-sm border rounded-lg block w-full p-2.5"
     no_error_classes = """
         bg-gray-50 border-gray-300 text-gray-900
@@ -15,13 +36,7 @@ class CharField(forms.CharField):
         dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
         """
 
+
+class CharField(forms.CharField):
     def get_bound_field(self, form, field_name):
-        bound_field = super().get_bound_field(form, field_name)
-        classes = self.widget.attrs.pop("class", "")
-        classes = " ".join((classes, self.base_classes))
-        if bound_field.errors:
-            classes = " ".join((classes, self.error_classes))
-        else:
-            classes = " ".join((classes, self.no_error_classes))
-        self.widget.attrs.update({"class": classes})
-        return bound_field
+        return FlowBiteCharField(form, self, field_name)
