@@ -14,17 +14,17 @@
 <body class="bg-gray-50 dark:bg-gray-900
       {% block bodyclasses %}{% endblock %}">
   <!-- topbar -->
-  <header class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-    <div class="px-3 py-3 lg:px-5 lg:pl-3">
+  <header class="fixed top-0 z-50 w-full bg-primary-500 border-b border-primary-400 dark:bg-gray-800 dark:border-gray-700">
+    <div class="mx-auto max-w-screen-2xl px-3 py-3 lg:px-5 lg:pl-3">
       <div class="flex items-center justify-between">
         <div class="flex items-center justify-start rtl:justify-end">
           <!-- burguer -->
           <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar"
             type="button"
-            class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg
+            class="inline-flex items-center p-2 text-sm text-primary-900 rounded-lg
               md:hidden hover:bg-gray-100 
-              focus:outline-none focus:ring-2 focus:ring-gray-200 
-              dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+              focus:outline-none focus:ring-2 focus:ring-primary-700 
+              dark:text-primary-400 dark:hover:bg-gray-700 dark:focus:ring-primary-600"
           >
             <span class="sr-only">Open sidebar</span>
             <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20"
@@ -36,53 +36,51 @@
           </button>
           <!-- Títol i logo topbar -->
           <a href="" class="flex ms-2 md:me-24">
-            <img src="{% static 'images/logo.svg' %}" class="h-8 me-3" alt="{% translate 'Logo of the business' %}" />
+            <img src="{% static 'images/logo.svg' %}" class="h-8 me-10" alt="{% translate 'Logo of the business' %}" />
             <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Nom entitat</span>
           </a>
         </div>
         <!-- Accions de esquerra topbar -->
         <div class="flex items-center">
           <div class="flex items-center ms-3">
+            <!-- Botó per mostrar i amagar menú desplegable -->
             <div>
               <button type="button"
                 class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                 aria-expanded="false" data-dropdown-toggle="dropdown-user">
-                <span class="sr-only">Open user menu</span>
+                <span class="sr-only">Obrir menú usuari</span>
                 <img class="w-8 h-8 rounded-full" src="{% static 'images/user_placeholder.jpg' %}"
                   alt="{% translate 'User image' %}">
               </button>
             </div>
+            <!-- Menú desplegable -->
             <div
-              class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
+              class="z-50 hidden max-w-60 my-4 text-base list-none bg-white divide-y divide-primary-100 rounded shadow 
+              dark:bg-gray-700 dark:divide-gray-600"
               id="dropdown-user">
               <div class="px-4 py-3" role="none">
-                <p class="text-sm text-gray-900 dark:text-white" role="none">
-                  Neil Sims
+                <p class="text-lg pb-1 font-bold text-primary-800 dark:text-white" role="none">
+                  Nom usuari
                 </p>
-                <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
-                  neil.sims@flowbite.com
+                <p class="text-sm font-medium text-primary-900 truncate dark:text-gray-300" role="none">
+                  correu_electrònic_usuari@codi.coop
                 </p>
               </div>
               <ul class="py-1" role="none">
                 <li>
                   <a href="#"
                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                    role="menuitem">Dashboard</a>
+                    role="menuitem">Inici</a>
                 </li>
                 <li>
                   <a href="#"
                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                    role="menuitem">Settings</a>
+                    role="menuitem">Perfil</a>
                 </li>
                 <li>
                   <a href="#"
                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                    role="menuitem">Earnings</a>
-                </li>
-                <li>
-                  <a href="#"
-                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                    role="menuitem">Sign out</a>
+                    role="menuitem">Sortir</a>
                 </li>
               </ul>
             </div>
@@ -92,14 +90,14 @@
     </div>
   </header>
 
-  <div class="flex pt-16 overflow-hidden bg-gray-50 dark:bg-gray-900">
+  <div class="relative flex pt-14 overflow-hidden mx-auto max-w-screen-2xl bg-gray-50 dark:bg-gray-900">
     <!-- sidebar -->
     <aside id="logo-sidebar"
-    class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-primary-100 border-r border-primary-200
+    class="absolute top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-primary-100 border-r border-primary-50
     md:translate-x-0 
     dark:bg-gray-800 dark:border-gray-700"
     aria-label="Sidebar">
-    <div class="h-full px-3 pb-4 overflow-y-auto bg-primary-100 dark:bg-primary-800">
+    <div class="h-screen px-3 pb-4 overflow-y-auto bg-primary-100 dark:bg-primary-800">
       <nav>
         <ul class="space-y-2 font-medium">
           <!-- Home -->
@@ -132,14 +130,16 @@
       class="relative w-full min-h-screen flex flex-col overflow-y-auto bg-gray-50 {% block mainclasses %}{% endblock %}
         lg:ml-64 
       dark:bg-gray-900">
-      <main>
-        {% block main %}
-        {% endblock %}
+      <main class="mx-auto w-full max-w-screen-xl">
+        <div class="p-4">
+          {% block main %}
+          {% endblock %}
+        </div>
       </main>
 
       <!-- footer -->
       <footer 
-        class="p-4 mb-6 mt-auto mx-4 bg-primary-100 rounded-lg shadow 
+        class="p-4 mb-6 mt-auto mx-4 bg-primary-50 rounded-lg shadow 
           md:p-6
           xl:p-8
           dark:bg-gray-800">
