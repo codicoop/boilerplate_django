@@ -35,11 +35,12 @@
             </svg>
           </button>
           <!-- Títol i logo topbar -->
-          <a href="" class="flex ms-2 md:me-24">
+          <a href="{% url 'home' %}" class="flex ms-2 md:me-24">
             <img src="{% static 'images/logo.svg' %}" class="h-8 me-10" alt="{% translate 'Logo of the business' %}" />
             <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Nom entitat</span>
           </a>
         </div>
+        {% if request.user.is_authenticated %}
         <!-- Accions de esquerra topbar -->
         <div class="flex items-center">
           <div class="flex items-center ms-3">
@@ -60,32 +61,33 @@
               id="dropdown-user">
               <div class="px-4 py-3" role="none">
                 <p class="text-lg pb-1 font-bold text-primary-800 dark:text-white" role="none">
-                  Nom usuari
+                  {{ request.user }}
                 </p>
                 <p class="text-sm font-medium text-primary-900 truncate dark:text-gray-300" role="none">
-                  correu_electrònic_usuari@codi.coop
+                  correu_falta@codi.coop
                 </p>
               </div>
               <ul class="py-1" role="none">
                 <li>
-                  <a href="#"
+                  <a href="{% url 'home' %}"
                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                    role="menuitem">Inici</a>
+                    role="menuitem">{% translate "Home" %}</a>
                 </li>
                 <li>
-                  <a href="#"
+                  <a href="{% url 'registration:profile_details' %}"
                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                    role="menuitem">Perfil</a>
+                    role="menuitem">{% translate "Profile" %}</a>
                 </li>
                 <li>
-                  <a href="#"
+                  <a href="{% url 'registration:logout' %}"
                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                    role="menuitem">Sortir</a>
+                    role="menuitem">{% translate "Log out" %}</a>
                 </li>
               </ul>
             </div>
           </div>
         </div>
+        {% endif %}
       </div>
     </div>
   </header>
@@ -102,7 +104,7 @@
         <ul class="space-y-2 font-medium">
           <!-- Home -->
           <li>
-            <a href="#"
+            <a href="{% url 'home' %}"
               class="flex items-center p-1 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
               <svg class="w-7 h-7 text-primary-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewbox="0 0 24 24">
                 <path fill-rule="evenodd" d="M11.293 3.293a1 1 0 0 1 1.414 0l6 6 2 2a1 1 0 0 1-1.414 1.414L19 12.414V19a2 2 0 0 1-2 2h-3a1 1 0 0 1-1-1v-3h-2v3a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2v-6.586l-.293.293a1 1 0 0 1-1.414-1.414l2-2 6-6Z" clip-rule="evenodd"/>
@@ -110,18 +112,58 @@
               <span class="ms-3">{% translate 'Home' %}</span>
             </a>
           </li>
-          <!-- Pàgina 1 -->
+          {% if not request.user.is_authenticated %}
           <li>
-            <a href="#"
+            <a href="{% url 'registration:login' %}"
               class="flex items-center p-1 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
               <svg class="w-7 h-7 text-primary-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewbox="0 0 24 24">
                 <path fill-rule="evenodd" d="M11.293 3.293a1 1 0 0 1 1.414 0l6 6 2 2a1 1 0 0 1-1.414 1.414L19 12.414V19a2 2 0 0 1-2 2h-3a1 1 0 0 1-1-1v-3h-2v3a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2v-6.586l-.293.293a1 1 0 0 1-1.414-1.414l2-2 6-6Z" clip-rule="evenodd"/>
               </svg>
-              <span class="ms-3">{% translate 'Page' %}</span>
+              <span class="ms-3">{% translate "Log in" %}</span>
             </a>
           </li>
+          <li>
+            <a href="{% url 'registration:signup' %}"
+              class="flex items-center p-1 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+              <svg class="w-7 h-7 text-primary-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewbox="0 0 24 24">
+                <path fill-rule="evenodd" d="M11.293 3.293a1 1 0 0 1 1.414 0l6 6 2 2a1 1 0 0 1-1.414 1.414L19 12.414V19a2 2 0 0 1-2 2h-3a1 1 0 0 1-1-1v-3h-2v3a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2v-6.586l-.293.293a1 1 0 0 1-1.414-1.414l2-2 6-6Z" clip-rule="evenodd"/>
+              </svg>
+              <span class="ms-3">{% translate "Sign up" %}</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'registration:password_reset' %}"
+              class="flex items-center p-1 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+              <svg class="w-7 h-7 text-primary-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewbox="0 0 24 24">
+                <path fill-rule="evenodd" d="M11.293 3.293a1 1 0 0 1 1.414 0l6 6 2 2a1 1 0 0 1-1.414 1.414L19 12.414V19a2 2 0 0 1-2 2h-3a1 1 0 0 1-1-1v-3h-2v3a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2v-6.586l-.293.293a1 1 0 0 1-1.414-1.414l2-2 6-6Z" clip-rule="evenodd"/>
+              </svg>
+              <span class="ms-3">{% translate "Password recovery" %}</span>
+            </a>
+          </li>
+          {% endif %}
         </ul>
       </nav>
+      <div>
+      <!-- Opcions idioma -->
+      {# if language options #}
+      {% load language %}
+      {% get_current_language as LANGUAGE_CODE %}
+      {% get_available_languages as LANGUAGES %}
+      {% get_language_info_list for LANGUAGES as languages %}
+      <div class="text-sm pt-5 pl-2">
+        <ul class="flex divide-x divide-primary-600">
+          {% for language in languages %}
+          <!-- TODO: style hardcoded passar a css -->
+          <li class="px-1 uppercase {% if language.code == LANGUAGE_CODE %} font-bold{% endif %}">
+            <a href="{% change_lang language.code %}">
+              <p class="">{{ language.code }}</p>
+            </a>
+          </li>
+          {% endfor %}  
+        </ul> 
+      </div>
+      </div>
+    {# endif #}
     </div>
     </aside>
 
@@ -145,7 +187,7 @@
           dark:bg-gray-800">
           <div class="md:flex md:items-center md:justify-between">
             <!-- Footer nav -->
-            <ul class="flex flex-wrap items-center space-y-1 md:mb-0">
+            <ul class="flex flex-wrap items-center space-y-1 mb-2 md:mb-0">
               <!-- Tot els ítems -->
               <li>
                 <a href="#" class="mr-4 text-sm font-normal text-gray-500 hover:underline md:mr-6 dark:text-gray-400">
