@@ -17,15 +17,18 @@ from django.contrib import admin
 from django.urls import include, path
 from django.utils.translation import gettext_lazy as _
 
-from project.views import HomeView, RootRedirectView
+from project.views import RootRedirectView
+from apps.demo.views import data_view, detail_view, list_view, update_view
 
 urlpatterns = [
-    path("grappelli/", include("grappelli.urls")),  # grappelli URLS
     path("admin/", admin.site.urls),
     path("", RootRedirectView.as_view()),
 ]
 
 urlpatterns += i18n_patterns(
-    path("", HomeView.as_view(), name="home"),
+    path("", data_view, name="home"),
+            path("", list_view, name="list"),
+            path('<id>', detail_view, name="detail" ),
+            path('<id>', update_view, name="update" ),
     path(_("registration/"), include("apps.users.urls", namespace="registration")),
 )

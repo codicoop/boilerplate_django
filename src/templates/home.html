@@ -3,4 +3,11 @@
 
 {% block main %}
 <p>Contingut de la pàgina home</p>
+  <div align="center">
+    <form action="" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <br><input type="submit" value="Save">
+    </form>
+  </div>
 {% endblock %}

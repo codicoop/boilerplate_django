@@ -1,21 +1,17 @@
 from itertools import islice
 
-# from django.contrib.auth.views import PasswordResetDoneView as BasePasswordResetDoneView # noqa
-# from django.contrib.auth.views import (
-#     PasswordResetCompleteView as BasePasswordResetCompleteView,
-# )
-from django.contrib.auth.views import LoginView as BaseLoginView
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import (
+    LoginView as BaseLoginView,
     PasswordResetConfirmView as BasePasswordResetConfirmView,
+    PasswordResetView as BasePasswordResetView,
 )
-from django.contrib.auth.views import PasswordResetView as BasePasswordResetView
 from django.core.exceptions import ValidationError
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import FormView, UpdateView
 
-from project.mixins import AnonymousRequiredMixin
-from project.views import StandardSuccess
 from apps.users.forms import (
     AuthenticationForm,
     PasswordResetForm,
@@ -23,18 +19,48 @@ from apps.users.forms import (
     UserSignUpForm,
 )
 from apps.users.models import User
+from project.decorators import anonymous_required
+from project.mixins import AnonymousRequiredMixin
+from project.views import StandardSuccess
 
 
-class LoginView(AnonymousRequiredMixin, BaseLoginView):
-    template_name = "registration/login.html"
-    success_url = reverse_lazy("registration:profile_details")
-    form_class = AuthenticationForm
+@anonymous_required
+def login_view(request):
+    if request.method == "POST":
+        form = AuthenticationForm(request.POST)
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect("registration:profile_details")
+    else:
+        form = AuthenticationForm()
+    return render(request, "registration/login.html", {"form": form})
 
 
-class SignupView(FormView):
-    template_name = "registration/signup.html"
-    form_class = UserSignUpForm
-    success_url = reverse_lazy("registration:code_validation")
+@anonymous_required
+def signup_view(request):
+    if request.method == "POST":
+        form = UserSignUpForm(request.POST, None)
+        if form.is_valid():
+            form.save()
+            email = form.cleaned_data.get("email")
+            password = form.cleaned_data.get("password1")
+            user = authenticate(username=email, password=password)
+            login(request, user)
+            return redirect("registration:profile_details")
+    else:
+        form = UserSignUpForm()
+    return render(request, "registration/signup.html", {"form": form})
+
+
+@login_required
+def details_view(request):
+    form = ProfileDetailsForm(request.POST or None, instance=request.user)
+    if form.is_valid():
+        form.save()
+    return render(request, "profile/details.html", {"form": form})
 
 
 class PasswordResetView(AnonymousRequiredMixin, BasePasswordResetView):
@@ -80,13 +106,3 @@ class PasswordResetCompleteView(AnonymousRequiredMixin, StandardSuccess):
     description = _("Password reset complete")
     url = reverse_lazy("registration:login")
     link_text = _("Login")
-
-
-class DetailsView(UpdateView):
-    template_name = "profile/details.html"
-    form_class = ProfileDetailsForm
-    model = User
-    success_url = reverse_lazy("registration:profile_details_success")
-
-    def get_object(self, queryset=None):
-        return self.request.user

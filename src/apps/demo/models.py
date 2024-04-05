@@ -4,20 +4,20 @@ from django.utils.translation import gettext_lazy as _
 
 
 class Data(models.Model):
-    class RadioChoices(models.IntegerChoices):
-        OPTION_1 = 1, _("Option 1")
-        OPTION_2 = 2, _("Option 2")
-        OPTION_3 = 3, _("Option 3")
+    class RadioChoices(models.TextChoices):
+        OPTION_1 = "OP1", _("Option 1")
+        OPTION_2 = "OP2", _("Option 2")
+        OPTION_3 = "OP3", _("Option 3")
 
     class SelectChoices(models.TextChoices):
         OPTION_1 = "OP1", _("Option 1")
         OPTION_2 = "OP2", _("Option 2")
         OPTION_3 = "OP3", _("Option 3")
 
-    class SelectCheckboxChoices(models.IntegerChoices):
-        OPTION_1 = 1, _("Option 1")
-        OPTION_2 = 2, _("Option 2")
-        OPTION_3 = 3, _("Option 3")
+    class SelectCheckboxChoices(models.TextChoices):
+        OPTION_1 = "OP1", _("Option 1")
+        OPTION_2 = "OP2", _("Option 2")
+        OPTION_3 = "OP3", _("Option 3")
 
     field_text_1 = models.CharField(
         max_length=50,
@@ -39,7 +39,7 @@ class Data(models.Model):
         help_text="Help field_email",
     )
     field_radio = models.CharField(
-        max_length=2,
+        max_length=4,
         choices=RadioChoices.choices,
         blank=False,
         null=False,
