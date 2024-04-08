@@ -40,10 +40,9 @@
     {% if form.password.errors %}
       <span class="field__error text-sm">{{ form.password.errors.0 }}</span>
     {% endif %}
-    {{ form.password }}
     {% if form.password.help_text %}
-    <span class="field__helptext text-sm">{{ form.password.help_text }}</span>
-  {% endif %}
+      <span class="field__helptext text-sm">{{ form.password.help_text }}</span>
+    {% endif %}
   </div>
 
   <div class="field-checkbox {% if form.remember_me.errors %}error{% endif %}">
