@@ -1,9 +1,28 @@
 {% extends "../base_form.html" %}
 {% load i18n %}
 
+{# Blocks de base.html #}
 {% block page_title %}{% translate "Profile details" %}{% endblock %}
+{% block bodyclasses %}{% endblock %}
+{% block mainclasses %} profile {% endblock %}
+{% block extra_js %}{% endblock %}
 
-{% block form_fields %}
-    {{ form.as_p }}
-  <input type="submit" value="{% translate 'Save' %}" />
+{# Blocks de base_form.html #}
+{% block before_form_content %}{% endblock %}
+{% block enctype %}{% endblock %}
+{% block form_outro %}{% endblock %}
+{% block after_form_content %}{% endblock %}
+
+
+{% block form_intro %}
+  <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+    {% translate "Your profile" %}
+  </h1>
+  <p>{% translate "Here you can see and edit all your data." %}</p>
 {% endblock %}
+  
+{% block form_fields %}
+  {{ form.as_p }}
+{% endblock %}
+  
+{% block submit_text %}{% translate 'Save' %}{% endblock %}

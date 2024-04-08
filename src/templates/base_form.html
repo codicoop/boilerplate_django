@@ -2,11 +2,21 @@
 {% load static i18n %}
 
 {# Blocks de base.html #}
-
 {% block page_title %}{% endblock %}
 {% block bodyclasses %}{% endblock %}
 {% block mainclasses %}{% endblock %}
 {% block extra_js %}{% endblock %}
+
+<!-- Blocks del base_form -->
+<!-- 
+  before_form_content - Per contingut que quedi fora de la card, però abans d'ella
+  form_intro - Per contingut que quedi a dins de la card, però abans dels camps
+  enctype - Per la propietat enctype del form
+  form_fields - Pels camps del formulari
+  submit_text - Pel text del botó de submit form
+  form_outro - Per contingut que quedi a dins de la card, però després dels camps
+  after_form_content - Per contingut que quedi fora de la card, però després d'ella 
+-->
 
 {% block main %}
 
@@ -32,13 +42,11 @@
             {% block form_fields %}
             {% endblock %}
 
-            {% block form_submit %}
             <input type="submit" 
               class="w-full px-5 py-2.5 rounded-lg bg-primary-600 text-white  font-bold  text-sm text-center
                 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300
                 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               value="{% block submit_text %}{% translate 'Save' %}{% endblock %}">
-            {% endblock %}
           </form>
 
           {% include 'components/form_errors.html' %}
