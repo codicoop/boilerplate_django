@@ -9,55 +9,55 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          "50":"#d9eddf",
-          "100":"#eff6ff",
-          "200":"#10dda3",
-          "300":"#00bfa9",
-          "400":"#00a1a4",
-          "500":"#008293",
-          "600":"#1e6479",
-          "700":"#2f4858",
-          "800":"#386c5f",
-          "900":"#005139",
-          "950":"#005139"
+          "50":"#E1F8F8",
+          "100":"#B2EFEF",
+          "200":"#7BF3F3",
+          "300":"#7BEAEA",
+          "400":"#6EDADA",
+          "500":"#66CCCC",
+          "600":"#56B6B6",
+          "700":"#439C9C",
+          "800":"#4D9393",
+          "900":"#397575",
+          "950":"#295252"
         }
       }
     },
     fontFamily: {
       'body': [
-    'Inter', 
-    'ui-sans-serif', 
-    'system-ui', 
-    '-apple-system', 
-    'system-ui', 
-    'Segoe UI', 
-    'Roboto', 
-    'Helvetica Neue', 
-    'Arial', 
-    'Noto Sans', 
-    'sans-serif', 
-    'Apple Color Emoji', 
-    'Segoe UI Emoji', 
-    'Segoe UI Symbol', 
-    'Noto Color Emoji'
-  ],
+        'Inter', 
+        'ui-sans-serif', 
+        'system-ui', 
+        '-apple-system', 
+        'system-ui', 
+        'Segoe UI', 
+        'Roboto', 
+        'Helvetica Neue', 
+        'Arial', 
+        'Noto Sans', 
+        'sans-serif', 
+        'Apple Color Emoji', 
+        'Segoe UI Emoji', 
+        'Segoe UI Symbol', 
+        'Noto Color Emoji'
+      ],
       'sans': [
-    'Inter', 
-    'ui-sans-serif', 
-    'system-ui', 
-    '-apple-system', 
-    'system-ui', 
-    'Segoe UI', 
-    'Roboto', 
-    'Helvetica Neue', 
-    'Arial', 
-    'Noto Sans', 
-    'sans-serif', 
-    'Apple Color Emoji', 
-    'Segoe UI Emoji', 
-    'Segoe UI Symbol', 
-    'Noto Color Emoji'
-  ]
+        'Inter', 
+        'ui-sans-serif', 
+        'system-ui', 
+        '-apple-system', 
+        'system-ui', 
+        'Segoe UI', 
+        'Roboto', 
+        'Helvetica Neue', 
+        'Arial', 
+        'Noto Sans', 
+        'sans-serif', 
+        'Apple Color Emoji', 
+        'Segoe UI Emoji', 
+        'Segoe UI Symbol', 
+        'Noto Color Emoji'
+      ]
     }
   },
   plugins: [
