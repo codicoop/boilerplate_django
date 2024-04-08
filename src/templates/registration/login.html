@@ -4,7 +4,7 @@
 {# Blocks de base.html #}
 {% block page_title %}{% translate "Log in" %}{% endblock %}
 {% block bodyclasses %}{% endblock %}
-{% block mainclasses %} login grid-1 {% endblock %}
+{% block mainclasses %} login {% endblock %}
 {% block extra_js %}{% endblock %}
 
 {# Blocks de base_form.html #}
@@ -56,6 +56,8 @@
   </a>
 </div>
 {% endblock %}
+
+{% block submit_text %}{% translate 'Sign in' %}{% endblock %}
 
 {% block form_outro %}
 <p class="text-sm font-light text-gray-500 dark:text-gray-400">
