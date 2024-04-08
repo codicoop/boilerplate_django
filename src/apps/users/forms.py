@@ -8,11 +8,9 @@ from django.urls import reverse
 from django.utils import formats, timezone
 from django.utils.translation import gettext_lazy as _
 
-from project.fields.flowbite import FlowBiteCharField
 from project.helpers import absolute_url
 from project.post_office import send
 from apps.users.models import User
-from project.widgets.checkbox import CheckboxInput
 
 
 class AuthenticationForm(BaseAuthenticationForm):

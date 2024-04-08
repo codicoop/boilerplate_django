@@ -2,6 +2,8 @@ from django.db import models
 
 from django.utils.translation import gettext_lazy as _
 
+from project.fields import flowbite
+
 
 class Data(models.Model):
     class RadioChoices(models.TextChoices):
@@ -19,19 +21,19 @@ class Data(models.Model):
         OPTION_2 = "OP2", _("Option 2")
         OPTION_3 = "OP3", _("Option 3")
 
-    field_text_1 = models.CharField(
+    field_text_1 = flowbite.ModelCharField(
         max_length=50,
         blank=False,
         null=False,
         help_text="Help field_text_1",
     )
-    field_text_2 = models.CharField(
+    field_text_2 = flowbite.ModelCharField(
         max_length=100,
         blank=False,
         null=False,
         help_text="Help field_text_2",
     )
-    field_email = models.EmailField(
+    field_email = flowbite.ModelEmailField(
         max_length=100,
         blank=False,
         null=False,
@@ -45,7 +47,7 @@ class Data(models.Model):
         null=False,
         help_text="Help field_radio",
     )
-    field_boolean_checkbox = models.BooleanField(
+    field_boolean_checkbox = flowbite.ModelBooleanField(
         default=False,
         blank=False,
         null=False,
