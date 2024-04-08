@@ -47,7 +47,7 @@ class Data(models.Model):
         null=False,
         help_text="Help field_radio",
     )
-    field_boolean_checkbox = models.BooleanField(
+    field_boolean_checkbox = flowbite.ModelBooleanField(
         default=False,
         blank=False,
         null=False,

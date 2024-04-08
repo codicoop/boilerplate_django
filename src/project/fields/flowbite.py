@@ -44,3 +44,29 @@ class ModelEmailField(models.EmailField):
         defaults = {"form_class": FormEmailField}
         defaults.update(kwargs)
         return super().formfield(**defaults)
+
+
+class FlowBiteBoundBooleanField(BaseFlowBiteBoundField):
+    base_classes = "w-4 h-4 border rounded"
+    no_error_classes = (
+        "border-gray-300 bg-gray-50 focus:ring-3 focus:ring-primary-300 "
+        "dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 "
+        "dark:ring-offset-gray-800"
+    )
+    error_classes = (
+        "bg-red-50 border-red-500 text-red-700 placeholder-red-700 focus:ring-red-500"
+        " focus:border-red-500 dark:bg-gray-700 dark:text-red-500 "
+        "dark:placeholder-red-500 dark:border-red-500"
+    )
+
+
+class FormBooleanField(forms.BooleanField):
+    def get_bound_field(self, form, field_name):
+        return FlowBiteBoundBooleanField(form, self, field_name)
+
+
+class ModelBooleanField(models.BooleanField):
+    def formfield(self, **kwargs):
+        defaults = {"form_class": FormBooleanField}
+        defaults.update(kwargs)
+        return super().formfield(**defaults)

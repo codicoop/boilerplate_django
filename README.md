@@ -55,6 +55,16 @@ going to be immediately sent instead of added to queue for further processing.
 
 # Included features
 
+## Trick to render the fields with the error classes
+
+Might be useful when testing FlowBite design changes.
+
+In `BaseFlowBiteBoundField.get_context` change `if self.errors:` for
+`if not self.errors:`.
+
+This trick is a bit limited given that it will not include an error message,
+which you will probably also need to render.
+
 ## Custom templates for fields and widgets
 
 We're using Tailwind with a components library called FlowBite.
