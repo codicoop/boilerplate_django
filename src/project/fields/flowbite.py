@@ -33,6 +33,9 @@ class ModelCharField(models.CharField):
 
 class FormEmailField(forms.EmailField):
     def get_bound_field(self, form, field_name):
+        # Using FlowBiteBoundCharField instead of creating an
+        # FlowBiteBoundEmailField as, for now, email fields use the same classes
+        # as CharFields.
         return FlowBiteBoundCharField(form, self, field_name)
 
 
