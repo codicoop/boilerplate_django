@@ -4,16 +4,16 @@
 {# Blocks de base.html #}
 {% block page_title %}{% translate "Sign up" %}{% endblock %}
 {% block bodyclasses %}{% endblock %}
-{% block mainclasses %} signup grid-1 {% endblock %}
+{% block mainclasses %} signup {% endblock %}
 {% block extra_js %}{% endblock %}
 
 {# Blocks de base_form.html #}
-{% block form_classes %} grid-item-4-9 {% endblock %}
+{% block form_classes %}{% endblock %}
 
-{% block before_form_content %}
-<div class="form__title grid-item-4-9">
-  <h2>{% translate "Sign-up" %}</h2>
-</div>
+{% block form_intro %}
+<h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+  {% translate "Sign up" %}
+</h1>
 {% endblock %}
 
 {% block form_fields %}
