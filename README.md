@@ -87,6 +87,10 @@ or
 
 ... for more complex layouts.
 
+> **Important**: We're not creating the custom templates for the `form.as_p`,
+> `form.as_ul` or other representations, only for `form.as_div` (and just
+> `form`, as it default to `as_div`). **Only use the div form representation.**
+
 We studied the possibility of switching to `django-crispy-forms` as it provides
 layout control, and looks promising, but we decided to leave it for the future.
 
@@ -103,13 +107,14 @@ documentation. In that case, consider if it's worth it to first modify the
 template extent `field_default.html` and override only the blocks.
 
 That template covers the elements "around" que actual control. The control
-itself, meaning, the `<select>` tag for instance, is what Django calls Widget.
+itself, meaning, in example, the `<select>` tag, is what Django calls Widget.
 
 If you need to customize the control, in our tailwind/flowbite approach usually
 you'll only need to modify the classes.
 
 For that, you need to create a class extending `BaseFlowBiteBoundField` and
-specify the attributes, following the example the `FlowBiteBoundCharField` class.
+specify the attributes, following the example at the `FlowBiteBoundCharField`
+class.
 
 Anything that can be customized by modifying the widget's `attrs` should be done
 in this class.
