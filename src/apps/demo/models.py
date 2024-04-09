@@ -40,7 +40,7 @@ class Data(models.Model):
         unique=True,
         help_text="Help field_email",
     )
-    field_radio = models.CharField(
+    field_radio = flowbite.ModelRadioField(
         max_length=4,
         choices=RadioChoices.choices,
         blank=False,
@@ -53,7 +53,7 @@ class Data(models.Model):
         null=False,
         help_text="Help field_boolean_checkbox",
     )
-    field_select_dropdown = models.CharField(
+    field_select_dropdown = flowbite.ModelSelectDropdownField(
         max_length=4,
         choices=SelectChoices.choices,
         default=SelectChoices.OPTION_1,
@@ -61,24 +61,24 @@ class Data(models.Model):
         null=False,
         help_text="Help field_select_dropdown",
     )
-    field_password = models.CharField(
+    field_password = flowbite.ModelPasswordField(
         max_length=50,
         blank=False,
         null=False,
         help_text="Help field_password",
     )
-    field_password_confirm = models.CharField(
+    field_password_confirm = flowbite.ModelPasswordField(
         max_length=50,
         blank=False,
         null=False,
         help_text="Help field_password_confirm",
     )
-    field_number = models.IntegerField(
+    field_number = flowbite.ModelIntegerField(
         blank=True,
         null=True,
         help_text="Help field_number",
     )
-    field_select_checkbox = models.CharField(
+    field_select_checkbox = flowbite.ModelSelectCheckboxField(
         max_length=4,
         choices=SelectCheckboxChoices.choices,
         default=SelectCheckboxChoices.OPTION_1,

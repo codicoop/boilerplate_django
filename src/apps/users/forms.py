@@ -8,13 +8,15 @@ from django.urls import reverse
 from django.utils import formats, timezone
 from django.utils.translation import gettext_lazy as _
 
+from project.fields import flowbite
+from project.fields.flowbite import FormBooleanField, FormPasswordField
 from project.helpers import absolute_url
 from project.post_office import send
 from apps.users.models import User
 
 
 class AuthenticationForm(BaseAuthenticationForm):
-    remember_me = forms.BooleanField(
+    remember_me = FormBooleanField(
         required=False, widget=forms.CheckboxInput(), label=_("Remember me")
     )
 
@@ -58,7 +60,15 @@ class UserSignUpForm(UserCreationForm):
             "email",
         )
 
-    accept_conditions = forms.BooleanField(
+    password1 = FormPasswordField(
+        widget=forms.PasswordInput(),
+        label=_("Password"),
+    )
+    password2 = FormPasswordField(
+        widget=forms.PasswordInput(),
+        label=_("Password confirmation"),
+    )
+    accept_conditions = FormBooleanField(
         label=_("I accept the data privacy policy"), required=True
     )
 
@@ -124,7 +134,7 @@ class PasswordResetForm(BasePasswordResetForm):
 
 
 class EmailVerificationCodeForm(forms.Form):
-    email_verification_code = forms.IntegerField(
+    email_verification_code = flowbite.FormIntegerField(
         label=_("Verification code")
     )
 

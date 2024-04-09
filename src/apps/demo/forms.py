@@ -1,20 +1,29 @@
 from django import forms
 
 from apps.demo.models import Data
-
+from project.fields.flowbite import (
+    FormPasswordField,
+    FormRadioField,
+    FormSelectDropdownField,
+    FormSelectCheckboxField,
+)
 
 class DataForm(forms.ModelForm):
-    field_radio = forms.ChoiceField(
+    field_radio = FormRadioField(
         widget=forms.RadioSelect,
         choices=Data.RadioChoices.choices,
     )
-    field_password = forms.CharField(
+    field_password = FormPasswordField(
         widget=forms.PasswordInput(),
     )
-    field_password_confirm = forms.CharField(
+    field_password_confirm = FormPasswordField(
         widget=forms.PasswordInput(),
     )
-    field_select_checkbox = forms.MultipleChoiceField(
+    field_select_dropdown = FormSelectDropdownField(
+        widget=forms.Select,
+        choices=Data.SelectChoices.choices,
+    )
+    field_select_checkbox = FormSelectCheckboxField(
         widget=forms.CheckboxSelectMultiple,
         choices=Data.SelectCheckboxChoices.choices
     )
