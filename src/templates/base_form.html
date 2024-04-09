@@ -14,8 +14,8 @@
   {% endblock %}
 
   <section class="bg-gray-50 dark:bg-gray-900">
-    <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-16">  
-      <div class="w-full bg-white rounded-lg shadow 
+    <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-16">
+      <div class="w-full bg-white rounded-lg shadow
             dark:border dark:bg-gray-800 dark:border-gray-700
             sm:max-w-md
             md:mt-0
@@ -24,7 +24,7 @@
 
           {% block form_intro %}
           {% endblock %}
-          
+
           <form method="post" enctype="{% block enctype %}application/x-www-form-urlencoded{% endblock %}" {% block form_action %}{% endblock %}
           class="space-y-4 md:space-y-6">
             {% csrf_token %}
@@ -33,10 +33,10 @@
             {% endblock %}
 
             {% block form_submit %}
-            <button type="submit"
-              class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-              {% block submit_text %}{% translate 'Sign in' %}{% endblock %}
-            </button>
+              {% if not request.resolver_match.url_name == "profile_details" %}
+                <input class="form__submit btn btn--sec-solid" type="submit"
+                       value="{% block submit_text %}{% translate 'Go' %}{% endblock %}">
+             {% endif %}
             {% endblock %}
           </form>
 

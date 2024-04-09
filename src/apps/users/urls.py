@@ -4,12 +4,14 @@ from django.utils.translation import gettext_lazy as _
 
 from apps.users.views import (
     details_view,
+    EmailVerificationView,
     PasswordResetCompleteView,
     PasswordResetConfirmView,
     PasswordResetDoneView,
     PasswordResetView,
     login_view,
     signup_view,
+    SendVerificationCodeView,
 )
 from project.views import StandardSuccess
 
@@ -57,5 +59,15 @@ urlpatterns = [
         _("profile/details/"),
         details_view,
         name="profile_details",
+    ),
+    path(
+        _("user-validation/"),
+        EmailVerificationView.as_view(),
+        name="user_validation",
+    ),
+    path(
+        _("send-verification-code/"),
+        SendVerificationCodeView.as_view(),
+        name="send_verification_code",
     ),
 ]

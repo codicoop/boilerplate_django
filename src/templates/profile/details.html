@@ -4,6 +4,16 @@
 {% block page_title %}{% translate "Profile details" %}{% endblock %}
 
 {% block form_fields %}
+  {% if not user.email_verified %}
+    <input color="red" style="height: 50px; background-color: red" width="440px">
+  {% endif %}
     {{ form.as_p }}
-  <input type="submit" value="{% translate 'Save' %}" />
+    {% if not message %}
+      <input type="submit" value="{% translate 'Save' %}" />
+    {% endif %}
+     <h4>{{ message }}</h4>
+    {% if not user.email_verified %}
+      <h3 align="center" style="color: red">The email is not verified</h3>
+      <a href="{% url 'registration:send_verification_code' %}" style="text-align:center;">Verify email</a>
+    {% endif %}
 {% endblock %}

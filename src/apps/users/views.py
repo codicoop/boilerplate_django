@@ -3,7 +3,6 @@ from itertools import islice
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import (
-    LoginView as BaseLoginView,
     PasswordResetConfirmView as BasePasswordResetConfirmView,
     PasswordResetView as BasePasswordResetView,
 )
@@ -11,14 +10,17 @@ from django.core.exceptions import ValidationError
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
+from django.views.generic import FormView
 
 from apps.users.forms import (
     AuthenticationForm,
+    EmailVerificationCodeForm,
     PasswordResetForm,
     ProfileDetailsForm,
+    SendVerificationCodeForm,
     UserSignUpForm,
 )
-from apps.users.models import User
+from apps.users.services import send_confirmation_mail
 from project.decorators import anonymous_required
 from project.mixins import AnonymousRequiredMixin
 from project.views import StandardSuccess
@@ -61,6 +63,35 @@ def details_view(request):
     if form.is_valid():
         form.save()
     return render(request, "profile/details.html", {"form": form})
+
+
+class EmailVerificationView(FormView, StandardSuccess):
+    form_class = EmailVerificationCodeForm
+    template_name = "registration/user_validation.html"
+    success_url = reverse_lazy("registration:profile_details_success")
+    StandardSuccess.description = _("Account has been successfully verified")
+
+    def form_valid(self, form):
+        if (str(form.cleaned_data["email_verification_code"]) ==
+                self.request.user.email_verification_code):
+            self.request.user.email_verified = True
+            self.request.user.save()
+            return super().form_valid(form)
+        else:
+            form.add_error("email_verification_code", ValidationError(
+                "Code entered is not correct and the user cannot be verified. Please "
+                "try again."))
+            return super().form_invalid(form)
+
+
+class SendVerificationCodeView(FormView):
+    template_name = "registration/send_verification_code.html"
+    form_class = SendVerificationCodeForm
+    success_url = reverse_lazy("registration:user_validation")
+
+    def form_valid(self, form):
+        send_confirmation_mail(self.request.user)
+        return super().form_valid(form)
 
 
 class PasswordResetView(AnonymousRequiredMixin, BasePasswordResetView):

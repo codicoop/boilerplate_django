@@ -47,6 +47,8 @@ class UserAdmin(ModelAdminMixin, BaseUserAdmin):
         "full_name",
         "is_staff",
         "is_superuser",
+        "email_verified",
+        "email_verification_code",
     )
     list_filter = ("is_superuser",)
     search_fields = (

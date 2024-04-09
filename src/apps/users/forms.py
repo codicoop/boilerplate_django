@@ -121,3 +121,13 @@ class PasswordResetForm(BasePasswordResetForm):
             template="password_reset",
             context=context,
         )
+
+
+class EmailVerificationCodeForm(forms.Form):
+    email_verification_code = forms.IntegerField(
+        label=_("Verification code")
+    )
+
+
+class SendVerificationCodeForm(forms.Form):
+    pass
