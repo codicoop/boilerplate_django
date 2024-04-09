@@ -1,19 +1,28 @@
 {% extends "../base_form.html" %}
 {% load i18n %}
 
+{# Blocks de base.html #}
 {% block page_title %}{% translate "Profile details" %}{% endblock %}
+{% block bodyclasses %}{% endblock %}
+{% block mainclasses %} profile {% endblock %}
+{% block extra_js %}{% endblock %}
+
+{# Blocks de base_form.html #}
+{% block before_form_content %}{% endblock %}
+{% block enctype %}{% endblock %}
+{% block form_outro %}{% endblock %}
+{% block after_form_content %}{% endblock %}
+
+
+{% block form_intro %}
+  <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+    {% translate "Your profile" %}
+  </h1>
+  <p>{% translate "Here you can see and edit all your data." %}</p>
+{% endblock %}
 
 {% block form_fields %}
-  {% if not user.email_verified %}
-    <input color="red" style="height: 50px; background-color: red" width="440px">
-  {% endif %}
-    {{ form.as_p }}
-    {% if not message %}
-      <input type="submit" value="{% translate 'Save' %}" />
-    {% endif %}
-     <h4>{{ message }}</h4>
-    {% if not user.email_verified %}
-      <h3 align="center" style="color: red">The email is not verified</h3>
-      <a href="{% url 'registration:send_verification_code' %}" style="text-align:center;">Verify email</a>
-    {% endif %}
+  {{ form.as_p }}
 {% endblock %}
+
+{% block submit_text %}{% translate 'Save' %}{% endblock %}

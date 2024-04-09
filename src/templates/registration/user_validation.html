@@ -4,11 +4,15 @@
 {# Blocks de base.html #}
 {% block page_title %}{% translate "Mail validation" %}{% endblock %}
 {% block bodyclasses %}{% endblock %}
-{% block mainclasses %} grid-1 {% endblock %}
+{% block mainclasses %}{% endblock %}
 {% block extra_js %}{% endblock %}
 
 {# Blocks de base_form.html #}
-{% block form_classes %} grid-item-4-9 {% endblock %}
+{% block before_form_content %}{% endblock %}
+{% block form_intro %}{% endblock %}
+{% block enctype %}{% endblock %}
+{% block submit_text %}{% endblock %}
+{% block form_outro %}{% endblock %}
 
 {% block form_fields %}
   {{ form.as_p }}
