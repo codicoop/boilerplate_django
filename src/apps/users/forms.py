@@ -5,6 +5,8 @@ from django.contrib.auth.forms import (
     AuthenticationForm as BaseAuthenticationForm,
     PasswordResetForm as BasePasswordResetForm,
     UserCreationForm,
+    PasswordChangeForm as BasePasswordChangeForm,
+    SetPasswordForm as BaseSetPasswordForm
 )
 from django.urls import reverse
 from django.utils import formats, timezone
@@ -14,7 +16,7 @@ from apps.users.models import User
 from project.fields.flowbite import (
     FormEmailField,
     FormIntegerField,
-    FormSignInBooleanCheckboxField,
+    FormSignInBooleanCheckboxField, FormPasswordField,
 )
 from project.fields import flowbite
 from project.helpers import absolute_url
@@ -189,6 +191,40 @@ class PasswordResetForm(BasePasswordResetForm):
             template="password_reset",
             context=context,
         )
+
+
+class PasswordResetConfirmForm(BaseSetPasswordForm):
+    new_password1 = FormPasswordField(
+        widget=forms.PasswordInput(attrs={"placeholder": _("New password")}),
+        label=_("New password"),
+    )
+    new_password2 = FormPasswordField(
+        widget=forms.PasswordInput(
+            attrs={"placeholder": _("New password confirmation")}
+        ),
+        label=_("New password confirmation"),
+    )
+
+
+class PasswordChangeForm(BasePasswordChangeForm):
+    old_password = FormPasswordField(
+        widget=forms.PasswordInput(
+            attrs={
+                "placeholder": _("Old password"),
+            }
+        ),
+        label=_("Old password"),
+    )
+    new_password1 = FormPasswordField(
+        widget=forms.PasswordInput(attrs={"placeholder": _("New password")}),
+        label=_("New password"),
+    )
+    new_password2 = FormPasswordField(
+        widget=forms.PasswordInput(
+            attrs={"placeholder": _("New password confirmation")}
+        ),
+        label=_("New password confirmation"),
+    )
 
 
 class EmailVerificationCodeForm(forms.Form):

@@ -19,8 +19,10 @@ from apps.users.forms import (
     EmailVerificationCodeForm,
     PasswordResetForm,
     ProfileDetailsForm,
+    PasswordResetConfirmForm,
     SendVerificationCodeForm,
     UserSignUpForm,
+    PasswordChangeForm
 )
 from apps.users.services import send_confirmation_mail
 from project.decorators import anonymous_required
@@ -121,6 +123,7 @@ class PasswordResetView(AnonymousRequiredMixin, BasePasswordResetView):
 
 
 class PasswordResetConfirmView(AnonymousRequiredMixin, BasePasswordResetConfirmView):
+    form_class = PasswordResetConfirmForm
     template_name = "registration/password_reset_form.html"
     success_url = reverse_lazy("registration:password_reset_complete")
 
@@ -141,6 +144,7 @@ class PasswordResetCompleteView(AnonymousRequiredMixin, StandardSuccess):
     link_text = _("Login")
 
 class PasswordChangeView(BasePasswordChangeView):
+    form_class = PasswordChangeForm
     template_name = "registration/password_change_form.html"
     success_url = reverse_lazy("registration:password_change_done")
 
