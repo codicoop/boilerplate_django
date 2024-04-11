@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import (
     PasswordResetConfirmView as BasePasswordResetConfirmView,
     PasswordResetView as BasePasswordResetView,
+    PasswordChangeView as BasePasswordChangeView,
+    PasswordChangeDoneView as BasePasswordChangeDoneView,
 )
 from django.core.exceptions import ValidationError
 from django.shortcuts import redirect, render
@@ -137,3 +139,10 @@ class PasswordResetCompleteView(AnonymousRequiredMixin, StandardSuccess):
     description = _("Password reset complete")
     url = reverse_lazy("registration:login")
     link_text = _("Login")
+
+class PasswordChangeView(BasePasswordChangeView):
+    template_name = "registration/password_change_form.html"
+    success_url = reverse_lazy("registration:password_change_done")
+
+class PasswordChangeDoneView(BasePasswordChangeDoneView):
+    template_name = "standard_success.html"

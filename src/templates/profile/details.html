@@ -48,6 +48,10 @@
 {% endblock %}
 
 {% block submit_whole %}
+    <a href="{% url 'registration:password_change' %}" class="w-full px-5 py-2.5 rounded-lg bg-primary-600 text-white font-bold text-sm text-center
+    hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300
+    dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800
+    disabled:opacity-50  disabled:bg-gray-400 ">{% translate 'Change password' %}</a>
     <input type="submit"
     {% if not user.email_verified %}disabled="true"{% endif %}
     class="w-full px-5 py-2.5 rounded-lg bg-primary-600 text-white font-bold text-sm text-center

@@ -3,15 +3,17 @@ from django.urls import path, reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
 from apps.users.views import (
-    details_view,
     EmailVerificationView,
+    PasswordChangeView,
     PasswordResetCompleteView,
     PasswordResetConfirmView,
     PasswordResetDoneView,
     PasswordResetView,
+    PasswordChangeDoneView,
+    SendVerificationCodeView,
+    details_view,
     login_view,
     signup_view,
-    SendVerificationCodeView,
 )
 from project.views import StandardSuccess
 
@@ -29,8 +31,18 @@ urlpatterns = [
     ),
     path(
         _("password-reset/"),
-        PasswordResetView.as_view(),
+        PasswordChangeView.as_view(),
         name="password_reset",
+    ),
+    path(
+        _("password-change/"),
+        PasswordChangeView.as_view(),
+        name="password_change",
+    ),
+    path(
+        _("password-change/done/"),
+        PasswordChangeDoneView.as_view(),
+        name="password_change_done",
     ),
     path(
         _("password-reset/<uidb64>/<token>/"),
