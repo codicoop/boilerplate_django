@@ -1,24 +1,46 @@
 from django import forms
+from django.utils.translation import gettext_lazy as _
 
 from apps.demo.models import Data
 from project.fields.flowbite import (
     FormPasswordField,
     FormRadioField,
     FormSelectDropdownField,
-    FormSelectCheckboxField,
+    FormSelectCheckboxField, FormCharField, FormEmailField, FormIntegerField,
 )
 
 
 class DataForm(forms.ModelForm):
+    field_text_1 = FormCharField(
+        widget=forms.TextInput(
+            attrs={"placeholder": _("Text 1"), "autocomplete": "text"}),
+    )
+    field_text_2 = FormCharField(
+        widget=forms.TextInput(
+            attrs={"placeholder": _("Text 2"),  "autocomplete": "text"}),
+    )
+    field_email = FormEmailField(
+        widget=forms.EmailInput(
+            attrs={"autocomplete": "email", "placeholder": _("email address")}),
+    )
     field_radio = FormRadioField(
         widget=forms.RadioSelect,
         choices=Data.RadioChoices.choices,
     )
     field_password = FormPasswordField(
-        widget=forms.PasswordInput(),
+        widget=forms.PasswordInput(
+            attrs={"placeholder": "Password"}),
     )
     field_password_confirm = FormPasswordField(
-        widget=forms.PasswordInput(),
+        widget=forms.PasswordInput(
+            attrs={"placeholder": "Password confirmation"}),
+    )
+    field_number = FormIntegerField(
+        widget=forms.NumberInput(attrs={
+            "placeholder": _("Number"),
+            "autocomplete": "number",
+        }
+    ),
     )
     field_select_dropdown = FormSelectDropdownField(
         widget=forms.Select,

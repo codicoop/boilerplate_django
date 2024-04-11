@@ -12,10 +12,9 @@ from django.utils.translation import gettext_lazy as _
 
 from apps.users.models import User
 from project.fields.flowbite import (
-    FormBooleanField,
     FormEmailField,
     FormIntegerField,
-    FormPasswordField,
+    FormSignInBooleanCheckboxField,
 )
 from project.fields import flowbite
 from project.helpers import absolute_url
@@ -31,7 +30,7 @@ class AuthenticationForm(BaseAuthenticationForm):
         widget=forms.PasswordInput(attrs={"placeholder": _("Password")}),
         label=_("Password"),
     )
-    remember_me = FormBooleanField(
+    remember_me = FormSignInBooleanCheckboxField(
         required=False, widget=forms.CheckboxInput(), label=_("Remember me")
     )
 
@@ -65,6 +64,35 @@ class UserChangeForm(forms.ModelForm):
 
 
 class UserSignUpForm(UserCreationForm):
+    name = flowbite.FormCharField(
+        label=_("Name"),
+        widget=forms.TextInput(attrs={"placeholder": _("Name")}),
+    )
+    surnames = flowbite.FormCharField(
+        label=_("Surnames"),
+        widget=forms.TextInput(attrs={"placeholder": _("Surnames")}),
+    )
+    password1 = flowbite.FormPasswordField(
+        widget=forms.PasswordInput(attrs={"placeholder": _("Password")}),
+        label=_("Password"),
+    )
+    password2 = flowbite.FormPasswordField(
+        widget=forms.PasswordInput(attrs={"placeholder": _("Password confirmation")}),
+        label=_("Password confirmation"),
+    )
+    email = flowbite.FormEmailField(
+        label=_("Email"),
+        max_length=254,
+        widget=forms.EmailInput(attrs={
+            "autocomplete": "email",
+            "placeholder": _("email address")
+        }
+        ),
+    )
+    accept_conditions = flowbite.FormBooleanField(
+        label=_("I accept the data privacy policy"), required=True
+    )
+
     class Meta(UserCreationForm.Meta):
         model = User
         fields = (
@@ -75,18 +103,6 @@ class UserSignUpForm(UserCreationForm):
             "email",
         )
 
-    password1 = FormPasswordField(
-        widget=forms.PasswordInput(),
-        label=_("Password"),
-    )
-    password2 = FormPasswordField(
-        widget=forms.PasswordInput(),
-        label=_("Password confirmation"),
-    )
-    accept_conditions = FormBooleanField(
-        label=_("I accept the data privacy policy"), required=True
-    )
-
     def save(self, commit=True):
         obj = super().save(commit)
         obj.set_boolean_datetime(
@@ -96,6 +112,23 @@ class UserSignUpForm(UserCreationForm):
 
 
 class ProfileDetailsForm(forms.ModelForm):
+    name = flowbite.FormCharField(
+        label=_("Name"),
+        widget=forms.TextInput(attrs={"placeholder": _("Name")}),
+    )
+    surnames = flowbite.FormCharField(
+        label=_("Surnames"),
+        widget=forms.TextInput(attrs={"placeholder": _("Surnames")}),
+    )
+    email = flowbite.FormEmailField(
+        label=_("Email"),
+        max_length=254,
+        widget=forms.EmailInput(attrs={
+            "placeholder": _("email address"),
+            "autocomplete": "email",
+        }),
+    )
+
     class Meta(UserCreationForm.Meta):
         model = User
         fields = (
@@ -109,7 +142,11 @@ class PasswordResetForm(BasePasswordResetForm):
     email = FormEmailField(
         label=_("Email"),
         max_length=254,
-        widget=forms.EmailInput(attrs={"autocomplete": "email"}),
+        widget=forms.EmailInput(attrs={
+            "autocomplete": "email",
+            "placeholder": _("email address"),
+        }
+        ),
     )
 
     def send_mail(
