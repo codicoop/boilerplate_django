@@ -4,20 +4,21 @@
 {# Blocks de base.html #}
 {% block page_title %}{% translate "Mail validation" %}{% endblock %}
 {% block bodyclasses %}{% endblock %}
-{% block mainclasses %} grid-1 {% endblock %}
+{% block mainclasses %}{% endblock %}
 {% block extra_js %}{% endblock %}
 
 {# Blocks de base_form.html #}
-{% block form_classes %} grid-item-4-9 {% endblock %}
+{% block before_form_content %}{% endblock %}
+{% block form_intro %}{% endblock %}
+{% block enctype %}{% endblock %}
+{% block after_form_content %}{% endblock %}
+{% block submit_whole %}{% endblock %}
+{% block form_outro %}{% endblock %}
+{% block after_form_content %}{% endblock %}
 
 {% block form_fields %}
-  {{ form.as_p }}
-  {% block submit_value %}{% endblock %}
-  <p>Click Go to send you a verification code, then check your email</p>
+{{ form }}
+<p>{% translate "Click the button to send you a verification code, then check your email." %}</p>
 {% endblock %}
 
-
-
-
-{% block after_form_content %}
-{% endblock after_form_content %}
+{% block submit_text %}{% translate "Send" %}{% endblock %}
