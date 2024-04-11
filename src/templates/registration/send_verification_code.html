@@ -9,14 +9,18 @@
 
 {# Blocks de base_form.html #}
 {% block before_form_content %}{% endblock %}
-{% block form_intro %}{% endblock %}
 {% block enctype %}{% endblock %}
 {% block after_form_content %}{% endblock %}
-{% block submit_whole %}{% endblock %}
 {% block form_outro %}{% endblock %}
 
+{% block form_intro %}
+<h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+  {% translate "Email verification" %}
+</h1>
+{% endblock %}
+
 {% block form_fields %}
-  <p>{% translate "Click the button to send you a verification code, then check your email." %}</p>
+  <p>{% translate "By clicking the button a verification code will be send to your email address. Check your email to find it." %}</p>
   {{ form }}
 {% endblock %}
 
