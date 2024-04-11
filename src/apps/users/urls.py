@@ -4,12 +4,12 @@ from django.utils.translation import gettext_lazy as _
 
 from apps.users.views import (
     EmailVerificationView,
+    PasswordChangeDoneView,
     PasswordChangeView,
     PasswordResetCompleteView,
     PasswordResetConfirmView,
     PasswordResetDoneView,
     PasswordResetView,
-    PasswordChangeDoneView,
     SendVerificationCodeView,
     details_view,
     login_view,
@@ -31,18 +31,8 @@ urlpatterns = [
     ),
     path(
         _("password-reset/"),
-        PasswordChangeView.as_view(),
+        PasswordResetView.as_view(),
         name="password_reset",
-    ),
-    path(
-        _("password-change/"),
-        PasswordChangeView.as_view(),
-        name="password_change",
-    ),
-    path(
-        _("password-change/done/"),
-        PasswordChangeDoneView.as_view(),
-        name="password_change_done",
     ),
     path(
         _("password-reset/<uidb64>/<token>/"),
@@ -58,6 +48,16 @@ urlpatterns = [
         _("password-reset/complete/"),
         PasswordResetCompleteView.as_view(),
         name="password_reset_complete",
+    ),
+        path(
+        _("password-change/"),
+        PasswordChangeView.as_view(),
+        name="password_change",
+    ),
+    path(
+        _("password-change/done/"),
+        PasswordChangeDoneView.as_view(),
+        name="password_change_done",
     ),
     # Profile
     path(

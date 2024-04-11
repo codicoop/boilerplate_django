@@ -5,6 +5,7 @@ from django.contrib.auth.forms import (
     AuthenticationForm as BaseAuthenticationForm,
     PasswordChangeForm as BasePasswordChangeForm,
     PasswordResetForm as BasePasswordResetForm,
+    SetPasswordForm as BaseSetPasswordForm,
     UserCreationForm,
 )
 from django.urls import reverse
@@ -152,6 +153,19 @@ class PasswordResetForm(BasePasswordResetForm):
             template="password_reset",
             context=context,
         )
+
+
+class PasswordResetConfirmForm(BaseSetPasswordForm):
+    new_password1 = FormPasswordField(
+        widget=forms.PasswordInput(attrs={"placeholder": _("New password")}),
+        label=_("New password"),
+    )
+    new_password2 = FormPasswordField(
+        widget=forms.PasswordInput(
+            attrs={"placeholder": _("New password confirmation")}
+        ),
+        label=_("New password confirmation"),
+    )
 
 
 class PasswordChangeForm(BasePasswordChangeForm):
