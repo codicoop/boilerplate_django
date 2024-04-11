@@ -3,10 +3,10 @@ from itertools import islice
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import (
+    PasswordChangeDoneView as BasePasswordChangeDoneView,
+    PasswordChangeView as BasePasswordChangeView,
     PasswordResetConfirmView as BasePasswordResetConfirmView,
     PasswordResetView as BasePasswordResetView,
-    PasswordChangeView as BasePasswordChangeView,
-    PasswordChangeDoneView as BasePasswordChangeDoneView,
 )
 from django.core.exceptions import ValidationError
 from django.shortcuts import redirect, render
@@ -17,12 +17,12 @@ from django.views.generic import FormView
 from apps.users.forms import (
     AuthenticationForm,
     EmailVerificationCodeForm,
+    PasswordChangeForm,
+    PasswordResetConfirmForm,
     PasswordResetForm,
     ProfileDetailsForm,
-    PasswordResetConfirmForm,
     SendVerificationCodeForm,
     UserSignUpForm,
-    PasswordChangeForm
 )
 from apps.users.services import send_confirmation_mail
 from project.decorators import anonymous_required
@@ -66,6 +66,7 @@ def details_view(request):
     form = ProfileDetailsForm(request.POST or None, instance=request.user)
     if form.is_valid():
         form.save()
+        return redirect("registration:profile_details_success")
     return render(request, "profile/details.html", {"form": form})
 
 
@@ -76,15 +77,21 @@ class EmailVerificationView(FormView, StandardSuccess):
     StandardSuccess.description = _("Account has been successfully verified")
 
     def form_valid(self, form):
-        if (str(form.cleaned_data["email_verification_code"]) ==
-                self.request.user.email_verification_code):
+        if (
+            str(form.cleaned_data["email_verification_code"])
+            == self.request.user.email_verification_code
+        ):
             self.request.user.email_verified = True
             self.request.user.save()
             return super().form_valid(form)
         else:
-            form.add_error("email_verification_code", ValidationError(
-                "Code entered is not correct and the user cannot be verified. Please "
-                "try again."))
+            form.add_error(
+                "email_verification_code",
+                ValidationError(
+                    "Code entered is not correct and the user cannot be verified. Please "
+                    "try again."
+                ),
+            )
             return super().form_invalid(form)
 
 
@@ -143,10 +150,12 @@ class PasswordResetCompleteView(AnonymousRequiredMixin, StandardSuccess):
     url = reverse_lazy("registration:login")
     link_text = _("Login")
 
+
 class PasswordChangeView(BasePasswordChangeView):
     form_class = PasswordChangeForm
     template_name = "registration/password_change_form.html"
     success_url = reverse_lazy("registration:password_change_done")
+
 
 class PasswordChangeDoneView(BasePasswordChangeDoneView):
     template_name = "standard_success.html"
