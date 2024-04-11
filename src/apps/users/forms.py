@@ -3,22 +3,23 @@ from django import forms
 from django.conf import settings
 from django.contrib.auth.forms import (
     AuthenticationForm as BaseAuthenticationForm,
-    PasswordResetForm as BasePasswordResetForm,
-    UserCreationForm,
     PasswordChangeForm as BasePasswordChangeForm,
-    SetPasswordForm as BaseSetPasswordForm
+    PasswordResetForm as BasePasswordResetForm,
+    SetPasswordForm as BaseSetPasswordForm,
+    UserCreationForm,
 )
 from django.urls import reverse
 from django.utils import formats, timezone
 from django.utils.translation import gettext_lazy as _
 
 from apps.users.models import User
+from project.fields import flowbite
 from project.fields.flowbite import (
     FormEmailField,
     FormIntegerField,
-    FormSignInBooleanCheckboxField, FormPasswordField,
+    FormPasswordField,
+    FormSignInBooleanCheckboxField,
 )
-from project.fields import flowbite
 from project.helpers import absolute_url
 from project.post_office import send
 
@@ -26,7 +27,7 @@ from project.post_office import send
 class AuthenticationForm(BaseAuthenticationForm):
     username = flowbite.FormEmailField(
         label=_("Email"),
-        widget=forms.EmailInput(attrs={"placeholder": _("Email")}),
+        widget=forms.EmailInput(attrs={"autofocus": True, "placeholder": _("Email")}),
     )
     password = flowbite.FormPasswordField(
         widget=forms.PasswordInput(attrs={"placeholder": _("Password")}),
@@ -68,7 +69,7 @@ class UserChangeForm(forms.ModelForm):
 class UserSignUpForm(UserCreationForm):
     name = flowbite.FormCharField(
         label=_("Name"),
-        widget=forms.TextInput(attrs={"placeholder": _("Name")}),
+        widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("Name")}),
     )
     surnames = flowbite.FormCharField(
         label=_("Surnames"),
@@ -85,10 +86,8 @@ class UserSignUpForm(UserCreationForm):
     email = flowbite.FormEmailField(
         label=_("Email"),
         max_length=254,
-        widget=forms.EmailInput(attrs={
-            "autocomplete": "email",
-            "placeholder": _("email address")
-        }
+        widget=forms.EmailInput(
+            attrs={"autocomplete": "Email", "placeholder": _("Email address")}
         ),
     )
     accept_conditions = flowbite.FormBooleanField(
@@ -125,10 +124,12 @@ class ProfileDetailsForm(forms.ModelForm):
     email = flowbite.FormEmailField(
         label=_("Email"),
         max_length=254,
-        widget=forms.EmailInput(attrs={
-            "placeholder": _("email address"),
-            "autocomplete": "email",
-        }),
+        widget=forms.EmailInput(
+            attrs={
+                "placeholder": _("Email address"),
+                "autocomplete": "email",
+            }
+        ),
     )
 
     class Meta(UserCreationForm.Meta):
@@ -144,10 +145,12 @@ class PasswordResetForm(BasePasswordResetForm):
     email = FormEmailField(
         label=_("Email"),
         max_length=254,
-        widget=forms.EmailInput(attrs={
-            "autocomplete": "email",
-            "placeholder": _("email address"),
-        }
+        widget=forms.EmailInput(
+            attrs={
+                "autofocus": True,
+                "autocomplete": "email",
+                "placeholder": _("Email address"),
+            }
         ),
     )
 
@@ -195,7 +198,9 @@ class PasswordResetForm(BasePasswordResetForm):
 
 class PasswordResetConfirmForm(BaseSetPasswordForm):
     new_password1 = FormPasswordField(
-        widget=forms.PasswordInput(attrs={"placeholder": _("New password")}),
+        widget=forms.PasswordInput(
+            attrs={"autofocus": True, "placeholder": _("New password")}
+        ),
         label=_("New password"),
     )
     new_password2 = FormPasswordField(
@@ -210,6 +215,7 @@ class PasswordChangeForm(BasePasswordChangeForm):
     old_password = FormPasswordField(
         widget=forms.PasswordInput(
             attrs={
+                "autofocus": True,
                 "placeholder": _("Old password"),
             }
         ),
