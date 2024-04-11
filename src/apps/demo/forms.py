@@ -8,6 +8,7 @@ from project.fields.flowbite import (
     FormSelectCheckboxField,
 )
 
+
 class DataForm(forms.ModelForm):
     field_radio = FormRadioField(
         widget=forms.RadioSelect,

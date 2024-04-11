@@ -17,11 +17,14 @@ from project.fields.flowbite import (
     FormIntegerField,
     FormPasswordField,
 )
+from project.fields import flowbite
 from project.helpers import absolute_url
 from project.post_office import send
 
 
 class AuthenticationForm(BaseAuthenticationForm):
+    username = flowbite.FormEmailField()
+    password = flowbite.FormPasswordField()
     remember_me = FormBooleanField(
         required=False, widget=forms.CheckboxInput(), label=_("Remember me")
     )
