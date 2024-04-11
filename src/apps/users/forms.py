@@ -1,18 +1,24 @@
 from constance import config
 from django import forms
 from django.conf import settings
-from django.contrib.auth.forms import AuthenticationForm as BaseAuthenticationForm
-from django.contrib.auth.forms import PasswordResetForm as BasePasswordResetForm
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import (
+    AuthenticationForm as BaseAuthenticationForm,
+    PasswordResetForm as BasePasswordResetForm,
+    UserCreationForm,
+)
 from django.urls import reverse
 from django.utils import formats, timezone
 from django.utils.translation import gettext_lazy as _
 
-from project.fields import flowbite
-from project.fields.flowbite import FormBooleanField, FormPasswordField
+from apps.users.models import User
+from project.fields.flowbite import (
+    FormBooleanField,
+    FormEmailField,
+    FormIntegerField,
+    FormPasswordField,
+)
 from project.helpers import absolute_url
 from project.post_office import send
-from apps.users.models import User
 
 
 class AuthenticationForm(BaseAuthenticationForm):
@@ -91,7 +97,7 @@ class ProfileDetailsForm(forms.ModelForm):
 
 
 class PasswordResetForm(BasePasswordResetForm):
-    email = flowbite.FormEmailField(
+    email = FormEmailField(
         label=_("Email"),
         max_length=254,
         widget=forms.EmailInput(attrs={"autocomplete": "email"}),
@@ -140,9 +146,7 @@ class PasswordResetForm(BasePasswordResetForm):
 
 
 class EmailVerificationCodeForm(forms.Form):
-    email_verification_code = flowbite.FormIntegerField(
-        label=_("Verification code")
-    )
+    email_verification_code = FormIntegerField(label=_("Verification code"))
 
 
 class SendVerificationCodeForm(forms.Form):
