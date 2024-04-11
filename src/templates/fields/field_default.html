@@ -1,8 +1,11 @@
 {% load i18n %}
+
 {% if field.use_fieldset %}
   <fieldset>
   {% if field.label %}{{ field.legend_tag }}{% endif %}
+
 {% else %}
+
   {% if field.label %}
     <label
       for="{{ field.auto_id }}"
@@ -40,10 +43,15 @@
     </label>
   {% endif %}
 {% endif %}
+
 {{ field }}
+
 {% if field.errors %}
 <div class="mt-2 text-xs text-red-600 dark:text-red-500">
   {{ field.errors }}
 </div>
 {% endif %}
-{% if field.use_fieldset %}</fieldset>{% endif %}
+
+{% if field.use_fieldset %}
+</fieldset>
+{% endif %}
