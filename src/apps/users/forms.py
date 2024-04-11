@@ -3,6 +3,7 @@ from django import forms
 from django.conf import settings
 from django.contrib.auth.forms import (
     AuthenticationForm as BaseAuthenticationForm,
+    PasswordChangeForm as BasePasswordChangeForm,
     PasswordResetForm as BasePasswordResetForm,
     UserCreationForm,
 )
@@ -17,17 +18,16 @@ from project.fields.flowbite import (
     FormIntegerField,
     FormPasswordField,
 )
-from project.fields import flowbite
 from project.helpers import absolute_url
 from project.post_office import send
 
 
 class AuthenticationForm(BaseAuthenticationForm):
-    username = flowbite.FormEmailField(
+    username = FormEmailField(
         label=_("Email"),
         widget=forms.EmailInput(attrs={"placeholder": _("Email")}),
     )
-    password = flowbite.FormPasswordField(
+    password = FormPasswordField(
         widget=forms.PasswordInput(attrs={"placeholder": _("Password")}),
         label=_("Password"),
     )
@@ -152,6 +152,27 @@ class PasswordResetForm(BasePasswordResetForm):
             template="password_reset",
             context=context,
         )
+
+
+class PasswordChangeForm(BasePasswordChangeForm):
+    old_password = FormPasswordField(
+        widget=forms.PasswordInput(
+            attrs={
+                "placeholder": _("Old password"),
+            }
+        ),
+        label=_("Old password"),
+    )
+    new_password1 = FormPasswordField(
+        widget=forms.PasswordInput(attrs={"placeholder": _("New password")}),
+        label=_("New password"),
+    )
+    new_password2 = FormPasswordField(
+        widget=forms.PasswordInput(
+            attrs={"placeholder": _("New password confirmation")}
+        ),
+        label=_("New password confirmation"),
+    )
 
 
 class EmailVerificationCodeForm(forms.Form):
