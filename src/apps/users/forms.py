@@ -23,8 +23,14 @@ from project.post_office import send
 
 
 class AuthenticationForm(BaseAuthenticationForm):
-    username = flowbite.FormEmailField()
-    password = flowbite.FormPasswordField()
+    username = flowbite.FormEmailField(
+        label=_("Email"),
+        widget=forms.EmailInput(attrs={"placeholder": _("Email")}),
+    )
+    password = flowbite.FormPasswordField(
+        widget=forms.PasswordInput(attrs={"placeholder": _("Password")}),
+        label=_("Password"),
+    )
     remember_me = FormBooleanField(
         required=False, widget=forms.CheckboxInput(), label=_("Remember me")
     )
