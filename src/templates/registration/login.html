@@ -21,16 +21,15 @@
 {% block form_fields %}
   {{ form }}
 
-  <a href="{% url 'registration:password_reset' %}"
-    class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">
-    {% translate "Forgot your password?" %}
-  </a>
-
 {% endblock %}
 
 {% block submit_text %}{% translate 'Sign in' %}{% endblock %}
 
 {% block form_outro %}
+<a href="{% url 'registration:password_reset' %}"
+  class="inline-flex text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">
+  {% translate "Forgot your password?" %}
+</a>
 <p class="text-sm font-light text-gray-500 dark:text-gray-400">
   {% translate "Don’t have an account yet?" %}
   <a href="{% url 'registration:signup' %}" class="font-medium text-primary-600 hover:underline dark:text-primary-500">
