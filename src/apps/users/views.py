@@ -19,6 +19,7 @@ from apps.users.forms import (
     EmailVerificationCodeForm,
     PasswordResetForm,
     ProfileDetailsForm,
+    PasswordResetConfirmForm,
     SendVerificationCodeForm,
     UserSignUpForm,
     PasswordChangeForm
@@ -122,6 +123,7 @@ class PasswordResetView(AnonymousRequiredMixin, BasePasswordResetView):
 
 
 class PasswordResetConfirmView(AnonymousRequiredMixin, BasePasswordResetConfirmView):
+    form_class = PasswordResetConfirmForm
     template_name = "registration/password_reset_form.html"
     success_url = reverse_lazy("registration:password_reset_complete")
 
