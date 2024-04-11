@@ -64,8 +64,12 @@ def signup_view(request):
 @login_required
 def details_view(request):
     form = ProfileDetailsForm(request.POST or None, instance=request.user)
+    new_email = request.user.email
     if form.is_valid():
-        form.save()
+        user = form.save(commit=False)
+        if new_email != user.email:
+            user.email_verified = False
+        user.save()
         return redirect("registration:profile_details_success")
     return render(request, "profile/details.html", {"form": form})
 
