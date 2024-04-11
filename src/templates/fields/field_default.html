@@ -40,6 +40,10 @@
     </label>
   {% endif %}
 {% endif %}
-{{ field.errors }}
 {{ field }}
+{% if field.errors %}
+<div class="mt-2 text-xs text-red-600 dark:text-red-500">
+  {{ field.errors }}
+</div>
+{% endif %}
 {% if field.use_fieldset %}</fieldset>{% endif %}
