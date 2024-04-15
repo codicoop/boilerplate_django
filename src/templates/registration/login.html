@@ -20,8 +20,15 @@
 
 {% block form_fields %}
   {{ form }}
-
+  {% if messages %}
+      {% for message in messages %}
+          <div>
+              {{ message }}
+          </div>
+      {% endfor %}
+  {% endif %}
 {% endblock %}
+
 
 {% block submit_text %}{% translate 'Sign in' %}{% endblock %}
 

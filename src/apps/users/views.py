@@ -1,5 +1,6 @@
 from itertools import islice
 
+from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import (
@@ -24,6 +25,7 @@ from apps.users.forms import (
     SendVerificationCodeForm,
     UserSignUpForm,
 )
+from apps.users.models import User
 from apps.users.services import send_confirmation_mail
 from project.decorators import anonymous_required
 from project.mixins import AnonymousRequiredMixin
@@ -40,6 +42,12 @@ def login_view(request):
         if user is not None:
             login(request, user)
             return redirect("registration:profile_details")
+        else:
+            user_instance = User.objects.filter(email=username)
+            if user_instance:
+                messages.error(request, _("Password incorrect."))
+            else:
+                messages.error(request, _("This user doesn't exist."))
     else:
         form = AuthenticationForm()
     return render(request, "registration/login.html", {"form": form})
