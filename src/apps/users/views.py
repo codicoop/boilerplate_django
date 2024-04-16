@@ -146,6 +146,12 @@ class PasswordResetConfirmView(AnonymousRequiredMixin, BasePasswordResetConfirmV
     template_name = "registration/password_reset_form.html"
     success_url = reverse_lazy("registration:password_reset_complete")
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if "validlink" not in context or not context["validlink"]:
+            context["invalid_link"] = _("The link is invalid. Please try again.")
+        return context
+
 
 class PasswordResetDoneView(AnonymousRequiredMixin, StandardSuccess):
     template_name = "standard_success.html"
