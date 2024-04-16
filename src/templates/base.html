@@ -47,7 +47,7 @@
             <!-- Botó per mostrar i amagar menú desplegable -->
             <div>
               <button type="button"
-                class="flex text-sm bg-white rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                class="flex text-sm bg-white rounded-full focus:ring-4 focus:ring-primary-700 dark:focus:ring-gray-600"
                 aria-expanded="false" data-dropdown-toggle="dropdown-user">
                 <span class="sr-only">Obrir menú usuari</span>
                 <svg class="w-8 h-8 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -62,7 +62,7 @@
               id="dropdown-user">
               <div class="px-4 py-3" role="none">
                 <p class="text-lg pb-1 font-bold text-primary-800 dark:text-white" role="none">
-                    {{ request.user }}
+                  {{ request.user }}
                 </p>
                 <p class="text-sm font-medium text-primary-900 truncate dark:text-gray-300" role="none">
                   {{ request.user.email }} <br>
