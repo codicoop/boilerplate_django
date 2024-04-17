@@ -13,23 +13,23 @@ from django.utils import formats, timezone
 from django.utils.translation import gettext_lazy as _
 
 from apps.users.models import User
-from project.fields import flowbite
 from project.fields.flowbite import (
+    FormBooleanField,
+    FormCharField,
     FormEmailField,
     FormIntegerField,
     FormPasswordField,
-    FormBooleanField,
 )
 from project.helpers import absolute_url
 from project.post_office import send
 
 
 class AuthenticationForm(BaseAuthenticationForm):
-    username = flowbite.FormEmailField(
+    username = FormEmailField(
         label=_("Email"),
         widget=forms.EmailInput(attrs={"autofocus": True, "placeholder": _("Email")}),
     )
-    password = flowbite.FormPasswordField(
+    password = FormPasswordField(
         widget=forms.PasswordInput(attrs={"placeholder": _("Password")}),
         label=_("Password"),
     )
@@ -67,30 +67,30 @@ class UserChangeForm(forms.ModelForm):
 
 
 class UserSignUpForm(UserCreationForm):
-    name = flowbite.FormCharField(
+    name = FormCharField(
         label=_("Name"),
         widget=forms.TextInput(attrs={"autofocus": True, "placeholder": _("Name")}),
     )
-    surnames = flowbite.FormCharField(
+    surnames = FormCharField(
         label=_("Surnames"),
         widget=forms.TextInput(attrs={"placeholder": _("Surnames")}),
     )
-    password1 = flowbite.FormPasswordField(
+    password1 = FormPasswordField(
         widget=forms.PasswordInput(attrs={"placeholder": _("Password")}),
         label=_("Password"),
     )
-    password2 = flowbite.FormPasswordField(
+    password2 = FormPasswordField(
         widget=forms.PasswordInput(attrs={"placeholder": _("Password confirmation")}),
         label=_("Password confirmation"),
     )
-    email = flowbite.FormEmailField(
+    email = FormEmailField(
         label=_("Email"),
         max_length=254,
         widget=forms.EmailInput(
             attrs={"autocomplete": "Email", "placeholder": _("Email address")}
         ),
     )
-    accept_conditions = flowbite.FormBooleanField(
+    accept_conditions = FormBooleanField(
         label=_("I accept the data privacy policy"), required=True
     )
 
@@ -113,15 +113,15 @@ class UserSignUpForm(UserCreationForm):
 
 
 class ProfileDetailsForm(forms.ModelForm):
-    name = flowbite.FormCharField(
+    name = FormCharField(
         label=_("Name"),
         widget=forms.TextInput(attrs={"placeholder": _("Name")}),
     )
-    surnames = flowbite.FormCharField(
+    surnames = FormCharField(
         label=_("Surnames"),
         widget=forms.TextInput(attrs={"placeholder": _("Surnames")}),
     )
-    email = flowbite.FormEmailField(
+    email = FormEmailField(
         label=_("Email"),
         max_length=254,
         widget=forms.EmailInput(
