@@ -125,11 +125,6 @@ class FormBooleanField(forms.BooleanField):
         return FlowBiteBoundBooleanField(form, self, field_name)
 
 
-class FormSignInBooleanCheckboxField(forms.BooleanField):
-    def get_bound_field(self, form, field_name):
-        return FlowBiteBoundBooleanField(form, self, field_name)
-
-
 class ModelBooleanField(models.BooleanField):
     def formfield(self, **kwargs):
         defaults = {"form_class": FormBooleanField}

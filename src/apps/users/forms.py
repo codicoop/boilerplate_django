@@ -18,7 +18,7 @@ from project.fields.flowbite import (
     FormEmailField,
     FormIntegerField,
     FormPasswordField,
-    FormSignInBooleanCheckboxField,
+    FormBooleanField,
 )
 from project.helpers import absolute_url
 from project.post_office import send
@@ -33,7 +33,7 @@ class AuthenticationForm(BaseAuthenticationForm):
         widget=forms.PasswordInput(attrs={"placeholder": _("Password")}),
         label=_("Password"),
     )
-    remember_me = FormSignInBooleanCheckboxField(
+    remember_me = FormBooleanField(
         required=False, widget=forms.CheckboxInput(), label=_("Remember me")
     )
 
