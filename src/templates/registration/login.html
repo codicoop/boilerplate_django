@@ -21,11 +21,11 @@
 {% block form_fields %}
   {{ form }}
   {% if messages %}
-      {% for message in messages %}
-          <div>
-              {{ message }}
-          </div>
-      {% endfor %}
+    {% for message in messages %}
+      <div class="block mb-4 text-sm text-red-700 dark:text-red-500">
+        {{ message }}
+      </div>
+    {% endfor %}
   {% endif %}
 {% endblock %}
 
