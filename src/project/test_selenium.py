@@ -2,15 +2,14 @@ import logging
 from dataclasses import dataclass
 from enum import Enum
 
+from django.conf import settings
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.test import override_settings
 from django.urls import reverse
 from selenium import webdriver
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
-from django.utils.translation import gettext_lazy as _
-
-from apps.users.models import User
+from django.utils.translation import gettext as _
 
 logging.basicConfig(level=logging.INFO)
 
@@ -34,13 +33,25 @@ class Strings(Enum):
     Also, during development we might only have english versions of the strings,
     but when applying the translations, all of them will need to be updated
     here.
+
+    # IMPORTANT, ABOUT TRANSLATIONS:
+    If you assert strings, i.e. like this:
+        assert Strings.ADMIN_TITLE.value in self.selenium.title
+    You need to be using 'gettext', NOT gettext_lazy.
+
+    If for some reason you need to switch to gettext_lazy, these assertions will
+    fail. In this case you should change all the assertions to something like
+    this:
+        assert str(Strings.ADMIN_TITLE.value) in self.selenium.title
+
+    That way, the str() will force the resolution of the translation, instead of
+    sending an object.
+
     """
 
-    SUPERUSER_EMAIL = "hola@codi.coop"
-    SUPERUSER_PASSWORD = "<PASSWORD>"
-    MENU_LOGIN = _("Iniciar sessió")
-    MENU_ADMIN = _("Panell d'administració")
-    ADMIN_TITLE = _("Administració del lloc | Grappelli")
+    MENU_LOGIN = _("Log in")
+    MENU_ADMIN = _("Administration panel")
+    ADMIN_TITLE = _("Administració del lloc | Lloc administratiu de Django")
 
 
 @override_settings(
@@ -170,7 +181,6 @@ class MySeleniumTests(StaticLiveServerTestCase):
 
         # Preparations
         self._resize()
-        self._create_superuser()
 
         # Fer login amb el compte d'admin que crea per defecte.
         # Verifica que al menú de l'app apareix el botó per anar a l'admin.
@@ -190,12 +200,6 @@ class MySeleniumTests(StaticLiveServerTestCase):
         logging.info(f"Title: {self.selenium.title}")
         self.selenium.set_window_size(500, 2000)
 
-    def _create_superuser(self):
-        User.objects.create_superuser(
-            email=str(Strings.SUPERUSER_EMAIL),
-            password=str(Strings.SUPERUSER_PASSWORD),
-        )
-
     def _login(self, user, password):
         self.selenium.get(self.live_server_url)
         # The home page will probably be the login page, but to make sure that
@@ -206,28 +210,31 @@ class MySeleniumTests(StaticLiveServerTestCase):
             "burger_button",
         )
         burguer_menu.click()
-        login_menu_option = self.select_element_by_text(str(Strings.MENU_LOGIN))
+        login_menu_option = self.selenium.find_element(By.ID, "menu_login")
         login_menu_option.click()
         logging.info(f"Opened: {self.selenium.current_url}")
         logging.info(f"Title: {self.selenium.title}")
 
-        login_user = self.selenium.find_element(By.ID, "username_id")
-        login_password = self.selenium.find_element(By.ID, "password_id")
+        login_user = self.selenium.find_element(By.ID, "id_username")
+        login_password = self.selenium.find_element(By.ID, "id_password")
 
         login_user.send_keys(user)
         login_password.send_keys(password)
         login_password.send_keys(Keys.RETURN)
 
     def _admin_login(self):
-        self._login(str(Strings.SUPERUSER_EMAIL), str(Strings.SUPERUSER_PASSWORD))
-        burguer_menu = self.selenium.find_element(
+        self._login(
+            settings.DJANGO_SUPERUSER_EMAIL,
+            settings.DJANGO_SUPERUSER_PASSWORD,
+        )
+        burger_menu = self.selenium.find_element(
             By.ID,
             "burger_button",
         )
-        burguer_menu.click()
-        admin_menu = self.select_element_by_text(str(Strings.MENU_ADMIN))
+        burger_menu.click()
+        admin_menu = self.select_element_by_text(Strings.MENU_ADMIN.value)
         admin_menu.click()
         logging.info(self.selenium.current_url)
         logging.info(self.selenium.title)
-        assert str(Strings.ADMIN_TITLE) in self.selenium.title
+        assert Strings.ADMIN_TITLE.value in self.selenium.title
         logging.info("Logged in to admin with initial superuser.")
