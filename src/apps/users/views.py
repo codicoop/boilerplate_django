@@ -156,9 +156,9 @@ class PasswordResetConfirmView(AnonymousRequiredMixin, BasePasswordResetConfirmV
 class PasswordResetDoneView(AnonymousRequiredMixin, StandardSuccess):
     template_name = "standard_success.html"
     title = _("Password reset sent")
-    description = _("Password reset sent")
+    description = _("An email has been sent to your inbox. Please check it and follow the instructions to change your password.")
     url = reverse_lazy("registration:login")
-    link_text = _("Login")
+    link_text = _("Go back")
 
 
 class PasswordResetCompleteView(AnonymousRequiredMixin, StandardSuccess):
