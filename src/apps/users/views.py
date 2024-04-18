@@ -8,6 +8,7 @@ from django.contrib.auth.views import (
     PasswordChangeView as BasePasswordChangeView,
     PasswordResetConfirmView as BasePasswordResetConfirmView,
     PasswordResetView as BasePasswordResetView,
+    LoginView as BaseLoginView
 )
 from django.core.exceptions import ValidationError
 from django.shortcuts import redirect, render
@@ -32,26 +33,24 @@ from project.mixins import AnonymousRequiredMixin
 from project.views import StandardSuccess
 
 
-@anonymous_required
-def login_view(request):
-    if request.method == "POST":
-        form = AuthenticationForm(request.POST)
-        username = request.POST["username"]
-        password = request.POST["password"]
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect("registration:profile_details")
-        else:
-            user_instance = User.objects.filter(email=username)
-            if user_instance:
-                messages.error(request, _("Password incorrect."))
-            else:
-                messages.error(request, _("This user doesn't exist."))
-    else:
-        form = AuthenticationForm()
-    return render(request, "registration/login.html", {"form": form})
+# @anonymous_required
+# def login_view(request):
+#     if request.method == "POST":
+#         form = AuthenticationForm(request.POST)
+#         username = request.POST["username"]
+#         password = request.POST["password"]
+#         user = authenticate(username=username, password=password)
+#         if user is not None:
+#             login(request, user)
+#             return redirect("registration:profile_details")
+#     else:
+#         form = AuthenticationForm()
+#     return render(request, "registration/login.html", {"form": form})
 
+class LoginView(AnonymousRequiredMixin, BaseLoginView):
+    template_name = "registration/login.html"
+    form_class = AuthenticationForm
+    success_url = reverse_lazy("ecotags:home")
 
 @anonymous_required
 def signup_view(request):
