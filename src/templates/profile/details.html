@@ -22,10 +22,6 @@
 {% block form_fields %}
   {{ form }}
 
-  {% if message %}
-    <h4>{{ message }}</h4>
-  {% endif %}
-
   {% if not user.email_verified %}
   <div class="flex items-center p-4 mb-4 bg-red-50 rounded-lg text-sm text-red-700 dark:text-red-500"
       role="alert">
@@ -35,7 +31,7 @@
     <span class="sr-only">Alert</span>
     <div>
       <span class="font-bold uppercase">{% translate "Alert!" %}</span>
-      {% translate "The emails is not verified. Before anything else, you must verify it." %}
+      {% translate "Your email is not verified. Before anything else, you must verify it." %}
       <a class="font-bold hover:underline" href="{% url 'registration:send_verification_code' %}">
         {% translate "Verify email here." %}
       </a>
@@ -47,7 +43,6 @@
 
 {% block submit_whole %}
   <input type="submit"
-  {% if not user.email_verified %}disabled="true"{% endif %}
   class="w-full px-5 py-2.5 rounded-lg bg-primary-600 text-white font-bold text-sm text-center
     hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300
     dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800
@@ -79,7 +74,7 @@
           <span class="sr-only">Alert</span>
           <div>
             <span class="font-bold uppercase">{% translate "Alert!" %}</span>
-            {% translate "The emails is not verified. Before anything else, you must verify it." %}
+            {% translate "Your email is not verified. Before anything else, you must verify it." %}
             <a class="font-bold hover:underline" href="{% url 'registration:send_verification_code' %}">
               {% translate "Verify email here." %}
             </a>
