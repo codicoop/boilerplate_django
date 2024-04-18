@@ -133,7 +133,7 @@ in this class.
 
 But if you need to modify the HTML structure of the control you'll need
 to override its template by copying the original Django template into
-`templates/widgets` and modify it.
+`templates/django/forms/widgets` and modify it.
 The path to find the original templates should be something similar to:
 
     /.venv/lib/python3.11/site-packages/django/forms/templates/django/forms/widgets
