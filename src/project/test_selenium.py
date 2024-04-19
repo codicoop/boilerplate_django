@@ -55,6 +55,7 @@ class Strings(Enum):
     LOGOUT = _("Log out")
     SIGNUP_TITLE = _("Projecte App | Registrar-se")
     SEND = _("Send")
+    PROFILE_TITLE = _("Projecte App | Detalls del perfil")
 
 
 @override_settings(
@@ -199,10 +200,10 @@ class MySeleniumTests(StaticLiveServerTestCase):
 
         # Crea un nou usuari.
         # Verifica que al menú de l'app apareix el botó per crear un usuari new.
-        self._admin_signup()
+        self._signup()
         logging.info("Test Signup finished.")
 
-        self._admin_verify_email()
+        self._verify_email()
         logging.info("Test Verify email finished.")
 
         logging.info("############################")
@@ -264,6 +265,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
         signup_menu_option.click()
         logging.info(f"Opened: {self.selenium.current_url}")
         logging.info(f"Title: {self.selenium.title}")
+        assert Strings.SIGNUP_TITLE.value in self.selenium.title
 
         signup_name = self.selenium.find_element(By.ID, "id_name")
         signup_surnames = self.selenium.find_element(By.ID, "id_surnames")
@@ -275,32 +277,25 @@ class MySeleniumTests(StaticLiveServerTestCase):
 
         signup_name.send_keys("test_name")
         signup_surnames.send_keys("test_surnames")
-        signup_password1.send_keys("test_password1")
-        signup_password2.send_keys("test_password2")
+        signup_password1.send_keys("test_password")
+        signup_password2.send_keys("test_password")
         signup_email.send_keys("test@email.com")
         signup_accept_conditions.click()
         signup_password2.send_keys(Keys.RETURN)
 
-    def _admin_signup(self):
-        self._signup()
         logging.info(self.selenium.current_url)
         logging.info(self.selenium.title)
-        assert Strings.SIGNUP_TITLE.value in self.selenium.title
+        assert Strings.PROFILE_TITLE.value in self.selenium.title
         logging.info("Sign up to admin.")
 
     def _verify_email(self):
         # Verify email
-        button_alert = self.selenium.find_element(By.ID, "id_verify_email")
-        button_alert.click()
-
         logging.info(f"Opened: {self.selenium.current_url}")
         logging.info(f"Title: {self.selenium.title}")
 
-        send_button = self.select_element_by_text(Strings.SEND.value)
-        send_button.click()
+        button_alert = self.selenium.find_element(By.ID, "id_verify_email")
+        button_alert.click()
 
-    def _admin_verify_email(self):
-        self._verify_email()
         logging.info(self.selenium.current_url)
         logging.info(self.selenium.title)
 
