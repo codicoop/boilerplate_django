@@ -55,9 +55,23 @@ class ModelIntegerField(models.IntegerField):
         return super().formfield(**defaults)
 
 
+class FlowBiteBoundRadioField(BaseFlowBiteBoundField):
+    base_classes = "w-4 h-4 border"
+    no_error_classes = """
+        text-primary-600 bg-gray-100 border-gray-300
+        focus:ring-primary-500 focus:ring-2
+        dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600
+        """
+    error_classes = """
+        text-red-700 bg-red-50 border-red-500
+        focus:ring-red-500 focus:border-red-500 
+        dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
+        """
+
+
 class FormRadioField(forms.ChoiceField):
     def get_bound_field(self, form, field_name):
-        return FlowBiteBoundCharField(form, self, field_name)
+        return FlowBiteBoundRadioField(form, self, field_name)
 
 
 class ModelRadioField(models.CharField):

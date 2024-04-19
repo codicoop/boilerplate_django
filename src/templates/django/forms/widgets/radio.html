@@ -1,0 +1,17 @@
+{% load my_tags %}
+{% with id=widget.attrs.id %}
+  {% for group, options, index in widget.optgroups %}
+    {% if group %}
+      {{ group }}
+    {% endif %}
+    {% for option in options %}
+      <ul>
+      {% for key, val in option|get_fields %}
+        <li>{{ key }}: {{ val }}</li>
+      {% endfor %}
+      </ul>
+      {% include option.template_name with widget=option %}
+    {% endfor %}
+    {% if group %}{% endif %}
+  {% endfor %}
+{% endwith %}

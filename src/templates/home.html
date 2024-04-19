@@ -1,13 +1,70 @@
-{% extends "base.html" %}
+{% extends "./base_form.html" %}
 {% load i18n %}
 
-{% block main %}
-<p>Contingut de la pàgina home</p>
-  <div align="center">
-    <form action="" method="post">
-      {% csrf_token %}
-      {{ form }}
-      <br><input type="submit" value="Save">
-    </form>
+{# Blocks de base.html #}
+{% block page_title %}{% translate "Demo" %}{% endblock %}
+{% block bodyclasses %}{% endblock %}
+{% block mainclasses %} demo {% endblock %}
+{% block extra_js %}{% endblock %}
+
+{# Blocks de base_form.html #}
+{% block before_form_content %}{% endblock %}
+{% block enctype %}{% endblock %}
+{% block after_form_content %}{% endblock %}
+{% block submit_text %}{% endblock %}
+{% block form_outro %}{% endblock %}
+
+{% block form_intro %}
+  <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+    {% translate "Demo fields Flowbite" %}
+  </h1>
+{% endblock %}
+
+{% block form_fields %}
+<div>
+  <p class="block mb-2 text-sm font-medium
+    {% if 1 == 2 %} text-red-700 dark:text-red-500
+    {% else %} text-gray-900 dark:text-white {% endif %}">
+    Com volem que quedin els radios
+  </p>
+  <div class="flex items-center mb-4">
+    <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 border
+      {% if 1 == 2 %} 
+        text-red-700 bg-red-50 border-red-500
+        focus:ring-red-500 focus:border-red-500 
+        dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
+      {% else %}
+        text-primary-600 bg-gray-100 border-gray-300
+        focus:ring-primary-500 focus:ring-2
+        dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600
+      {% endif %}">
+    <label for="default-radio-1" class="block ms-2 text-sm font-medium
+      {% if 1 == 2 %} text-red-700 dark:text-red-500
+      {% else %} text-gray-900 dark:text-gray-300 {% endif %}">
+      Opció 1
+    </label>
   </div>
+  <div class="flex items-center">
+    <input id="default-radio-2" type="radio" value="" name="default-radio" class="w-4 h-4 border
+    {% if 1 == 2 %} text-red-700 bg-red-50 border-red-500
+      focus:ring-red-500 focus:border-red-500 
+      dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
+    {% else %} text-primary-600 bg-gray-100 border-gray-300
+      focus:ring-primary-500 focus:ring-2
+      dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600
+    {% endif %}">
+    <label for="default-radio-2" class="block ms-2 text-sm font-medium
+    {% if 1 == 2 %} text-red-700 dark:text-red-500
+    {% else %} text-gray-900 dark:text-gray-300 {% endif %}">
+      Opció 2
+    </label>
+  </div>
+  <!-- Missatges d'error -->
+  {% if 1 == 2 %}
+  <!-- Per cada missatge d'error -->
+  <p class="ml-6 mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
+  <!-- Endfor -->
+  {% endif %}
+</div>
+  {{ form }}
 {% endblock %}
