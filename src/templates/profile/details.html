@@ -81,8 +81,7 @@
           </div>
         </div>
         {% endif %}
-        <a href="{% url 'registration:password_change' %}"
-        class="{% if not user.email_verified %}pointer-events-none{% endif %}">
+        <a href="{% url 'registration:password_change' %}">
           <button
             class="w-full mt-8 px-5 py-2.5 rounded-lg bg-primary-600 text-white font-bold text-sm text-center
             hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300
