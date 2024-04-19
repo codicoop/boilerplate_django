@@ -4,6 +4,7 @@ from enum import Enum
 
 from django.conf import settings
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from django.core import mail
 from django.test import override_settings
 from django.urls import reverse
 from selenium import webdriver
@@ -11,16 +12,18 @@ from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 from django.utils.translation import gettext as _
 
+from apps.users.models import User
+
 logging.basicConfig(level=logging.INFO)
 
 
 @dataclass
 class SampleUser:
-    email: str
-    password: str
     name: str
     surnames: str
-    organization_name: str
+    email: str
+    password: str
+    email_verification_code: str
 
 
 class Strings(Enum):
@@ -54,8 +57,10 @@ class Strings(Enum):
     ADMIN_TITLE = _("Administració del lloc | Lloc administratiu de Django")
     LOGOUT = _("Log out")
     SIGNUP_TITLE = _("Projecte App | Registrar-se")
-    SEND = _("Send")
     PROFILE_TITLE = _("Projecte App | Detalls del perfil")
+    UPDATE_TITLE = _("Projecte App | Profile updated")
+    PASSWORD_CHANGE_TITLE = _("Projecte App | Canvi de contrasenya")
+    EMAIL_VALIDATION_TITLE = _("Projecte App | Mail validation")
 
 
 @override_settings(
@@ -115,25 +120,11 @@ class MySeleniumTests(StaticLiveServerTestCase):
         cls.selenium.implicitly_wait(10)  # Set implicit wait time
         cls.sample_data = {
             "first_user": SampleUser(
-                email="hola+usuari1@codi.coop",
-                password="0pl,9okm8ijn",
-                name="Primer usuari",
-                surnames="Cognoms usuari 1",
-                organization_name="Organització de prova",
-            ),
-            "second_user": SampleUser(
-                email="hola+usuari2@codi.coop",
-                password="0pl,9okm8ijn",
-                name="Segon usuari",
-                surnames="Cognoms usuari 2",
-                organization_name="Organització de prova",
-            ),
-            "third_user": SampleUser(
-                email="hola+usuari3@codi.coop",
-                password="0pl,9okm8ijn",
-                name="Tercer usuari",
-                surnames="Cognoms usuari 3",
-                organization_name="Organització de prova",
+                name="Andrew",
+                surnames="McTest",
+                email="andrew@codi.coop",
+                password="0pl#9okm8ijn",
+                email_verification_code="1234",
             ),
         }
 
@@ -155,6 +146,34 @@ class MySeleniumTests(StaticLiveServerTestCase):
             "burger_button",
         )
         burger_menu.click()
+
+    def _check_mail_sent(self, recipient, string_in_body=""):
+        """
+        During the test, every time an email is sent it gets added to
+        mail.outbox.
+        This makes it difficult to test whether a specific email is sent or not.
+
+        Instructions to test the emails
+
+        If there's 1 email sent and pending to be tested:
+        - Call this method normally.
+        - After that, the email will be removed from the outbox, so you cannot
+        test it a second time.
+
+        If there's more than 1 email:
+        - Call this method as many times as emails are pending to be tested.
+        - In each call, the email in the index 0 of the outbox will be tested
+        and removed from the outbox. So the different calls to this method will
+        need to be done in the same order as the emails were sent.
+        """
+        self.assertGreaterEqual(len(mail.outbox), 1)
+        current_mail = mail.outbox.pop(0)
+        # The mail's "to" property is a list, as it can be sent to multiple
+        # recipients at once. We are only testing for one.
+        self.assertIn(recipient, current_mail.to)
+        logging.info(f"Checked: Sent email to {recipient}")
+        self.assertIn(string_in_body, current_mail.body)
+        logging.info(f'Checked: "{string_in_body}" present in email body')
 
     def click_non_interactable_element(self, element):
         # Checkboxes are not rendered as is, but hidden by CSS and replaced with
@@ -205,6 +224,12 @@ class MySeleniumTests(StaticLiveServerTestCase):
 
         self._verify_email()
         logging.info("Test Verify email finished.")
+
+        self._update_profile()
+        logging.info("Test Update profile finished.")
+
+        self._password_change()
+        logging.info("Test Password change finished.")
 
         logging.info("############################")
         logging.info("#### All tests finished ####")
@@ -275,11 +300,11 @@ class MySeleniumTests(StaticLiveServerTestCase):
         signup_accept_conditions = self.selenium.find_element(By.ID,
                                                               "id_accept_conditions")
 
-        signup_name.send_keys("test_name")
-        signup_surnames.send_keys("test_surnames")
-        signup_password1.send_keys("test_password")
-        signup_password2.send_keys("test_password")
-        signup_email.send_keys("test@email.com")
+        signup_name.send_keys(self.sample_data["first_user"].name)
+        signup_surnames.send_keys(self.sample_data["first_user"].surnames)
+        signup_password1.send_keys(self.sample_data["first_user"].password)
+        signup_password2.send_keys(self.sample_data["first_user"].password)
+        signup_email.send_keys(self.sample_data["first_user"].email)
         signup_accept_conditions.click()
         signup_password2.send_keys(Keys.RETURN)
 
@@ -296,7 +321,95 @@ class MySeleniumTests(StaticLiveServerTestCase):
         button_alert = self.selenium.find_element(By.ID, "id_verify_email")
         button_alert.click()
 
-        logging.info(self.selenium.current_url)
-        logging.info(self.selenium.title)
+        logging.info(f"Opened: {self.selenium.current_url}")
+        logging.info(f"Title: {self.selenium.title}")
 
+        assert Strings.EMAIL_VALIDATION_TITLE.value in self.selenium.title
+        logging.info("Email Validation.")
+
+        # Click on the button to send the verification email.
+        send_button = self.selenium.find_element(By.ID, "id_submit")
+        send_button.click()
+
+        # Wait for the verification email to be sent.
+        self._check_mail_sent(
+            self.sample_data["first_user"].email,
+            self.sample_data["first_user"].name,
+        )
+        verification_code = self.selenium.find_element(By.ID,
+                                                       "id_email_verification_code")
+        code = User.objects.filter(
+            email=self.sample_data["first_user"].email).first().email_verification_code
+        verification_code.send_keys(code)
+        verification_code.send_keys(Keys.RETURN)
+
+        # Template confirm account has been successfully verified.
+        # Click on the button Go Back.
         logging.info("Verified email.")
+
+        go_back = self.select_element_by_text("Go back")
+        go_back.click()
+
+    def _update_profile(self):
+        # Back to profile page.
+        logging.info(f"Opened: {self.selenium.current_url}")
+        logging.info(f"Title: {self.selenium.title}")
+        assert Strings.PROFILE_TITLE.value in self.selenium.title
+        logging.info("Profile page.")
+
+        update_name = self.selenium.find_element(By.ID, "id_name")
+        update_surnames = self.selenium.find_element(By.ID, "id_surnames")
+
+        # Update the profile | Name & Surnames.
+        update_name.send_keys("Andrews")
+        update_surnames.send_keys("McDolls")
+
+        update_surnames.send_keys(Keys.RETURN)
+        logging.info(f"Opened: {self.selenium.current_url}")
+        logging.info(f"Title: {self.selenium.title}")
+        assert Strings.UPDATE_TITLE.value in self.selenium.title
+        logging.info("Profile page.")
+
+        button_back = self.selenium.find_element(By.ID, "id_back")
+        button_back.click()
+        logging.info(f"Opened: {self.selenium.current_url}")
+        logging.info(f"Title: {self.selenium.title}")
+        assert Strings.PROFILE_TITLE.value in self.selenium.title
+
+        # Update the profile | Email.
+        update_email = self.selenium.find_element(By.ID, "id_email")
+        update_email.clear()
+        update_email.send_keys("andrews.mcdolls@gmail.com")
+        update_email.send_keys(Keys.RETURN)
+
+        logging.info(f"Opened: {self.selenium.current_url}")
+        logging.info(f"Title: {self.selenium.title}")
+        assert Strings.UPDATE_TITLE.value in self.selenium.title
+        logging.info("Profile page.")
+
+        button_back = self.selenium.find_element(By.ID, "id_back")
+        button_back.click()
+
+    def _password_change(self):
+        logging.info(f"Opened: {self.selenium.current_url}")
+        logging.info(f"Title: {self.selenium.title}")
+        assert Strings.PROFILE_TITLE.value in self.selenium.title
+
+        # Change password.
+        button_password_change = self.selenium.find_element(By.ID, "id_password_change")
+        button_password_change.click()
+        logging.info(f"Opened: {self.selenium.current_url}")
+        logging.info(f"Title: {self.selenium.title}")
+        assert Strings.PASSWORD_CHANGE_TITLE.value in self.selenium.title
+
+        old_password = self.selenium.find_element(By.ID, "id_old_password")
+        old_password.send_keys(self.sample_data["first_user"].password)
+        new_password = self.selenium.find_element(By.ID, "id_new_password1")
+        new_password.send_keys("0pl#4jT7m8ijn")
+        password_confirmation = self.selenium.find_element(By.ID, "id_new_password2")
+        password_confirmation.send_keys("0pl#4jT7m8ijn")
+        password_confirmation.send_keys(Keys.RETURN)
+
+        logging.info(f"Opened: {self.selenium.current_url}")
+        logging.info(f"Title: {self.selenium.title}")
+

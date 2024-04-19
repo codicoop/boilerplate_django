@@ -1,14 +1,14 @@
 {% extends "./base_success.html" %}
 
 {# Blocks de base.html #}
-{% block page_title %}{% endblock %}
+{% block page_title %}{{ page_title }}{% endblock %}
 {% block bodyclasses %}{% endblock %}
 {% block mainclasses %} signup grid-1 {% endblock %}
 {% block extra_js %}{% endblock %}
 
 {# Blocks de base_success.html #}
 {% block success_extra %}{% endblock %}
-  
+
 {% block success_title %}{{ success_title }}{% endblock %}
 {% block success_text %}{{ description|safe }}{% endblock %}
 {% block success_btn_url %}{{ url }}{% endblock %}
