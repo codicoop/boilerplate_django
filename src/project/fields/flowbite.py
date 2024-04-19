@@ -80,7 +80,7 @@ class ModelSelectDropdownField(models.CharField):
 
 
 class FlowBiteSelectCheckboxField(BaseFlowBiteBoundField):
-    base_classes = "w-4 h-4 rounded"
+    base_classes = "w-4 h-4 text-primary-500 rounded"
     no_error_classes = """
         border-gray-300 bg-gray-50 
         focus:ring-3 focus:ring-primary-300 
@@ -122,7 +122,7 @@ class ModelEmailField(models.EmailField):
 
 
 class FlowBiteBoundBooleanField(BaseFlowBiteBoundField):
-    base_classes = "w-4 h-4 border rounded"
+    base_classes = "w-4 h-4 border text-primary-500 rounded"
     no_error_classes = (
         "border-gray-300 bg-gray-50 focus:ring-3 focus:ring-primary-300 "
         "dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 "
