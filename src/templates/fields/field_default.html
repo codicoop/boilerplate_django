@@ -1,5 +1,6 @@
 {% load i18n %}
 
+<!-- Camps checkbox -->
 {% if field.field.widget.input_type == "checkbox" %}
   {% if field.use_fieldset %}
     <fieldset>
@@ -55,6 +56,7 @@
   </fieldset>
   {% endif %}
 
+<!-- Camps radio -->
 {% elif field.field.widget.input_type == "radio" %}
   <div>
     {% if field.legend_tag %}
@@ -102,6 +104,7 @@
     {% endif %}
   </div>
 
+<!-- Resta de camps -->
 {% else %}
 
   {% if field.use_fieldset %}
