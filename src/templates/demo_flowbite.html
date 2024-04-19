@@ -11,12 +11,12 @@
         <!-- Input de text -->
         <div>
           <label for="input-text" class="block mb-2 text-sm font-medium
-              {% if 1 == 2 %} text-red-700 dark:text-red-500
+              {% if field.error %} text-red-700 dark:text-red-500
               {% else %} text-gray-900 dark:text-white {% endif %}">
             Label del camp de text
           </label>
           <input type="text" name="input-text" id="input-text" class="text-sm border rounded-lg block w-full p-2.5
-            {% if 1 == 2 %}
+            {% if field.error %}
               bg-red-50 border-red-500 text-red-900 placeholder-red-700
               focus:ring-red-500 focus:border-red-500 
               dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
@@ -27,7 +27,7 @@
               dark:focus:ring-primary-500 dark:focus:border-primary-500
             {% endif %}" placeholder="Placeholder del input de text" required="">
           <!-- Missatges d'error -->
-          {% if 1 == 2 %}
+          {% if field.error %}
           <!-- Per cada missatge d'error -->
           <p class="mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
           <!-- Endfor -->
@@ -37,7 +37,7 @@
         <!-- Input de text amb helptext -->
         <div>
           <label for="input-text-tooltip" class="inline-flex items-center mb-2 text-sm font-medium
-            {% if 1 == 2 %} text-red-700 dark:text-red-500
+            {% if field.error %} text-red-700 dark:text-red-500
             {% else %} text-gray-900 dark:text-white {% endif %}">
             Label de input text amb helptext
             <button type="button" data-tooltip-target="id-tooltip-1" data-tooltip-style="dark" class="ml-1">
@@ -57,7 +57,7 @@
             </div>
           </label>
           <input type="text" name="input-text-tooltip" id="input-text-tooltip" class="text-sm border rounded-lg block w-full p-2.5
-            {% if 1 == 2 %}
+            {% if field.error %}
               bg-red-50 border-red-500 text-red-900 placeholder-red-700
               focus:ring-red-500 focus:border-red-500 
               dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
@@ -68,7 +68,7 @@
               dark:focus:ring-primary-500 dark:focus:border-primary-500
             {% endif %}" placeholder="Placeholder del input de text" required="">
           <!-- Missatges d'error -->
-          {% if 1 == 2 %}
+          {% if field.error %}
           <!-- Per cada missatge d'error -->
           <p class="mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
           <!-- Endfor -->
@@ -77,12 +77,12 @@
         <!-- Input email -->
         <div>
           <label for="input-email" class="block mb-2 text-sm font-medium
-              {% if 1 == 2 %} text-red-700 dark:text-red-500
+              {% if field.error %} text-red-700 dark:text-red-500
               {% else %} text-gray-900 dark:text-white {% endif %}">
             Label del camp d'email
           </label>
           <input type="email" name="input-email" id="input-email" class="text-sm border rounded-lg block w-full p-2.5
-            {% if 1 == 2 %}
+            {% if field.error %}
               bg-red-50 border-red-500 text-red-900 placeholder-red-700
               focus:ring-red-500 focus:border-red-500 
               dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
@@ -93,7 +93,7 @@
               dark:focus:ring-primary-500 dark:focus:border-primary-500
             {% endif %}" placeholder="placeholder@email.com" required="">
           <!-- Missatges d'error -->
-          {% if 1 == 2 %}
+          {% if field.error %}
           <!-- Per cada missatge d'error -->
           <p class="mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
           <!-- Endfor -->
@@ -102,13 +102,13 @@
         <!-- Input radio -->
         <div>
           <p class="block mb-2 text-sm font-medium
-            {% if 1 == 2 %} text-red-700 dark:text-red-500
+            {% if field.error %} text-red-700 dark:text-red-500
             {% else %} text-gray-900 dark:text-white {% endif %}">
             Títol del grup de radios
           </p>
           <div class="flex items-center mb-4">
             <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 border
-              {% if 1 == 2 %} 
+              {% if field.error %} 
                 text-red-700 bg-red-50 border-red-500
                 focus:ring-red-500 focus:border-red-500 
                 dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
@@ -118,14 +118,14 @@
                 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600
               {% endif %}">
             <label for="default-radio-1" class="block ms-2 text-sm font-medium
-              {% if 1 == 2 %} text-red-700 dark:text-red-500
+              {% if field.error %} text-red-700 dark:text-red-500
               {% else %} text-gray-900 dark:text-gray-300 {% endif %}">
               Default radio
             </label>
           </div>
           <div class="flex items-center">
             <input id="default-radio-2" type="radio" value="" name="default-radio" class="w-4 h-4 border
-            {% if 1 == 2 %} text-red-700 bg-red-50 border-red-500
+            {% if field.error %} text-red-700 bg-red-50 border-red-500
               focus:ring-red-500 focus:border-red-500 
               dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
             {% else %} text-primary-600 bg-gray-100 border-gray-300
@@ -133,13 +133,13 @@
               dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600
             {% endif %}">
             <label for="default-radio-2" class="block ms-2 text-sm font-medium
-            {% if 1 == 2 %} text-red-700 dark:text-red-500
+            {% if field.error %} text-red-700 dark:text-red-500
             {% else %} text-gray-900 dark:text-gray-300 {% endif %}">
               Checked state
             </label>
           </div>
           <!-- Missatges d'error -->
-          {% if 1 == 2 %}
+          {% if field.error %}
           <!-- Per cada missatge d'error -->
           <p class="ml-6 mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
           <!-- Endfor -->
@@ -148,13 +148,13 @@
         <!-- Input select -->
         <div>
           <label for="input-select" class="mb-2 text-sm font-medium 
-            {% if 1 == 2 %} text-red-700 dark:text-red-500
+            {% if field.error %} text-red-700 dark:text-red-500
             {% else %} text-gray-900 dark:text-white {% endif %}">
             Label de input select
           </label>
           <span class="block h-2"></span>
           <select id="input-select" class="text-sm border rounded-lg block w-full p-2.5
-            {% if 1 == 2 %}
+            {% if field.error %}
             bg-red-50 border-red-500 text-red-900 placeholder-red-700
             focus:ring-red-500 focus:border-red-500
             dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
@@ -174,7 +174,7 @@
             <option value="NO">Canada</option>
           </select>
           <!-- Missatges d'error -->
-          {% if 1 == 2 %}
+          {% if field.error %}
           <!-- Per cada missatge d'error -->
           <p class="mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
           <!-- Endfor -->
@@ -186,7 +186,7 @@
             <div class="flex items-center h-5">
               <input id="checkbox_unique" type="checkbox" value=""
               class="w-4 h-4 border rounded
-                {% if 1 == 2 %}
+                {% if field.error %}
                   bg-red-50 border-red-500 text-red-700 placeholder-red-700
                   focus:ring-red-500 focus:border-red-500 
                   dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
@@ -198,18 +198,18 @@
                 {% endif %}" required />
             </div>
             <label for="checkbox_unique" class="ms-2 text-sm font-medium 
-              {% if 1 == 2 %} text-red-700 dark:text-red-500
+              {% if field.error %} text-red-700 dark:text-red-500
               {% else %} text-gray-900 dark:text-gray-300 {% endif %}">
               I agree with the
               <a href="#" class="hover:underline
-                {% if 1 == 2 %} text-red-900 dark:text-red-300
+                {% if field.error %} text-red-900 dark:text-red-300
                 {% else %} text-primary-600 dark:text-primary-500 {% endif %}">
                 terms and conditions.
               </a>
             </label>
           </div>
           <!-- Missatges d'error -->
-          {% if 1 == 2 %}
+          {% if field.error %}
           <!-- Per cada missatge d'error -->
           <p class="ml-6 mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
           <!-- Endfor -->
@@ -218,12 +218,12 @@
         <!-- Input password -->
         <div>
           <label for="input-password" class="block mb-2 text-sm font-medium
-            {% if 1 == 2 %} text-red-700 dark:text-red-500
+            {% if field.error %} text-red-700 dark:text-red-500
             {% else %} text-gray-900 dark:text-white {% endif %}">
             Label del input password
           </label>
           <input type="password" name="input-password" id="input-password" class="block w-full p-2.5 border text-sm rounded-lg
-            {% if 1 == 2 %}
+            {% if field.error %}
               bg-red-50 border-red-500 text-red-900 placeholder-red-700
               focus:ring-red-500 focus:border-red-500 
               dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
@@ -234,7 +234,7 @@
               dark:focus:ring-primary-500 dark:focus:border-primary-500
             {% endif %}" placeholder="•••••••••" required="">
           <!-- Missatges d'error -->
-          {% if 1 == 2 %}
+          {% if field.error %}
           <!-- Per cada missatge d'error -->
             <p class="mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
           <!-- Endfor -->
@@ -243,12 +243,12 @@
         <!-- Input number -->
         <div>
           <label for="input-number" class="block mb-2 text-sm font-medium
-              {% if 1 == 2 %} text-red-700 dark:text-red-500
+              {% if field.error %} text-red-700 dark:text-red-500
               {% else %} text-gray-900 dark:text-white {% endif %}">
             Label de input number
           </label>
           <input type="number" name="input-number" id="input-number" class="text-sm border rounded-lg block w-full p-2.5
-            {% if 1 == 2 %}
+            {% if field.error %}
               bg-red-50 border-red-500 text-red-900 placeholder-red-700
               focus:ring-red-500 focus:border-red-500 
               dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
@@ -260,7 +260,7 @@
             {% endif %}" placeholder="Placeholder input number" required=""
           >
           <!-- Missatges d'error -->
-          {% if 1 == 2 %}
+          {% if field.error %}
           <!-- Per cada missatge d'error -->
             <p class="mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
           <!-- Endfor -->
@@ -269,14 +269,15 @@
         <!-- Grup de checkboxes en horitzontal -->
         <div>
           <label for="group_checkbox_1" class="block mb-2 text-sm font-medium
-            {% if 1 == 2 %} text-red-700 dark:text-red-500
+            {% if field.error %} text-red-700 dark:text-red-500
             {% else %} text-gray-900 dark:text-white {% endif %}">
             Label de grup de checkboxes en horitzontal
           </label>
           <div class="flex items-center space-x-4">
             <div class="flex items-center">
-              <input id="inline-checkbox" type="checkbox" value="" name="group_checkbox_1" class="w-4 h-4 rounded
-                {% if 1 == 2 %}
+              <input id="inline-checkbox" type="checkbox" value="" name="group_checkbox_1"
+              class="w-4 h-4 rounded
+                {% if field.error %}
                   bg-red-50 border-red-500 text-red-700 placeholder-red-700
                   focus:ring-red-500 focus:border-red-500 
                   dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
@@ -287,7 +288,7 @@
                   dark:focus:ring-primary-600 dark:ring-offset-gray-800
                 {% endif %}">
               <label for="inline-checkbox" class="ml-2 text-sm font-medium
-                  {% if 1 == 2 %}
+                  {% if field.error %}
                     text-red-700 dark:text-red-500
                   {% else %} 
                     text-gray-900 dark:text-gray-300
@@ -297,7 +298,7 @@
             </div>
             <div class="flex items-center">
               <input id="inline-checkbox-2" type="checkbox" value="" name="group_checkbox_1" class="w-4 h-4 rounded
-                {% if 1 == 2 %}
+                {% if field.error %}
                   bg-red-50 border-red-500 text-red-700 placeholder-red-700
                   focus:ring-red-500 focus:border-red-500 
                   dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
@@ -308,7 +309,7 @@
                   dark:focus:ring-primary-600 dark:ring-offset-gray-800
                 {% endif %}">
               <label for="inline-checkbox-2" class="ml-2 text-sm font-medium
-                  {% if 1 == 2 %}
+                  {% if field.error %}
                     text-red-700 dark:text-red-500
                   {% else %} 
                     text-gray-900 dark:text-gray-300
@@ -318,7 +319,7 @@
             </div>
           </div>
           <!-- Missatges d'error -->
-          {% if 1 == 2 %}
+          {% if field.error %}
           <!-- Per cada missatge d'error -->
             <p class="mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
           <!-- Endfor -->
@@ -330,7 +331,7 @@
         </button>
       </div>
       <!-- Banner error per mostrar cada vegada que hi hagi un error a un camp -->
-      {% if 1 == 2 %}
+      {% if field.error %}
       <div id="error-banner" tabindex="-1"
         class="fixed bottom-0 start-0 z-50 flex justify-between w-full p-4
           bg-red-500
@@ -386,13 +387,13 @@
         <!-- Dropzone -->
         <div class="w-full">
           <label for="input-text" class="block mb-2 text-sm font-medium
-            {% if 1 == 2 %} text-red-700 dark:text-red-500
+            {% if field.error %} text-red-700 dark:text-red-500
             {% else %} text-gray-900 dark:text-white {% endif %}">
             Label del camp de dropzone
           </label>
           <div class="flex items-center justify-center w-full">
             <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-lg cursor-pointer 
-              {% if 1 == 2 %}
+              {% if field.error %}
                 bg-red-50 border-red-500
                 hover:bg-red-100
                 dark:bg-red-700
@@ -405,13 +406,13 @@
               {% endif %}">
               <div class="flex flex-col items-center justify-center pt-5 pb-6">
                 <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 20 16" class="w-8 h-8 mb-4 
-                      {% if 1 == 2 %} text-red-700 dark:text-red-400
+                      {% if field.error %} text-red-700 dark:text-red-400
                       {% else %} text-gray-500 dark:text-gray-400 {% endif %}">
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
                 </svg>
                 <p class="mb-2 text-sm
-                    {% if 1 == 2 %} text-red-700 dark:text-red-400
+                    {% if field.error %} text-red-700 dark:text-red-400
                     {% else %} text-gray-500 dark:text-gray-400 {% endif %}">
                   {% translate 'Upload a file' %}
                 </p>
@@ -420,7 +421,7 @@
             </label>
           </div>
           <!-- Missatges d'error -->
-          {% if 1 == 2 %}
+          {% if field.error %}
           <!-- Per cada missatge d'error -->
             <p class="mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
           <!-- Endfor -->
@@ -429,14 +430,14 @@
         <!-- Input file -->
         <div>
           <label for="file_input" class="block mb-2 text-sm font-medium
-            {% if 1 == 2 %} text-red-700 dark:text-red-500
+            {% if field.error %} text-red-700 dark:text-red-500
             {% else %} text-gray-900 dark:text-white {% endif %}">
             Label del camp de input file
           </label>
           <!-- Per casos on vulguem més d'un arxiu, afegir al input "multiple" -->
           <input id="file_input" aria-describedby="file_input_help" type="file" 
             class="block w-full text-sm border rounded-lg cursor-pointer
-              {% if 1 == 2 %}
+              {% if field.error %}
                 bg-red-50 border-red-500 text-red-900 placeholder-red-700
                 focus:ring-red-500 focus:border-red-500 
                 dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
@@ -447,7 +448,7 @@
               {% endif %}"
           >
           <!-- Missatges d'error -->
-          {% if 1 == 2 %}
+          {% if field.error %}
           <!-- Per cada missatge d'error -->
             <p class="mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
           <!-- Endfor -->
@@ -456,12 +457,12 @@
         <!-- Input file amb arxiu -->
         <div>
           <label for="file_input2" class="block mb-2 text-sm font-medium
-            {% if 1 == 2 %} text-red-700 dark:text-red-500
+            {% if field.error %} text-red-700 dark:text-red-500
             {% else %} text-gray-900 dark:text-white {% endif %}">
             Label del camp de input file
           </label>
           <div class="block p-2 rounded-lg shadow border
-            {% if 1 == 2 %}
+            {% if field.error %}
               bg-red-50  border-red-500 text-red-900 placeholder-red-700
               dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
             {% else %}
@@ -471,7 +472,7 @@
             <div class="border-b">
               <ul id="default-tab" data-tabs-toggle="#default-tab-content" role="tablist" 
                 class="flex flex-wrap text-sm -mb-px font-medium text-center border-b
-                {% if 1 == 2 %}
+                {% if field.error %}
                   text-red-700 border-red-200
                   dark:border-red-500 dark:text-red-500
                 {% else %}
@@ -481,7 +482,7 @@
                 <li class="me-2" role="presentation">
                   <button id="file-tab-2" data-tabs-target="#file-2" type="button" role="tab" aria-controls="file" aria-selected="false"
                     class="flex gap-1 items-center px-3 py-2 rounded-t-lg active 
-                      {% if 1 == 2 %}
+                      {% if field.error %}
                       bg-red-200 text-red-700 
                       dark:text-red-500
                     {% else %}
@@ -490,7 +491,7 @@
                     {% endif %}">
                     <svg  aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewbox="0 0 24 24"
                       class="w-4 h-4 
-                      {% if 1 == 2 %} text-red-700 dark:text-red-500
+                      {% if field.error %} text-red-700 dark:text-red-500
                       {% else %} text-gray-800 dark:text-white
                       {% endif %}">
                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
@@ -502,7 +503,7 @@
                 <li class="me-2" role="presentation">
                   <button id="file-tab-1" data-tabs-target="#file-1" type="button" role="tab" aria-controls="file" aria-selected="false"
                     class="flex gap-1 items-center px-3 py-2 rounded-t-lg active
-                      {% if 1 == 2 %}
+                      {% if field.error %}
                         bg-red-200 text-red-700 
                         dark:text-red-500
                       {% else %}
@@ -511,7 +512,7 @@
                       {% endif %}">
                     <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewbox="0 0 24 24"
                       class="w-4 h-4 
-                      {% if 1 == 2 %} text-red-700 dark:text-red-500
+                      {% if field.error %} text-red-700 dark:text-red-500
                       {% else %} text-gray-800 dark:text-white
                       {% endif %}">
                       <path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M10 3v4a1 1 0 0 1-1 1H5m14-4v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1Z"/>
@@ -522,7 +523,7 @@
                 <li class="me-2" role="presentation">
                   <button id="file-tab-3" data-tabs-target="#file-3" type="button" role="tab" aria-controls="file" aria-selected="false"
                     class="flex gap-1 items-center px-3 py-2 rounded-t-lg active
-                    {% if 1 == 2 %}
+                    {% if field.error %}
                       bg-red-200 text-red-700 
                       dark:text-red-500
                     {% else %}
@@ -531,7 +532,7 @@
                     {% endif %}">
                     <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewbox="0 0 24 24"
                       class="w-4 h-4 
-                      {% if 1 == 2 %} text-red-700 dark:text-red-500
+                      {% if field.error %} text-red-700 dark:text-red-500
                       {% else %} text-gray-800 dark:text-white
                       {% endif %}">
                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
@@ -545,13 +546,13 @@
             <div id="default-tab-content">
               <div id="file-1" role="tabpanel" aria-labelledby="file-tab-1" 
                 class="hidden p-4 rounded-lg
-                {% if 1 == 2 %}
+                {% if field.error %}
                   bg-red-50 dark:bg-red-gray-700
                 {% else %}
                   bg-gray-50 dark:bg-gray-800
                 {% endif %}">
                 <p class="text-sm
-                  {% if 1 == 2 %}
+                  {% if field.error %}
                     text-red-700 dark:text-red-500
                   {% else %}
                     text-gray-500 dark:text-gray-400
@@ -559,7 +560,7 @@
                   {% translate 'This is the current uploaded file:' %}
                   <a href="" target="_blank" rel="noopener noreferrer" 
                     class="font-semibold underline
-                    {% if 1 == 2 %}
+                    {% if field.error %}
                       text-red-800 dark:text-red-500
                     {% else %}
                       text-primary-600 dark:text-primary-400
@@ -570,13 +571,13 @@
               </div>
               <div id="file-2" role="tabpanel" aria-labelledby="file-tab-2"
                 class="hidden p-4 rounded-lg
-                  {% if 1 == 2 %}
+                  {% if field.error %}
                     bg-red-50 dark:bg-red-gray-700
                   {% else %}
                     bg-gray-50 dark:bg-gray-800
                   {% endif %}">
                 <p class="text-sm pb-2 
-                  {% if 1 == 2 %}
+                  {% if field.error %}
                     text-red-700 dark:text-red-500
                   {% else %}
                     text-gray-500 dark:text-gray-400
@@ -586,7 +587,7 @@
                 <!-- Per casos on vulguem més d'un arxiu, afegir al input "multiple" -->
                 <input id="file_input2" aria-describedby="file_input_help" type="file" 
                   class="block w-full border rounded-lg text-sm cursor-pointer
-                    {% if 1 == 2 %}
+                    {% if field.error %}
                       bg-red-50 border-red-500 text-red-900 placeholder-red-700
                       focus:ring-red-500 focus:border-red-500 
                       dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
@@ -597,7 +598,7 @@
                     {% endif %}"
                 >
                 <!-- Missatges d'error -->
-                {% if 1 == 2 %}
+                {% if field.error %}
                 <!-- Per cada missatge d'error -->
                   <p class="mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
                 <!-- Endfor -->
@@ -605,7 +606,7 @@
               </div>
               <div id="file-3" role="tabpanel" aria-labelledby="file-tab-3"
                 class="hidden p-4 rounded-lg
-                {% if 1 == 2 %}
+                {% if field.error %}
                   bg-red-50 dark:bg-red-gray-700
                 {% else %}
                   bg-gray-50 dark:bg-gray-800
@@ -614,7 +615,7 @@
                   <div class="flex items-center h-5">
                     <input id="checkbox_delete_file" type="checkbox" value=""
                       class="w-4 h-4 border rounded
-                      {% if 1 == 2 %}
+                      {% if field.error %}
                         bg-red-50 border-red-500 text-red-700 placeholder-red-700
                         focus:ring-red-500 focus:border-red-500 
                         dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
@@ -628,13 +629,13 @@
                   </div>
                   <label for="checkbox_delete_file"
                     class="ms-2 text-sm font-medium 
-                      {% if 1 == 2 %} text-red-700 dark:text-red-500
+                      {% if field.error %} text-red-700 dark:text-red-500
                       {% else %} text-gray-900 dark:text-gray-300 {% endif %}">
                     {% translate 'Delete the current file.' %}
                   </label>
                 </div>
                 <!-- Missatges d'error -->
-                {% if 1 == 2 %}
+                {% if field.error %}
                 <!-- Per cada missatge d'error -->
                 <p class="ml-6 mt-2 text-sm text-red-600 dark:text-red-500">Missatge 1 d'error del camp</p>
                 <!-- Endfor -->

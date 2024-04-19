@@ -79,9 +79,24 @@ class ModelSelectDropdownField(models.CharField):
         return super().formfield(**defaults)
 
 
+class FlowBiteSelectCheckboxField(BaseFlowBiteBoundField):
+    base_classes = "w-4 h-4 rounded"
+    no_error_classes = """
+        border-gray-300 bg-gray-50 
+        focus:ring-3 focus:ring-primary-300 
+        dark:bg-gray-700 dark:border-gray-600
+        dark:focus:ring-primary-600 dark:ring-offset-gray-800
+        """
+    error_classes = """
+        bg-red-50 border-red-500 text-red-700 placeholder-red-700
+        focus:ring-red-500 focus:border-red-500 
+        dark:bg-gray-700 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
+        """
+
+
 class FormSelectCheckboxField(forms.MultipleChoiceField):
     def get_bound_field(self, form, field_name):
-        return FlowBiteBoundCharField(form, self, field_name)
+        return FlowBiteSelectCheckboxField(form, self, field_name)
 
 
 class ModelSelectCheckboxField(models.CharField):
