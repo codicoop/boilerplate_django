@@ -52,6 +52,9 @@ class Strings(Enum):
     MENU_LOGIN = _("Log in")
     MENU_ADMIN = _("Administration panel")
     ADMIN_TITLE = _("Administració del lloc | Lloc administratiu de Django")
+    LOGOUT = _("Log out")
+    SIGNUP_TITLE = _("Projecte App | Registrar-se")
+    SEND = _("Send")
 
 
 @override_settings(
@@ -145,6 +148,13 @@ class MySeleniumTests(StaticLiveServerTestCase):
     def absolute_url_of_path(self, path):
         return f"{self.live_server_url}{path}"
 
+    def burger_menu_action(self):
+        burger_menu = self.selenium.find_element(
+            By.ID,
+            "burger_button",
+        )
+        burger_menu.click()
+
     def click_non_interactable_element(self, element):
         # Checkboxes are not rendered as is, but hidden by CSS and replaced with
         # other elements, with the purpose of styling them better.
@@ -185,8 +195,19 @@ class MySeleniumTests(StaticLiveServerTestCase):
         # Fer login amb el compte d'admin que crea per defecte.
         # Verifica que al menú de l'app apareix el botó per anar a l'admin.
         self._admin_login()
+        logging.info("Test Login finished.")
 
-        logging.info("Test finished.")
+        # Crea un nou usuari.
+        # Verifica que al menú de l'app apareix el botó per crear un usuari new.
+        self._admin_signup()
+        logging.info("Test Signup finished.")
+
+        self._admin_verify_email()
+        logging.info("Test Verify email finished.")
+
+        logging.info("############################")
+        logging.info("#### All tests finished ####")
+        logging.info("############################")
 
     def _resize(self):
         """
@@ -205,11 +226,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
         # The home page will probably be the login page, but to make sure that
         # we reach the login page, we open de burger menu and navigate to
         # sign-in.
-        burguer_menu = self.selenium.find_element(
-            By.ID,
-            "burger_button",
-        )
-        burguer_menu.click()
+        self.burger_menu_action()
         login_menu_option = self.selenium.find_element(By.ID, "menu_login")
         login_menu_option.click()
         logging.info(f"Opened: {self.selenium.current_url}")
@@ -227,14 +244,64 @@ class MySeleniumTests(StaticLiveServerTestCase):
             settings.DJANGO_SUPERUSER_EMAIL,
             settings.DJANGO_SUPERUSER_PASSWORD,
         )
-        burger_menu = self.selenium.find_element(
-            By.ID,
-            "burger_button",
-        )
-        burger_menu.click()
+        self.burger_menu_action()
         admin_menu = self.select_element_by_text(Strings.MENU_ADMIN.value)
         admin_menu.click()
         logging.info(self.selenium.current_url)
         logging.info(self.selenium.title)
         assert Strings.ADMIN_TITLE.value in self.selenium.title
         logging.info("Logged in to admin with initial superuser.")
+
+    def _signup(self):
+        # Log out to return to the home page
+        admin_menu = self.select_element_by_text(Strings.LOGOUT.value)
+        admin_menu.click()
+
+        # Open the main menu to select the Sign Up option.
+        self.burger_menu_action()
+
+        signup_menu_option = self.selenium.find_element(By.ID, "menu_signup")
+        signup_menu_option.click()
+        logging.info(f"Opened: {self.selenium.current_url}")
+        logging.info(f"Title: {self.selenium.title}")
+
+        signup_name = self.selenium.find_element(By.ID, "id_name")
+        signup_surnames = self.selenium.find_element(By.ID, "id_surnames")
+        signup_password1 = self.selenium.find_element(By.ID, "id_password1")
+        signup_password2 = self.selenium.find_element(By.ID, "id_password2")
+        signup_email = self.selenium.find_element(By.ID, "id_email")
+        signup_accept_conditions = self.selenium.find_element(By.ID,
+                                                              "id_accept_conditions")
+
+        signup_name.send_keys("test_name")
+        signup_surnames.send_keys("test_surnames")
+        signup_password1.send_keys("test_password1")
+        signup_password2.send_keys("test_password2")
+        signup_email.send_keys("test@email.com")
+        signup_accept_conditions.click()
+        signup_password2.send_keys(Keys.RETURN)
+
+    def _admin_signup(self):
+        self._signup()
+        logging.info(self.selenium.current_url)
+        logging.info(self.selenium.title)
+        assert Strings.SIGNUP_TITLE.value in self.selenium.title
+        logging.info("Sign up to admin.")
+
+    def _verify_email(self):
+        # Verify email
+        button_alert = self.selenium.find_element(By.ID, "id_verify_email")
+        button_alert.click()
+
+        logging.info(f"Opened: {self.selenium.current_url}")
+        logging.info(f"Title: {self.selenium.title}")
+
+        send_button = self.select_element_by_text(Strings.SEND.value)
+        send_button.click()
+
+    def _admin_verify_email(self):
+        self._verify_email()
+        logging.info(self.selenium.current_url)
+        logging.info(self.selenium.title)
+
+        logging.info("Verified email.")
