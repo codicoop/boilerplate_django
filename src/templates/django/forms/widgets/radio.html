@@ -5,11 +5,6 @@
       {{ group }}
     {% endif %}
     {% for option in options %}
-      <ul>
-      {% for key, val in option|get_fields %}
-        <li>{{ key }}: {{ val }}</li>
-      {% endfor %}
-      </ul>
       {% include option.template_name with widget=option %}
     {% endfor %}
     {% if group %}{% endif %}
