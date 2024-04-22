@@ -39,28 +39,28 @@ class Strings(Enum):
 
     # IMPORTANT, ABOUT TRANSLATIONS:
     If you assert strings, i.e. like this:
-        assert Strings.ADMIN_TITLE.value in self.selenium.title
+        assert Strings.ADMIN_TITLE.value == self.selenium.title
     You need to be using 'gettext', NOT gettext_lazy.
 
     If for some reason you need to switch to gettext_lazy, these assertions will
     fail. In this case you should change all the assertions to something like
     this:
-        assert str(Strings.ADMIN_TITLE.value) in self.selenium.title
+        assert str(Strings.ADMIN_TITLE.value) == self.selenium.title
 
     That way, the str() will force the resolution of the translation, instead of
     sending an object.
 
     """
 
-    MENU_LOGIN = _("Log in")
     MENU_ADMIN = _("Administration panel")
     ADMIN_TITLE = _("Administració del lloc | Lloc administratiu de Django")
     LOGOUT = _("Log out")
     SIGNUP_TITLE = _("Projecte App | Registrar-se")
     PROFILE_TITLE = _("Projecte App | Detalls del perfil")
-    UPDATE_TITLE = _("Projecte App | Profile updated")
+    PROFILE_UPDATE_TITLE = _("Projecte App | Profile updated")
     PASSWORD_CHANGE_TITLE = _("Projecte App | Canvi de contrasenya")
     EMAIL_VALIDATION_TITLE = _("Projecte App | Mail validation")
+    DEMO_TITLE = _("Projecte App | Demo")
 
 
 @override_settings(
@@ -147,6 +147,11 @@ class MySeleniumTests(StaticLiveServerTestCase):
         )
         burger_menu.click()
 
+    def logging_url_title_and_assert_title(self, title=None):
+        logging.info(f"Opened: {self.selenium.current_url}")
+        logging.info(f"Title: {self.selenium.title}")
+        assert title == self.selenium.title
+
     def _check_mail_sent(self, recipient, string_in_body=""):
         """
         During the test, every time an email is sent it gets added to
@@ -231,9 +236,12 @@ class MySeleniumTests(StaticLiveServerTestCase):
         self._password_change()
         logging.info("Test Password change finished.")
 
-        logging.info("############################")
-        logging.info("#### All tests finished ####")
-        logging.info("############################")
+        self._demo()
+        logging.info("Test Demo finished.")
+
+        logging.info("#####################################")
+        logging.info("#### All tests Selenium finished ####")
+        logging.info("#####################################")
 
     def _resize(self):
         """
@@ -273,9 +281,8 @@ class MySeleniumTests(StaticLiveServerTestCase):
         self.burger_menu_action()
         admin_menu = self.select_element_by_text(Strings.MENU_ADMIN.value)
         admin_menu.click()
-        logging.info(self.selenium.current_url)
-        logging.info(self.selenium.title)
-        assert Strings.ADMIN_TITLE.value in self.selenium.title
+
+        self.logging_url_title_and_assert_title(Strings.ADMIN_TITLE.value)
         logging.info("Logged in to admin with initial superuser.")
 
     def _signup(self):
@@ -288,9 +295,8 @@ class MySeleniumTests(StaticLiveServerTestCase):
 
         signup_menu_option = self.selenium.find_element(By.ID, "menu_signup")
         signup_menu_option.click()
-        logging.info(f"Opened: {self.selenium.current_url}")
-        logging.info(f"Title: {self.selenium.title}")
-        assert Strings.SIGNUP_TITLE.value in self.selenium.title
+
+        self.logging_url_title_and_assert_title(Strings.SIGNUP_TITLE.value)
 
         signup_name = self.selenium.find_element(By.ID, "id_name")
         signup_surnames = self.selenium.find_element(By.ID, "id_surnames")
@@ -308,24 +314,14 @@ class MySeleniumTests(StaticLiveServerTestCase):
         signup_accept_conditions.click()
         signup_password2.send_keys(Keys.RETURN)
 
-        logging.info(self.selenium.current_url)
-        logging.info(self.selenium.title)
-        assert Strings.PROFILE_TITLE.value in self.selenium.title
-        logging.info("Sign up to admin.")
+        self.logging_url_title_and_assert_title(Strings.PROFILE_TITLE.value)
 
     def _verify_email(self):
         # Verify email
-        logging.info(f"Opened: {self.selenium.current_url}")
-        logging.info(f"Title: {self.selenium.title}")
-
         button_alert = self.selenium.find_element(By.ID, "id_verify_email")
         button_alert.click()
 
-        logging.info(f"Opened: {self.selenium.current_url}")
-        logging.info(f"Title: {self.selenium.title}")
-
-        assert Strings.EMAIL_VALIDATION_TITLE.value in self.selenium.title
-        logging.info("Email Validation.")
+        self.logging_url_title_and_assert_title(Strings.EMAIL_VALIDATION_TITLE.value)
 
         # Click on the button to send the verification email.
         send_button = self.selenium.find_element(By.ID, "id_submit")
@@ -352,10 +348,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
 
     def _update_profile(self):
         # Back to profile page.
-        logging.info(f"Opened: {self.selenium.current_url}")
-        logging.info(f"Title: {self.selenium.title}")
-        assert Strings.PROFILE_TITLE.value in self.selenium.title
-        logging.info("Profile page.")
+        self.logging_url_title_and_assert_title(Strings.PROFILE_TITLE.value)
 
         update_name = self.selenium.find_element(By.ID, "id_name")
         update_surnames = self.selenium.find_element(By.ID, "id_surnames")
@@ -365,16 +358,13 @@ class MySeleniumTests(StaticLiveServerTestCase):
         update_surnames.send_keys("McDolls")
 
         update_surnames.send_keys(Keys.RETURN)
-        logging.info(f"Opened: {self.selenium.current_url}")
-        logging.info(f"Title: {self.selenium.title}")
-        assert Strings.UPDATE_TITLE.value in self.selenium.title
-        logging.info("Profile page.")
+
+        self.logging_url_title_and_assert_title(Strings.PROFILE_UPDATE_TITLE.value)
 
         button_back = self.selenium.find_element(By.ID, "id_back")
         button_back.click()
-        logging.info(f"Opened: {self.selenium.current_url}")
-        logging.info(f"Title: {self.selenium.title}")
-        assert Strings.PROFILE_TITLE.value in self.selenium.title
+
+        self.logging_url_title_and_assert_title(Strings.PROFILE_TITLE.value)
 
         # Update the profile | Email.
         update_email = self.selenium.find_element(By.ID, "id_email")
@@ -382,25 +372,19 @@ class MySeleniumTests(StaticLiveServerTestCase):
         update_email.send_keys("andrews.mcdolls@gmail.com")
         update_email.send_keys(Keys.RETURN)
 
-        logging.info(f"Opened: {self.selenium.current_url}")
-        logging.info(f"Title: {self.selenium.title}")
-        assert Strings.UPDATE_TITLE.value in self.selenium.title
-        logging.info("Profile page.")
+        self.logging_url_title_and_assert_title(Strings.PROFILE_UPDATE_TITLE.value)
 
         button_back = self.selenium.find_element(By.ID, "id_back")
         button_back.click()
 
     def _password_change(self):
-        logging.info(f"Opened: {self.selenium.current_url}")
-        logging.info(f"Title: {self.selenium.title}")
-        assert Strings.PROFILE_TITLE.value in self.selenium.title
+        self.logging_url_title_and_assert_title(Strings.PROFILE_TITLE.value)
 
         # Change password.
         button_password_change = self.selenium.find_element(By.ID, "id_password_change")
         button_password_change.click()
-        logging.info(f"Opened: {self.selenium.current_url}")
-        logging.info(f"Title: {self.selenium.title}")
-        assert Strings.PASSWORD_CHANGE_TITLE.value in self.selenium.title
+
+        self.logging_url_title_and_assert_title(Strings.PASSWORD_CHANGE_TITLE.value)
 
         old_password = self.selenium.find_element(By.ID, "id_old_password")
         old_password.send_keys(self.sample_data["first_user"].password)
@@ -410,6 +394,53 @@ class MySeleniumTests(StaticLiveServerTestCase):
         password_confirmation.send_keys("0pl#4jT7m8ijn")
         password_confirmation.send_keys(Keys.RETURN)
 
-        logging.info(f"Opened: {self.selenium.current_url}")
-        logging.info(f"Title: {self.selenium.title}")
+        self.logging_url_title_and_assert_title(Strings.PROFILE_UPDATE_TITLE.value)
 
+        # Click on the button Go Back.
+        go_back = self.selenium.find_element(By.ID, "id_back")
+        go_back.click()
+
+        self.logging_url_title_and_assert_title(Strings.PROFILE_TITLE.value)
+
+    def _demo(self):
+        # Open the main menu to select the Home option.
+        self.burger_menu_action()
+        home_menu_option = self.selenium.find_element(By.ID, "menu_home")
+        home_menu_option.click()
+
+        self.logging_url_title_and_assert_title(Strings.DEMO_TITLE.value)
+
+        # All the fields are filled in
+        demo_field_text_1 = self.selenium.find_element(By.NAME, "field_text_1")
+        demo_field_text_2 = self.selenium.find_element(By.NAME, "field_text_2")
+        demo_field_email = self.selenium.find_element(By.NAME, "field_email")
+        demo_field_radio = self.selenium.find_element(By.ID, "id_field_radio_0")
+        demo_field_boolean_checkbox = self.selenium.find_element(
+            By.NAME, "field_boolean_checkbox")
+        demo_field_select_dropdown = self.selenium.find_element(
+            By.NAME, "field_select_dropdown")
+        demo_field_password = self.selenium.find_element(
+            By.NAME, "field_password")
+        demo_field_password_confirm = self.selenium.find_element(
+            By.NAME, "field_password_confirm")
+        demo_field_number = self.selenium.find_element(
+            By.NAME, "field_number")
+        demo_field_select_checkbox_1 = self.selenium.find_element(
+            By.ID, "id_field_select_checkbox_0")
+        demo_field_select_checkbox_2 = self.selenium.find_element(
+            By.ID, "id_field_select_checkbox_1")
+
+        demo_field_text_1.send_keys("text_1")
+        demo_field_text_2.send_keys("text_2")
+        demo_field_email.send_keys("email@test.com")
+        demo_field_radio.click()
+        demo_field_boolean_checkbox.click()
+        demo_field_select_dropdown.send_keys("OP2")
+        demo_field_password.send_keys("password")
+        demo_field_password_confirm.send_keys("password")
+        demo_field_number.send_keys("1234")
+        demo_field_select_checkbox_1.click()
+        demo_field_select_checkbox_2.click()
+        demo_field_password.send_keys(Keys.RETURN)
+
+        self.logging_url_title_and_assert_title(Strings.DEMO_TITLE.value)

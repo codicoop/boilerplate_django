@@ -13,7 +13,7 @@ from django.core.exceptions import ValidationError
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import FormView, TemplateView
+from django.views.generic import FormView
 
 from apps.users.forms import (
     AuthenticationForm,
@@ -170,5 +170,9 @@ class PasswordChangeView(BasePasswordChangeView):
     success_url = reverse_lazy("registration:password_change_done")
 
 
-class PasswordChangeDoneView(BasePasswordChangeDoneView):
+class PasswordChangeDoneView(StandardSuccess):
     template_name = "standard_success.html"
+    title = _("Done!")
+    description = _("Password change successful.")
+    url = reverse_lazy("registration:profile_details")
+    link_text = _("Go back")
