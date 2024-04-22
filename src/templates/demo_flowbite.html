@@ -201,7 +201,7 @@
               {% if 1 == 2 %} text-red-700 dark:text-red-500
               {% else %} text-gray-900 dark:text-gray-300 {% endif %}">
               I agree with the
-              <a href="#" class="hover:underline
+              <a href="{% url 'registration:privacy_policy' %}" class="hover:underline
                 {% if 1 == 2 %} text-red-900 dark:text-red-300
                 {% else %} text-primary-600 dark:text-primary-500 {% endif %}">
                 terms and conditions.

@@ -187,7 +187,5 @@ class PasswordChangeDoneView(StandardSuccess):
     link_text = _("Go back")
 
 
-@anonymous_required
 def privacy_policy_view(request):
-    print("holi")
     return render(request, "registration/privacy_policy.html")
