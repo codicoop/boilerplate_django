@@ -146,6 +146,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "maintenance_mode.middleware.MaintenanceModeMiddleware",
+    "apps.users.middleware.VerificationRequiredMiddleware",
 ]
 
 
@@ -205,6 +206,17 @@ LOGIN_REQUIRED_IGNORE_VIEW_NAMES = [
     "registration:password_reset_complete",
 ]
 
+VERIFICATION_REQUIRED_IGNORE_VIEW_NAMES = [
+    "registration:profile_details",
+    "registration:logout",
+    "registration:password_change",
+    "registration:password_change_done",
+    "registration:profile_details_success",
+    "registration:user_validation",
+    "registration:send_verification_code",
+    "registration:email_verification_complete",
+    "registration:privacy_policy",
+]
 
 ################################################################################
 #                               Passwords                                      #
