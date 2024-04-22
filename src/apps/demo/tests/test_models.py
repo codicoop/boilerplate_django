@@ -1,7 +1,7 @@
 from django.test import TestCase
 
-from apps.demo.tests.factories import DataFactory
 from apps.demo.models import Data
+from apps.demo.tests.factories import DataFactory
 
 
 class DataTest(TestCase):
@@ -38,7 +38,9 @@ class DataTest(TestCase):
             self.assertTrue(self.full_data.field_boolean_checkbox)
             self.assertEqual(self.full_data.field_select_dropdown, "OP2")
             self.assertEqual(self.full_data.field_password, "test_field_password")
-            self.assertEqual(self.full_data.field_password_confirm, "test_field_password_confirm")
+            self.assertEqual(
+                self.full_data.field_password_confirm, "test_field_password_confirm"
+            )
             self.assertEqual(self.full_data.field_number, 10)
             self.assertEqual(self.full_data.field_select_checkbox, "OP3")
 

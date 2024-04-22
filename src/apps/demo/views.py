@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 
 from apps.demo.forms import DataForm
 from apps.demo.models import Data

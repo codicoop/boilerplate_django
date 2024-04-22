@@ -17,8 +17,8 @@ from django.contrib import admin
 from django.urls import include, path
 from django.utils.translation import gettext_lazy as _
 
-from project.views import RootRedirectView
 from apps.demo.views import data_view, detail_view, list_view, update_view
+from project.views import RootRedirectView
 
 urlpatterns = [
     path("admin/", admin.site.urls),

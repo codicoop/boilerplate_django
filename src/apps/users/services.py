@@ -1,11 +1,11 @@
 from constance import config
 from django.conf import settings
-from django.utils import formats, timezone
 from django.urls import reverse
+from django.utils import formats, timezone
 
+from apps.users.utils import email_verification_code_regeneration
 from project.helpers import absolute_url
 from project.post_office import send
-from apps.users.utils import email_verification_code_regeneration
 
 
 def send_confirmation_mail(user_instance):

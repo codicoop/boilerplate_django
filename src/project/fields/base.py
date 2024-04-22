@@ -10,7 +10,8 @@ class BaseFlowBiteBoundField(forms.BoundField):
         """
         Just for documentation.
         This method is called when rendering the "div.html" template, in this line:
-        <div{% with classes=field.css_classes %}{% if classes %} class="{{ classes }}"{% endif %}{% endwith %}>
+        <div{% with classes=field.css_classes %}{% if classes %}
+        class="{{ classes }}"{% endif %}{% endwith %}>
         I previously tried to use it to alter the classes contained in the widget's
         attrs, but it's not the place for that.
         """

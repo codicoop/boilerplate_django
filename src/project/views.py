@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.urls import NoReverseMatch, reverse, reverse_lazy
-from django.utils.translation import activate, get_language, gettext_lazy as _
+from django.utils.translation import activate, get_language
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import RedirectView, TemplateView
 
 

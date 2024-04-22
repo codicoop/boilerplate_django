@@ -2,11 +2,11 @@ from django.test import TestCase
 
 from apps.users.forms import (
     AuthenticationForm,
+    EmailVerificationCodeForm,
+    PasswordResetForm,
+    ProfileDetailsForm,
     UserChangeForm,
     UserSignUpForm,
-    ProfileDetailsForm,
-    PasswordResetForm,
-    EmailVerificationCodeForm,
 )
 from apps.users.models import User
 

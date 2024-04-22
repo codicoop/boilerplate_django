@@ -1,5 +1,5 @@
-from django.test import TestCase
 from django import forms
+from django.test import TestCase
 
 from apps.demo.forms import DataForm
 

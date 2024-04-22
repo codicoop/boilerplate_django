@@ -1,6 +1,8 @@
 from functools import wraps
-from django.shortcuts import redirect
+
 from django.conf import settings
+from django.shortcuts import redirect
+
 
 def anonymous_required(view_func):
     @wraps(view_func)

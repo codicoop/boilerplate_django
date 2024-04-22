@@ -1,5 +1,4 @@
 from django.db import models
-
 from django.utils.translation import gettext_lazy as _
 
 from project.fields import flowbite
@@ -86,3 +85,5 @@ class Data(models.Model):
         null=True,
         help_text="Help field_select_checkbox",
     )
+    def __str__(self):
+        return f"{self.field_text_1}"
