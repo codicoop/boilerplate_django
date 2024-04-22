@@ -8,12 +8,13 @@ class VerificationRequiredMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        resolver = resolve(request.path)
+        view_name = resolve(request.path_info).view_name
         view_names = settings.VERIFICATION_REQUIRED_IGNORE_VIEW_NAMES
         if (
             request.user.is_authenticated
             and not request.user.email_verified
-            and resolver.view_name not in view_names
+            and view_name not in view_names
+            and not request.path.startswith(reverse("admin:index"))
         ):
             return redirect(reverse("registration:profile_details"))
         return self.get_response(request)
