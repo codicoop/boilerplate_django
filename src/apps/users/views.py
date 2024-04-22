@@ -181,3 +181,8 @@ class PasswordChangeDoneView(StandardSuccess):
     description = _("Password change successful.")
     url = reverse_lazy("registration:profile_details")
     link_text = _("Go back")
+
+@anonymous_required
+def privacy_policy_view(request):
+    print("holi")
+    return render(request, 'registration/privacy_policy.html')

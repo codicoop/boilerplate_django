@@ -197,6 +197,7 @@ LOGIN_REQUIRED_IGNORE_PATHS = [
 LOGIN_REQUIRED_IGNORE_VIEW_NAMES = [
     "home",
     "registration:signup",
+    "registration:privacy_policy",
     "registration:login",
     "registration:password_reset",
     "registration:password_reset_confirm",

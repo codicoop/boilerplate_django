@@ -14,6 +14,7 @@ from apps.users.views import (
     PasswordResetView,
     SendVerificationCodeView,
     details_view,
+    privacy_policy_view,
     signup_view,
 )
 from project.views import StandardSuccess
@@ -87,5 +88,10 @@ urlpatterns = [
         _("email-verification-complete/"),
         EmailVerificationCompleteView.as_view(),
         name="email_verification_complete",
+    ),
+    path(
+        _("privacy-policy/"),
+        privacy_policy_view,
+        name="privacy_policy",
     ),
 ]
