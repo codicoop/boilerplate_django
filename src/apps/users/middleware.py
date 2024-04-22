@@ -11,7 +11,8 @@ class VerificationRequiredMiddleware:
         resolver = resolve(request.path)
         view_names = settings.VERIFICATION_REQUIRED_IGNORE_VIEW_NAMES
         if (
-            not request.user.email_verified
+            request.user.is_authenticated
+            and not request.user.email_verified
             and resolver.view_name not in view_names
         ):
             return redirect(reverse("registration:profile_details"))
