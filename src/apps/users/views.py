@@ -38,8 +38,8 @@ from project.views import StandardSuccess
 
 class LoginView(AnonymousRequiredMixin, BaseLoginView):
     template_name = "registration/login.html"
+    success_url = reverse_lazy("registration:profile_details")
     form_class = AuthenticationForm
-    success_url = reverse_lazy("ecotags:home")
 
 
 @anonymous_required
