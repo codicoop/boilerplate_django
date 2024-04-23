@@ -22,12 +22,6 @@ from django.utils.translation import gettext_lazy as _
 
 from apps.users.models import User
 from project.fields import flowbite
-from project.fields.flowbite import (
-    FormEmailField,
-    FormIntegerField,
-    FormPasswordField,
-    FormBooleanField,
-)
 from project.helpers import absolute_url
 from project.post_office import send
 
@@ -41,7 +35,7 @@ class AuthenticationForm(BaseAuthenticationForm):
         widget=forms.PasswordInput(attrs={"placeholder": _("Password")}),
         label=_("Password"),
     )
-    remember_me = FormBooleanField(
+    remember_me = flowbite.FormBooleanField(
         required=False, widget=forms.CheckboxInput(), label=_("Remember me")
     )
 
@@ -150,7 +144,7 @@ class ProfileDetailsForm(forms.ModelForm):
 
 
 class PasswordResetForm(BasePasswordResetForm):
-    email = FormEmailField(
+    email = flowbite.FormEmailField(
         label=_("Email"),
         max_length=254,
         widget=forms.EmailInput(
@@ -205,13 +199,13 @@ class PasswordResetForm(BasePasswordResetForm):
 
 
 class PasswordResetConfirmForm(BaseSetPasswordForm):
-    new_password1 = FormPasswordField(
+    new_password1 = flowbite.FormPasswordField(
         widget=forms.PasswordInput(
             attrs={"autofocus": True, "placeholder": _("New password")}
         ),
         label=_("New password"),
     )
-    new_password2 = FormPasswordField(
+    new_password2 = flowbite.FormPasswordField(
         widget=forms.PasswordInput(
             attrs={"placeholder": _("New password confirmation")}
         ),
@@ -220,7 +214,7 @@ class PasswordResetConfirmForm(BaseSetPasswordForm):
 
 
 class PasswordChangeForm(BasePasswordChangeForm):
-    old_password = FormPasswordField(
+    old_password = flowbite.FormPasswordField(
         widget=forms.PasswordInput(
             attrs={
                 "autofocus": True,
@@ -229,11 +223,11 @@ class PasswordChangeForm(BasePasswordChangeForm):
         ),
         label=_("Old password"),
     )
-    new_password1 = FormPasswordField(
+    new_password1 = flowbite.FormPasswordField(
         widget=forms.PasswordInput(attrs={"placeholder": _("New password")}),
         label=_("New password"),
     )
-    new_password2 = FormPasswordField(
+    new_password2 = flowbite.FormPasswordField(
         widget=forms.PasswordInput(
             attrs={"placeholder": _("New password confirmation")}
         ),
@@ -242,7 +236,7 @@ class PasswordChangeForm(BasePasswordChangeForm):
 
 
 class EmailVerificationCodeForm(forms.Form):
-    email_verification_code = FormIntegerField(label=_("Verification code"))
+    email_verification_code = flowbite.FormIntegerField(label=_("Verification code"))
 
 
 class SendVerificationCodeForm(forms.Form):

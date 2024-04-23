@@ -7,7 +7,11 @@ from django.contrib.auth.views import (
 )
 from django.contrib.auth.views import (
     PasswordChangeView as BasePasswordChangeView,
+)
+from django.contrib.auth.views import (
     PasswordResetConfirmView as BasePasswordResetConfirmView,
+)
+from django.contrib.auth.views import (
     PasswordResetView as BasePasswordResetView,
 )
 from django.core.exceptions import ValidationError
