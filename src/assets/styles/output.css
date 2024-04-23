@@ -1053,10 +1053,6 @@ input:checked + .toggle-bg {
   border-width: 0;
 }
 
-.pointer-events-none {
-  pointer-events: none;
-}
-
 .visible {
   visibility: visible;
 }
@@ -1246,14 +1242,6 @@ input:checked + .toggle-bg {
 
 .mt-auto {
   margin-top: auto;
-}
-
-.-mt-1 {
-  margin-top: -0.25rem;
-}
-
-.-mt-2 {
-  margin-top: -0.5rem;
 }
 
 .block {
@@ -2003,6 +1991,10 @@ input:checked + .toggle-bg {
   padding-top: 1.25rem;
 }
 
+.pt-8 {
+  padding-top: 2rem;
+}
+
 .text-center {
   text-align: center;
 }
@@ -2322,6 +2314,14 @@ input:checked + .toggle-bg {
 
 .hover\:underline:hover {
   text-decoration-line: underline;
+}
+
+.hover\:opacity-90:hover {
+  opacity: 0.9;
+}
+
+.hover\:opacity-85:hover {
+  opacity: 0.85;
 }
 
 .focus\:border-primary-500:focus {
@@ -2709,6 +2709,14 @@ input:checked + .toggle-bg {
 
   .sm\:max-w-md {
     max-width: 28rem;
+  }
+
+  .sm\:max-w-lg {
+    max-width: 32rem;
+  }
+
+  .sm\:max-w-2xl {
+    max-width: 42rem;
   }
 
   .sm\:justify-center {
