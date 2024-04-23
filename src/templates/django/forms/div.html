@@ -1,8 +1,11 @@
-{{ errors }}
+{#  {{ errors }} #}
+
 {% if errors and not fields %}
   <div>{% for field in hidden_fields %}{{ field }}{% endfor %}</div>
-{% endif %}
-{% for field, errors in fields %}
+  HOLA errorrrss 1
+  {% endif %}
+  
+  {% for field, errors in fields %}
   <div{% with classes=field.css_classes %}{% if classes %} class="{{ classes }}"{% endif %}{% endwith %}>
     {{ field.as_field_group }}
     {% if forloop.last %}
@@ -10,6 +13,8 @@
     {% endif %}
 </div>
 {% endfor %}
+
 {% if not fields and not errors %}
+HOLA errorrrss 3
   {% for field in hidden_fields %}{{ field }}{% endfor %}
 {% endif %}
