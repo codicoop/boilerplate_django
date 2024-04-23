@@ -18,8 +18,8 @@ success_btn_text - Pel text del link de la card -->
 {% block main %}
 
 <section class="bg-gray-50 dark:bg-gray-900">
-  <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-16">  
-    <div class="w-full bg-white rounded-lg shadow 
+  <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-16">
+    <div class="w-full bg-white rounded-lg shadow
           dark:border dark:bg-gray-800 dark:border-gray-700
           sm:max-w-md
           md:mt-0
@@ -30,13 +30,13 @@ success_btn_text - Pel text del link de la card -->
         </h1>
 
         <p class="pb-8">{% block success_text %}{% translate "Registry successfully updated." %}{% endblock %}</p>
-        
+
         {% block success_extra %}{% endblock %}
 
         <a href="{% block success_btn_url %}{% url 'home' %}{% endblock %}"
           class="self-end px-5 py-2.5 rounded-lg bg-primary-600 text-white font-bold text-sm text-center
         hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300
-        dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+        dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" id="id_back">
           {% block success_btn_text %}{% translate "Back to home" %}{% endblock %}
         </a>
       </div>
