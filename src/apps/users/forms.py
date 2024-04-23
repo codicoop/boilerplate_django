@@ -23,10 +23,10 @@ from django.utils.translation import gettext_lazy as _
 from apps.users.models import User
 from project.fields import flowbite
 from project.fields.flowbite import (
+    FormBooleanField,
     FormEmailField,
     FormIntegerField,
     FormPasswordField,
-    FormBooleanField,
 )
 from project.helpers import absolute_url
 from project.post_office import send

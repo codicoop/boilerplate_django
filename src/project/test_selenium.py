@@ -7,10 +7,10 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.core import mail
 from django.test import override_settings
 from django.urls import reverse
+from django.utils.translation import gettext as _
 from selenium import webdriver
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
-from django.utils.translation import gettext as _
 
 from apps.users.models import User
 
