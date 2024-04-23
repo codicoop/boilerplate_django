@@ -44,6 +44,9 @@ pytest-django = "^4.5.2"
 pytest-sugar = "^0.9.7"
 factory-boy = "^3.3.0"
 
+[tool.poetry.group.dev.dependencies]
+selenium = "^4.19.0"
+
 [tool.ruff]
 # See https://docs.astral.sh/ruff/settings/ for Ruff's settings
 # See https://docs.astral.sh/ruff/rules/ for a list of all Ruff's rules

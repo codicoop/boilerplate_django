@@ -77,6 +77,9 @@ class User(BaseModel, AbstractBaseUser, PermissionsMixin):
     def full_name(self):
         return f"{self.name} {self.surnames}".strip()
 
+    def has_admin_role(self):
+        return self.is_staff or self.is_superuser
+
     class Meta:
         verbose_name = _("user")
         verbose_name_plural = _("users")

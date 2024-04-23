@@ -78,8 +78,7 @@ class Data(models.Model):
         help_text="Help field_number",
     )
     field_select_checkbox = flowbite.ModelSelectCheckboxField(
-        max_length=4,
-        choices=SelectCheckboxChoices.choices,
+        max_length=250,
         default=SelectCheckboxChoices.OPTION_1,
         blank=True,
         null=True,

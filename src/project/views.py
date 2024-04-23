@@ -25,6 +25,7 @@ def home_view(request):
 
 class StandardSuccess(TemplateView):
     template_name = "standard_success.html"
+    page_title = _("Profile updated")
     link_text = _("Back")
     page_title = _("Registry updated")
     title = _("Registry successfully updated")
@@ -36,6 +37,7 @@ class StandardSuccess(TemplateView):
         context = super().get_context_data(**kwargs)
         add_context = {
             "link_text": self.get_link_text(),
+            "page_title": self.page_title,
             "title": self.title,
             "success_title": self.success_title,
             "description": self.description,
