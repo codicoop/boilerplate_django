@@ -88,7 +88,7 @@ class ModelSelectCheckboxField(models.CharField):
     def formfield(self, **kwargs):
         defaults = {"form_class": FormSelectCheckboxField}
         defaults.update(kwargs)
-        return super().formfield(**defaults)
+        return super(models.CharField, self).formfield(**defaults)
 
 
 class FormEmailField(forms.EmailField):
