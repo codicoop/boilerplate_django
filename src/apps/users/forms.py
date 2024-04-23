@@ -92,9 +92,6 @@ class UserSignUpForm(UserCreationForm):
             attrs={"autocomplete": "Email", "placeholder": _("Email address")}
         ),
     )
-    accept_conditions = flowbite.FormBooleanField(
-        label=_("I accept the data privacy policy"), required=True
-    )
 
     class Meta(UserCreationForm.Meta):
         model = User
@@ -105,6 +102,18 @@ class UserSignUpForm(UserCreationForm):
             "password2",
             "email",
         )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['accept_conditions'] = flowbite.FormBooleanField(
+            label=_("I accept the data privacy policy"),
+            help_text=_('<a href="%s" target="_blank">Read the '
+            'legal conditions here.</a>') % self.get_privacy_policy_url(),
+            required=True
+        )
+
+    def get_privacy_policy_url(self):
+        return reverse("registration:privacy_policy")
 
     def save(self, commit=True):
         obj = super().save(commit)
