@@ -177,7 +177,7 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 AUTH_USER_MODEL = "users.User"
 
 # https://docs.djangoproject.com/en/4.2/ref/settings/#login-url
-LOGIN_URL = reverse_lazy("login")
+LOGIN_URL = reverse_lazy("registration:login")
 
 # https://docs.djangoproject.com/en/4.2/ref/settings/#login-redirect-url
 LOGIN_REDIRECT_URL = reverse_lazy("home")
