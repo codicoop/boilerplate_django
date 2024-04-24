@@ -18,6 +18,7 @@ from django.contrib.auth.forms import (
 )
 from django.urls import reverse
 from django.utils import formats, timezone
+from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
 from apps.users.models import User
@@ -105,11 +106,13 @@ class UserSignUpForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['accept_conditions'] = flowbite.FormBooleanField(
-            label=_("I accept the data privacy policy"),
-            help_text=_('<a href="%s" target="_blank">Read the '
-            'legal conditions here.</a>') % self.get_privacy_policy_url(),
-            required=True
+        privacy_policy_url = self.get_privacy_policy_url()
+        privacy_policy_link = '<a href="{}" style="color: #5bbab5; font-weight: bold;"target="_blank">Privacy Policy</a>'.format(  # noqa: E501
+            privacy_policy_url
+        )
+        label_html = _("I have read and agree with the {}").format(privacy_policy_link)
+        self.fields["accept_conditions"] = flowbite.FormBooleanField(
+            label=format_html(label_html), required=True
         )
 
     def get_privacy_policy_url(self):
