@@ -84,5 +84,6 @@ class Data(models.Model):
         null=True,
         help_text="Help field_select_checkbox",
     )
+
     def __str__(self):
         return f"{self.field_text_1}"

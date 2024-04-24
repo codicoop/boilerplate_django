@@ -303,8 +303,9 @@ class MySeleniumTests(StaticLiveServerTestCase):
         signup_password1 = self.selenium.find_element(By.ID, "id_password1")
         signup_password2 = self.selenium.find_element(By.ID, "id_password2")
         signup_email = self.selenium.find_element(By.ID, "id_email")
-        signup_accept_conditions = self.selenium.find_element(By.ID,
-                                                              "id_accept_conditions")
+        signup_accept_conditions = self.selenium.find_element(
+            By.ID, "id_accept_conditions"
+        )
 
         signup_name.send_keys(self.sample_data["first_user"].name)
         signup_surnames.send_keys(self.sample_data["first_user"].surnames)
@@ -332,10 +333,14 @@ class MySeleniumTests(StaticLiveServerTestCase):
             self.sample_data["first_user"].email,
             self.sample_data["first_user"].name,
         )
-        verification_code = self.selenium.find_element(By.ID,
-                                                       "id_email_verification_code")
-        code = User.objects.filter(
-            email=self.sample_data["first_user"].email).first().email_verification_code
+        verification_code = self.selenium.find_element(
+            By.ID, "id_email_verification_code"
+        )
+        code = (
+            User.objects.filter(email=self.sample_data["first_user"].email)
+            .first()
+            .email_verification_code
+        )
         verification_code.send_keys(code)
         verification_code.send_keys(Keys.RETURN)
 
@@ -416,19 +421,22 @@ class MySeleniumTests(StaticLiveServerTestCase):
         demo_field_email = self.selenium.find_element(By.NAME, "field_email")
         demo_field_radio = self.selenium.find_element(By.ID, "id_field_radio_0")
         demo_field_boolean_checkbox = self.selenium.find_element(
-            By.NAME, "field_boolean_checkbox")
+            By.NAME, "field_boolean_checkbox"
+        )
         demo_field_select_dropdown = self.selenium.find_element(
-            By.NAME, "field_select_dropdown")
-        demo_field_password = self.selenium.find_element(
-            By.NAME, "field_password")
+            By.NAME, "field_select_dropdown"
+        )
+        demo_field_password = self.selenium.find_element(By.NAME, "field_password")
         demo_field_password_confirm = self.selenium.find_element(
-            By.NAME, "field_password_confirm")
-        demo_field_number = self.selenium.find_element(
-            By.NAME, "field_number")
+            By.NAME, "field_password_confirm"
+        )
+        demo_field_number = self.selenium.find_element(By.NAME, "field_number")
         demo_field_select_checkbox_1 = self.selenium.find_element(
-            By.ID, "id_field_select_checkbox_0")
+            By.ID, "id_field_select_checkbox_0"
+        )
         demo_field_select_checkbox_2 = self.selenium.find_element(
-            By.ID, "id_field_select_checkbox_1")
+            By.ID, "id_field_select_checkbox_1"
+        )
 
         demo_field_text_1.send_keys("text_1")
         demo_field_text_2.send_keys("text_2")

@@ -5,19 +5,19 @@ from apps.demo.forms import DataForm
 
 
 class DataFormTest(TestCase):
-
     def setUp(self):
-        self.form = DataForm(data={
-            "field_text_1": "",
-            "field_text_2": "",
-            "field_email": "test",
-            "field_radio": "",
-            "field_boolean_checkbox": "",
-            "field_select_dropdown": "",
-            "field_password": "test_password",
-            "field_password_confirm": "test",
-            "field_number": "string"
-        }
+        self.form = DataForm(
+            data={
+                "field_text_1": "",
+                "field_text_2": "",
+                "field_email": "test",
+                "field_radio": "",
+                "field_boolean_checkbox": "",
+                "field_select_dropdown": "",
+                "field_password": "test_password",
+                "field_password_confirm": "test",
+                "field_number": "string",
+            }
         )
 
     def test_form_errors(self):
@@ -43,21 +43,22 @@ class DataFormTest(TestCase):
             )
             self.assertEqual(
                 self.form.errors["field_email"],
-                ["Introdueix una adreça de correu electrònic vàlida"]
+                ["Introdueix una adreça de correu electrònic vàlida"],
             )
 
     def test_clean(self):
-        form_error_password = DataForm(data={
-            "field_text_1": "test",
-            "field_text_2": "test",
-            "field_email": "test@test.com",
-            "field_radio": "test",
-            "field_boolean_checkbox": "test",
-            "field_select_dropdown": "test",
-            "field_password": "password",
-            "field_password_confirm": "unequal password",
-            "field_number": 10,
-        }
+        form_error_password = DataForm(
+            data={
+                "field_text_1": "test",
+                "field_text_2": "test",
+                "field_email": "test@test.com",
+                "field_radio": "test",
+                "field_boolean_checkbox": "test",
+                "field_select_dropdown": "test",
+                "field_password": "password",
+                "field_password_confirm": "unequal password",
+                "field_number": 10,
+            }
         )
         self.assertFalse(form_error_password.is_valid())
 
@@ -65,6 +66,5 @@ class DataFormTest(TestCase):
             form_error_password.clean()
 
         self.assertEqual(
-            "['The two password fields must match.']",
-            str(error.exception)
+            "['The two password fields must match.']", str(error.exception)
         )

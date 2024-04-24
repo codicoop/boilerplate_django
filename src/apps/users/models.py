@@ -54,9 +54,7 @@ class User(BaseModel, AbstractBaseUser, PermissionsMixin):
         max_length=255,
         unique=True,
     )
-    email_verification_code = models.CharField(
-        default="0000"
-    )
+    email_verification_code = models.CharField(default="0000")
     email_verified = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)

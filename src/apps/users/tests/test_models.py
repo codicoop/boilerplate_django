@@ -4,7 +4,6 @@ from apps.users.models import User
 
 
 class UserManagerTestCase(TestCase):
-
     def test_create_user(self):
         """
         Test creates and saves a User with the given email, password

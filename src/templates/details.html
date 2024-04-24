@@ -1,0 +1,25 @@
+{% extends "./base_form.html" %}
+{% load i18n %}
+
+{# Blocks de base.html #}
+{% block page_title %}{% translate "Demo" %}{% endblock %}
+{% block bodyclasses %}{% endblock %}
+{% block mainclasses %} demo {% endblock %}
+{% block extra_js %}{% endblock %}
+
+{# Blocks de base_form.html #}
+{% block before_form_content %}{% endblock %}
+{% block enctype %}{% endblock %}
+{% block after_form_content %}{% endblock %}
+{% block submit_text %}{% translate 'Send' %}{% endblock %}
+{% block form_outro %}{% endblock %}
+
+{% block form_intro %}
+  <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+    {% translate "Demo Form Details" %}
+  </h1>
+{% endblock %}
+
+{% block form_fields %}
+  {{ form }}
+{% endblock %}

@@ -189,8 +189,8 @@ LOGOUT_REDIRECT_URL = "/"
 # Using paths instead of view names so we can whitelist entire sections.
 # https://github.com/CleitonDeLima/django-login-required-middleware#quick-start
 LOGIN_REQUIRED_IGNORE_PATHS = [
-    r"^/admin/", # If your project is not using the PUBLIC admin views for login
-                 # and password recovery, you probably don't need this.
+    r"^/admin/",  # If your project is not using the PUBLIC admin views for login
+    # and password recovery, you probably don't need this.
     "/favicon.ico",
     STATIC_URL,
 ]

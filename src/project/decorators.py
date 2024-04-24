@@ -11,4 +11,5 @@ def anonymous_required(view_func):
             url = settings.LOGIN_REDIRECT_URL if settings.LOGIN_REDIRECT_URL else ""
             return redirect(url)
         return view_func(request, *args, *kwargs)
+
     return _wrapped_view
