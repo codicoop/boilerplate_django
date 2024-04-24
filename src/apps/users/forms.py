@@ -30,7 +30,13 @@ from project.post_office import send
 class AuthenticationForm(BaseAuthenticationForm):
     username = flowbite.FormEmailField(
         label=_("Email"),
-        widget=forms.EmailInput(attrs={"autofocus": True, "placeholder": _("Email")}),
+        widget=forms.EmailInput(
+            attrs={
+                "autofocus": True,
+                "autocomplete": "email",
+                "placeholder": _("Email adress"),
+            }
+        ),
     )
     password = flowbite.FormPasswordField(
         widget=forms.PasswordInput(attrs={"placeholder": _("Password")}),
@@ -90,7 +96,7 @@ class UserSignUpForm(UserCreationForm):
         label=_("Email"),
         max_length=254,
         widget=forms.EmailInput(
-            attrs={"autocomplete": "Email", "placeholder": _("Email address")}
+            attrs={"autocomplete": "email", "placeholder": _("Email address")}
         ),
     )
 
@@ -140,8 +146,8 @@ class ProfileDetailsForm(forms.ModelForm):
         max_length=254,
         widget=forms.EmailInput(
             attrs={
-                "placeholder": _("Email address"),
                 "autocomplete": "email",
+                "placeholder": _("Email address"),
             }
         ),
     )
@@ -248,7 +254,12 @@ class PasswordChangeForm(BasePasswordChangeForm):
 
 
 class EmailVerificationCodeForm(forms.Form):
-    email_verification_code = flowbite.FormIntegerField(label=_("Verification code"))
+    email_verification_code = flowbite.FormIntegerField(
+        widget=forms.TextInput(
+            attrs=({"autofocus": True, "placeholder": _("Verification code")})
+        ),
+        label=_("Verification code"),
+    )
 
 
 class SendVerificationCodeForm(forms.Form):
