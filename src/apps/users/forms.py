@@ -18,6 +18,7 @@ from django.contrib.auth.forms import (
 )
 from django.urls import reverse
 from django.utils import formats, timezone
+from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
 from apps.users.models import User
@@ -29,7 +30,13 @@ from project.post_office import send
 class AuthenticationForm(BaseAuthenticationForm):
     username = flowbite.FormEmailField(
         label=_("Email"),
-        widget=forms.EmailInput(attrs={"autofocus": True, "placeholder": _("Email")}),
+        widget=forms.EmailInput(
+            attrs={
+                "autofocus": True,
+                "autocomplete": "email",
+                "placeholder": _("Email adress"),
+            }
+        ),
     )
     password = flowbite.FormPasswordField(
         widget=forms.PasswordInput(attrs={"placeholder": _("Password")}),
@@ -89,7 +96,7 @@ class UserSignUpForm(UserCreationForm):
         label=_("Email"),
         max_length=254,
         widget=forms.EmailInput(
-            attrs={"autocomplete": "Email", "placeholder": _("Email address")}
+            attrs={"autocomplete": "email", "placeholder": _("Email address")}
         ),
     )
 
@@ -105,13 +112,13 @@ class UserSignUpForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        privacy_policy_url = self.get_privacy_policy_url()
+        privacy_policy_link = '<a href="{}" style="color: #5bbab5; font-weight: bold;"target="_blank">Privacy Policy</a>'.format(  # noqa: E501
+            privacy_policy_url
+        )
+        label_html = _("I have read and agree with the {}").format(privacy_policy_link)
         self.fields["accept_conditions"] = flowbite.FormBooleanField(
-            label=_("I accept the data privacy policy"),
-            help_text=_(
-                '<a href="%s" target="_blank">Read the ' "legal conditions here.</a>"
-            )
-            % self.get_privacy_policy_url(),
-            required=True,
+            label=format_html(label_html), required=True
         )
 
     def get_privacy_policy_url(self):
@@ -139,8 +146,8 @@ class ProfileDetailsForm(forms.ModelForm):
         max_length=254,
         widget=forms.EmailInput(
             attrs={
-                "placeholder": _("Email address"),
                 "autocomplete": "email",
+                "placeholder": _("Email address"),
             }
         ),
     )
@@ -247,7 +254,12 @@ class PasswordChangeForm(BasePasswordChangeForm):
 
 
 class EmailVerificationCodeForm(forms.Form):
-    email_verification_code = flowbite.FormIntegerField(label=_("Verification code"))
+    email_verification_code = flowbite.FormIntegerField(
+        widget=forms.TextInput(
+            attrs=({"autofocus": True, "placeholder": _("Verification code")})
+        ),
+        label=_("Verification code"),
+    )
 
 
 class SendVerificationCodeForm(forms.Form):
