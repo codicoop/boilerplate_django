@@ -16,7 +16,11 @@ from project.fields.flowbite import (
 class DataForm(forms.ModelForm):
     field_text_1 = FormCharField(
         widget=forms.TextInput(
-            attrs={"placeholder": _("Text 1"), "autocomplete": "text"}
+            attrs={
+                "autofocus": True,
+                "placeholder": _("Text 1"),
+                "autocomplete": "text",
+            }
         ),
     )
     field_text_2 = FormCharField(
