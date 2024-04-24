@@ -8,11 +8,15 @@
 
 {# Blocks de base_success.html #}
 {% block success_extra %}{% endblock %}
+{% block success_btn_url %}{% endblock %}
+{% block success_btn_text %}{% endblock %}
+
 {% block success_title %}
-  {% translate "503: maintenance mode enabled" %}
+  {% translate "404 Page not found" %}
 {% endblock %}
-{% block success_text %} {% endblock %}
-{% block success_btn_url %} {% endblock %}
-{% block success_btn_text %} {% endblock %}
+
+{% block success_text %}
+{% translate "The page you were trying to acces does not exist. Please check the spelling or go back to the beginning." %}
+{% endblock %}
 
 
