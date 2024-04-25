@@ -1,7 +1,7 @@
 import yaml
 from django.shortcuts import redirect, render
 
-from apps.demo.forms import DataForm, DataFormReadOnly
+from apps.demo.forms import DataForm
 from apps.demo.models import Data
 
 
@@ -25,8 +25,10 @@ def detail_view(request, id):
     obj = Data.objects.get(id=id)
     obj.field_select_checkbox = yaml.safe_load(obj.field_select_checkbox)
     obj.save()
-    form = DataFormReadOnly(instance=obj)
-    return render(request, "details.html", {"form": form})
+    form = DataForm(instance=obj)
+    for field in form.fields:
+        form.fields.get(field).disabled = True
+    return render(request, "details.html", {"form": form, 'read_only': True})
 
 
 def update_view(request, id):
