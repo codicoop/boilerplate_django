@@ -14,7 +14,8 @@ from django.contrib.auth.views import (
 from django.contrib.auth.views import (
     PasswordResetView as BasePasswordResetView,
 )
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ImproperlyConfigured, ValidationError
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -143,11 +144,40 @@ class PasswordResetConfirmView(AnonymousRequiredMixin, BasePasswordResetConfirmV
     template_name = "registration/password_reset_form.html"
     success_url = reverse_lazy("registration:password_reset_complete")
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        if "validlink" not in context or not context["validlink"]:
-            context["invalid_link"] = _("The link is invalid. Please try again.")
-        return context
+    def dispatch(self, *args, **kwargs):
+        INTERNAL_RESET_SESSION_TOKEN = "_password_reset_token"  # noqa: N806
+        if "uidb64" not in kwargs or "token" not in kwargs:
+            raise ImproperlyConfigured(
+                "The URL path must contain 'uidb64' and 'token' parameters."
+            )
+        self.validlink = False
+        self.user = self.get_user(kwargs["uidb64"])
+        if self.user is not None:
+            token = kwargs["token"]
+            if token == self.reset_url_token:
+                session_token = self.request.session.get(INTERNAL_RESET_SESSION_TOKEN)
+                if self.token_generator.check_token(self.user, session_token):
+                    self.validlink = True
+                    return super().dispatch(*args, **kwargs)
+            else:
+                if self.token_generator.check_token(self.user, token):
+                    self.request.session[INTERNAL_RESET_SESSION_TOKEN] = token
+                    redirect_url = self.request.path.replace(
+                        token, self.reset_url_token
+                    )
+                    return HttpResponseRedirect(redirect_url)
+            if not self.validlink:
+                return redirect("registration:invalid_link")
+
+
+class PasswordResetInvalidLinkView(AnonymousRequiredMixin, StandardSuccess):
+    template_name = "standard_success.html"
+    title = _("Invalid link")
+    success_title = _("Invalid link")
+    page_title = _("Invalid link")
+    description = _("The link is invalid. Please try again.")
+    url = reverse_lazy("registration:password_reset")
+    link_text = _("Go back")
 
 
 class PasswordResetDoneView(AnonymousRequiredMixin, StandardSuccess):

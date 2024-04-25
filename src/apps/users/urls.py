@@ -11,6 +11,7 @@ from apps.users.views import (
     PasswordResetCompleteView,
     PasswordResetConfirmView,
     PasswordResetDoneView,
+    PasswordResetInvalidLinkView,
     PasswordResetView,
     SendVerificationCodeView,
     details_view,
@@ -40,6 +41,11 @@ urlpatterns = [
         _("password-reset/<uidb64>/<token>/"),
         PasswordResetConfirmView.as_view(),
         name="password_reset_confirm",
+    ),
+    path(
+        _("password-reset/invalid-link/"),
+        PasswordResetInvalidLinkView.as_view(),
+        name="invalid_link",
     ),
     path(
         _("password-reset/done/"),
