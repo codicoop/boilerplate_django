@@ -1,5 +1,5 @@
 import yaml
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 
 from apps.demo.forms import DataForm
 from apps.demo.models import Data
@@ -22,7 +22,10 @@ def list_view(request):
 
 
 def detail_view(request, id):
-    obj = Data.objects.get(id=id)
+    try:
+        obj = get_object_or_404(Data, pk=id)
+    except:
+        return render(request, "errors/404.html")
     obj.field_select_checkbox = yaml.safe_load(obj.field_select_checkbox)
     obj.save()
     form = DataForm(instance=obj)
@@ -32,7 +35,10 @@ def detail_view(request, id):
 
 
 def update_view(request, id):
-    obj = Data.objects.get(id=id)
+    try:
+        obj = get_object_or_404(Data, pk=id)
+    except:
+        return render(request, "errors/404.html")
     if request.method == "GET":
         obj.field_select_checkbox = yaml.safe_load(obj.field_select_checkbox)
         obj.save()
