@@ -74,11 +74,12 @@ class DataForm(forms.ModelForm):
         choices=Data.SelectChoices.choices,
         help_text="Help field_select_dropdown",
     )
-    field_select_checkbox = FormSelectCheckboxField(
-        widget=forms.CheckboxSelectMultiple,
-        choices=Data.SelectCheckboxChoices.choices,
-        help_text="Help field_select_checkbox",
-    )
+
+    # This field is temporarily left out of the form until later.
+    # field_select_checkbox = FormSelectCheckboxField(
+    #     widget=forms.CheckboxSelectMultiple,
+    #     choices=Data.SelectCheckboxChoices.choices,
+    #     help_text="Help field_select_checkbox")
 
     class Meta:
         model = Data
@@ -92,7 +93,7 @@ class DataForm(forms.ModelForm):
             "field_password",
             "field_password_confirm",
             "field_number",
-            "field_select_checkbox",
+            # "field_select_checkbox",
         ]
 
     def clean(self):
