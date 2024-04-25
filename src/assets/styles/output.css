@@ -1160,8 +1160,8 @@ input:checked + .toggle-bg {
   margin-bottom: -1px;
 }
 
-.-mt-2 {
-  margin-top: -0.5rem;
+.-mt-4 {
+  margin-top: -1rem;
 }
 
 .mb-1 {
@@ -1254,14 +1254,6 @@ input:checked + .toggle-bg {
 
 .mt-auto {
   margin-top: auto;
-}
-
-.-mt-10 {
-  margin-top: -2.5rem;
-}
-
-.-mt-4 {
-  margin-top: -1rem;
 }
 
 .block {
