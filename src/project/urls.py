@@ -27,8 +27,8 @@ urlpatterns = [
 
 urlpatterns += i18n_patterns(
     path("", data_view, name="home"),
-    path("", list_view, name="list"),
-    path(_("data/details/<id>"), detail_view, name="details"),
-    path(_("data/update/<id>"), update_view, name="update"),
+    path("data/list/", list_view, name="list"),
+    path(_("data/details/<int:id>"), detail_view, name="details"),
+    path(_("data/update/<int:id>"), update_view, name="update"),
     path(_("registration/"), include("apps.users.urls", namespace="registration")),
 )

@@ -18,14 +18,11 @@ def data_view(request):
 
 def list_view(request):
     context = {"data": Data.objects.all()}
-    return render(request, "list_view.html", context)
+    return render(request, "list.html", context)
 
 
 def detail_view(request, id):
-    try:
-        obj = get_object_or_404(Data, pk=id)
-    except:
-        return render(request, "errors/404.html")
+    obj = get_object_or_404(Data, pk=id)
     obj.field_select_checkbox = yaml.safe_load(obj.field_select_checkbox)
     obj.save()
     form = DataForm(instance=obj)
@@ -35,10 +32,7 @@ def detail_view(request, id):
 
 
 def update_view(request, id):
-    try:
-        obj = get_object_or_404(Data, pk=id)
-    except:
-        return render(request, "errors/404.html")
+    obj = get_object_or_404(Data, pk=id)
     if request.method == "GET":
         obj.field_select_checkbox = yaml.safe_load(obj.field_select_checkbox)
         obj.save()

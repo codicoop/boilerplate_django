@@ -10,7 +10,16 @@
 {# Blocks de base_form.html #}
 {% block before_form_content %}{% endblock %}
 {% block enctype %}{% endblock %}
-{% block after_form_content %}{% endblock %}
+{% block after_form_content %}
+  {% if data %}
+    {% for datum in data %}
+      <a href="{% url 'details' id=datum.id %}">{{ datum.field_text_1 }}</a>
+      </br>
+    {% endfor %}
+  {% else %}
+    <p>Data is empty</p>
+ {% endif %}
+{% endblock %}
 {% block submit_text %}{% translate 'Send' %}{% endblock %}
 {% block form_outro %}{% endblock %}
 
@@ -18,9 +27,4 @@
   <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
     {% translate "Demo Form Details" %}
   </h1>
-{% endblock %}
-
-{% block form_fields %}
-  {{ form }}
-  <a href="{% url 'update' id=form.instance.id %}">Update</a>
 {% endblock %}
