@@ -28,7 +28,7 @@ def detail_view(request, id):
     form = DataForm(instance=obj)
     for field in form.fields:
         form.fields.get(field).disabled = True
-    return render(request, "details.html", {"form": form, 'read_only': True})
+    return render(request, "details.html", {"form": form})
 
 
 def update_view(request, id):
