@@ -14,7 +14,7 @@ class VerificationRequiredMiddleware:
             request.user.is_authenticated
             and not request.user.email_verified
             and view_name not in view_names
-            and not request.path.startswith(reverse("admin:index"))
+            and not request.user.is_superuser
         ):
             return redirect(reverse("registration:profile_details"))
         return self.get_response(request)
