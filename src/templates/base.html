@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/x-icon" href="{% static 'images/styles.css' %}">
+  {# <link rel="icon" type="image/x-icon" href="{% static 'images/styles.css' %}"> #}
   <link rel="stylesheet" href="{% static 'styles/output.css' %}">
   <title>Projecte App | {% block page_title %}{% endblock %}</title>
 </head>
@@ -301,7 +301,7 @@
   </div>
 
   <div id="cookies-banner" tabindex="-1"
-    class="fixed bottom-0 start-0 z-50 flex flex-col justify-between w-full p-4 border-t border-gray-200 bg-gray-50 
+    class="fixed bottom-0 start-0 z-50 flex flex-col justify-between w-full p-4 border-t border-gray-200 bg-gray-50
         dark:bg-gray-700 dark:border-gray-600">
     <p class="text-sm font-normal text-gray-500 dark:text-gray-400">
       {% translate "We use cookies to optimize your experience and to analyze the web traffic. We don't sell data to third parties. If you continue navigating, we'll understand that you are ok with that." %}
@@ -315,7 +315,7 @@
         <svg class="w-6 h-6 text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
         </svg>
-        
+
         {% translate "Accept" %}
       </button>
       <button type="button" id="cookies-deny"
