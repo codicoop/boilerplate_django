@@ -12,6 +12,10 @@ def change_lang(context, lang=None, *args, **kwargs):
     Usage: {% change_lang 'en' %}
     """
 
+    request = context.get("request", None)
+    if not request:
+        return reverse("home")
+
     path = context["request"].path
     url_parts = resolve(path)
 
