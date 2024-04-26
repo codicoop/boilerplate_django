@@ -189,6 +189,10 @@ LOGOUT_REDIRECT_URL = "/"
 # Using paths instead of view names so we can whitelist entire sections.
 # https://github.com/CleitonDeLima/django-login-required-middleware#quick-start
 LOGIN_REQUIRED_IGNORE_PATHS = [
+    # We had to add this one because the base URL without any language was still
+    # captures by the middleware and redirecting you to login, even with "home"
+    # included in LOGIN_REQUIRED_IGNORE_VIEW_NAMES.
+    "",
     r"^/admin/",  # If your project is not using the PUBLIC admin views for login
     # and password recovery, you probably don't need this.
     "/favicon.ico",
@@ -196,6 +200,8 @@ LOGIN_REQUIRED_IGNORE_PATHS = [
 ]
 # Whitelisting by URL name:
 LOGIN_REQUIRED_IGNORE_VIEW_NAMES = [
+    # Beware that "home" only ignores requests when a language is included in the
+    # URL. See LOGIN_REQUIRED_IGNORE_PATHS comments above.
     "home",
     "registration:signup",
     "registration:privacy_policy",

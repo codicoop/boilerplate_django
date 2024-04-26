@@ -7,9 +7,18 @@ from django.views.generic import RedirectView, TemplateView
 
 class RootRedirectView(RedirectView):
     """
-    If your site has an actual home page view that is not a redirect,
-    you'll also need to move the URL in project/urls.py from the urlpatterns
-    block to the i18n_patterns one.
+    This view captures the requests that don't include any path in the URL,
+    like "http://localhost:1234/"
+
+    It's meant to handle the language detection and to redirect to the
+    language that django detects from the browser.
+
+    This can normally be hanmdled by Django itself with a middleware
+    django.middleware.locale.LocaleMiddleware
+    But for some reason that I (Pere) don't remember, I had to make this view.
+
+    Maybe it was some bug that in current Django versions doesn't happen
+    anymore.
     """
 
     url = reverse_lazy("home")
