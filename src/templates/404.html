@@ -1,4 +1,4 @@
-{% extends "../base_success.html" %}
+{% extends "./base_success.html" %}
 {% load i18n %}
 
 {# Blocks de base.html #}
@@ -9,15 +9,13 @@
 
 {# Blocks de base_success.html #}
 {% block success_extra %}{% endblock %}
-{% block success_btn_url %}{% endblock %}
+{% block success_btn_url %}javascript:history.back(){% endblock %}
 {% block success_btn_text %}{% translate "Go back" %}{% endblock %}
 
 {% block success_title %}
-  {% translate "404 Page not found" %}
+  {% translate "Error 404: Page not found" %}
 {% endblock %}
 
 {% block success_text %}
-  {% translate "The page you were trying to acces does not exist. Please check the spelling or go back to the beginning." %}
+  {% translate "The page you were trying to access does not exist. Please check the spelling or go back to the beginning." %}
 {% endblock %}
-
-
