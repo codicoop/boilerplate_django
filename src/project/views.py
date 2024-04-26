@@ -25,7 +25,6 @@ def home_view(request):
 
 class StandardSuccess(TemplateView):
     template_name = "standard_success.html"
-    page_title = _("Profile updated")
     link_text = _("Back")
     page_title = _("Registry updated")
     title = _("Registry successfully updated")
