@@ -207,6 +207,7 @@ LOGIN_REQUIRED_IGNORE_VIEW_NAMES = [
 ]
 
 VERIFICATION_REQUIRED_IGNORE_VIEW_NAMES = [
+    "home",
     "registration:profile_details",
     "registration:logout",
     "registration:password_change",
