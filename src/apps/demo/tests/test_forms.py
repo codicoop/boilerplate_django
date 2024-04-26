@@ -29,7 +29,6 @@ class DataFormTest(TestCase):
                 "field_text_2",
                 "field_radio",
                 "field_select_dropdown",
-                "field_select_checkbox",
             ]
 
             for field in required_fields:

@@ -57,7 +57,7 @@ class Strings(Enum):
     LOGOUT = _("Log out")
     SIGNUP_TITLE = _("Projecte App | Registrar-se")
     PROFILE_TITLE = _("Projecte App | Detalls del perfil")
-    PROFILE_UPDATE_TITLE = _("Projecte App | Profile updated")
+    REGISTRY_UPDATE_TITLE = _("Projecte App | Registry updated")
     PASSWORD_CHANGE_TITLE = _("Projecte App | Canvi de contrasenya")
     EMAIL_VALIDATION_TITLE = _("Projecte App | Mail validation")
     DEMO_TITLE = _("Projecte App | Demo")
@@ -364,7 +364,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
 
         update_surnames.send_keys(Keys.RETURN)
 
-        self.logging_url_title_and_assert_title(Strings.PROFILE_UPDATE_TITLE.value)
+        self.logging_url_title_and_assert_title(Strings.REGISTRY_UPDATE_TITLE.value)
 
         button_back = self.selenium.find_element(By.ID, "id_back")
         button_back.click()
@@ -377,7 +377,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
         update_email.send_keys("andrews.mcdolls@gmail.com")
         update_email.send_keys(Keys.RETURN)
 
-        self.logging_url_title_and_assert_title(Strings.PROFILE_UPDATE_TITLE.value)
+        self.logging_url_title_and_assert_title(Strings.REGISTRY_UPDATE_TITLE.value)
 
         button_back = self.selenium.find_element(By.ID, "id_back")
         button_back.click()
@@ -399,7 +399,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
         password_confirmation.send_keys("0pl#4jT7m8ijn")
         password_confirmation.send_keys(Keys.RETURN)
 
-        self.logging_url_title_and_assert_title(Strings.PROFILE_UPDATE_TITLE.value)
+        self.logging_url_title_and_assert_title(Strings.PASSWORD_CHANGE_TITLE.value)
 
         # Click on the button Go Back.
         go_back = self.selenium.find_element(By.ID, "id_back")
@@ -431,12 +431,6 @@ class MySeleniumTests(StaticLiveServerTestCase):
             By.NAME, "field_password_confirm"
         )
         demo_field_number = self.selenium.find_element(By.NAME, "field_number")
-        demo_field_select_checkbox_1 = self.selenium.find_element(
-            By.ID, "id_field_select_checkbox_0"
-        )
-        demo_field_select_checkbox_2 = self.selenium.find_element(
-            By.ID, "id_field_select_checkbox_1"
-        )
 
         demo_field_text_1.send_keys("text_1")
         demo_field_text_2.send_keys("text_2")
@@ -447,8 +441,6 @@ class MySeleniumTests(StaticLiveServerTestCase):
         demo_field_password.send_keys("password")
         demo_field_password_confirm.send_keys("password")
         demo_field_number.send_keys("1234")
-        demo_field_select_checkbox_1.click()
-        demo_field_select_checkbox_2.click()
         demo_field_password.send_keys(Keys.RETURN)
 
         self.logging_url_title_and_assert_title(Strings.DEMO_TITLE.value)

@@ -146,7 +146,6 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "maintenance_mode.middleware.MaintenanceModeMiddleware",
-    "apps.users.middleware.VerificationRequiredMiddleware",
 ]
 
 
