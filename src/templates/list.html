@@ -1,4 +1,4 @@
-{% extends "./base_form.html" %}
+{% extends "./base.html" %}
 {% load i18n %}
 
 {# Blocks de base.html #}
@@ -7,24 +7,33 @@
 {% block mainclasses %} demo {% endblock %}
 {% block extra_js %}{% endblock %}
 
-{# Blocks de base_form.html #}
-{% block before_form_content %}{% endblock %}
-{% block enctype %}{% endblock %}
-{% block after_form_content %}
-  {% if data %}
-    {% for datum in data %}
-      <a href="{% url 'details' id=datum.id %}">{{ datum.field_text_1 }}</a>
-      </br>
-    {% endfor %}
-  {% else %}
-    <p>Data is empty</p>
- {% endif %}
-{% endblock %}
-{% block submit_text %}{% translate 'Send' %}{% endblock %}
-{% block form_outro %}{% endblock %}
-
-{% block form_intro %}
-  <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-    {% translate "Demo Form Details" %}
+{% block main %}
+  <h1 class="mb-8 mt-4 mx-auto text-2xl font-bold leading-tight tracking-tight text-gray-900
+      md:text-3xl md:max-w-screen-sm dark:text-white">
+    {% translate "Demo List" %}
   </h1>
+  <div class="mb-4 mx-auto text-gray-900 dark:text-white md:max-w-screen-sm">
+    <p>{% translate 'Text descriptiu Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil maxime omnis saepe, blanditiis ea quam rerum illo, eligendi Voluptate a voluptatum maiores! Quo eum id cumque esse doloribus mollitia sit nemo beatae reprehenderit, aliquid ipsum doloremque molestiae? Fugiat doloribus ipsa deleniti saepe architecto. Consequatur qui unde sunt mollitia?' %}</p>
+  </div>
+  <div class="py-8 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
+      <div class="grid space-y-6 mx-auto 
+        md:max-w-screen-sm
+        lg:grid-cols-2 lg:gap-12 lg:space-y-0">
+        {% if data %}
+          {% for datum in data %}
+            <a href="{% url 'details' id=datum.id %}" class="flex justify-between items-center p-4 bg-white rounded-lg border-l-8 border-primary-600 shadow dark:bg-gray-800 dark:hover:bg-gray-700 dark:border-primary-500 hover:bg-gray-50">
+              <div>
+                  <span class="block mb-1 text-xs font-medium text-gray-500 uppercase dark:text-gray-400">13/07/2024</span>
+                  <span class="text-xl font-semibold text-primary-600 dark:text-primary-500">{{ datum.field_text_1 }}</span>
+              </div>
+              <svg class="w-6 h-6 text-primary-600 dark:text-primary-500" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+          </a>
+          {% endfor %}
+        {% else %}
+        <div class="mb-4 mx-auto text-gray-900 dark:text-white md:max-w-screen-sm">
+          <p>{% translate 'There is nothing ot show because nothing has been created. Go ahead and start!' %}</p>
+        </div>
+       {% endif %}
+      </div>
+  </div>
 {% endblock %}
