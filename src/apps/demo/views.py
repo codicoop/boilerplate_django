@@ -12,7 +12,7 @@ def data_view(request):
         form = DataForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("home")
+            return redirect("list")
     return render(request, "home.html", {"form": form})
 
 
