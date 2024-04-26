@@ -212,8 +212,9 @@ LOGIN_REQUIRED_IGNORE_VIEW_NAMES = [
     "registration:password_reset_complete",
 ]
 
-VERIFICATION_REQUIRED_IGNORE_VIEW_NAMES = [
-    "home",
+# In theory, everywhere that the user will have access while not logged in
+# should be also accessible if it's logged in but without the email validated.
+VERIFICATION_REQUIRED_IGNORE_VIEW_NAMES = LOGIN_REQUIRED_IGNORE_VIEW_NAMES + [
     "registration:profile_details",
     "registration:logout",
     "registration:password_change",
@@ -222,7 +223,6 @@ VERIFICATION_REQUIRED_IGNORE_VIEW_NAMES = [
     "registration:user_validation",
     "registration:send_verification_code",
     "registration:email_verification_complete",
-    "registration:privacy_policy",
 ]
 
 ################################################################################
