@@ -18,17 +18,18 @@ from django.urls import include, path
 from django.utils.translation import gettext_lazy as _
 
 from apps.demo.views import data_view, detail_view, list_view, update_view
-from project.views import RootRedirectView
+from project.views import RootRedirectView, home_view
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", RootRedirectView.as_view()),
+    # path("", RootRedirectView.as_view()),
 ]
 
 urlpatterns += i18n_patterns(
-    path("", data_view, name="home"),
-    path("data/list/", list_view, name="list"),
+    path("", home_view, name="home"),
+    path(_("data/list/"), list_view, name="list"),
     path(_("data/details/<int:id>"), detail_view, name="details"),
     path(_("data/update/<int:id>"), update_view, name="update"),
+    path(_("data/"), data_view, name="data"),
     path(_("registration/"), include("apps.users.urls", namespace="registration")),
 )
