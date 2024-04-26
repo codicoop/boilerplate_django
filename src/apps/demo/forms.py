@@ -9,7 +9,6 @@ from project.fields.flowbite import (
     FormIntegerField,
     FormPasswordField,
     FormRadioField,
-    FormSelectCheckboxField,
     FormSelectDropdownField,
 )
 
