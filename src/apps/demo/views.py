@@ -37,8 +37,9 @@ def update_view(request, id):
         obj.field_select_checkbox = yaml.safe_load(obj.field_select_checkbox)
         obj.save()
         form = DataForm(instance=obj)
+        return render(request, "update.html", {"form": form})
     else:
         form = DataForm(request.POST, instance=obj)
         if form.is_valid():
             form.save()
-    return render(request, "update.html", {"form": form})
+        return redirect("details", obj.id)
