@@ -28,7 +28,7 @@
   <div class="mb-4 text-gray-900 dark:text-white">
     <p>{% translate 'Text descriptiu Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil maxime omnis saepe, blanditiis ea quam rerum illo, eligendi Voluptate a voluptatum maiores! Quo eum id cumque esse doloribus mollitia sit nemo beatae reprehenderit, aliquid ipsum doloremque molestiae? Fugiat doloribus ipsa deleniti saepe architecto. Consequatur qui unde sunt mollitia?' %}</p>
   </div>
-  <a class="self-end mb-4" href="{% url 'create' %}">
+  <a class="self-end mb-4" href="{% url 'create' %}" id="id_create_data">
     <div class="flex gap-3 justify-end items-center w-fit mt-4 px-5 py-2.5 rounded-lg bg-primary-600
       text-white font-bold text-sm text-center cursor-pointer
       hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300
@@ -41,12 +41,12 @@
   </a>
 </div>
   <div class="py-8 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
-      <div class="grid space-y-6 mx-auto 
+      <div class="grid space-y-6 mx-auto
         md:max-w-screen-sm
         lg:grid-cols-2 lg:gap-12 lg:space-y-0">
         {% if data %}
           {% for datum in data %}
-            <a href="{% url 'details' id=datum.id %}" class="flex justify-between items-center p-4 bg-white rounded-lg border-l-8 border-primary-600 shadow dark:bg-gray-800 dark:hover:bg-gray-700 dark:border-primary-500 hover:bg-gray-50">
+            <a href="{% url 'details' id=datum.id %}" class="flex justify-between items-center p-4 bg-white rounded-lg border-l-8 border-primary-600 shadow dark:bg-gray-800 dark:hover:bg-gray-700 dark:border-primary-500 hover:bg-gray-50" id="id_details_{{ datum.id }}">
               <div>
                   <span class="block mb-1 text-xs font-medium text-gray-500 uppercase dark:text-gray-400">13/07/2024</span>
                   <span class="text-xl font-semibold text-primary-600 dark:text-primary-500">{{ datum.field_text_1 }}</span>
@@ -58,7 +58,7 @@
         <div class="mb-4 mx-auto text-gray-900 dark:text-white md:max-w-screen-sm">
           <p>{% translate 'There is nothing ot show because nothing has been created. Go ahead and start!' %}</p>
         </div>
-       {% endif %}
+      {% endif %}
       </div>
   </div>
 {% endblock %}
