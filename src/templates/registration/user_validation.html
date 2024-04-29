@@ -4,21 +4,20 @@
 {# Blocks de base.html #}
 {% block page_title %}{% translate "Mail validation" %}{% endblock %}
 {% block bodyclasses %}{% endblock %}
-{% block mainclasses %} grid-1 {% endblock %}
+{% block mainclasses %}{% endblock %}
 {% block extra_js %}{% endblock %}
 
 {# Blocks de base_form.html #}
-{% block form_classes %} grid-item-4-9 {% endblock %}
+{% block before_form_content %}{% endblock %}
+{% block form_intro %}{% endblock %}
+{% block enctype %}{% endblock %}
+{% block submit_text %}{% translate "Go" %}{% endblock %}
+{% block form_outro %}{% endblock %}
 
 {% block form_fields %}
-  {{ form.as_p }}
-  {% block submit_value %}{% translate "Send" %}{% endblock %}
+  {{ form }}
+  {% block submit_value %}{% endblock %}
 {% endblock %}
 
 {% block after_form_content %}
-<div class="form__outro text-md">
-  <a href="{% url 'registration:code_resend' %}">
-    {% translate "Click here to resend validation code" %}
-  </a>
-</div>
 {% endblock after_form_content %}

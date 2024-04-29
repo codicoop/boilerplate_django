@@ -4,9 +4,8 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils import timezone
 from django.utils.html import format_html
 
-from apps.base.admin import ModelAdminMixin
-from apps.users.forms import UserChangeForm
 from apps.users.models import User
+from project.admin import ModelAdminMixin
 
 
 class UserCreationForm(forms.ModelForm):
@@ -47,13 +46,10 @@ class UserAdmin(ModelAdminMixin, BaseUserAdmin):
         "full_name",
         "is_staff",
         "is_superuser",
+        "email_verified",
     )
     list_filter = ("is_superuser",)
-    search_fields = (
-        "email",
-        "name",
-        "surnames",
-    )
+    search_fields = ("email", "name", "surnames")
     ordering = ("email",)
     fieldsets = (("Autenticació", {"fields": ("email", "password")}),)
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
@@ -83,6 +79,7 @@ class UserAdmin(ModelAdminMixin, BaseUserAdmin):
                     "is_staff",
                     "is_active",
                     "is_superuser",
+                    "email_verified",
                     "roles_explanation_field",
                     "groups",
                 ),
@@ -99,12 +96,8 @@ class UserAdmin(ModelAdminMixin, BaseUserAdmin):
             },
         ),
     )
-    superuser_fields = (
-        "is_superuser",
-    )
-    readonly_fields = (
-        "roles_explanation_field",
-    )
+    superuser_fields = ("is_superuser",)
+    readonly_fields = ("roles_explanation_field",)
 
     def get_fieldsets(self, request, obj=None):
         return super().get_fieldsets(request, obj) + self.common_fieldsets

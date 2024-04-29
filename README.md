@@ -3,6 +3,18 @@
 ![lint workflow](https://github.com/codicoop/boilerplate_django/actions/workflows/lint.yml/badge.svg)
 ![docker workflow](https://github.com/codicoop/boilerplate_django/actions/workflows/docker.yml/badge.svg)
 
+# Instalation guide
+In order to install this project, you have to:
+
+1. Import the project.
+2. In the root, you have to install the packages necessaries with `npm install`
+3. After, if you are going to make changes in the html styles, you have to compile them in order for them to show. You do it with:
+`npx tailwindcss -i ./src/assets/styles/input.css -o ./src/assets/styles/output.css --watch`
+4. Inside */docker/* folder rename **.env.example** to **.env** and then run  `docker compose up`.
+5. From Docker shell ejecute: `python manage.py migrate`.
+6. Go to: [localhost:1234](http://localhost:1234)
+7. **.env** creates a superuser account with username hola@codi.coop
+
 # Included packages
 
 ## Django Post Office
@@ -47,6 +59,102 @@ going to be immediately sent instead of added to queue for further processing.
 
 # Included features
 
+## Custom templates for fields and widgets
+
+### Trick to render the fields with the error classes
+
+Might be useful when testing FlowBite design changes.
+
+In `BaseFlowBiteBoundField.get_context` change `if self.errors:` for
+`if not self.errors:`.
+
+This trick is a bit limited given that it will not include an error message,
+which you will probably also need to render.
+
+### How it works and how to create/modify the field and controls tempaltes
+
+We're using Tailwind with a components library called FlowBite.
+
+We needed to be able to use either the format...
+
+```
+{{ form.as_div }}
+or
+{{ form }}
+```
+
+... for simple cases, and the format...
+
+```
+{{ form.non_field_errors }}
+<div class="something">
+  {{ form.subject.as_field_group }}
+</div>
+<div class="something">
+  {{ form.message.as_field_group }}
+</div>
+<div class="something">
+  {{ form.sender.as_field_group }}
+</div>
+<div class="something">
+  {{ form.cc_myself.as_field_group }}
+</div>
+```
+
+... for more complex layouts.
+
+> **Important**: We're not creating the custom templates for the `form.as_p`,
+> `form.as_ul` or other representations, only for `form.as_div` (and just
+> `form`, as it default to `as_div`). **Only use the div form representation.**
+
+We studied the possibility of switching to `django-crispy-forms` as it provides
+layout control, and looks promising, but we decided to leave it for the future.
+
+We're customizing the form controls' templates using this new django 5 feature:
+https://docs.djangoproject.com/en/5.0/topics/forms/#reusable-field-group-templates
+
+There is a template that renders the "field group" at `templates/fields/field_default.html`
+
+We should try to have all the fields work fine with the same base field template,
+but if you need a different template for a field, you should create a new one
+based on `field_default.html` and set up the field according to the linked
+documentation. In that case, consider if it's worth it to first modify the
+`field_default.html` to include `block` tags, and then make you custom
+template extent `field_default.html` and override only the blocks.
+
+That template covers the elements "around" que actual control. The control
+itself, meaning, in example, the `<select>` tag, is what Django calls Widget.
+
+If you need to customize the control, in our tailwind/flowbite approach usually
+you'll only need to modify the classes.
+
+For that, you need to create a class extending `BaseFlowBiteBoundField` and
+specify the attributes, following the example at the `FlowBiteBoundCharField`
+class.
+
+Anything that can be customized by modifying the widget's `attrs` should be done
+in this class.
+
+But if you need to modify the HTML structure of the control you'll need
+to override its template by copying the original Django template into
+`templates/django/forms/widgets` and modify it.
+The path to find the original templates should be something similar to:
+
+    /.venv/lib/python3.11/site-packages/django/forms/templates/django/forms/widgets
+
+Moreover, if you're rendering the full form with `{{ form.as_div }}` or
+`{{ form }}` (which default to `as_div`) and you need to customize the form's
+HTML structure that wraps the fields, there are two things to consider:
+
+- You can change the classes of the div that wraps each field without having to
+edit the template. There might be multiple ways to do it. Read
+`BaseFlowBiteBoundField.css_classes` comment.
+- You can edit the template by modifying the the `templates/django/forms/div.html`
+file. At the moment of writing this, this template is exactly the same as the
+original one, just put there to make it easier to find it in the future. If you
+find a way to change the path of this template programatically, please move it
+to a path that fits our structure better.
+
 ## Custom user account views and templates
 
 ### Removal
@@ -59,9 +167,9 @@ registration in `users/urls.py`:
 - PasswordResetConfirmView
 - PasswordResetDoneView
 - PasswordResetCompleteView
-- SignupView
-- LoginView
-- DetailsView
+- signup_view
+- login_view
+- details_view
 
 Delete the folders:
 `templates/profile`
@@ -162,7 +270,7 @@ path("", RootRedirectView.as_view()),
 and just leave
 
 ```python
-path("", HomeView.as_view(), name="home"),
+path("", home_view, name="home"),
 ```
 
 Finally, remove the language selection widget from the base template.
@@ -266,7 +374,7 @@ In your env. variables,
 - `POST_OFFICE_DEFAULT_PRIORITY` must be set to "now".
 
 In `docker/docker-compose.yml`:
-- Remove the `boilerplate-celery` and `develop_django_boilerplate_redis`
+- Remove the `boilerplate-celery` and `boilerplate-redis`
 services.
 
 Remove the packages redis and django-sendgrid-v5 from the dependencies.
