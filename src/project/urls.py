@@ -30,6 +30,6 @@ urlpatterns += i18n_patterns(
     path(_("demo/list/"), list_view, name="list"),
     path(_("demo/details/<int:id>"), detail_view, name="details"),
     path(_("demo/update/<int:id>"), update_view, name="update"),
-    path(_("demo/"), create_view, name="data"),
+    path(_("demo/"), create_view, name="create"),
     path(_("registration/"), include("apps.users.urls", namespace="registration")),
 )
