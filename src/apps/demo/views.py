@@ -5,7 +5,7 @@ from apps.demo.forms import DataForm
 from apps.demo.models import Data
 
 
-def data_view(request):
+def create_view(request):
     if request.method == "GET":
         form = DataForm()
     else:
