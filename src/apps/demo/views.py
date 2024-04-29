@@ -13,7 +13,7 @@ def create_view(request):
         if form.is_valid():
             form.save()
             return redirect("list")
-    return render(request, "home.html", {"form": form})
+    return render(request, "create.html", {"form": form})
 
 
 def list_view(request):
@@ -41,4 +41,4 @@ def update_view(request, id):
         form = DataForm(request.POST, instance=obj)
         if form.is_valid():
             form.save()
-    return render(request, "details.html", {"form": form})
+    return render(request, "update.html", {"form": form})
