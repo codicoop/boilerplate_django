@@ -383,7 +383,7 @@ msgstr "Entra"
 
 #: templates/registration/login_old.html:73
 msgid "Forgotten your password?"
-msgstr "Has oblidat la teva contrassenya?"
+msgstr "Has oblidat la teva contrasenya?"
 
 #: templates/registration/login_old.html:77
 msgid "If you are not registered yet:"
