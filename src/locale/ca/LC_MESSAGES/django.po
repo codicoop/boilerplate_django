@@ -318,7 +318,7 @@ msgstr "Aquí podeu veure i editar totes les vostres dades."
 
 #: templates/profile/details.html:47 templates/profile/details.html:90
 msgid "Warning!"
-msgstr "Alert!"
+msgstr "Atenció!"
 
 #: templates/profile/details.html:48 templates/profile/details.html:91
 msgid "Your email is not verified. Before anything else, you must verify it."
