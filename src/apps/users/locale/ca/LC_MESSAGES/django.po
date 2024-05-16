@@ -47,7 +47,7 @@ msgid ""
 "will be visible to make it easier for you to copy and send it to the user."
 msgstr ""
 "La contrasenya actual no es mostra per raons de seguretat. Utilitza aquest camp "
-"i deseu els canvis per establir una contrasenya nova. En escriure la nova contrasenya "
+"i deseu els canvis per establir una contrasenya nova. Mentre escriguis la nova contrasenya "
 "serà visible per facilitar-te la còpia i l'enviament a l'usuari."
 
 #: apps/users/forms.py:80 apps/users/forms.py:81 apps/users/forms.py:137
