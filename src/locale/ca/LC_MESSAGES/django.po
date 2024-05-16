@@ -328,7 +328,7 @@ msgstr ""
 
 #: templates/profile/details.html:50 templates/profile/details.html:93
 msgid "Verify email here."
-msgstr "Verifiqueu el correu electrònic aquí."
+msgstr "Verifica el correu electrònic aquí."
 
 #: templates/profile/details.html:79
 #: templates/registration/password_change_form.html:5
