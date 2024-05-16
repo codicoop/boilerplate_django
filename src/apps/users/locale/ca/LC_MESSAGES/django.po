@@ -222,7 +222,7 @@ msgid ""
 "An email has been sent to your inbox. Please check it and follow the "
 "instructions to change your password."
 msgstr ""
-"S'ha enviat un correu electrònic a la vostra safata d'entrada. Si us plau, comproveu-ho i seguiu el "
+"S'ha enviat un correu electrònic a la vostra safata d'entrada. Si us plau, comproveu-ho i seguiu les "
 "Instruccions per canviar la contrasenya."
 
 #: apps/users/views.py:198 apps/users/views.py:199 apps/users/views.py:200
