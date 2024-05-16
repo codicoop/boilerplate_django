@@ -435,7 +435,7 @@ msgid ""
 "address. Check your email to find it."
 msgstr ""
 "Fent clic al botó s'enviarà un codi de verificació al teu correu electrònic. "
-"adreça. Comproveu el vostre correu electrònic per trobar-lo."
+"Comproveu el vostre correu electrònic per trobar-lo."
 
 #: templates/registration/signup.html:26
 msgid "Create Account"
