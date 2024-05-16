@@ -323,7 +323,7 @@ msgstr "Atenció!"
 #: templates/profile/details.html:48 templates/profile/details.html:91
 msgid "Your email is not verified. Before anything else, you must verify it."
 msgstr ""
-"El vostre correu electrònic no està verificat. Abans de res, cal verificar-"
+"El teu correu electrònic no està verificat. Abans de res, cal verificar-"
 "ho."
 
 #: templates/profile/details.html:50 templates/profile/details.html:93
