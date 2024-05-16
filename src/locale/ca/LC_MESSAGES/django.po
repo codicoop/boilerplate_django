@@ -358,7 +358,7 @@ msgstr "Registrar-se"
 
 #: templates/registration/login.html:38
 msgid "Forgot your password?"
-msgstr "Has oblidat la teva contrassenya?"
+msgstr "Has oblidat la teva contrasenya?"
 
 #: templates/registration/login.html:41
 msgid "Don’t have an account yet?"
