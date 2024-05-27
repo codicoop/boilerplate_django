@@ -3,6 +3,19 @@
 ![lint workflow](https://github.com/codicoop/boilerplate_django/actions/workflows/lint.yml/badge.svg)
 ![docker workflow](https://github.com/codicoop/boilerplate_django/actions/workflows/docker.yml/badge.svg)
 
+# Instalation guide
+In order to install this project, you have to:
+
+1. Import the project.
+2. In the root, you have to install the packages necessaries with `npm install`
+3. After, if you are going to make changes in the html styles, you have to compile them in order for them to show. You do it with:
+`npx tailwindcss -i ./src/assets/styles/input.css -o ./src/assets/styles/output.css --watch`
+4. Inside */docker/* folder rename **.env.example** to **.env**, and update the values necessary: at least, the name of the projecte, the db and go to this [page](https://www.notion.so/codicoop/Registre-de-ports-Server-Develop-01d69deb5d2b43f1af5845f58957e34e) and register the port you'll be using.
+5. Run  `docker compose up`.
+6. From Docker shell ejecute: `python manage.py migrate`.
+7. Go to: [localhost:XXXX](http://localhost:XXXX)
+8. **.env** creates a superuser account with username hola@codi.coop
+
 # Included packages
 
 ## Django Post Office
