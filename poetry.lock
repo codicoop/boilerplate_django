@@ -569,20 +569,19 @@ tests = ["tox"]
 
 [[package]]
 name = "django-post-office"
-version = "3.8.0"
+version = "3.9.0"
 description = "A Django app to monitor and send mail asynchronously, complete with template support."
 category = "main"
 optional = false
-python-versions = "*"
+python-versions = ">=3.9"
 files = [
-    {file = "django-post_office-3.8.0.tar.gz", hash = "sha256:0df8a3595d8b6088a933d66d984787172e75dd009fa57bb439c6587ea5746df4"},
-    {file = "django_post_office-3.8.0-py3-none-any.whl", hash = "sha256:21ae03dd6d09036ae96469c5418305aa39855985f29b21374c7a013b2ff47098"},
+    {file = "django-post_office-3.9.0.tar.gz", hash = "sha256:c2d4b29c3422c857a9c214492e37b4c514f43d49052f6fd14f2eabbdac625878"},
+    {file = "django_post_office-3.9.0-py3-none-any.whl", hash = "sha256:5a344ffe94b11a05c8155cbf3087561c60db2b649292370cf2f286409ca6e8b0"},
 ]
 
 [package.dependencies]
 bleach = {version = "*", extras = ["css"]}
-django = ">=3.2"
-pytz = "*"
+django = ">=4.2"
 
 [package.extras]
 prevent-xss = ["bleach"]
@@ -1244,18 +1243,6 @@ files = [
 ]
 
 [[package]]
-name = "pytz"
-version = "2024.1"
-description = "World timezone definitions, modern and historical"
-category = "main"
-optional = false
-python-versions = "*"
-files = [
-    {file = "pytz-2024.1-py2.py3-none-any.whl", hash = "sha256:328171f4e3623139da4983451950b28e95ac706e13f3f2630a879749e7a8b319"},
-    {file = "pytz-2024.1.tar.gz", hash = "sha256:2a29735ea9c18baf14b448846bde5a48030ed267578472d8955cd0e7443a9812"},
-]
-
-[[package]]
 name = "pyyaml"
 version = "6.0.1"
 description = "YAML parser and emitter for Python"
@@ -1737,4 +1724,4 @@ h11 = ">=0.9.0,<1"
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.11"
-content-hash = "6fdcd564baf035d34650f3f539a9b8f318fc0a988ebc4203cb55ee3f85aa65d8"
+content-hash = "0846483bed29f7a4ad4567e59108909a4e6edc2b064150ca871138675509af8d"
