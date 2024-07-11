@@ -69,7 +69,7 @@ RUN set -x \
 ###############################################################################
 # `development` image is used during development / testing
 ###############################################################################
-FROM python-base as development
+FROM builder-base as development
 WORKDIR $PYSETUP_PATH
 
 # copy in our built poetry + venv
@@ -91,7 +91,7 @@ CMD ["gunicorn", "project.wsgi:application", "--bind", "0.0.0.0:8000", "--reload
 ###############################################################################
 # `production` image used for runtime
 ###############################################################################
-FROM python-base as production
+FROM builder-base as production
 
 COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
 COPY src /srv
