@@ -1093,14 +1093,6 @@ input:checked + .toggle-bg {
   bottom: 60px;
 }
 
-.end-2 {
-  inset-inline-end: 0.5rem;
-}
-
-.end-2\.5 {
-  inset-inline-end: 0.625rem;
-}
-
 .left-0 {
   left: 0px;
 }
@@ -2392,7 +2384,7 @@ input:checked + .toggle-bg {
   background-color: rgb(253 232 232 / var(--tw-bg-opacity));
 }
 
-.hover\:bg-red-800:hover {
+.hover\:bg-white:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(155 28 28 / var(--tw-bg-opacity));
 }
@@ -3028,33 +3020,11 @@ input:checked + .toggle-bg {
     padding-top: 4rem;
     padding-bottom: 4rem;
   }
-
-  .lg\:pb-16 {
-    padding-bottom: 4rem;
-  }
-
-  .lg\:pl-3 {
-    padding-left: 0.75rem;
-  }
-}
-
-@media (min-width: 1280px) {
-  .xl\:p-0 {
-    padding: 0px;
-  }
-
-  .xl\:p-8 {
-    padding: 2rem;
-  }
 }
 
 .rtl\:rotate-180:where([dir="rtl"], [dir="rtl"] *) {
   --tw-rotate: 180deg;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-.rtl\:justify-end:where([dir="rtl"], [dir="rtl"] *) {
-  justify-content: flex-end;
 }
 
 .rtl\:space-x-reverse:where([dir="rtl"], [dir="rtl"] *) > :not([hidden]) ~ :not([hidden]) {
