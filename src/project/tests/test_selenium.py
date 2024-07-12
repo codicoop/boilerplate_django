@@ -53,14 +53,13 @@ class Strings(Enum):
 
     """
 
-    MENU_ADMIN = _("Administration panel")
     ADMIN_TITLE = _("Administració del lloc | Lloc administratiu de Django")
     LOGOUT = _("Log out")
     SIGNUP_TITLE = _("Projecte App | Registrar-se")
     PROFILE_TITLE = _("Projecte App | Detalls del perfil")
     REGISTRY_UPDATE_TITLE = _("Projecte App | Registry updated")
     PASSWORD_CHANGE_TITLE = _("Projecte App | Canvi de contrasenya")
-    EMAIL_VALIDATION_TITLE = _("Projecte App | Mail validation")
+    EMAIL_VALIDATION_TITLE = _("Projecte App | Validació de correu")
     DEMO_TITLE = _("Projecte App | Demo")
     DEMO_CREATE = _("Projecte App | Demo Create")
     DEMO_DETAILS = _("Projecte App | Demo Details")
@@ -295,7 +294,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
             settings.DJANGO_SUPERUSER_PASSWORD,
         )
         self.burger_menu_action()
-        admin_menu = self.select_element_by_text(Strings.MENU_ADMIN.value)
+        admin_menu = self.selenium.find_element(By.ID, "id_menu_admin")
         admin_menu.click()
 
         self.logging_url_title_and_assert_title(Strings.ADMIN_TITLE.value)
@@ -361,8 +360,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
         # Template confirm account has been successfully verified.
         # Click on the button Go Back.
         logging.info("Verified email.")
-
-        go_back = self.select_element_by_text("Go back")
+        go_back = self.selenium.find_element(By.ID, "id_back")
         go_back.click()
 
     def _update_profile(self):
@@ -423,7 +421,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
         # Click on the button Go Back.
         logging.info("Verified email.")
 
-        go_back = self.select_element_by_text("Go back")
+        go_back = self.selenium.find_element(By.ID, "id_back")
         go_back.click()
 
     def _password_change(self):

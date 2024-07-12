@@ -183,7 +183,7 @@ msgstr "Si us plau, comproveu els camps marcats en vermell."
 
 #: templates/create.html:5
 msgid "Demo Create"
-msgstr ""
+msgstr "Demo Create"
 
 #: templates/create.html:32 templates/details.html:27 templates/update.html:32
 msgid "Demo list"

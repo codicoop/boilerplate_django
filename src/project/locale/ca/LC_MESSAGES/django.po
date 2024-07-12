@@ -72,7 +72,7 @@ msgstr ""
 
 #: project/test_selenium.py:65
 msgid "Projecte App | Demo Create"
-msgstr ""
+msgstr "Projecte App | Demo Create"
 
 #: project/test_selenium.py:66
 msgid "Projecte App | Demo Details"
