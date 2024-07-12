@@ -1,0 +1,14 @@
+<div class="flex items-center">
+  {% include "django/forms/widgets/input.html" %}
+  
+  {% if widget.label %}
+  <label for="{{ widget.id_for_label }}" class="ml-2 text-sm font-medium
+    {% if field.error %}
+      text-red-700 dark:text-red-500
+    {% else %} 
+      text-gray-900 dark:text-gray-300
+    {% endif %}">
+    {{ widget.label }}
+  </label>
+  {% endif %}
+</div>
