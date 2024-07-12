@@ -48,7 +48,10 @@ class UserAdmin(ModelAdminMixin, BaseUserAdmin):
         "is_superuser",
         "email_verified",
     )
-    list_filter = ("is_superuser",)
+    list_filter = (
+        "is_superuser",
+        "is_staff",
+    )
     search_fields = ("email", "name", "surnames")
     ordering = ("email",)
     fieldsets = (("Autenticació", {"fields": ("email", "password")}),)
@@ -97,7 +100,10 @@ class UserAdmin(ModelAdminMixin, BaseUserAdmin):
         ),
     )
     superuser_fields = ("is_superuser",)
-    readonly_fields = ("roles_explanation_field",)
+    readonly_fields = (
+        "roles_explanation_field",
+        "email_verified",
+    )
 
     def get_fieldsets(self, request, obj=None):
         return super().get_fieldsets(request, obj) + self.common_fieldsets
