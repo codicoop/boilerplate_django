@@ -354,7 +354,7 @@ msgstr "Inicieu la sessió al vostre compte"
 
 #: templates/registration/login.html:33
 msgid "Sign in"
-msgstr "Registrar-se"
+msgstr "Iniciar sessió"
 
 #: templates/registration/login.html:38
 msgid "Forgot your password?"
