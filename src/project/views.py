@@ -28,8 +28,8 @@ class RootRedirectView(RedirectView):
         return super().get_redirect_url(*args, **kwargs)
 
 
-def home_view(request):
-    return render(request, "home.html")
+class HomeView(TemplateView):
+    template_name = "home.html"
 
 
 class StandardSuccess(TemplateView):
