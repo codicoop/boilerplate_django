@@ -294,7 +294,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
             settings.DJANGO_SUPERUSER_PASSWORD,
         )
         self.burger_menu_action()
-        admin_menu = self.selenium.find_element(By.ID, "id_menu_admin")
+        admin_menu = self.selenium.find_element(By.ID, "menu_admin")
         admin_menu.click()
 
         self.logging_url_title_and_assert_title(Strings.ADMIN_TITLE.value)
