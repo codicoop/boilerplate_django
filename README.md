@@ -275,6 +275,28 @@ path("", home_view, name="home"),
 
 Finally, remove the language selection widget from the base template.
 
+
+## App Counties and Towns | Commands
+
+### Uploading or updating of counties and towns
+
+From the application Docker terminal run the following command:
+
+```
+python manage.py update_counties_towns
+```
+This will load/update the JSON files in the **Fixtures** *(apps/counties_towns)* folder with the county and town data from the official source.
+
+### Creation of Counties and Towns in the models
+
+From the application Docker terminal run the following command:
+
+```
+python manage.py import_counties_towns
+```
+This will load all the counties and towns into the application's database.
+The list can be consulted in the Admin.
+
 ## `StandardSuccess` view
 
 Currently used by `profile_details_success` url.
