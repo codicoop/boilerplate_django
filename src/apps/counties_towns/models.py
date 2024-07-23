@@ -1,24 +1,22 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 
 class County(models.Model):
-    name = models.CharField("nom", max_length=50)
+    name = models.CharField(_("name"), max_length=50)
 
     class Meta:
-        verbose_name = "comarca"
-        verbose_name_plural = "comarques"
-        ordering = ["name", ]
+        verbose_name = _("county")
+        verbose_name_plural = _("counties")
+        ordering = [
+            "name",
+        ]
 
     def __str__(self):
         return self.name
 
 
 class Town(models.Model):
-    class Meta:
-        verbose_name = "població"
-        verbose_name_plural = "poblacions"
-        ordering = ["name", ]
-
     county = models.ForeignKey(
         County,
         on_delete=models.SET_NULL,
@@ -26,13 +24,14 @@ class Town(models.Model):
         blank=True,
         default=None,
     )
-    name = models.CharField("nom", max_length=250)
-    name_for_justification = models.CharField(
-        "nom per la justificació",
-        max_length=250,
-        default="",
-        blank=True,
-    )
+    name = models.CharField(_("name"), max_length=250)
+
+    class Meta:
+        verbose_name = _("town")
+        verbose_name_plural = _("towns")
+        ordering = [
+            "name",
+        ]
 
     def __str__(self):
         return self.name
