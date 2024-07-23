@@ -295,7 +295,7 @@ From the application Docker terminal run the following command:
 python manage.py import_counties_towns
 ```
 This will load all the counties and towns into the application's database.
-The list can be consulted in the Admin.
+The list is available in the Admin.
 
 ## `StandardSuccess` view
 
