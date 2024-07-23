@@ -6,79 +6,78 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-16 11:07+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2024-07-23 13:34+0200\n"
+"PO-Revision-Date: 2024-07-23 13:52+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4.4\n"
 
 #: project/models.py:30
 msgid "created by"
 msgstr ""
 
-#: project/settings.py:67
+#: project/settings.py:71
 msgid "English"
 msgstr "Anglès"
 
-#: project/settings.py:68
+#: project/settings.py:72
 msgid "Catalan"
 msgstr "Català"
 
-#: project/settings.py:374
+#: project/settings.py:380
 msgid "Name of the website."
-msgstr ""
+msgstr "Nom del lloc web."
 
-#: project/test_selenium.py:56
-msgid "Administration panel"
-msgstr ""
-
-#: project/test_selenium.py:57
+#: project/tests/test_selenium.py:56
 msgid "Administració del lloc | Lloc administratiu de Django"
 msgstr ""
 
-#: project/test_selenium.py:58
+#: project/tests/test_selenium.py:57
 msgid "Log out"
-msgstr ""
+msgstr "Tancar sessió"
 
-#: project/test_selenium.py:59
+#: project/tests/test_selenium.py:58
 msgid "Projecte App | Registrar-se"
 msgstr ""
 
-#: project/test_selenium.py:60
+#: project/tests/test_selenium.py:59
 msgid "Projecte App | Detalls del perfil"
 msgstr ""
 
-#: project/test_selenium.py:61
+#: project/tests/test_selenium.py:60
 msgid "Projecte App | Registry updated"
 msgstr ""
 
-#: project/test_selenium.py:62
+#: project/tests/test_selenium.py:61
 msgid "Projecte App | Canvi de contrasenya"
 msgstr ""
 
-#: project/test_selenium.py:63
-msgid "Projecte App | Mail validation"
-msgstr ""
+#: project/tests/test_selenium.py:62
+#, fuzzy
+#| msgid "Projecte App | Demo Create"
+msgid "Projecte App | Validació de correu"
+msgstr "Projecte App | Demo Create"
 
-#: project/test_selenium.py:64
+#: project/tests/test_selenium.py:63
 msgid "Projecte App | Demo"
 msgstr ""
 
-#: project/test_selenium.py:65
+#: project/tests/test_selenium.py:64
 msgid "Projecte App | Demo Create"
 msgstr "Projecte App | Demo Create"
 
-#: project/test_selenium.py:66
+#: project/tests/test_selenium.py:65
 msgid "Projecte App | Demo Details"
 msgstr ""
 
-#: project/test_selenium.py:67
+#: project/tests/test_selenium.py:66
 msgid "Projecte App | Demo Update"
 msgstr ""
 
@@ -103,21 +102,25 @@ msgid "registration/"
 msgstr ""
 
 #: project/views.py:37
-msgid "Back"
-msgstr ""
+msgid "Profile updated"
+msgstr "Perfil actualitzat"
 
 #: project/views.py:38
-msgid "Registry updated"
-msgstr ""
+msgid "Back"
+msgstr "Enrere"
 
 #: project/views.py:39
-msgid "Registry successfully updated"
-msgstr ""
+msgid "Registry updated"
+msgstr "Registre actualitzat"
 
 #: project/views.py:40
-msgid "Done!"
-msgstr ""
+msgid "Registry successfully updated"
+msgstr "Registre actualitzat correctament"
 
 #: project/views.py:41
+msgid "Done!"
+msgstr "Fet!"
+
+#: project/views.py:42
 msgid "The registry was updated correctly."
-msgstr ""
+msgstr "El registre s’ha actualitzat correctament."
