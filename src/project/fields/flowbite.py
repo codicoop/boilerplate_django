@@ -19,6 +19,44 @@ class FlowBiteBoundCharField(BaseFlowBiteBoundField):
         """
 
 
+class FlowBiteBoundBooleanField(BaseFlowBiteBoundField):
+    base_classes = "w-4 h-4 border rounded text-primary-500"
+    no_error_classes = (
+        "border-gray-300 bg-gray-50 focus:ring-3 focus:ring-primary-300 "
+        "dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 "
+        "dark:ring-offset-gray-800"
+    )
+    error_classes = (
+        "bg-red-50 border-red-500 text-red-700 placeholder-red-700 focus:ring-red-500"
+        " focus:border-red-500 dark:bg-gray-700 dark:text-red-500 "
+        "dark:placeholder-red-500 dark:border-red-500"
+    )
+
+
+def charfield_get_bound_field(self, form, field_name):
+    return FlowBiteBoundCharField(form, self, field_name)
+
+forms.CharField.get_bound_field = charfield_get_bound_field
+forms.EmailField.get_bound_field = charfield_get_bound_field
+forms.IntegerField.get_bound_field = charfield_get_bound_field
+forms.ChoiceField.get_bound_field = charfield_get_bound_field
+forms.MultipleChoiceField.get_bound_field = charfield_get_bound_field
+
+
+def boolean_get_bound_field(self, form, field_name):
+    return FlowBiteBoundBooleanField(form, self, field_name)
+
+forms.BooleanField.get_bound_field = boolean_get_bound_field
+
+
+"""
+The following is deprecated and not longer used. We should keep it only because
+it's used in old migrations.
+
+Migrations should be reset to be able to delete it.
+"""
+
+
 class FormCharField(forms.CharField):
     def get_bound_field(self, form, field_name):
         return FlowBiteBoundCharField(form, self, field_name)
@@ -104,20 +142,6 @@ class ModelEmailField(models.EmailField):
         defaults = {"form_class": FormEmailField}
         defaults.update(kwargs)
         return super().formfield(**defaults)
-
-
-class FlowBiteBoundBooleanField(BaseFlowBiteBoundField):
-    base_classes = "w-4 h-4 border rounded text-primary-500"
-    no_error_classes = (
-        "border-gray-300 bg-gray-50 focus:ring-3 focus:ring-primary-300 "
-        "dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 "
-        "dark:ring-offset-gray-800"
-    )
-    error_classes = (
-        "bg-red-50 border-red-500 text-red-700 placeholder-red-700 focus:ring-red-500"
-        " focus:border-red-500 dark:bg-gray-700 dark:text-red-500 "
-        "dark:placeholder-red-500 dark:border-red-500"
-    )
 
 
 class FormBooleanField(forms.BooleanField):
