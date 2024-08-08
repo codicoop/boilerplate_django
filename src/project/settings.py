@@ -436,4 +436,4 @@ structlog.configure(
 # https://docs.celeryq.dev/en/stable/userguide/configuration.html#std:setting-broker_url
 CELERY_BROKER_URL = env("REDIS_URL", default=None)
 
-import project.fields.flowbite
+import project.fields.flowbite  # noqa: E402, F401

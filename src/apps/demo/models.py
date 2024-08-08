@@ -79,7 +79,6 @@ class Data(models.Model):
         max_length=250,
         default=SelectCheckboxChoices.OPTION_1,
         blank=True,
-        null=True,
         help_text="Help field_select_checkbox",
     )
 
