@@ -2,19 +2,10 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 
 from apps.demo.models import Data
-from project.fields.flowbite import (
-    FormBooleanField,
-    FormCharField,
-    FormEmailField,
-    FormIntegerField,
-    FormPasswordField,
-    FormRadioField,
-    FormSelectDropdownField,
-)
 
 
 class DataForm(forms.ModelForm):
-    field_text_1 = FormCharField(
+    field_text_1 = forms.CharField(
         widget=forms.TextInput(
             attrs={
                 "autofocus": True,
@@ -24,42 +15,28 @@ class DataForm(forms.ModelForm):
         ),
         help_text="Help field_text_1",
     )
-    field_text_2 = FormCharField(
+    field_text_2 = forms.CharField(
         widget=forms.TextInput(
             attrs={"placeholder": _("Text 2"), "autocomplete": "text"}
         ),
         help_text="Help field_text_2",
     )
-    field_email = FormEmailField(
+    field_email = forms.EmailField(
         widget=forms.EmailInput(
             attrs={"autocomplete": "email", "placeholder": _("email address")}
         ),
         help_text="Help field_email",
     )
-    field_radio = FormRadioField(
+    field_radio = forms.ChoiceField(
         widget=forms.RadioSelect,
         choices=Data.RadioChoices.choices,
         help_text="Help field_radio",
     )
-    field_boolean_checkbox = FormBooleanField(
+    field_boolean_checkbox = forms.BooleanField(
         widget=forms.CheckboxInput, help_text="Help field_boolean_checkbox"
     )
 
-    field_password = FormPasswordField(
-        widget=forms.PasswordInput(
-            attrs={"placeholder": "Password"},
-            render_value=True,
-        ),
-        help_text="Help field_password",
-    )
-    field_password_confirm = FormPasswordField(
-        widget=forms.PasswordInput(
-            attrs={"placeholder": "Password confirmation"},
-            render_value=True,
-        ),
-        help_text="Help field_password_confirm",
-    )
-    field_number = FormIntegerField(
+    field_number = forms.IntegerField(
         widget=forms.NumberInput(
             attrs={
                 "placeholder": _("Number"),
@@ -68,10 +45,25 @@ class DataForm(forms.ModelForm):
         ),
         help_text="Help field_number",
     )
-    field_select_dropdown = FormSelectDropdownField(
+    field_select_dropdown = forms.MultipleChoiceField(
         widget=forms.Select,
         choices=Data.SelectChoices.choices,
         help_text="Help field_select_dropdown",
+    )
+
+    field_password = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={"placeholder": "Password"},
+            render_value=True,
+        ),
+        help_text="Help field_password",
+    )
+    field_password_confirm = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={"placeholder": "Password confirmation"},
+            render_value=True,
+        ),
+        help_text="Help field_password_confirm",
     )
 
     # This field is temporarily left out of the form until later.
