@@ -117,6 +117,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.forms",
+    "flowbite_classes",
     "post_office",
     "django_extensions",
     "phonenumber_field",
@@ -276,7 +277,8 @@ TEMPLATES = [
         },
     },
 ]
-FORM_RENDERER = "project.form_renderer.CustomFormRenderer"
+FORM_RENDERER = "flowbite_classes.renderers.CustomFormRenderer"
+CODI_COOP_ENABLE_MONKEY_PATCH = True
 
 
 ################################################################################
