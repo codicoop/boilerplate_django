@@ -1,10 +1,7 @@
 from django import forms
 from django.db import models
-
-from flowbite_classes.forms import (
-    BooleanBoundField as FlowBiteBoundBooleanField,
-    CharBoundField as FlowBiteBoundCharField
-)
+from flowbite_classes.forms import BooleanBoundField as FlowBiteBoundBooleanField
+from flowbite_classes.forms import CharBoundField as FlowBiteBoundCharField
 
 """
 The following is deprecated and not longer used. We should keep it only because
