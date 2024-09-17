@@ -13,7 +13,7 @@ ENV PYTHONUNBUFFERED=1 \
   PIP_DISABLE_PIP_VERSION_CHECK=on \
   PIP_DEFAULT_TIMEOUT=100 \
   # poetry. NOTE: remember to update it also on the CI
-  POETRY_VERSION=1.7.0 \
+  POETRY_VERSION=1.8.3 \
   # make poetry install to this location
   POETRY_HOME="/opt/poetry" \
   # make poetry create the virtual environment in the project's root
