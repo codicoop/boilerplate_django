@@ -1,4 +1,4 @@
-FROM python:3.11-slim as python-base
+FROM python:3.12-slim as python-base
 
 # ensures that the python output is sent straight to terminal
 ENV PYTHONUNBUFFERED=1 \
@@ -24,7 +24,9 @@ ENV PYTHONUNBUFFERED=1 \
   # paths
   # this is where our requirements + virtual environment will live
   PYSETUP_PATH="/opt/pysetup" \
-  VENV_PATH="/opt/pysetup/.venv"
+  VENV_PATH="/opt/pysetup/.venv" \
+  # npm
+  NPM_VERSION=23
 
 # prepend poetry and venv to path
 ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
@@ -81,8 +83,24 @@ RUN poetry install --no-root
 
 RUN apt-get update && apt-get upgrade -y \
   && apt-get install -y --no-install-recommends -y \
-  gettext \
+  gettext curl \
+  # Install nvm to use it to install npm:
+  && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash \
+  && export NVM_DIR="$HOME/.nvm" \
+  && . $NVM_DIR/nvm.sh \
+  && nvm --version \
+  && nvm install $NPM_VERSION \
+  && npm --version \
+  && apt-get purge -y --auto-remove curl \
   && apt-get clean -y && rm -rf /var/lib/apt/lists/*
+
+
+RUN pwd
+COPY package.json package-lock.json tailwind.config.js /front/
+WORKDIR /front
+RUN export NVM_DIR="$HOME/.nvm" \
+  && . $NVM_DIR/nvm.sh \
+  && npm install
 
 # will become mountpoint of our code
 WORKDIR /srv
@@ -97,3 +115,4 @@ COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
 COPY src /srv
 WORKDIR /srv
 RUN ["python", "manage.py", "collectstatic", "--clear", "--no-input"]
+RUN ["rm", "-rf", "/front"]
