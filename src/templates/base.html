@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{% static 'styles/output.css' %}">
-  <title>Projecte App | {% block page_title %}{% endblock %}</title>
+  <title>{{ config.PROJECT_NAME }} | {% block page_title %}{% endblock %}</title>
 </head>
 
 <body class="bg-gray-50 dark:bg-gray-900
@@ -36,7 +36,7 @@
           </button>
           <!-- Títol i logo topbar -->
           <a href="{% url 'home' %}" class="flex ms-2 md:me-24">
-            <img src="{% static 'images/logo.svg' %}" class="h-8 me-10" alt="{% translate 'Logo of the business' %}" />
+            <img src="{% static 'images/logo.svg' %}" class="h-8 me-10" alt="{{ config.PROJECT_NAME }} logo" />
             <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">{{ config.PROJECT_NAME }}</span>
           </a>
         </div>
@@ -86,7 +86,7 @@
                 <li>
                   <a href="{% url 'registration:profile_details' %}"
                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                    role="menuitem">{% translate "Panell d'administració" %}</a>
+                    role="menuitem">{% translate "Administration panel" %}</a>
                 </li>
                 {% endif %}
                 <li>
@@ -178,7 +178,9 @@
             <!-- Admin -->
             <li>
               <a href="{% url 'admin:index' %}"
-                class="flex items-center p-1 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                class="flex items-center p-1 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                id="menu_admin"
+              >
                 <svg class="w-8 h-8 text-primary-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewbox="0 0 24 24">
                   <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/>
                 </svg>
