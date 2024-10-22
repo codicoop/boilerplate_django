@@ -23,22 +23,6 @@ services:
     networks:
       - boilerplate-network
 
-  boilerplate-celery:
-    build:
-      context: ..
-      dockerfile: ./docker/Dockerfile
-      target: development
-    command: "celery -A apps.celery worker --loglevel=INFO"
-    container_name: boilerplate-celery
-    env_file: ./.env
-    volumes:
-      - ../src:/srv
-    depends_on:
-      - boilerplate-redis
-#    entrypoint: ["sh", "-c", "sleep 2073600"]
-    networks:
-      - boilerplate-network
-
   boilerplate-db:
     container_name: boilerplate-db
     image: postgres:14
@@ -46,12 +30,6 @@ services:
       - POSTGRES_HOST_AUTH_METHOD=trust
     volumes:
       - ../dumps:/dumps
-    networks:
-      - boilerplate-network
-
-  boilerplate-redis:
-    container_name: boilerplate-redis
-    image: redis
     networks:
       - boilerplate-network
 
