@@ -407,3 +407,10 @@ structlog.configure(
     logger_factory=structlog.stdlib.LoggerFactory(),
     cache_logger_on_first_use=True,
 )
+
+################################################################################
+#                                  Selenium                                    #
+################################################################################
+
+APP_HOST_NAME = env.str("APP_HOST_NAME", default="")
+SELENIUM_HOST_NAME = env.str("SELENIUM_HOST_NAME", default="")
