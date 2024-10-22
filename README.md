@@ -71,7 +71,7 @@ In `BaseFlowBiteBoundField.get_context` change `if self.errors:` for
 This trick is a bit limited given that it will not include an error message,
 which you will probably also need to render.
 
-### How it works and how to create/modify the field and controls tempaltes
+### How it works and how to create/modify the field and controls templates
 
 We're using Tailwind with a components library called FlowBite.
 
@@ -152,7 +152,7 @@ edit the template. There might be multiple ways to do it. Read
 - You can edit the template by modifying the the `templates/django/forms/div.html`
 file. At the moment of writing this, this template is exactly the same as the
 original one, just put there to make it easier to find it in the future. If you
-find a way to change the path of this template programatically, please move it
+find a way to change the path of this template programmatically, please move it
 to a path that fits our structure better.
 
 ## Custom user account views and templates
@@ -188,6 +188,13 @@ Check the comments in the `set_boolean_datetime` method as well as the `save()`
 method of the `UserSignUpForm` class for an implementation example.
 
 ## Internationalization
+
+### Coding good practices
+
+- Make use of [comments for translators](https://docs.djangoproject.com/en/5.1/topics/i18n/translation/#comments-for-translators)
+to help clarify the intent of the string.
+- Make sure to use placeholders when needed. I.e.: `_("Hi %s, what's up?") % name`.
+- All string literals in python files or html templates must be written in english.
 
 ### Restricting available languages
 
@@ -251,6 +258,17 @@ As stated in Django's documentation, to compile the .po files, the command is:
 
 After that, you should restart the app (i.e., restarting the docker container)
 for the translations to load.
+
+Tips for editing the .po files:
+
+- Use the [Poedit](https://poedit.net/) software.
+- When editing a .po file, start by checking that all new strings are in english.
+It could happen that by mistake a developer leaves a string in some other language.
+In that case, first translate this strings to english directly in the source
+code and then generate the .po files again.
+- Beware of the strings that look like URL paths: they are URL paths and their
+translations must follow the same format (lowercase, without spaces and no special
+characters other than dashes).
 
 ### Completely remove internationalization
 
@@ -398,3 +416,67 @@ command.
 In previous versions the boilerplate included this package.
 Now the `mailing_manager` cannot be used anymore because of its dependency
 of the `mailqueue` package, which is discontinued.
+
+# Local environment setup for development
+
+## Overview
+
+In your local environment the app will run in a Docker container, along with
+a Postgres and a Selenium container.
+
+The app's container mounts the `/src` folder, therefore every change done in
+the files inside `/src` will also be applied in the container's code, then
+Gunicorn will detect the change and automatically reload the app.
+
+Given this setup, you could already work by cloning the repository, starting the
+containers, and just editing the code inside `/src`.
+
+The problem with that is that it will be more difficult to browse around the code,
+for example, your IDE will not be able to find the source of the
+imported modules.
+
+We recommend you to set it up in a way that you have a local virtual environment
+which will allow your IDE to correctly check references, jump to code definitions,
+etc, and that's the reason the next steps require you to install a couple of
+tools in your system.
+
+## Backend
+
+If you don't intend to make any changes to the Tailwind classes or any css, you
+could set up only the backend part.
+
+1. Clone the repository into a local folder.
+1. Install Python 3.12, we recommend [pyenv.py](https://github.com/pyenv/pyenv)
+for it, by doing `pyenv install 3.12` and then in the repository folder
+`pyenv local 3.12`. Finally, check the version by going to the local folder and running `python -V`.
+1. Install [Poetry](https://python-poetry.org/) or update it (`poetry self update`) to the latest version.
+1. At the project's root, run `poetry install`.
+1. Copy the `docker/.env.example` file to `docker/.env` and modify as needed, but
+the initial setup should let the project initialize already.
+1. Install or update [Docker](https://www.docker.com/) and from the `docker/` folder run `docker compose up --build`.
+1. In another terminal, access the docker's container bash (`docker exec -it showyourheart-app bash`) and run `python manage.py migrate`.
+1. Open `http://localhost:1601`.
+
+In the future, when you pull a new version of the app, repeat the last 3 steps
+to make sure that you create an updated version of the Docker image and database
+migrations are applied.
+
+## Frontend
+
+Tailwind needs to "compile" the css files by scanning the templates and
+creating a compact css that includes only the Tailwind classes used in the
+project.
+
+If you intend to change any Tailwind classes from the html files, you need to
+access container's bash and run these commands:
+
+1. `docker exec -it showyourheart-app bash`
+1. `cd /front`
+1. `npx tailwindcss -i /srv/assets/styles/input.css -o /srv/assets/styles/output.css --watch`
+
+This will start a process that will recompile the css each time you make changes
+to any tailwind classes in the templates.
+
+**Important**: if you modify the `package.json`, `package-lock.json` or
+`tailwind.config.js` files, you must rebuild the docker image. One way to do it is
+by running `docker compose up --build` in the `/docker` directory.
