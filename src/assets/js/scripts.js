@@ -11,7 +11,7 @@ if (document.getElementById("cookies-banner")) {
   console.log(cookiesMessage);
 
   function acceptCookies() {
-    // Cokkie message dissappears
+    // Cookie message disappears
     cookiesMessage.classList.add("hidden");
     // and the acceptance cookie is created
     document.cookie = "cookies=accepted; path=/; samesite=strict; max-age=31536000";
@@ -57,8 +57,6 @@ if (document.getElementById("cookies-banner")) {
       acceptCookies();
     }
   });
-
-
 
 
   // // Close the message when the user navigates to another page and create an acceptance cookie
