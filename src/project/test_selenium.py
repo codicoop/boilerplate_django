@@ -154,7 +154,8 @@ class MySeleniumTests(StaticLiveServerTestCase):
 
     def logging_url_title_and_assert_title(self, title=None):
         logging.info(f"Opened: {self.selenium.current_url}")
-        logging.info(f"Title: {self.selenium.title}")
+        logging.info(f"Page title: {self.selenium.title}")
+        logging.info(f"Expected title: {title}")
         assert title == self.selenium.title
 
     def _check_mail_sent(self, recipient, string_in_body=""):
