@@ -280,7 +280,7 @@ msgstr ""
 
 #: templates/profile/details.html:5
 msgid "Profile details"
-msgstr "Detalls del perfil"
+msgstr "Fitxa del perfil"
 
 #: templates/profile/details.html:31
 msgid "Your profile"
