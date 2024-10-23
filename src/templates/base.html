@@ -1,4 +1,4 @@
-{% load i18n static %}
+{% load i18n static active_link_tags %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -76,19 +76,19 @@
                 </p>
               </div>
               <ul class="py-1" role="none">
-                <li>
+                <li class="{% active_link 'home' %}">
                   <a href="{% url 'home' %}"
                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                     role="menuitem">{% translate "Home" %}</a>
                 </li>
-                <li>
+                <li class="{% active_link 'registration:profile_details' %}">
                   <a href="{% url 'registration:profile_details' %}"
                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                     role="menuitem">{% translate "Profile" %}</a>
                 </li>
                 {% if request.user.has_admin_role %}
                 <li>
-                  <a href="{% url 'registration:profile_details' %}"
+                  <a href="{% url 'admin:index' %}"
                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                     role="menuitem">{% translate "Administration panel" %}</a>
                 </li>
@@ -120,7 +120,7 @@
       <nav>
         <ul class="space-y-2 font-medium">
           <!-- Home -->
-          <li>
+          <li class="{% active_link 'home' %}">
             <a href="{% url 'home' %}"
               id="menu_home"
               class="flex items-center p-1 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -132,7 +132,7 @@
           </li>
           {% if not request.user.is_authenticated %}
           <!-- Login -->
-          <li>
+          <li class="{% active_link 'registration:login' %}">
             <a href="{% url 'registration:login' %}"
               id="menu_login"
               class="flex items-center p-1 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -143,7 +143,7 @@
             </a>
           </li>
           <!-- Signup -->
-          <li>
+          <li class="{% active_link 'registration:signup' %}">
             <a href="{% url 'registration:signup' %}"
               id="menu_signup"
               class="flex items-center p-1 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -157,7 +157,7 @@
           {% endif %}
           {% if request.user.is_authenticated %}
           <!-- Demo -->
-          <li>
+          <li class="{% active_link 'list' %}">
             <a href="{% url 'list' %}"
               id="menu_demo"
               class="flex items-center p-1 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -169,7 +169,7 @@
             </a>
           </li>
           <!-- Perfil -->
-          <li>
+          <li class="{% active_link 'registration:profile_details' %}">
             <a href="{% url 'registration:profile_details' %}"
               class="flex items-center p-1 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
               <svg class="w-8 h-8 text-primary-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewbox="0 0 24 24">
