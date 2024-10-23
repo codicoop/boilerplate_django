@@ -158,7 +158,7 @@ msgstr "Si us plau, revisa els camps marcats en vermell."
 
 #: templates/create.html:5
 msgid "Demo Create"
-msgstr "Demo: creació"
+msgstr "Demo: crear"
 
 #: templates/create.html:32 templates/details.html:27 templates/update.html:32
 msgid "Demo list"
