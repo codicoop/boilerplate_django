@@ -1,8 +1,11 @@
 /** @type {import('tailwindcss').Config} */
+
+/** Changes this file require the Docker image to be rebuild to take effect **/
+
 module.exports = {
   content: [
-    './src/templates/**/*.html',
-    './node_modules/flowbite/**/*.js'
+    '/srv/templates/**/*.html',
+    '/front/node_modules/flowbite/**/*.js'
   ],
   darkMode: 'class',
   theme: {
@@ -30,6 +33,9 @@ module.exports = {
   },
   plugins: [
     require('flowbite/plugin')
+  ],
+  safelist: [
+    "bg-primary-400", // Required by settings.py:ACTIVE_LINK_CSS_CLASS.
   ]
 }
 
