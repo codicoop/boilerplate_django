@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 15:39+0200\n"
-"PO-Revision-Date: 2024-10-21 15:41+0200\n"
+"POT-Creation-Date: 2024-10-23 14:53+0200\n"
+"PO-Revision-Date: 2024-10-23 14:54+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ca\n"
@@ -39,7 +39,7 @@ msgstr "Anglès"
 msgid "Catalan"
 msgstr "Català"
 
-#: project/settings.py:347
+#: project/settings.py:355
 msgid "Project name"
 msgstr "Nom del projecte"
 
@@ -48,7 +48,7 @@ msgid "Administration panel"
 msgstr "Panell d'administració"
 
 #: project/test_selenium.py:57
-msgid "Site administration | Django site administration"
+msgid "Site administration | Django site admin"
 msgstr "Administració del lloc | Lloc administratiu de Django"
 
 #: project/test_selenium.py:58
@@ -57,8 +57,8 @@ msgstr "Desconnectar"
 
 #: project/test_selenium.py:59
 #, python-format
-msgid "%s | Sign up"
-msgstr "%s | Donar-se d'alta"
+msgid "%s | Create an account"
+msgstr "%s | Crear un compte"
 
 #: project/test_selenium.py:60
 #, python-format
@@ -100,23 +100,23 @@ msgstr "%s | Demo: fitxa"
 msgid "%s | Demo Update"
 msgstr "%s | Demo: actualitzar"
 
-#: project/urls.py:31
+#: project/urls.py:30
 msgid "demo/list/"
 msgstr "demo/llista/"
 
-#: project/urls.py:32
+#: project/urls.py:31
 msgid "demo/details/<int:id>"
 msgstr "demo/fitxa/<int:id>"
 
-#: project/urls.py:33
+#: project/urls.py:32
 msgid "demo/update/<int:id>"
 msgstr "demo/actualitzar/<int:id>"
 
-#: project/urls.py:34
+#: project/urls.py:33
 msgid "demo/"
 msgstr "demo/"
 
-#: project/urls.py:35
+#: project/urls.py:34
 msgid "registration/"
 msgstr "compte/"
 

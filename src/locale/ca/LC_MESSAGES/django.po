@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 15:09+0200\n"
-"PO-Revision-Date: 2024-10-21 15:17+0200\n"
+"POT-Creation-Date: 2024-10-23 14:53+0200\n"
+"PO-Revision-Date: 2024-10-23 14:54+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ca\n"
@@ -86,7 +86,7 @@ msgstr "Inici"
 msgid "Profile"
 msgstr "Perfil"
 
-#: templates/base.html:89 templates/base.html:185
+#: templates/base.html:89 templates/base.html:187
 msgid "Administration panel"
 msgstr "Panell d'administració"
 
@@ -100,15 +100,17 @@ msgid "Log in"
 msgstr "Accedir"
 
 #: templates/base.html:150 templates/base_success.html:6
+#: templates/registration/login.html:43
+#: templates/registration/login_old.html:80
 #: templates/registration/signup.html:5 templates/registration/signup.html:18
-msgid "Sign up"
-msgstr "Registrar-se"
+msgid "Create an account"
+msgstr "Crear un compte"
 
 #: templates/base.html:164 templates/home.html:5 templates/list.html:5
 msgid "Demo"
 msgstr "Demo"
 
-#: templates/base.html:306
+#: templates/base.html:308
 msgid ""
 "We use cookies to optimize your experience and to analyze the web traffic. "
 "We don't sell data to third parties. If you continue navigating, we'll "
@@ -118,11 +120,11 @@ msgstr ""
 "trànsit de visitants. No venem dades a terceres parts. Si segueixes "
 "navegant, entendrem que hi estàs d'acord."
 
-#: templates/base.html:318
+#: templates/base.html:320
 msgid "Accept"
 msgstr "Acceptar"
 
-#: templates/base.html:328
+#: templates/base.html:330
 msgid "Deny"
 msgstr "Denegar"
 
@@ -156,7 +158,7 @@ msgstr "Si us plau, revisa els camps marcats en vermell."
 
 #: templates/create.html:5
 msgid "Demo Create"
-msgstr "Demo: creació"
+msgstr "Demo: crear"
 
 #: templates/create.html:32 templates/details.html:27 templates/update.html:32
 msgid "Demo list"
@@ -278,7 +280,7 @@ msgstr ""
 
 #: templates/profile/details.html:5
 msgid "Profile details"
-msgstr "Detalls del perfil"
+msgstr "Fitxa del perfil"
 
 #: templates/profile/details.html:31
 msgid "Your profile"
@@ -310,7 +312,7 @@ msgstr "Canvi de contrasenya"
 
 #: templates/profile/details.html:81
 msgid "Here you can change your password."
-msgstr "Aquí pots canviar la teva contrasenya. "
+msgstr "Aquí pots canviar la teva contrasenya."
 
 #: templates/profile/details.html:104
 msgid "Change password"
@@ -331,11 +333,6 @@ msgstr "Has oblidat la teva contrasenya?"
 #: templates/registration/login.html:41
 msgid "Don’t have an account yet?"
 msgstr "Encara no tens un compte?"
-
-#: templates/registration/login.html:43
-#: templates/registration/login_old.html:80
-msgid "Sign-up"
-msgstr "Donar-se d'alta"
 
 #: templates/registration/login_old.html:15
 msgid "Log-in"

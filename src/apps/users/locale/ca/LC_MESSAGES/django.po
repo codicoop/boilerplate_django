@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-21 16:24+0200\n"
+"POT-Creation-Date: 2024-10-23 14:37+0200\n"
 "PO-Revision-Date: 2024-10-21 16:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -77,11 +77,11 @@ msgstr "Contrasenya anterior"
 msgid "Verification code"
 msgstr "Codi de verificació"
 
-#: apps/users/models.py:20
+#: apps/users/models.py:20 apps/users/tests/test_models.py:37
 msgid "Users must have an email address"
 msgstr "Els usuaris han de tenir una adreça de correu electrònic"
 
-#: apps/users/models.py:34
+#: apps/users/models.py:34 apps/users/tests/test_models.py:66
 msgid "Superusers must have a password"
 msgstr "Els superusuaris han de tenir una contrasenya"
 
