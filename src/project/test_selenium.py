@@ -2,6 +2,7 @@ import logging
 from dataclasses import dataclass
 from enum import Enum
 
+from constance.test import override_config
 from django.conf import settings
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.core import mail
@@ -34,10 +35,6 @@ class Strings(Enum):
     That way it will be easier to maintain the right version of the string
     whenever some text is changed.
 
-    Also, during development we might only have english versions of the strings,
-    but when applying the translations, all of them will need to be updated
-    here.
-
     # IMPORTANT, ABOUT TRANSLATIONS:
     If you assert strings, i.e. like this:
         assert Strings.ADMIN_TITLE.value == self.selenium.title
@@ -56,15 +53,17 @@ class Strings(Enum):
     MENU_ADMIN = _("Administration panel")
     ADMIN_TITLE = _("Site administration | Django site admin")
     LOGOUT = _("Log out")
-    SIGNUP_TITLE = _("%s | Sign up") % settings.DEFAULT_PROJECT_NAME
-    PROFILE_TITLE = _("%s | Profile details") % settings.DEFAULT_PROJECT_NAME
-    REGISTRY_UPDATE_TITLE = _("%s | Registry updated") % settings.DEFAULT_PROJECT_NAME
-    PASSWORD_CHANGE_TITLE = _("%s | Password change") % settings.DEFAULT_PROJECT_NAME
-    EMAIL_VALIDATION_TITLE = _("%s | Mail validation") % settings.DEFAULT_PROJECT_NAME
-    DEMO_TITLE = _("%s | Demo") % settings.DEFAULT_PROJECT_NAME
-    DEMO_CREATE = _("%s | Demo Create") % settings.DEFAULT_PROJECT_NAME
-    DEMO_DETAILS = _("%s | Demo Details") % settings.DEFAULT_PROJECT_NAME
-    DEMO_UPDATE = _("%s | Demo Update") % settings.DEFAULT_PROJECT_NAME
+    # Not translated on purpose
+    DEFAULT_PROJECT_NAME = "Selenium test"
+    SIGNUP_TITLE = _("%s | Create an account") % DEFAULT_PROJECT_NAME
+    PROFILE_TITLE = _("%s | Profile details") % DEFAULT_PROJECT_NAME
+    REGISTRY_UPDATE_TITLE = _("%s | Registry updated") % DEFAULT_PROJECT_NAME
+    PASSWORD_CHANGE_TITLE = _("%s | Password change") % DEFAULT_PROJECT_NAME
+    EMAIL_VALIDATION_TITLE = _("%s | Mail validation") % DEFAULT_PROJECT_NAME
+    DEMO_TITLE = _("%s | Demo") % DEFAULT_PROJECT_NAME
+    DEMO_CREATE = _("%s | Demo Create") % DEFAULT_PROJECT_NAME
+    DEMO_DETAILS = _("%s | Demo Details") % DEFAULT_PROJECT_NAME
+    DEMO_UPDATE = _("%s | Demo Update") % DEFAULT_PROJECT_NAME
 
 
 @override_settings(
@@ -76,7 +75,9 @@ class Strings(Enum):
         },
         "DEFAULT_PRIORITY": "now",
     },
+    DEFAULT_PROJECT_NAME=Strings.DEFAULT_PROJECT_NAME.value,
 )
+@override_config(PROJECT_NAME=Strings.DEFAULT_PROJECT_NAME.value)
 class MySeleniumTests(StaticLiveServerTestCase):
     """
     STATICFILES_STORAGE + StaticLiveServerTestCase vs LiveServerTestCase:
@@ -308,7 +309,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
         admin_menu = self.select_element_by_text(Strings.LOGOUT.value)
         admin_menu.click()
 
-        # Open the main menu to select the Sign Up option.
+        # Open the main menu to select the Create an account option.
         self.burger_menu_action()
 
         signup_menu_option = self.selenium.find_element(By.ID, "menu_signup")
@@ -364,7 +365,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
         # Click on the button Go Back.
         logging.info("Verified email.")
 
-        go_back = self.select_element_by_text("Go back")
+        go_back = self.select_element_by_text(_("Go back"))
         go_back.click()
 
     def _update_profile(self):
