@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-23 14:37+0200\n"
-"PO-Revision-Date: 2024-10-23 14:42+0200\n"
+"POT-Creation-Date: 2024-10-23 14:53+0200\n"
+"PO-Revision-Date: 2024-10-23 14:54+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ca\n"
@@ -57,8 +57,8 @@ msgstr "Desconnectar"
 
 #: project/test_selenium.py:59
 #, python-format
-msgid "%s | Sign up"
-msgstr "%s | Donar-se d'alta"
+msgid "%s | Create an account"
+msgstr "%s | Crear un compte"
 
 #: project/test_selenium.py:60
 #, python-format

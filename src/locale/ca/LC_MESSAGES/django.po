@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-23 14:37+0200\n"
-"PO-Revision-Date: 2024-10-23 14:41+0200\n"
+"POT-Creation-Date: 2024-10-23 14:53+0200\n"
+"PO-Revision-Date: 2024-10-23 14:54+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ca\n"
@@ -100,9 +100,11 @@ msgid "Log in"
 msgstr "Accedir"
 
 #: templates/base.html:150 templates/base_success.html:6
+#: templates/registration/login.html:43
+#: templates/registration/login_old.html:80
 #: templates/registration/signup.html:5 templates/registration/signup.html:18
-msgid "Sign up"
-msgstr "Registrar-se"
+msgid "Create an account"
+msgstr "Crear un compte"
 
 #: templates/base.html:164 templates/home.html:5 templates/list.html:5
 msgid "Demo"
@@ -331,11 +333,6 @@ msgstr "Has oblidat la teva contrasenya?"
 #: templates/registration/login.html:41
 msgid "Don’t have an account yet?"
 msgstr "Encara no tens un compte?"
-
-#: templates/registration/login.html:43
-#: templates/registration/login_old.html:80
-msgid "Sign-up"
-msgstr "Donar-se d'alta"
 
 #: templates/registration/login_old.html:15
 msgid "Log-in"
