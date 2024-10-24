@@ -3,10 +3,11 @@ from urllib.request import urlopen
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
+from django.utils.translation import gettext as _
 
 
 class Command(BaseCommand):
-    help = "Update Counties and Towns"
+    help = _("Update Catalan counties and towns")
     counties_source = json.loads(urlopen(settings.COUNTY_UPDATE_URL).read())
     towns_source = json.loads(urlopen(settings.TOWN_UPDATE_URL).read())
 
