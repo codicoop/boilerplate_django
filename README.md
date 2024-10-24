@@ -456,16 +456,16 @@ If you don't intend to make any changes to the Tailwind classes or any css, you
 could set up only the backend part.
 
 1. Clone the repository into a local folder.
-1. Install Python 3.12, we recommend [pyenv.py](https://github.com/pyenv/pyenv)
+2. Install Python 3.12, we recommend [pyenv.py](https://github.com/pyenv/pyenv)
 for it, by doing `pyenv install 3.12` and then in the repository folder
 `pyenv local 3.12`. Finally, check the version by going to the local folder and running `python -V`.
-1. Install [Poetry](https://python-poetry.org/) or update it (`poetry self update`) to the latest version.
-1. At the project's root, run `poetry install`.
-1. Copy the `docker/.env.example` file to `docker/.env` and modify as needed, but
+3. Install [Poetry](https://python-poetry.org/) or update it (`poetry self update`) to the latest version.
+4. At the project's root, run `poetry install`.
+5. Copy the `docker/.env.example` file to `docker/.env` and modify as needed, but
 the initial setup should let the project initialize already.
-1. Install or update [Docker](https://www.docker.com/) and from the `docker/` folder run `docker compose up --build`.
-1. In another terminal, access the docker's container bash (`docker exec -it boilerplate-app bash`) and run `python manage.py migrate`.
-1. Open `http://localhost:1234`.
+6. Install or update [Docker](https://www.docker.com/) and from the `docker/` folder run `docker compose up --build`.
+7. In another terminal, access the docker's container bash (`docker exec -it boilerplate-app bash`) and run `python manage.py migrate`.
+8. Open `http://localhost:1234`.
 
 In the future, when you pull a new version of the app, repeat the last 3 steps
 to make sure that you create an updated version of the Docker image and database
@@ -481,8 +481,8 @@ If you intend to change any Tailwind classes from the html files, you need to
 access container's bash and run these commands:
 
 1. `docker exec -it boilerplate-app bash`
-1. `cd /front`
-1. `npx tailwindcss -i /srv/assets/styles/input.css -o /srv/assets/styles/output.css --watch`
+2. `cd /front`
+3. `npx tailwindcss -i /srv/assets/styles/input.css -o /srv/assets/styles/output.css --watch`
 
 This will start a process that will recompile the css each time you make changes
 to any tailwind classes in the templates.
