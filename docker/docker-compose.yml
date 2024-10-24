@@ -9,15 +9,16 @@ services:
     restart: on-failure
     container_name: boilerplate-app
     build:
-      context: ..
-      dockerfile: ./docker/Dockerfile
+      context: ../..
+      dockerfile: ./boilerplate_django/docker/Dockerfile
       target: development
     env_file: ./.env
     command: gunicorn project.wsgi:application --bind 0.0.0.0:8000 --reload --threads=10
     ports:
-      - "1234:8000"
+      - "4321:8000"
     volumes:
       - ../src:/srv
+      - ../../codi-cooperatiu-internal-tools:/codi-cooperatiu-internal-tools
     depends_on:
       - boilerplate-db
     networks:
