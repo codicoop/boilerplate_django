@@ -1,0 +1,14 @@
+<div class="flex items-center mb-4">
+  {% if widget.wrap_label %}
+  {% endif %}
+
+  {% include "django/forms/widgets/input.html" %}
+
+  {% if widget.wrap_label %}
+  <label for="{{ widget.id_for_label }}" class="block ms-2 text-sm font-medium
+  {% if 1 == 2 %} text-red-700 dark:text-red-500
+  {% else %} text-gray-900 dark:text-gray-300 {% endif %}">
+    {{ widget.label }}
+  </label>
+  {% endif %}
+</div>

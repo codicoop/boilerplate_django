@@ -54,8 +54,22 @@ class User(BaseModel, AbstractBaseUser, PermissionsMixin):
         unique=True,
     )
     email_verification_code = models.CharField(default="0000")
-    email_verified = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
+    email_verified = models.BooleanField(
+        default=False,
+        help_text=_(
+            "Specifies whether the user has verified their email. "
+            "You can only access the different sections of"
+            " the application when you have verified it."
+        ),
+    )
+    is_active = models.BooleanField(
+        default=True,
+        help_text=_(
+            "If the box is unchecked, the user will not be able to authenticate"
+            " to access the application. It is usually only disabled when"
+            " you want to unsubscribe a user but retaining their data."
+        ),
+    )
     is_staff = models.BooleanField(default=False)
 
     objects = UserManager()
