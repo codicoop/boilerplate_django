@@ -1,6 +1,7 @@
 import json
 
 from django.core.management.base import BaseCommand
+from django.utils.translation import gettext as _
 
 from apps.counties_towns.models import County, Town
 
@@ -23,7 +24,7 @@ class Command(BaseCommand):
                 id=int(county["codi"]),
                 name=county["nom"],
             )
-            print(f"Creada comarca: {obj.name}")
+            print(_("County created: %s") % obj.name)
 
     def import_towns(self):
         Town.objects.all().delete()
@@ -32,4 +33,4 @@ class Command(BaseCommand):
                 name=town["nom"],
                 county_id=int(town["codi_comarca"]),
             )
-            print(f"Creada població: {obj.name}")
+            print(_("Creada població: %s") % obj.name)
