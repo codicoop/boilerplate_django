@@ -94,8 +94,6 @@ RUN apt-get update && apt-get upgrade -y \
   && apt-get purge -y --auto-remove curl \
   && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
-
-RUN pwd
 COPY package.json package-lock.json tailwind.config.js /front/
 WORKDIR /front
 RUN export NVM_DIR="$HOME/.nvm" \
