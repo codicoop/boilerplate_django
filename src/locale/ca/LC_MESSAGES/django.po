@@ -6,17 +6,38 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-16 11:08+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2024-07-23 13:46+0200\n"
+"PO-Revision-Date: 2024-07-23 13:48+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4.4\n"
+
+#: apps/counties_towns/models.py:6 apps/counties_towns/models.py:30
+msgid "name"
+msgstr "nom"
+
+#: apps/counties_towns/models.py:9
+msgid "county"
+msgstr "comarca"
+
+#: apps/counties_towns/models.py:10
+msgid "counties"
+msgstr "comarques"
+
+#: apps/counties_towns/models.py:19
+msgid "town"
+msgstr "població"
+
+#: apps/counties_towns/models.py:20
+msgid "towns"
+msgstr "poblacions"
 
 #: apps/demo/forms.py:21
 msgid "Text 1"
@@ -28,23 +49,23 @@ msgstr ""
 
 #: apps/demo/forms.py:35
 msgid "email address"
-msgstr ""
+msgstr "adreça electrònica"
 
 #: apps/demo/forms.py:65
 msgid "Number"
-msgstr ""
+msgstr "Número"
 
 #: apps/demo/models.py:9 apps/demo/models.py:14 apps/demo/models.py:19
 msgid "Option 1"
-msgstr ""
+msgstr "Opció 1"
 
 #: apps/demo/models.py:10 apps/demo/models.py:15 apps/demo/models.py:20
 msgid "Option 2"
-msgstr ""
+msgstr "Opció 2"
 
 #: apps/demo/models.py:11 apps/demo/models.py:16 apps/demo/models.py:21
 msgid "Option 3"
-msgstr ""
+msgstr "Opció 3"
 
 #: templates/404.html:13 templates/500.html:13 templates/503.html:13
 msgid "Go back"
@@ -88,7 +109,7 @@ msgstr ""
 
 #: templates/base.html:39
 msgid "Logo of the business"
-msgstr ""
+msgstr "Logotip de negoci"
 
 #: templates/base.html:78 templates/base.html:126 templates/create.html:23
 #: templates/details.html:18 templates/home.html:19 templates/list.html:18
@@ -107,9 +128,9 @@ msgstr "Inici"
 msgid "Profile"
 msgstr "Detalls del perfil"
 
-#: templates/base.html:89
-msgid "Panell d'administració"
-msgstr ""
+#: templates/base.html:89 templates/base.html:185
+msgid "Administration panel"
+msgstr "Panell d'administració"
 
 #: templates/base.html:96
 msgid "Log out"
@@ -129,10 +150,6 @@ msgstr "Registrar-se"
 msgid "Demo"
 msgstr ""
 
-#: templates/base.html:185
-msgid "Administration panel"
-msgstr "Panell d'administració"
-
 #: templates/base.html:306
 msgid ""
 "We use cookies to optimize your experience and to analyze the web traffic. "
@@ -145,7 +162,7 @@ msgstr ""
 
 #: templates/base.html:318
 msgid "Accept"
-msgstr ""
+msgstr "Accepta"
 
 #: templates/base.html:328
 msgid "Deny"
@@ -187,11 +204,11 @@ msgstr "Demo Create"
 
 #: templates/create.html:32 templates/details.html:27 templates/update.html:32
 msgid "Demo list"
-msgstr ""
+msgstr "Llista de Demo"
 
 #: templates/create.html:42
 msgid "Add new demo data"
-msgstr ""
+msgstr "Afegeix dades de demo noves"
 
 #: templates/demo_flowbite.html:51 templates/fields/field_default.html:36
 #: templates/fields/field_default.html:87
@@ -272,15 +289,17 @@ msgstr ""
 
 #: templates/details.html:47
 msgid "Edit data"
-msgstr ""
+msgstr "Edita les dades"
 
 #: templates/details.html:81
 msgid "Nothing to see here."
 msgstr "Res a veure aquí."
 
 #: templates/home.html:25
-msgid "Pàgina home"
-msgstr ""
+#, fuzzy
+#| msgid "Home"
+msgid "Home page"
+msgstr "Inici"
 
 #: templates/home_internal.html:5
 #, fuzzy
@@ -290,7 +309,7 @@ msgstr "Pàgina inicial"
 
 #: templates/list.html:26
 msgid "Demo List"
-msgstr ""
+msgstr "Llista de Demo"
 
 #: templates/list.html:36
 #, fuzzy
@@ -451,18 +470,20 @@ msgstr "Estableix"
 
 #: templates/update.html:5
 msgid "Demo Update"
-msgstr ""
+msgstr "Actualització de Demo"
 
 #: templates/update.html:42
 msgid "Demo data view"
-msgstr ""
+msgstr "Visualització de dades de Demo"
 
 #: templates/update.html:52
 msgid "Update data"
-msgstr ""
+msgstr "Actualitza les dades"
 
-#~ msgid "Entities"
-#~ msgstr "Entitats"
+#, fuzzy
+#~| msgid "Administration panel"
+#~ msgid "Admin Panel"
+#~ msgstr "Panell d'administració"
 
 #~ msgid "Entities list"
 #~ msgstr "Llista d'entitats"

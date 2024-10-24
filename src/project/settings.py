@@ -48,6 +48,10 @@ ROOT_URLCONF = "project.urls"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#wsgi-application
 WSGI_APPLICATION = "ptoject.wsgi.application"
 
+# Environment variables related to county and city update urls
+COUNTY_UPDATE_URL = env.str("COUNTY_UPDATE_URL", default="")
+TOWN_UPDATE_URL = env.str("TOWN_UPDATE_URL", default="")
+
 
 ################################################################################
 #                Internationalization and localization                         #
@@ -126,6 +130,7 @@ INSTALLED_APPS = [
     "apps.celery",
     "project",
     "apps.demo",
+    "apps.counties_towns",
 ]
 
 
