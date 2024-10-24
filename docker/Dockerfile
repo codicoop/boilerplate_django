@@ -26,7 +26,8 @@ ENV PYTHONUNBUFFERED=1 \
   PYSETUP_PATH="/opt/pysetup" \
   VENV_PATH="/opt/pysetup/.venv" \
   # npm
-  NPM_VERSION=23
+  NPM_VERSION=23 \
+  PYTHONPATH="${PYTHONPATH}:/codi-cooperatiu-internal-tools/"
 
 # prepend poetry and venv to path
 ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
@@ -58,7 +59,7 @@ RUN apt-get update && apt-get upgrade -y \
 
 # copy project requirement files here to ensure they will be cached.
 WORKDIR $PYSETUP_PATH
-COPY poetry.lock pyproject.toml ./
+COPY boilerplate_django/poetry.lock boilerplate_django/pyproject.toml ./
 # hadolint ignore=DL3008
 RUN set -x \
   && apt-get update \
@@ -95,8 +96,7 @@ RUN apt-get update && apt-get upgrade -y \
   && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
 
-RUN pwd
-COPY package.json package-lock.json tailwind.config.js /front/
+COPY boilerplate_django/package.json boilerplate_django/package-lock.json boilerplate_django/tailwind.config.js /front/
 WORKDIR /front
 RUN export NVM_DIR="$HOME/.nvm" \
   && . $NVM_DIR/nvm.sh \
@@ -112,7 +112,7 @@ CMD ["gunicorn", "project.wsgi:application", "--bind", "0.0.0.0:8000", "--reload
 FROM builder-base as production
 
 COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
-COPY src /srv
+COPY boilerplate_django/src /srv
 WORKDIR /srv
 RUN ["python", "manage.py", "collectstatic", "--clear", "--no-input"]
 RUN ["rm", "-rf", "/front"]
