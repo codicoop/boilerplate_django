@@ -473,3 +473,60 @@ to any tailwind classes in the templates.
 **Important**: if you modify the `package.json`, `package-lock.json` or
 `tailwind.config.js` files, you must rebuild the docker image. One way to do it is
 by running `docker compose up --build` in the `/docker` directory.
+
+## Testing
+
+Tests are stored in a subfolder `tests`, both in the Django's main project folder
+`/src/project` and for each app in `src/apps`.
+
+We'll decide how to test every section of the application depending on what we
+consider more useful for each case.
+The main testing tool will be the [Selenium](https://www.selenium.dev/) test,
+that will reproduce as many
+user workflows as possible, specially the more critical ones.
+We'll use unit testing for areas where reproducing the steps with Selenium is
+too repetitive or tedious.
+
+To run the tests connect to the Docker's container bash terminal and run:
+
+    python manage.py test
+
+Tests will only work if you are running the project using the docker-compose.yml
+and therefore the `showyourheart-selenium` container is up.
+
+## Linter and formatter
+
+### Python code linter and formatter
+
+We use [Ruff](https://docs.astral.sh/ruff/) for checking and applying linting
+and formatting.
+
+To run these commands connect to the Docker's container bash terminal.
+
+Check format:
+
+    ruff format --check
+
+Check linting:
+
+    ruff check .
+
+Perform linting to the code:
+
+    ruff check --fix .
+
+In some cases, you might need:
+
+    ruff check --fix --unsafe-fixes .
+
+And (as always) check the diff of all changes before commiting.
+
+Perform code formatting:
+
+    ruff format .
+
+### .po files linter
+
+To run the linter connect to the Docker's container bash terminal and run:
+
+    dennis-cmd lint --errorsonly src
