@@ -66,12 +66,8 @@
                 </th>
                 <td class="w-1/2 px-4 py-3 text-right">
                   {% if field.label == "Field image" %}
-                    {% thumbnail field_image "300" as im %}
-                    <p>Original URL: {{ field_image.url }}</p>
-                    <p>Thumbnail URL: {{ im.url }}</p>
+                    {% thumbnail field_image "100" as im %}
                       <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="" />
-                      <img src="{{ field_image.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="" />
-
                     {% endthumbnail %}
                   {% else %}
                     {{ field.value }}
