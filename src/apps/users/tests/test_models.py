@@ -34,7 +34,9 @@ class UserManagerTestCase(TestCase):
                     email=None,
                     password="test_password",
                 )
-            self.assertEqual(str(error.exception), _("Users must have an email address"))
+            self.assertEqual(
+                str(error.exception), _("Users must have an email address")
+            )
 
     def test_create_superuser(self):
         """
