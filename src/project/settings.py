@@ -130,6 +130,7 @@ INSTALLED_APPS = [
     "project",
     "apps.demo",
     "apps.counties_towns",
+    "sorl.thumbnail"
 ]
 
 
@@ -275,7 +276,7 @@ CODI_COOP_ENABLE_MONKEY_PATCH = True
 MEDIA_ROOT = env.str("MEDIA_ROOT", default="")
 
 # https://docs.djangoproject.com/en/4.2/ref/settings/#media-url
-MEDIA_URL = env.str("MEDIA_URL", default="")
+
 
 # Wasabi cloud storage configuration
 # https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html
@@ -298,6 +299,9 @@ AWS_S3_OBJECT_PARAMETERS = {
     "CacheControl": "max-age=86400",
 }
 AWS_LOCATION = "static"
+
+DEFAULT_FILE_STORAGE = "project.storage_backends.PublicMediaStorage"
+THUMBNAIL_DEFAULT_STORAGE = DEFAULT_FILE_STORAGE
 
 
 ################################################################################
