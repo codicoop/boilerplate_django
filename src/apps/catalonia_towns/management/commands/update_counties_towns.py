@@ -12,7 +12,7 @@ class Command(BaseCommand):
     towns_source = json.loads(urlopen(settings.TOWN_UPDATE_URL).read())
 
     def handle(self, *args, **options):
-        with open("apps/counties_towns/fixtures/counties.json", "w") as c:
+        with open("apps/catalonia_towns/fixtures/counties.json", "w") as c:
             json.dump(self.counties_source, c)
-        with open("apps/counties_towns/fixtures/towns.json", "w") as t:
+        with open("apps/catalonia_towns/fixtures/towns.json", "w") as t:
             json.dump(self.towns_source, t)

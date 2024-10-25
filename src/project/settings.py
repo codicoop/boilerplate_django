@@ -129,7 +129,7 @@ INSTALLED_APPS = [
     "apps.users",
     "project",
     "apps.demo",
-    "apps.counties_towns",
+    "apps.catalonia_towns",
 ]
 
 
