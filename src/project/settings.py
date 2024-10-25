@@ -434,3 +434,10 @@ SELENIUM_HOST_NAME = env.str("SELENIUM_HOST_NAME", default="")
 # to run again the npx compiler as stated in the README.
 ACTIVE_LINK_CSS_CLASS = "bg-primary-400"
 ACTIVE_LINK_STRICT = True
+
+################################################################################
+#                                  sorl-thumbnails                             #
+################################################################################
+
+# This will generate placeholder images for all thumbnails missing input source.
+THUMBNAIL_DUMMY = True
