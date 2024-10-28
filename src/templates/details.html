@@ -65,7 +65,7 @@
                   {{ field.label }}
                 </th>
                 <td class="w-1/2 px-4 py-3 text-right">
-                  {% if field.label == "Field image" %}
+                  {% if field_image and field.label == "Field image" %}
                     {% thumbnail field_image "100" as im %}
                       <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="" />
                     {% endthumbnail %}
