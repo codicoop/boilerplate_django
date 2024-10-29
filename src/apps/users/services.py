@@ -1,4 +1,3 @@
-from constance import config
 from django.conf import settings
 from django.urls import reverse
 from django.utils import formats, timezone
@@ -16,7 +15,7 @@ def send_confirmation_mail(user_instance):
         )
     )
     context = {
-        "project_name": config.PROJECT_NAME,
+        "project_name": "constance.PROJECT_NAME",
         "user_name": user_instance.name,
         "date": str(
             formats.date_format(

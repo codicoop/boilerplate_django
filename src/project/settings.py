@@ -111,8 +111,6 @@ DATABASES = {
 INSTALLED_APPS = [
     "maintenance_mode",
     "django.contrib.postgres",
-    "constance.backends.database",
-    "constance",
     "logentry_admin",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -249,7 +247,6 @@ TEMPLATES = [
         ],
         "OPTIONS": {
             "context_processors": [
-                "constance.context_processors.config",
                 "maintenance_mode.context_processors.maintenance_mode",
                 "django.template.context_processors.debug",
                 "django.template.context_processors.request",
@@ -357,14 +354,6 @@ EMAIL_BACKEND = env.str(
 # Variables for non-interactive superuser creation
 DJANGO_SUPERUSER_EMAIL = env("DJANGO_SUPERUSER_EMAIL", default=None)
 DJANGO_SUPERUSER_PASSWORD = env("DJANGO_SUPERUSER_PASSWORD", default=None)
-
-
-# Constance
-# https://django-constance.readthedocs.io/en/latest/#configuration
-CONSTANCE_BACKEND = "constance.backends.database.DatabaseBackend"
-DEFAULT_PROJECT_NAME = env.str("DEFAULT_PROJECT_NAME", default="")
-CONSTANCE_CONFIG = {"PROJECT_NAME": (DEFAULT_PROJECT_NAME, _("Project name"))}
-
 
 ################################################################################
 #                                  Logging                                     #

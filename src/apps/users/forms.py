@@ -1,4 +1,3 @@
-from constance import config
 from django import forms
 from django.conf import settings
 from django.contrib.auth.forms import (
@@ -164,7 +163,7 @@ class PasswordResetForm(BasePasswordResetForm):
             )
         )
         context = {
-            "project_name": config.PROJECT_NAME,
+            "project_name": "constance.PROJECT_NAME",
             "user_name": context["user"].full_name,
             "date": str(
                 formats.date_format(

@@ -376,7 +376,7 @@ It also adds this functionality to inlines: if you include any inlines in this
 admin that has the `created_by` field, it's going to be filled in the inline's
 new registries as well.
 
-## Thumbnails 
+## Thumbnails
 In order to have control of the image the users will upload, [sorl-thumbnail](https://sorl-thumbnail.readthedocs.io/en/latest/examples.html) has been installed. For using this library is needed to add the tag to the templates:
 
 ```{% load thumbnail %}```
@@ -384,7 +384,7 @@ In order to have control of the image the users will upload, [sorl-thumbnail](ht
 And then:
 
 ```html
-{% thumbnail item.image "100x100" crop="center" as im %}   
+{% thumbnail item.image "100x100" crop="center" as im %}
     <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
 {% endthumbnail %}
 ```
@@ -549,3 +549,30 @@ Perform code formatting:
 To run the linter connect to the Docker's container bash terminal and run:
 
     dennis-cmd lint --errorsonly src
+
+## Tips and examples
+
+### Changing and using Dynamic settings
+
+We use the `django-extra-settings` [library](https://github.com/fabiocaccamo/django-extra-settings)
+to be able to customize the project on run-time.
+
+When the project's migrations run for the first time, all the dynamic settings
+declared in the `EXTRA_SETTINGS_DEFAULTS` setting will be created.
+
+You can add or edit settings there as long as you are aware that these changes
+will only be applied when the project is deployed to an empty database. For that
+reason, this should only happen before we hit production or 1.0.0.
+
+Once the project is in production, any new dynamic setting or change in existing
+ones must be introduced by creating data migrations manually.
+
+To use an image or file setting to refer to the uploaded file in a template you
+can follow the example of the `LOGO` setting in `base.html`:
+
+```commandline
+{% get_setting "LOGO" as logo %}
+<img src="{% if logo %}{{ logo.url }}{% endif %}" alt="{% get_setting 'PROJECT_NAME' %} logo" />
+```
+
+Remember to load the tag in the template as described in the library's documentation.
