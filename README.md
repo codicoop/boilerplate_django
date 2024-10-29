@@ -466,7 +466,7 @@ for it, by doing `pyenv install 3.12` and then in the repository folder
 5. Copy the `docker/.env.example` file to `docker/.env` and modify as needed, but
 the initial setup should let the project initialize already.
 6. Install or update [Docker](https://www.docker.com/) and from the `docker/` folder run `docker compose up --build`.
-7. In another terminal, access the docker's container bash (`docker exec -it boilerplate-app bash`) and run `python manage.py migrate`.
+7. In another terminal, access the docker's container bash (`docker exec -it bp-internal-tools-app bash`) and run `python manage.py migrate`.
 8. Open `http://localhost:1234`.
 
 In the future, when you pull a new version of the app, repeat the last 3 steps
@@ -482,7 +482,7 @@ project.
 If you intend to change any Tailwind classes from the html files, you need to
 access container's bash and run these commands:
 
-1. `docker exec -it boilerplate-app bash`
+1. `docker exec -it bp-internal-tools-app bash`
 2. `cd /front`
 3. `npx tailwindcss -i /srv/assets/styles/input.css -o /srv/assets/styles/output.css --watch`
 
