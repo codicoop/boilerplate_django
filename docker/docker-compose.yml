@@ -1,13 +1,13 @@
 version: "3.5"
 
 networks:
-  boilerplate-network:
-    name: boilerplate-network
+  bp-internal-tools-network:
+    name: bp-internal-tools-network
 
 services:
-  boilerplate-app:
+  bp-internal-tools-app:
     restart: on-failure
-    container_name: boilerplate-app
+    container_name: bp-internal-tools-app
     build:
       context: ../..
       dockerfile: ./boilerplate_django/docker/Dockerfile
@@ -20,22 +20,22 @@ services:
       - ../src:/srv
       - ../../codi-cooperatiu-internal-tools:/codi-cooperatiu-internal-tools
     depends_on:
-      - boilerplate-db
+      - bp-internal-tools-db
     networks:
-      - boilerplate-network
+      - bp-internal-tools-network
 
-  boilerplate-db:
-    container_name: boilerplate-db
+  bp-internal-tools-db:
+    container_name: bp-internal-tools-db
     image: postgres:14
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
     volumes:
       - ../dumps:/dumps
     networks:
-      - boilerplate-network
+      - bp-internal-tools-network
 
-  boilerplate-selenium:
-    container_name: boilerplate-selenium
+  bp-internal-tools-selenium:
+    container_name: bp-internal-tools-selenium
     image: selenium/standalone-chrome:4.16.0
     networks:
-      - boilerplate-network
+      - bp-internal-tools-network
