@@ -54,16 +54,16 @@ class Strings(Enum):
     ADMIN_TITLE = _("Site administration | Django site admin")
     LOGOUT = _("Log out")
     # Not translated on purpose
-    DEFAULT_PROJECT_NAME = "Selenium test"
-    SIGNUP_TITLE = _("%s | Create an account") % DEFAULT_PROJECT_NAME
-    PROFILE_TITLE = _("%s | Profile details") % DEFAULT_PROJECT_NAME
-    REGISTRY_UPDATE_TITLE = _("%s | Registry updated") % DEFAULT_PROJECT_NAME
-    PASSWORD_CHANGE_TITLE = _("%s | Password change") % DEFAULT_PROJECT_NAME
-    EMAIL_VALIDATION_TITLE = _("%s | Mail validation") % DEFAULT_PROJECT_NAME
-    DEMO_TITLE = _("%s | Demo") % DEFAULT_PROJECT_NAME
-    DEMO_CREATE = _("%s | Demo Create") % DEFAULT_PROJECT_NAME
-    DEMO_DETAILS = _("%s | Demo Details") % DEFAULT_PROJECT_NAME
-    DEMO_UPDATE = _("%s | Demo Update") % DEFAULT_PROJECT_NAME
+    PROJECT_NAME = "Selenium test"
+    SIGNUP_TITLE = _("%s | Create an account") % PROJECT_NAME
+    PROFILE_TITLE = _("%s | Profile details") % PROJECT_NAME
+    REGISTRY_UPDATE_TITLE = _("%s | Registry updated") % PROJECT_NAME
+    PASSWORD_CHANGE_TITLE = _("%s | Password change") % PROJECT_NAME
+    EMAIL_VALIDATION_TITLE = _("%s | Mail validation") % PROJECT_NAME
+    DEMO_TITLE = _("%s | Demo") % PROJECT_NAME
+    DEMO_CREATE = _("%s | Demo Create") % PROJECT_NAME
+    DEMO_DETAILS = _("%s | Demo Details") % PROJECT_NAME
+    DEMO_UPDATE = _("%s | Demo Update") % PROJECT_NAME
 
 
 @override_settings(
@@ -82,9 +82,9 @@ class Strings(Enum):
         },
         "DEFAULT_PRIORITY": "now",
     },
-    DEFAULT_PROJECT_NAME=Strings.DEFAULT_PROJECT_NAME.value,
+    PROJECT_NAME=Strings.PROJECT_NAME.value,
 )
-@override_config(PROJECT_NAME=Strings.DEFAULT_PROJECT_NAME.value)
+@override_config(PROJECT_NAME=Strings.PROJECT_NAME.value)
 class MySeleniumTests(StaticLiveServerTestCase):
     """
     STATICFILES_STORAGE + StaticLiveServerTestCase vs LiveServerTestCase:
