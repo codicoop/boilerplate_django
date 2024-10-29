@@ -1,6 +1,9 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
+from sorl.thumbnail import ImageField
+from project.storage_backends import PublicMediaStorage
+from django.core.validators import validate_image_file_extension
+from django.conf import settings
 
 class Data(models.Model):
     class RadioChoices(models.TextChoices):
@@ -80,6 +83,12 @@ class Data(models.Model):
         default=SelectCheckboxChoices.OPTION_1,
         blank=True,
         help_text="Help field_select_checkbox",
+    )
+    field_image = ImageField(
+        storage=PublicMediaStorage(),
+        blank=True, 
+        default="",
+        validators=[validate_image_file_extension],
     )
 
     def __str__(self):

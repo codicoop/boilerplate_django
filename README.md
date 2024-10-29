@@ -376,6 +376,25 @@ It also adds this functionality to inlines: if you include any inlines in this
 admin that has the `created_by` field, it's going to be filled in the inline's
 new registries as well.
 
+## Thumbnails 
+In order to have control of the image the users will upload, [sorl-thumbnail](https://sorl-thumbnail.readthedocs.io/en/latest/examples.html) has been installed. For using this library is needed to add the tag to the templates:
+
+```{% load thumbnail %}```
+
+And then:
+
+```html
+{% thumbnail item.image "100x100" crop="center" as im %}   
+    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+{% endthumbnail %}
+```
+
+It's also posible to change the format of the image in the back:
+```python
+im = get_thumbnail(my_file, '100x100', crop='center', quality=99)
+```
+
+
 # Troubleshooting
 
 ## `setuptools` error

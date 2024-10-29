@@ -1,5 +1,8 @@
 import yaml
 from django.shortcuts import get_object_or_404, redirect, render
+from sorl.thumbnail import get_thumbnail
+from project.storage_backends import PublicMediaStorage
+from django.conf import settings
 
 from apps.demo.forms import DataForm
 from apps.demo.models import Data
@@ -9,7 +12,7 @@ def create_view(request):
     if request.method == "GET":
         form = DataForm()
     else:
-        form = DataForm(request.POST)
+        form = DataForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect("list")
@@ -28,7 +31,7 @@ def detail_view(request, id):
     form = DataForm(instance=obj)
     for field in form.fields:
         form.fields.get(field).disabled = True
-    return render(request, "details.html", {"form": form})
+    return render(request, "details.html", {"form": form, "field_image": obj.field_image })
 
 
 def update_view(request, id):
@@ -39,7 +42,7 @@ def update_view(request, id):
         form = DataForm(instance=obj)
         return render(request, "update.html", {"form": form})
     else:
-        form = DataForm(request.POST, instance=obj)
+        form = DataForm(request.POST, request.FILES, instance=obj)
         if form.is_valid():
             form.save()
         return redirect("details", obj.id)

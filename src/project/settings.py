@@ -129,6 +129,7 @@ INSTALLED_APPS = [
     "apps.users",
     "project",
     "apps.demo",
+    "sorl.thumbnail"
     "apps.catalonia_towns",
 ]
 
@@ -168,10 +169,6 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     str(BASE_DIR / "assets"),
 ]
-
-# https://docs.djangoproject.com/en/4.2/ref/settings/#staticfiles-storage
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
 
 ################################################################################
 #                             Authentication                                   #
@@ -275,7 +272,7 @@ CODI_COOP_ENABLE_MONKEY_PATCH = True
 MEDIA_ROOT = env.str("MEDIA_ROOT", default="")
 
 # https://docs.djangoproject.com/en/4.2/ref/settings/#media-url
-MEDIA_URL = env.str("MEDIA_URL", default="")
+
 
 # Wasabi cloud storage configuration
 # https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html
@@ -299,6 +296,14 @@ AWS_S3_OBJECT_PARAMETERS = {
 }
 AWS_LOCATION = "static"
 
+STORAGES = {
+    "default": {
+        "BACKEND": "project.storage_backends.PublicMediaStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 ################################################################################
 #                                  Email                                       #
@@ -430,3 +435,10 @@ SELENIUM_HOST_NAME = env.str("SELENIUM_HOST_NAME", default="")
 # to run again the npx compiler as stated in the README.
 ACTIVE_LINK_CSS_CLASS = "bg-primary-400"
 ACTIVE_LINK_STRICT = True
+
+################################################################################
+#                                  sorl-thumbnails                             #
+################################################################################
+
+# This will generate placeholder images for all thumbnails missing input source.
+THUMBNAIL_DUMMY = True
