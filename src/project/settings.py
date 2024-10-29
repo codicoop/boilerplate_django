@@ -126,10 +126,10 @@ INSTALLED_APPS = [
     "django_extensions",
     "phonenumber_field",
     "active_link",
+    "sorl.thumbnail",
     "apps.users",
     "project",
     "apps.demo",
-    "sorl.thumbnail"
     "apps.catalonia_towns",
 ]
 
