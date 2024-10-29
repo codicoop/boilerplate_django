@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from apps.counties_towns.models import County, Town
+from apps.catalonia_towns.models import County, Town
 
 
 @admin.register(County)

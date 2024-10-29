@@ -3,14 +3,14 @@ import json
 from django.core.management.base import BaseCommand
 from django.utils.translation import gettext as _
 
-from apps.counties_towns.models import County, Town
+from apps.catalonia_towns.models import County, Town
 
 
 class Command(BaseCommand):
     help = "Imports Counties"
-    with open("apps/counties_towns/fixtures/counties.json", "r") as c:
+    with open("apps/catalonia_towns/fixtures/counties.json", "r") as c:
         counties_source = json.load(c)
-    with open("apps/counties_towns/fixtures/towns.json", "r") as t:
+    with open("apps/catalonia_towns/fixtures/towns.json", "r") as t:
         towns_source = json.load(t)
 
     def handle(self, *args, **options):
