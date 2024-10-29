@@ -19,6 +19,7 @@ from django.urls import reverse
 from django.utils import formats, timezone
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
+from extra_settings.models import Setting
 
 from apps.users.models import User
 from project.helpers import absolute_url
@@ -163,7 +164,7 @@ class PasswordResetForm(BasePasswordResetForm):
             )
         )
         context = {
-            "project_name": "constance.PROJECT_NAME",
+            "project_name": Setting.get("PROJECT_NAME"),
             "user_name": context["user"].full_name,
             "date": str(
                 formats.date_format(
