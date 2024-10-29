@@ -17,7 +17,7 @@ class DataForm(forms.ModelForm):
             "field_password_confirm",
             "field_number",
             # "field_select_checkbox",
-            "field_image"
+            "field_image",
         ]
         widgets = {
             "field_password": forms.PasswordInput,

@@ -1,8 +1,5 @@
 import yaml
 from django.shortcuts import get_object_or_404, redirect, render
-from sorl.thumbnail import get_thumbnail
-from project.storage_backends import PublicMediaStorage
-from django.conf import settings
 
 from apps.demo.forms import DataForm
 from apps.demo.models import Data
@@ -31,7 +28,11 @@ def detail_view(request, id):
     form = DataForm(instance=obj)
     for field in form.fields:
         form.fields.get(field).disabled = True
-    return render(request, "details.html", {"form": form, "field_image": obj.field_image })
+    return render(
+        request,
+        "details.html",
+        {"form": form, "field_image": obj.field_image},
+    )
 
 
 def update_view(request, id):

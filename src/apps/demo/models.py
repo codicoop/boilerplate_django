@@ -1,9 +1,10 @@
+from django.core.validators import validate_image_file_extension
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from sorl.thumbnail import ImageField
+
 from project.storage_backends import PublicMediaStorage
-from django.core.validators import validate_image_file_extension
-from django.conf import settings
+
 
 class Data(models.Model):
     class RadioChoices(models.TextChoices):
@@ -86,7 +87,7 @@ class Data(models.Model):
     )
     field_image = ImageField(
         storage=PublicMediaStorage(),
-        blank=True, 
+        blank=True,
         default="",
         validators=[validate_image_file_extension],
     )
