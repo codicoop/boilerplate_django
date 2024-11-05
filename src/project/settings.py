@@ -460,3 +460,38 @@ ACTIVE_LINK_STRICT = True
 
 # This will generate placeholder images for all thumbnails missing input source.
 THUMBNAIL_DUMMY = True
+
+################################################################################
+#                            User groups and permissions                       #
+################################################################################
+
+# User group names that are used programmatically in some place, so we don't
+# want them hardcoded.
+# Beware that these CANNOT BE CHANGED once the instance is already deployed, or
+# you are going to end up with a new group with the new name while all the users
+# are still assigned to the previous group.
+# For the same reason, names cannot be multilingual.
+GROUPS = {
+    "admins": {
+        "name": "Administrators",
+        "description": _(
+            "Access to: configuration and customization "
+            "settings, the log of emails sent by the system, email "
+            "templates. Has permission to edit the 'Is staff' and 'Is "
+            "active' user fields."
+        ),
+    },
+    "manage_users": {
+        "name": "User management",
+        "description": _(
+            "Grants access to adding, viewing, changing and deleting users."
+        ),
+    },
+    "access_logentry": {
+        "name": "Access full log entry",
+        "description": _(
+            "Grants access to the registry of all "
+            "actions made by any user within the admin panel."
+        ),
+    },
+}
