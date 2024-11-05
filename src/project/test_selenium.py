@@ -2,7 +2,6 @@ import logging
 from dataclasses import dataclass
 from enum import Enum
 
-from constance.test import override_config
 from django.conf import settings
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.core import mail
