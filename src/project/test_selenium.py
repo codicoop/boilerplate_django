@@ -15,8 +15,6 @@ from selenium.webdriver.common.by import By
 from apps.demo.models import Data
 from apps.users.models import User
 
-logging.basicConfig(level=logging.INFO)
-
 
 @dataclass
 class SampleUser:
@@ -300,8 +298,8 @@ class MySeleniumTests(StaticLiveServerTestCase):
 
     def _admin_login(self):
         self._login(
-            settings.DJANGO_SUPERUSER_EMAIL,
-            settings.DJANGO_SUPERUSER_PASSWORD,
+            settings.SUPERUSER_EMAIL,
+            settings.SUPERUSER_PASSWORD,
         )
         self.burger_menu_action()
         admin_menu = self.selenium.find_element(By.ID, "menu_admin")
