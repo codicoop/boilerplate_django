@@ -1,14 +1,14 @@
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin as BaseModelAdmin
-from django.contrib.admin.models import ADDITION, DELETION, CHANGE, LogEntry
+from django.contrib.admin.models import ADDITION, CHANGE, DELETION, LogEntry
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
-from django.urls import reverse, NoReverseMatch
+from django.urls import NoReverseMatch, reverse
 from django.utils.encoding import force_str
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
-from django.utils.translation import pgettext_lazy
 from django.utils.translation import gettext_lazy as _
+from django.utils.translation import pgettext_lazy
 
 
 class ModelAdminMixin(object):
