@@ -51,16 +51,15 @@ class Strings(Enum):
     ADMIN_TITLE = _("Site administration | Django site admin")
     LOGOUT = _("Log out")
     # Not translated on purpose
-    PROJECT_NAME = "Selenium test"
-    SIGNUP_TITLE = _("%s | Create an account") % PROJECT_NAME
-    PROFILE_TITLE = _("%s | Profile details") % PROJECT_NAME
-    REGISTRY_UPDATE_TITLE = _("%s | Registry updated") % PROJECT_NAME
-    PASSWORD_CHANGE_TITLE = _("%s | Password change") % PROJECT_NAME
-    EMAIL_VALIDATION_TITLE = _("%s | Mail validation") % PROJECT_NAME
-    DEMO_TITLE = _("%s | Demo") % PROJECT_NAME
-    DEMO_CREATE = _("%s | Demo Create") % PROJECT_NAME
-    DEMO_DETAILS = _("%s | Demo Details") % PROJECT_NAME
-    DEMO_UPDATE = _("%s | Demo Update") % PROJECT_NAME
+    SIGNUP_TITLE = _("%s | Create an account") % settings.PROJECT_NAME
+    PROFILE_TITLE = _("%s | Profile details") % settings.PROJECT_NAME
+    REGISTRY_UPDATE_TITLE = _("%s | Registry updated") % settings.PROJECT_NAME
+    PASSWORD_CHANGE_TITLE = _("%s | Password change") % settings.PROJECT_NAME
+    EMAIL_VALIDATION_TITLE = _("%s | Mail validation") % settings.PROJECT_NAME
+    DEMO_TITLE = _("%s | Demo") % settings.PROJECT_NAME
+    DEMO_CREATE = _("%s | Demo Create") % settings.PROJECT_NAME
+    DEMO_DETAILS = _("%s | Demo Details") % settings.PROJECT_NAME
+    DEMO_UPDATE = _("%s | Demo Update") % settings.PROJECT_NAME
 
 
 @override_settings(
@@ -79,9 +78,7 @@ class Strings(Enum):
         },
         "DEFAULT_PRIORITY": "now",
     },
-    PROJECT_NAME=Strings.PROJECT_NAME.value,
 )
-@override_config(PROJECT_NAME=Strings.PROJECT_NAME.value)
 class MySeleniumTests(StaticLiveServerTestCase):
     """
     STATICFILES_STORAGE + StaticLiveServerTestCase vs LiveServerTestCase:
@@ -263,7 +260,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
         logging.info("Test Demo Update finished.")
 
         logging.info("#####################################")
-        logging.info("#### All tests Selenium finished ####")
+        logging.info("#### All Selenium tests finished ####")
         logging.info("#####################################")
 
     def _resize(self):
