@@ -13,12 +13,12 @@ def create_view(request):
         if form.is_valid():
             form.save()
             return redirect("list")
-    return render(request, "create.html", {"form": form})
+    return render(request, "demo/create.html", {"form": form})
 
 
 def list_view(request):
     context = {"data": Data.objects.all()}
-    return render(request, "list.html", context)
+    return render(request, "demo/list.html", context)
 
 
 def detail_view(request, id):
@@ -30,7 +30,7 @@ def detail_view(request, id):
         form.fields.get(field).disabled = True
     return render(
         request,
-        "details.html",
+        "demo/details.html",
         {"form": form, "field_image": obj.field_image},
     )
 
@@ -41,7 +41,7 @@ def update_view(request, id):
         obj.field_select_checkbox = yaml.safe_load(obj.field_select_checkbox)
         obj.save()
         form = DataForm(instance=obj)
-        return render(request, "update.html", {"form": form})
+        return render(request, "demo/update.html", {"form": form})
     else:
         form = DataForm(request.POST, request.FILES, instance=obj)
         if form.is_valid():
