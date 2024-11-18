@@ -71,10 +71,6 @@ class User(BaseModel, AbstractBaseUser, PermissionsMixin):
         ),
     )
     is_staff = models.BooleanField(default=False)
-    test = models.BooleanField(
-        "test",
-        help_text=Setting.get("PROJECT_NAME"),
-    )
 
     objects = UserManager()
 
