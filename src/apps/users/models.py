@@ -7,7 +7,7 @@ from django.contrib.auth.models import (
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from project.models import BaseModel
+from project.models import BaseModel, Setting
 
 
 class UserManager(BaseUserManager):
@@ -71,6 +71,10 @@ class User(BaseModel, AbstractBaseUser, PermissionsMixin):
         ),
     )
     is_staff = models.BooleanField(default=False)
+    test = models.BooleanField(
+        "test",
+        help_text=Setting.get("PROJECT_NAME"),
+    )
 
     objects = UserManager()
 
