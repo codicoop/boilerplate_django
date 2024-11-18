@@ -49,14 +49,14 @@ class BaseModel(SetBooleanDatetimeMixin, models.Model):
 
 
 class Setting(BaseSetting):
-    """
-    This version catches the AppRegistryNotReady exception to make it possible
-    for the extra-settings to load the settings or default value when you
-    use it in a place that is loaded during the initialization, i.e., a
-    `help_text` argument of a model's field.
-    """
     @staticmethod
     def _get_from_database(name):
+        """
+        This version catches the AppRegistryNotReady exception to make it possible
+        for the extra-settings to load the settings or default value when you
+        use it in a place that is loaded during the initialization, i.e., a
+        `help_text` argument of a model's field.
+        """
         try:
             setting_obj = Setting.objects.get(name=name)
             value = setting_obj.value

@@ -557,6 +557,20 @@ To run the linter connect to the Docker's container bash terminal and run:
 We use the `django-extra-settings` [library](https://github.com/fabiocaccamo/django-extra-settings)
 to be able to customize the project on run-time.
 
+#### Use the custom Setting model, not the original from extra-settings
+
+Instead of the `django-extra-settings` one, you must use the one at
+
+    project.models.Setting
+
+This one works around a problem, see the documentation in this model's code.
+
+If you use a setting in some place that will be executed during the project
+initialization, and you face `AppRegistryNotReady` errors, it probably means that
+you forgot to import it from `project.models`.
+
+#### Managing the settings
+
 When the project's migrations run for the first time, all the dynamic settings
 declared in the `EXTRA_SETTINGS_DEFAULTS` setting will be created.
 
