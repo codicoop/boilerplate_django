@@ -17,5 +17,5 @@ docker/compose-*
 # Ignore the sass compiler file
 *.map
 
-# Local environment folders
+# Temporary local folder for managing database dumps
 dumps/
