@@ -30,7 +30,6 @@ class Data(models.Model):
     )
     field_text_2 = models.CharField(
         max_length=100,
-        blank=False,
         null=False,
         help_text="Help field_text_2",
     )
@@ -44,7 +43,8 @@ class Data(models.Model):
     field_radio = models.CharField(
         max_length=4,
         choices=RadioChoices.choices,
-        blank=False,
+        default=RadioChoices.OPTION_1,
+        blank=True,
         null=False,
         help_text="Help field_radio",
     )
@@ -76,7 +76,7 @@ class Data(models.Model):
     )
     field_number = models.IntegerField(
         blank=True,
-        null=True,
+        default=0,
         help_text="Help field_number",
     )
     field_select_checkbox = models.CharField(
@@ -86,6 +86,14 @@ class Data(models.Model):
         help_text="Help field_select_checkbox",
     )
     field_image = ImageField(
+        "Sorl thumbnail Image field",
+        storage=PublicMediaStorage(),
+        blank=True,
+        default="",
+        validators=[validate_image_file_extension],
+    )
+    field_file = models.FileField(
+        "Image field",
         storage=PublicMediaStorage(),
         blank=True,
         default="",
