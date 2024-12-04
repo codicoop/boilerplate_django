@@ -24,12 +24,13 @@ class Data(models.Model):
 
     field_text_1 = models.CharField(
         max_length=50,
-        blank=False,
+        blank=True,
         null=False,
         help_text="Help field_text_1",
     )
     field_text_2 = models.CharField(
         max_length=100,
+        blank=True,
         null=False,
         help_text="Help field_text_2",
     )
@@ -64,13 +65,13 @@ class Data(models.Model):
     )
     field_password = models.CharField(
         max_length=50,
-        blank=False,
+        blank=True,
         null=False,
         help_text="Help field_password",
     )
     field_password_confirm = models.CharField(
         max_length=50,
-        blank=False,
+        blank=True,
         null=False,
         help_text="Help field_password_confirm",
     )
