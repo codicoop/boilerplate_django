@@ -93,11 +93,10 @@ class Data(models.Model):
         validators=[validate_image_file_extension],
     )
     field_file = models.FileField(
-        "Image field",
+        "Generic file field",
         storage=PublicMediaStorage(),
         blank=True,
         default="",
-        validators=[validate_image_file_extension],
     )
 
     def __str__(self):
