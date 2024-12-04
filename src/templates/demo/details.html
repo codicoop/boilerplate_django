@@ -1,5 +1,5 @@
-{% extends "./base.html" %}
-{% load i18n %}
+{% extends "../base.html" %}
+{% load i18n thumbnail %}
 
 {# Blocks de base.html #}
 {% block page_title %}{% translate "Demo Details" %}{% endblock %}
@@ -51,7 +51,6 @@
     </div>
   </a>
 </div>
-
   {% if form %}
   <section class="bg-gray-50 dark:bg-gray-900">
     <div class="mx-auto max-w-screen-sm py-8 lg:px-16">
@@ -66,7 +65,13 @@
                   {{ field.label }}
                 </th>
                 <td class="w-1/2 px-4 py-3 text-right">
-                  {{ field.value }}
+                  {% if field_image and field.label == "Field image" %}
+                    {% thumbnail field_image "100" as im %}
+                      <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="" />
+                    {% endthumbnail %}
+                  {% else %}
+                    {{ field.value }}
+                  {% endif %}
                 </td>
               </tr>
               {% endfor %}

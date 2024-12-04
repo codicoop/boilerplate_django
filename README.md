@@ -282,26 +282,9 @@ path("", home_view, name="home"),
 Finally, remove the language selection widget from the base template.
 
 
-## App Counties and Towns | Commands
+## App Catalan Counties and Towns
 
-### Uploading or updating of counties and towns
-
-From the application Docker terminal run the following command:
-
-```
-python manage.py update_counties_towns
-```
-This will load/update the JSON files in the **Fixtures** *(apps/counties_towns)* folder with the county and town data from the official source.
-
-### Creation of Counties and Towns in the models
-
-From the application Docker terminal run the following command:
-
-```
-python manage.py import_counties_towns
-```
-This will load all the counties and towns into the application's database.
-The list is available in the Admin.
+Refer to src/apps/catalan_towns/README.md
 
 ## `StandardSuccess` view
 
@@ -392,6 +375,25 @@ fill the `created_by` field when saving new registries.
 It also adds this functionality to inlines: if you include any inlines in this
 admin that has the `created_by` field, it's going to be filled in the inline's
 new registries as well.
+
+## Thumbnails
+In order to have control of the image the users will upload, [sorl-thumbnail](https://sorl-thumbnail.readthedocs.io/en/latest/examples.html) has been installed. For using this library is needed to add the tag to the templates:
+
+```{% load thumbnail %}```
+
+And then:
+
+```html
+{% thumbnail item.image "100x100" crop="center" as im %}
+    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+{% endthumbnail %}
+```
+
+It's also posible to change the format of the image in the back:
+```python
+im = get_thumbnail(my_file, '100x100', crop='center', quality=99)
+```
+
 
 # Troubleshooting
 
@@ -490,3 +492,157 @@ to any tailwind classes in the templates.
 **Important**: if you modify the `package.json`, `package-lock.json` or
 `tailwind.config.js` files, you must rebuild the docker image. One way to do it is
 by running `docker compose up --build` in the `/docker` directory.
+
+## Testing
+
+Tests are stored in a subfolder `tests`, both in the Django's main project folder
+`/src/project` and for each app in `src/apps`.
+
+We'll decide how to test every section of the application depending on what we
+consider more useful for each case.
+The main testing tool will be the [Selenium](https://www.selenium.dev/) test,
+that will reproduce as many
+user workflows as possible, specially the more critical ones.
+We'll use unit testing for areas where reproducing the steps with Selenium is
+too repetitive or tedious.
+
+To run the tests connect to the Docker's container bash terminal and run:
+
+    python manage.py test
+
+Tests will only work if you are running the project using the docker-compose.yml
+and therefore the `showyourheart-selenium` container is up.
+
+## Linter and formatter
+
+### Python code linter and formatter
+
+We use [Ruff](https://docs.astral.sh/ruff/) for checking and applying linting
+and formatting.
+
+To run these commands connect to the Docker's container bash terminal.
+
+Check format:
+
+    ruff format --check
+
+Check linting:
+
+    ruff check .
+
+Perform linting to the code:
+
+    ruff check --fix .
+
+In some cases, you might need:
+
+    ruff check --fix --unsafe-fixes .
+
+And (as always) check the diff of all changes before commiting.
+
+Perform code formatting:
+
+    ruff format .
+
+### .po files linter
+
+To run the linter connect to the Docker's container bash terminal and run:
+
+    dennis-cmd lint --errorsonly src
+
+## Tips and examples
+
+### Changing and using Dynamic settings
+
+We use the `django-extra-settings` [library](https://github.com/fabiocaccamo/django-extra-settings)
+to be able to customize the project on run-time.
+
+#### Use the custom Setting model, not the original from extra-settings
+
+Instead of the `django-extra-settings` one, you must use the one at
+
+    project.models.Setting
+
+This one works around a problem, see the documentation in this model's code.
+
+If you use a setting in some place that will be executed during the project
+initialization, and you face `AppRegistryNotReady` errors, it probably means that
+you forgot to import it from `project.models`.
+
+#### Managing the settings
+
+When the project's migrations run for the first time, all the dynamic settings
+declared in the `EXTRA_SETTINGS_DEFAULTS` setting will be created.
+
+You can add or edit settings there as long as you are aware that these changes
+will only be applied when the project is deployed to an empty database. For that
+reason, this should only happen before we hit production or 1.0.0.
+
+Once the project is in production, any new dynamic setting or change in existing
+ones must be introduced by creating data migrations manually.
+
+To use an image or file setting to refer to the uploaded file in a template you
+can follow the example of the `LOGO` setting in `base.html`:
+
+```commandline
+{% get_setting "LOGO" as logo %}
+<img src="{% if logo %}{{ logo.url }}{% endif %}" alt="{% get_setting 'PROJECT_NAME' %} logo" />
+```
+
+Remember to load the tag in the template as described in the library's documentation.
+
+# Commands
+
+## Initial data generation or loading for development
+
+The `project` app includes the `loaddevdata` command. Its purpose is to
+populate the database with initial data, either generated or loaded from
+fixtures, so when the developers needs to reset the database they don't have to
+repeat all the set up steps and manually create models entries to work with.
+
+Initially it only includes the creation of a Superuser and an Admin user which
+will not be superuser, but will have access to the admin panel and have all the
+permission groups assigned.
+
+This user is created because normally superuser access is not given to our
+customer, instead, we keep a superuser account for the developers and create
+different user roles using permission groups, and within those users, the one
+with a higher access level is this Admin.
+
+For that reason, when developing features within the admin panel, it's necessary
+to try them using the different user roles and NOT the superuser account.
+
+Extend this command whenever new models are created or updated to maintain
+a good set of initial fixtures to work with.
+
+## Initial superuser creation
+
+The `users` app will create an initial superuser during the migration process
+(at `0002_data_superuser.py`) if the `SUPERUSER_EMAIL` and `SUPERUSER_PASSWORD`
+environment variables are set.
+
+If the superuser was not created or was deleted and you want to recreate it with
+the environment settings credentials, you can run the following command:
+
+    python manage.py loaddevdata
+
+Which will create it as well as populate the database with initial data for
+development.
+
+Alternatively, you can also use the Django built-in `createsuperuser` command.
+
+# Warning about python packages and tests
+
+If you need to split an admin.py or models.py file into multiple files using the
+python packages technique (which is, you create a folder called `admin` with a
+`__init__.py` file, and in this file you import the admin classes), beware of
+two problems:
+
+a. When running tests it will probably raise an `AlreadyRegistered` exception
+because of the reasons explained [here](https://medium.com/@michal.bock/fix-weird-exceptions-when-running-django-tests-f58def71b59a).
+b. Ruff will not accept the imports in the `__init__` file unless you make them
+explicit re-imports, like this:
+
+    from .base_admin import ModelAdmin as ModelAdmin
+
+

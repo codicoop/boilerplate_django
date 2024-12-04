@@ -2,7 +2,6 @@
 .vscode/
 static
 __pycache__
-src/conf/maintenance_mode_state.txt
 
 # Ignore configuration file
 .env
@@ -11,9 +10,6 @@ src/conf/maintenance_mode_state.txt
 .python-version
 docker/compose-*
 
-# Ignore the node modules
-node_modules
-
 # Ignore Ruff cache. This is technically not needed since
 # Ruff adds its own .gitignore to the cache, but just to make sure.
 .ruff_cache/
@@ -21,5 +17,5 @@ node_modules
 # Ignore the sass compiler file
 *.map
 
-# Local environment folders
+# Temporary local folder for managing database dumps
 dumps/

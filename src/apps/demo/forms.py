@@ -16,12 +16,13 @@ class DataForm(forms.ModelForm):
             "field_password",
             "field_password_confirm",
             "field_number",
-            # "field_select_checkbox",
+            "field_image",
+            "field_file",
         ]
         widgets = {
             "field_password": forms.PasswordInput,
             "field_password_confirm": forms.PasswordInput,
-            "field_radio": forms.RadioSelect
+            "field_radio": forms.RadioSelect,
         }
 
     def clean(self):

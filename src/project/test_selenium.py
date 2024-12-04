@@ -2,7 +2,6 @@ import logging
 from dataclasses import dataclass
 from enum import Enum
 
-from constance.test import override_config
 from django.conf import settings
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.core import mail
@@ -15,8 +14,6 @@ from selenium.webdriver.common.by import By
 
 from apps.demo.models import Data
 from apps.users.models import User
-
-logging.basicConfig(level=logging.INFO)
 
 
 @dataclass
@@ -54,30 +51,34 @@ class Strings(Enum):
     ADMIN_TITLE = _("Site administration | Django site admin")
     LOGOUT = _("Log out")
     # Not translated on purpose
-    DEFAULT_PROJECT_NAME = "Selenium test"
-    SIGNUP_TITLE = _("%s | Create an account") % DEFAULT_PROJECT_NAME
-    PROFILE_TITLE = _("%s | Profile details") % DEFAULT_PROJECT_NAME
-    REGISTRY_UPDATE_TITLE = _("%s | Registry updated") % DEFAULT_PROJECT_NAME
-    PASSWORD_CHANGE_TITLE = _("%s | Password change") % DEFAULT_PROJECT_NAME
-    EMAIL_VALIDATION_TITLE = _("%s | Mail validation") % DEFAULT_PROJECT_NAME
-    DEMO_TITLE = _("%s | Demo") % DEFAULT_PROJECT_NAME
-    DEMO_CREATE = _("%s | Demo Create") % DEFAULT_PROJECT_NAME
-    DEMO_DETAILS = _("%s | Demo Details") % DEFAULT_PROJECT_NAME
-    DEMO_UPDATE = _("%s | Demo Update") % DEFAULT_PROJECT_NAME
+    SIGNUP_TITLE = _("%s | Create an account") % settings.PROJECT_NAME
+    PROFILE_TITLE = _("%s | Profile details") % settings.PROJECT_NAME
+    REGISTRY_UPDATE_TITLE = _("%s | Registry updated") % settings.PROJECT_NAME
+    PASSWORD_CHANGE_TITLE = _("%s | Password change") % settings.PROJECT_NAME
+    EMAIL_VALIDATION_TITLE = _("%s | Mail validation") % settings.PROJECT_NAME
+    DEMO_TITLE = _("%s | Demo") % settings.PROJECT_NAME
+    DEMO_CREATE = _("%s | Demo Create") % settings.PROJECT_NAME
+    DEMO_DETAILS = _("%s | Demo Details") % settings.PROJECT_NAME
+    DEMO_UPDATE = _("%s | Demo Update") % settings.PROJECT_NAME
 
 
 @override_settings(
     ALLOWED_HOSTS=["*"],
-    STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage",
+    STORAGES={
+        "default": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        },
+    },
     POST_OFFICE={
         "BACKENDS": {
             "default": "django.core.mail.backends.locmem.EmailBackend",
         },
         "DEFAULT_PRIORITY": "now",
     },
-    DEFAULT_PROJECT_NAME=Strings.DEFAULT_PROJECT_NAME.value,
 )
-@override_config(PROJECT_NAME=Strings.DEFAULT_PROJECT_NAME.value)
 class MySeleniumTests(StaticLiveServerTestCase):
     """
     STATICFILES_STORAGE + StaticLiveServerTestCase vs LiveServerTestCase:
@@ -259,7 +260,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
         logging.info("Test Demo Update finished.")
 
         logging.info("#####################################")
-        logging.info("#### All tests Selenium finished ####")
+        logging.info("#### All Selenium tests finished ####")
         logging.info("#####################################")
 
     def _resize(self):
@@ -294,8 +295,8 @@ class MySeleniumTests(StaticLiveServerTestCase):
 
     def _admin_login(self):
         self._login(
-            settings.DJANGO_SUPERUSER_EMAIL,
-            settings.DJANGO_SUPERUSER_PASSWORD,
+            settings.SUPERUSER_EMAIL,
+            settings.SUPERUSER_PASSWORD,
         )
         self.burger_menu_action()
         admin_menu = self.selenium.find_element(By.ID, "menu_admin")
