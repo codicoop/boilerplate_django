@@ -19,3 +19,5 @@ docker/compose-*
 
 # Temporary local folder for managing database dumps
 dumps/
+
+node_modules/
