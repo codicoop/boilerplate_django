@@ -99,6 +99,19 @@ class Data(models.Model):
         blank=True,
         default="",
     )
+    field_time = models.TimeField(
+        "Time field",
+        blank=True,
+        null=True,
+        help_text="Help text for Time field.",
+    )
+    field_date = models.DateField(
+        "Generic date field",
+        blank=True,
+        null=True,
+        default=None,
+        help_text="Help text for field_date",
+    )
 
     def __str__(self):
         return f"{self.field_text_1}"
