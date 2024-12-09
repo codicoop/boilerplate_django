@@ -5,7 +5,9 @@
 module.exports = {
   content: [
     '/srv/templates/**/*.html',
-    '/front/node_modules/flowbite/**/*.js'
+    '/front/node_modules/flowbite/**/*.js',
+    '/opt/pysetup/.venv/lib/python3.12/site-packages/**/*.htmml',
+    '/codi-cooperatiu-internal-tools/flowbite_classes/templates/**/*.html'
   ],
   darkMode: 'class',
   theme: {
