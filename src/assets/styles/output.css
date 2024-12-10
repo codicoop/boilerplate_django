@@ -1165,6 +1165,10 @@ input:checked + .toggle-bg {
   margin-bottom: -1px;
 }
 
+.-mt-4 {
+  margin-top: -1rem;
+}
+
 .mb-1 {
   margin-bottom: 0.25rem;
 }
@@ -1291,6 +1295,10 @@ input:checked + .toggle-bg {
 
 .hidden {
   display: none;
+}
+
+.h-11 {
+  height: 2.75rem;
 }
 
 .h-12 {
@@ -1733,6 +1741,11 @@ input:checked + .toggle-bg {
   border-width: 2px;
 }
 
+.border-x-0 {
+  border-left-width: 0px;
+  border-right-width: 0px;
+}
+
 .border-b {
   border-bottom-width: 1px;
 }
@@ -1783,6 +1796,11 @@ input:checked + .toggle-bg {
   border-color: rgb(209 213 219 / var(--tw-border-opacity));
 }
 
+.border-primary-300 {
+  --tw-border-opacity: 1;
+  border-color: rgb(123 234 234 / var(--tw-border-opacity));
+}
+
 .border-primary-400 {
   --tw-border-opacity: 1;
   border-color: rgb(110 218 218 / var(--tw-border-opacity));
@@ -1816,6 +1834,11 @@ input:checked + .toggle-bg {
 .border-red-500 {
   --tw-border-opacity: 1;
   border-color: rgb(240 82 82 / var(--tw-border-opacity));
+}
+
+.border-red-600 {
+  --tw-border-opacity: 1;
+  border-color: rgb(224 36 36 / var(--tw-border-opacity));
 }
 
 .\!bg-primary-600 {
@@ -1951,6 +1974,10 @@ input:checked + .toggle-bg {
   padding: 0.625rem;
 }
 
+.p-3 {
+  padding: 0.75rem;
+}
+
 .p-4 {
   padding: 1rem;
 }
@@ -2017,11 +2044,6 @@ input:checked + .toggle-bg {
 .py-3 {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
-}
-
-.py-6 {
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
 }
 
 .py-8 {
@@ -2360,6 +2382,11 @@ input:checked + .toggle-bg {
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-primary-200:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(123 243 243 / var(--tw-bg-opacity));
+}
+
 .hover\:bg-primary-700:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(67 156 156 / var(--tw-bg-opacity));
@@ -2439,6 +2466,11 @@ input:checked + .toggle-bg {
   border-color: rgb(240 82 82 / var(--tw-border-opacity));
 }
 
+.focus\:border-red-600:focus {
+  --tw-border-opacity: 1;
+  border-color: rgb(224 36 36 / var(--tw-border-opacity));
+}
+
 .focus\:outline-none:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
@@ -2505,6 +2537,11 @@ input:checked + .toggle-bg {
 .focus\:ring-red-500:focus {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(240 82 82 / var(--tw-ring-opacity));
+}
+
+.focus\:ring-red-600:focus {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(224 36 36 / var(--tw-ring-opacity));
 }
 
 .disabled\:cursor-not-allowed:disabled {
@@ -3034,4 +3071,43 @@ input:checked + .toggle-bg {
 
 .rtl\:space-x-reverse:where([dir="rtl"], [dir="rtl"] *) > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 1;
+}
+
+.\[\&\>a\]\:mb-2>a {
+  margin-bottom: 0.5rem;
+}
+
+.\[\&\>a\]\:block>a {
+  display: block;
+}
+
+.\[\&\>a\]\:truncate>a {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.\[\&\>a\]\:font-bold>a {
+  font-weight: 700;
+}
+
+.\[\&\>a\]\:text-primary-700>a {
+  --tw-text-opacity: 1;
+  color: rgb(67 156 156 / var(--tw-text-opacity));
+}
+
+.\[\&\>a\]\:underline>a {
+  text-decoration-line: underline;
+}
+
+.\[\&\>label\]\:mb-2>label {
+  margin-bottom: 0.5rem;
+}
+
+.\[\&\>label\]\:inline-block>label {
+  display: inline-block;
+}
+
+.\[\&\>label\]\:pl-1>label {
+  padding-left: 0.25rem;
 }

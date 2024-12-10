@@ -80,6 +80,11 @@ class Data(models.Model):
         default=0,
         help_text="Help field_number",
     )
+    field_incremental_number = models.IntegerField(
+        blank=True,
+        default=0,
+        help_text="Help field_incremental_number",
+    )
     field_select_checkbox = models.CharField(
         max_length=250,
         default=SelectCheckboxChoices.OPTION_1,

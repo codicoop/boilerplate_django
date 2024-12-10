@@ -1,5 +1,5 @@
 from django import forms
-from flowbite_classes.widgets import FlowBiteDateInput, FlowBiteTimeInput, FlowBiteNumericInput
+from flowbite_classes.widgets import FlowBiteDateInput, FlowBiteTimeInput, FlowBiteNumericInput, FlowBiteNumericIncrementalInput
 
 from apps.demo.models import Data
 
@@ -17,6 +17,7 @@ class DataForm(forms.ModelForm):
             "field_password",
             "field_password_confirm",
             "field_number",
+            "field_incremental_number",
             "field_image",
             "field_file",
             "field_time",
@@ -29,6 +30,7 @@ class DataForm(forms.ModelForm):
             "field_time": FlowBiteTimeInput,
             "field_date": FlowBiteDateInput,
             "field_number": FlowBiteNumericInput,
+            "field_incremental_number": FlowBiteNumericIncrementalInput,
         }
 
     def clean(self):
